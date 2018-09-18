@@ -10,11 +10,11 @@ namespace Desktop_Client.ViewModels
 {
     public class DataGridViewModel : ViewModelBase
     {
-        public ObservableCollection<SampleOrder> Source
+        public ObservableCollection<Flight> Source
         {
             get
             {
-                // TODO: Replace this with your actual data
+                // TODO: Replace this with actual data
                 return DataService.GetGridData();
             }
         }

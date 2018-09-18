@@ -8,9 +8,9 @@ namespace Desktop_Client.Services
 {
     public static class DataService
     {
-        private static ObservableCollection<SampleOrder> data = new ObservableCollection<SampleOrder>
+        private static ObservableCollection<Flight> data = new ObservableCollection<Flight>
           {
-                new SampleOrder(5)
+                new Flight(5)
                 {
                     FlightId = 111,
                     Date = new DateTime(2017, 05, 24),
@@ -21,14 +21,15 @@ namespace Desktop_Client.Services
                 },
         };
 
-        private static IEnumerable<SampleOrder> AllOrders()
+        private static IEnumerable<Flight> AllFlights()
         {
+            //AddFlight(1); //Itt működik
             return data;
         }
 
         public static void AddFlight(int id)
         {
-            var temp = new SampleOrder(5)
+            var temp = new Flight(5)
             {
                 FlightId = id,
                 Date = new DateTime(2018, 05, 24),
@@ -46,9 +47,9 @@ namespace Desktop_Client.Services
             data[flightid].ReserveSeat(seatid);
         }
 
-        public static ObservableCollection<SampleOrder> GetGridData()
+        public static ObservableCollection<Flight> GetGridData()
         {
-            return new ObservableCollection<SampleOrder>(AllOrders());
+            return new ObservableCollection<Flight>(AllFlights());
         }
     }
 }

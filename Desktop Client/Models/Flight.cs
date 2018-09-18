@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace Desktop_Client.Models
 {
-    public class SampleOrder
+    public class Flight : INotifyPropertyChanged
     {
         private List<String> seats;
         private int freeSeats;
 
-        public SampleOrder(int numOfSeats)
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public Flight(int numOfSeats)
         {
             seats = new List<string>(numOfSeats);
 
@@ -51,6 +55,13 @@ namespace Desktop_Client.Models
         {
             seats[id] = "b";
             freeSeats--;
+            NotifyPropertyChanged();
+        }
+
+        //https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName ="")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

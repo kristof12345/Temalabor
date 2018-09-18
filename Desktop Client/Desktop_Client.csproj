@@ -112,7 +112,7 @@
   <ItemGroup>
     <Compile Include="Activation\ActivationHandler.cs" />
     <Compile Include="Helpers\NavHelper.cs" />
-    <Compile Include="Models\SampleOrder.cs" />
+    <Compile Include="Models\Flight.cs" />
     <Compile Include="Services\ActivationService.cs" />
     <Compile Include="Activation\DefaultLaunchActivationHandler.cs" />
     <Compile Include="Services\NavigationServiceEx.cs" />

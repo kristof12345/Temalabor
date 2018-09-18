@@ -29,8 +29,8 @@
                     <controls:DataGridTextColumn Header="Free Seats" Binding="{Binding FreeSeats}"  />
                 </controls:DataGrid.Columns>
             </controls:DataGrid>
-            <Button Content="Add" HorizontalAlignment="Left" Margin="763,540,0,0" VerticalAlignment="Top" Click="Button_Click"/>
-            <Button Content="Reserve" HorizontalAlignment="Left" Margin="917,540,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
+            <Button Content="Add" HorizontalAlignment="Left" Margin="506,540,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+            <Button Content="Reserve" HorizontalAlignment="Left" Margin="626,540,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
         </Grid>
     </Grid>
 </Page>
