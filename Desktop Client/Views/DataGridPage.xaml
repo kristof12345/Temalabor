@@ -14,30 +14,23 @@
         Margin="{StaticResource MediumLeftRightMargin}">
         <Grid
             Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
-            <controls:DataGrid ItemsSource="{x:Bind ViewModel.Source}" AutoGenerateColumns="False" >
+            <controls:DataGrid ItemsSource="{x:Bind ViewModel.Source}" AutoGenerateColumns="False" Margin="0,0,0,586" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
                 <controls:DataGrid.Columns>
                     <!--TODO WTS:
                     Remove this column definitions and define columns for your data.
                     Consider adding header properties to Resources.resw-->
-                    <controls:DataGridTextColumn Header="OrderId" Binding="{Binding OrderId}" />
-                    <controls:DataGridTextColumn Header="OrderDate" Binding="{Binding OrderDate}"  />
-                    <controls:DataGridTextColumn Header="Company" Binding="{Binding Company}" />
-                    <controls:DataGridTextColumn Header="ShipTo" Binding="{Binding ShipTo}" />
-                    <controls:DataGridTextColumn Header="OrderTotal" Binding="{Binding OrderTotal}" />
+                    <controls:DataGridTextColumn Header="FlightId" Binding="{Binding FlightId}" />
+                    <controls:DataGridTextColumn Header="Date" Binding="{Binding Date}"  />
+                    <controls:DataGridTextColumn Header="Departure" Binding="{Binding Departure}" />
+                    <controls:DataGridTextColumn Header="Destination" Binding="{Binding Destination}" />
+                    <controls:DataGridTextColumn Header="Plane Type" Binding="{Binding PlaneType}" />
                     <controls:DataGridTextColumn Header="Status" Binding="{Binding Status}"  />
-                    <controls:DataGridTemplateColumn Header="Symbol">
-                        <controls:DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate x:DataType="model:SampleOrder">
-                                <FontIcon
-                                HorizontalAlignment="Left"
-                                Margin="{StaticResource MediumLeftRightMargin}"
-                                FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                                Glyph="{x:Bind Symbol}" />
-                            </DataTemplate>
-                        </controls:DataGridTemplateColumn.CellTemplate>
-                    </controls:DataGridTemplateColumn>
+                    <controls:DataGridTextColumn Header="Total Seats" Binding="{Binding NumberOfSeats}"  />
+                    <controls:DataGridTextColumn Header="Free Seats" Binding="{Binding FreeSeats}"  />
                 </controls:DataGrid.Columns>
             </controls:DataGrid>
+            <Button Content="Add" HorizontalAlignment="Left" Margin="763,540,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+            <Button Content="Reserve" HorizontalAlignment="Left" Margin="917,540,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
         </Grid>
     </Grid>
 </Page>

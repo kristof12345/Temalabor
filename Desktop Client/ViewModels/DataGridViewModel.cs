@@ -14,8 +14,8 @@ namespace Desktop_Client.ViewModels
         {
             get
             {
-                // TODO WTS: Replace this with your actual data
-                return SampleDataService.GetGridSampleData();
+                // TODO: Replace this with your actual data
+                return DataService.GetGridData();
             }
         }
     }

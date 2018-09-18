@@ -1,29 +1,56 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Desktop_Client.Models
 {
-    // TODO WTS: Remove this class once your pages/features are using your data.
-    // This is used by the SampleDataService.
-    // It is the model class we use to display data on pages like Grid, Chart, and Master Detail.
     public class SampleOrder
     {
-        public long OrderId { get; set; }
+        private List<String> seats;
+        private int freeSeats;
 
-        public DateTime OrderDate { get; set; }
+        public SampleOrder(int numOfSeats)
+        {
+            seats = new List<string>(numOfSeats);
 
-        public string Company { get; set; }
+            for (int i=0; i<numOfSeats; i++)
+            {
+                seats.Add("a");
+            }
 
-        public string ShipTo { get; set; }
+            freeSeats = numOfSeats;
+        }
 
-        public double OrderTotal { get; set; }
+        public long FlightId { get; set; }
+
+        public DateTime Date { get; set; }
+
+        public string Departure { get; set; }
+
+        public string Destination { get; set; }
+
+        public string PlaneType { get; set; }
 
         public string Status { get; set; }
 
-        public char Symbol { get; set; }
+        public int NumberOfSeats
+        {
+            get { return seats.Count; }
+        }
+
+        public int FreeSeats
+        {
+            get { return freeSeats; }
+        }
 
         public override string ToString()
         {
-            return $"{Company} {Status}";
+            return FlightId.ToString() +" "+ PlaneType;
+        }
+
+        public void ReserveSeat(int id)
+        {
+            seats[id] = "b";
+            freeSeats--;
         }
     }
 }

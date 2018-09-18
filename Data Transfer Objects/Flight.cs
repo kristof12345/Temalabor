@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Data_Transfer_Objects
 {
-    class Flight
+    public class Flight
     {
         private DateTime date;
         private String departure;
