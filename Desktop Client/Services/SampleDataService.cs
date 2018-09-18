@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-
+using System.Diagnostics;
 using Desktop_Client.Models;
 
 namespace Desktop_Client.Services
@@ -23,7 +23,6 @@ namespace Desktop_Client.Services
 
         private static IEnumerable<Flight> AllFlights()
         {
-            //AddFlight(1); //Itt működik
             return data;
         }
 
@@ -38,7 +37,8 @@ namespace Desktop_Client.Services
                 PlaneType = "Airbus A370",
                 Status = "Arrived",
             };
-
+            
+            Debug.WriteLine(data.Count);
             data.Add(temp);
         }
 

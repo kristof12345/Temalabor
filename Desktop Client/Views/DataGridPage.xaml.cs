@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Desktop_Client.Services;
 using Desktop_Client.ViewModels;
 
@@ -20,6 +21,7 @@ namespace Desktop_Client.Views
 
         private void Button_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
+            Debug.WriteLine("Hello");
             DataService.AddFlight(99);
         }
 

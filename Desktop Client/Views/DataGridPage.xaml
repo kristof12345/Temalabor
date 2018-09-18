@@ -8,17 +8,17 @@
     DataContext="{Binding DataGridViewModel, Source={StaticResource Locator}}"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:model="using:Desktop_Client.Models"
-    mc:Ignorable="d">
+    mc:Ignorable="d" Width="1157.116">
     <Grid
         x:Name="ContentArea"
         Margin="{StaticResource MediumLeftRightMargin}">
         <Grid
             Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
-            <controls:DataGrid ItemsSource="{x:Bind ViewModel.Source}" AutoGenerateColumns="False" Margin="0,0,0,586" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+            <controls:DataGrid
+                ItemsSource="{x:Bind ViewModel.Source}"
+                AutoGenerateColumns="False"
+                Margin="0,0,0,513" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
                 <controls:DataGrid.Columns>
-                    <!--TODO WTS:
-                    Remove this column definitions and define columns for your data.
-                    Consider adding header properties to Resources.resw-->
                     <controls:DataGridTextColumn Header="FlightId" Binding="{Binding FlightId}" />
                     <controls:DataGridTextColumn Header="Date" Binding="{Binding Date}"  />
                     <controls:DataGridTextColumn Header="Departure" Binding="{Binding Departure}" />
@@ -29,8 +29,8 @@
                     <controls:DataGridTextColumn Header="Free Seats" Binding="{Binding FreeSeats}"  />
                 </controls:DataGrid.Columns>
             </controls:DataGrid>
-            <Button Content="Add" HorizontalAlignment="Left" Margin="506,540,0,0" VerticalAlignment="Top" Click="Button_Click"/>
-            <Button Content="Reserve" HorizontalAlignment="Left" Margin="626,540,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
+            <Button Content="Add" HorizontalAlignment="Left" Margin="524,597,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+            <Button Content="Reserve" HorizontalAlignment="Left" Margin="626,597,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
         </Grid>
     </Grid>
 </Page>
