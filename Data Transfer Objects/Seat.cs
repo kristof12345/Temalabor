@@ -8,7 +8,7 @@ namespace Data_Transfer_Objects
 {
     class Seat
     {
-        //Automatikusan növekvő, egyedi ID
+        //Automatikusan növekvő, egyedi ID//////
         private static int nextId = 1;
         private int id;
         private KeyValuePair<String, int> type = new KeyValuePair<String, int>("Abc", 5);
