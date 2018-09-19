@@ -30,5 +30,9 @@ namespace Desktop_Client.Views
             DataService.Reserve(0,1);
         }
 
+        private void Button_Click_2(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            
+        }
     }
 }

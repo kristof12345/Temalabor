@@ -12,12 +12,18 @@
     <Grid
         x:Name="ContentArea"
         Margin="{StaticResource MediumLeftRightMargin}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="534*"/>
+            <RowDefinition Height="187*"/>
+        </Grid.RowDefinitions>
         <Grid
-            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}" HorizontalAlignment="Stretch" Margin="0,0,0,0" Grid.RowSpan="2" VerticalAlignment="Stretch">
             <controls:DataGrid
                 ItemsSource="{x:Bind ViewModel.Source}"
                 AutoGenerateColumns="False"
-                Margin="0,0,0,513" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+                SelectionMode ="Single"
+                
+                Margin="0,0,0,172" >
                 <controls:DataGrid.Columns>
                     <controls:DataGridTextColumn Header="FlightId" Binding="{Binding FlightId}" />
                     <controls:DataGridTextColumn Header="Date" Binding="{Binding Date}"  />
@@ -29,8 +35,9 @@
                     <controls:DataGridTextColumn Header="Free Seats" Binding="{Binding FreeSeats}"  />
                 </controls:DataGrid.Columns>
             </controls:DataGrid>
-            <Button Content="Add" HorizontalAlignment="Left" Margin="524,597,0,0" VerticalAlignment="Top" Click="Button_Click"/>
-            <Button Content="Reserve" HorizontalAlignment="Left" Margin="626,597,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
+            <Button Content="Add" HorizontalAlignment="Left" Margin="358,607,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+            <Button Content="Reserve" HorizontalAlignment="Center" Margin="0,607,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
+            <Button Content="Remove" HorizontalAlignment="Left" Margin="725,607,0,0" VerticalAlignment="Top" Click="Button_Click_2"/>
         </Grid>
     </Grid>
 </Page>

@@ -49,7 +49,7 @@ namespace Desktop_Client.Services
 
         public static ObservableCollection<Flight> GetGridData()
         {
-            return new ObservableCollection<Flight>(AllFlights());
+            return data;
         }
     }
 }
