@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Data_Transfer_Objects;
 
+
 namespace Desktop.Models
 {
     public class Flight : INotifyPropertyChanged
