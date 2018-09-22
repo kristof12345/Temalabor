@@ -80,7 +80,8 @@ namespace Desktop.Views
         //Navigálás tesztelése
         private void btNav_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(PlanePage));
+            Flight param = (Flight)dataTable.SelectedItem;
+            this.Frame.Navigate(typeof(PlanePage),param);
         }
     }
 }

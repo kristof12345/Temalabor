@@ -121,6 +121,7 @@
     <Compile Include="Models\Flight.cs" />
     <Compile Include="Services\ActivationService.cs" />
     <Compile Include="Activation\DefaultLaunchActivationHandler.cs" />
+    <Compile Include="Services\HttpService.cs" />
     <Compile Include="Services\NavigationServiceEx.cs" />
     <Compile Include="Services\SampleDataService.cs" />
     <Compile Include="ViewModels\DataGridViewModel.cs" />

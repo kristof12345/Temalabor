@@ -10,10 +10,17 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     Width="1200"
     Height="650">
-    <Grid>
+    <Grid RequestedTheme="Default">
 
         <Button Content="Button" HorizontalAlignment="Left" Margin="339,200,0,0" VerticalAlignment="Top" Click="Button_Click"/>
         <Image x:Name="planeImg" Source="/Assets/Antonov124white.png" HorizontalAlignment="Left" Height="586" Margin="600,0,0,0" VerticalAlignment="Center" Width="590"/>
+        <TextBlock x:Name="txDetails"
+                   Style="{StaticResource TitleTextBlockStyle}"
+                   Margin="20,0,0,0"
+                   VerticalAlignment="Top"
+                   HorizontalAlignment="Left"
+                   TextWrapping="Wrap"
+        />
 
     </Grid>
 </Page>
