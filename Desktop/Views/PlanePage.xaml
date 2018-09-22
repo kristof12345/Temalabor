@@ -8,12 +8,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-    Width="1200"
-    Height="650">
+    Width="1205">
     <Grid RequestedTheme="Default">
-
         <Button Content="Button" HorizontalAlignment="Left" Margin="339,200,0,0" VerticalAlignment="Top" Click="Button_Click"/>
-        <Image x:Name="planeImg" Source="/Assets/Antonov124white.png" HorizontalAlignment="Left" Height="586" Margin="600,0,0,0" VerticalAlignment="Center" Width="590"/>
+        <Image x:Name="planeImg" Source="/Assets/Antonov124white.png" Margin="550,0,0,0" HorizontalAlignment="Stretch" />
         <TextBlock x:Name="txDetails"
                    Style="{StaticResource TitleTextBlockStyle}"
                    Margin="20,0,0,0"
@@ -21,6 +19,5 @@
                    HorizontalAlignment="Left"
                    TextWrapping="Wrap"
         />
-
     </Grid>
 </Page>

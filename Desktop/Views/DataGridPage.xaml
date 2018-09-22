@@ -9,22 +9,18 @@
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:model="using:Desktop.Models"
     mc:Ignorable="d"
-    Width="1200"
-    Height="650">
-    <Grid
-        x:Name="ContentArea">
+    Width="1205">
+    <Grid x:Name="ContentArea">
         <Grid
-            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}" Margin="0,0,0,120">
+            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}"
+            Margin="0,0,0,120">
             <controls:DataGrid
                 x:Name="dataTable"
                 SelectionMode = "Single"
                 ItemsSource="{x:Bind ViewModel.Source}"
                 AutoGenerateColumns="False"
-                Margin="0,0,0,0"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch"
-                MinColumnWidth="140"
-                RequestedTheme="Default" Height="600" Width="1200" >
+                MinColumnWidth="146"
+                VerticalAlignment="Top" >
                 <controls:DataGrid.Columns>
                     <controls:DataGridTextColumn Header="FlightId" Binding="{Binding FlightId}" />
                     <controls:DataGridTextColumn Header="Date" Binding="{Binding Date}"  />
