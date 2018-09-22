@@ -6,12 +6,13 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    Width="1200"
+    Height="650">
     <Grid>
 
         <Button Content="Button" HorizontalAlignment="Left" Margin="339,200,0,0" VerticalAlignment="Top" Click="Button_Click"/>
-        <Image x:Name="planeImg" Source="/Assets/planelogo.jpg" HorizontalAlignment="Left" Height="354" Margin="500,180,0,0" VerticalAlignment="Top" Width="649"/>
+        <Image x:Name="planeImg" Source="/Assets/Antonov124white.png" HorizontalAlignment="Left" Height="586" Margin="600,0,0,0" VerticalAlignment="Center" Width="590"/>
         <TextBox x:Name="tb" HorizontalAlignment="Left" Margin="208,313,0,0" Text="TextBox" VerticalAlignment="Top" TextChanged="TextBox_TextChanged"/>
 
     </Grid>

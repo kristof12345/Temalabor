@@ -11,7 +11,7 @@ namespace Desktop.Views
 {
     public sealed partial class DataGridPage : Page
     {
-        private int PlaneID =0;
+        private int PlaneID = 0;
 
         private DataGridViewModel ViewModel
         {

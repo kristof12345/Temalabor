@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Navigation;
 using Data_Transfer_Objects;
 using Newtonsoft.Json;
 using System.Net.Http;
+using Windows.UI.Xaml.Media.Imaging;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -25,8 +26,8 @@ namespace Desktop.Views
         public PlanePage()
         {
             this.InitializeComponent();
+            planeImg.Source = new BitmapImage(new Uri("ms-appx:///Assets/Boeing777white.png"));
             tb.Text = "hello world";
-            //imgPlane.Sco
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

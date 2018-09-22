@@ -8,7 +8,9 @@
     DataContext="{Binding DataGridViewModel, Source={StaticResource Locator}}"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:model="using:Desktop.Models"
-    mc:Ignorable="d" Width="1200">
+    mc:Ignorable="d"
+    Width="1200"
+    Height="650">
     <Grid
         x:Name="ContentArea">
         <Grid
