@@ -23,12 +23,38 @@ namespace Desktop.Views
 {
     public sealed partial class PlanePage : Page
     {
-        //Itt lehet, hogy érdemes lenne információt átadni
+        //Itt érdemes lenne információt átadni, de akkor nem működik
         public PlanePage()
         {
             this.InitializeComponent();
-            planeImg.Source = new BitmapImage(new Uri("ms-appx:///Assets/Boeing777white.png"));
+            String type="Boeing777";
+            switch (type)
+            {
+                case "Boeing777":
+                    planeImg.Source = new BitmapImage(new Uri("ms-appx:///Assets/Boeing777white.png"));
+                    break;
+                default:
+                    planeImg.Source = new BitmapImage(new Uri("ms-appx:///Assets/Antonov124white.png"));
+                    break;
+            }
             tb.Text = "hello world";
+        }
+
+        static bool IsMoth(string value)
+        {
+            switch (value)
+            {
+                case "Atlas Moth":
+                case "Beet Armyworm":
+                case "Indian Meal Moth":
+                case "Ash Pug":
+                case "Latticed Heath":
+                case "Ribald Wave":
+                case "The Streak":
+                    return true;
+                default:
+                    return false;
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
