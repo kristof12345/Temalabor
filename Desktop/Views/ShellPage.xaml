@@ -18,16 +18,21 @@
         RequestedTheme="Dark"  
         ExpandedModeThresholdWidth="1920">
         <NavigationView.MenuItems>
+
+            <NavigationViewItem x:Uid="Shell_UserPage" helpers:NavHelper.NavigateTo="Desktop.ViewModels.UserViewModel" Icon="Contact" />
+            
             <NavigationViewItem x:Uid="Shell_DataGrid" helpers:NavHelper.NavigateTo="Desktop.ViewModels.DataGridViewModel" >
                 <NavigationViewItem.Icon>
                     <FontIcon Glyph="&#xE128;"/>
                 </NavigationViewItem.Icon>
             </NavigationViewItem>
+
             <NavigationViewItem x:Uid="Shell_PlanePage" helpers:NavHelper.NavigateTo="Desktop.ViewModels.PlaneViewModel" >
                 <NavigationViewItem.Icon>
                     <FontIcon Glyph="&#xE709;"/>
                 </NavigationViewItem.Icon>
             </NavigationViewItem>
+
         </NavigationView.MenuItems>
         <NavigationView.HeaderTemplate>
             <DataTemplate>

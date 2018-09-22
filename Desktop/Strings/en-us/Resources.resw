@@ -149,4 +149,8 @@
     <value>Seats</value>
     <comment>Navigation view item name for PlanePage</comment>
   </data>
+  <data name="Shell_UserPage.Content" xml:space="preserve">
+    <value>User</value>
+    <comment>Navigation view item name for UserPage</comment>
+  </data>
 </root>

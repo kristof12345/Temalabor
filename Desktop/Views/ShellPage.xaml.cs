@@ -5,6 +5,7 @@ using Desktop.ViewModels;
 
 using Windows.Foundation.Metadata;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 
 namespace Desktop.Views
