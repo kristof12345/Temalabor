@@ -145,4 +145,8 @@
     <value>Flights</value>
     <comment>Navigation view item name for DataGrid</comment>
   </data>
+  <data name="Shell_PlanePage.Content" xml:space="preserve">
+    <value>Seats</value>
+    <comment>Navigation view item name for PlanePage</comment>
+  </data>
 </root>

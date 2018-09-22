@@ -16,6 +16,7 @@ using Data_Transfer_Objects;
 using Newtonsoft.Json;
 using System.Net.Http;
 using Windows.UI.Xaml.Media.Imaging;
+using Desktop.ViewModels;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -23,6 +24,8 @@ namespace Desktop.Views
 {
     public sealed partial class PlanePage : Page
     {
+        public string NavTitile => "ArticlePage";
+
         //Itt érdemes lenne információt átadni, de akkor nem működik
         public PlanePage()
         {
@@ -38,6 +41,10 @@ namespace Desktop.Views
                     break;
             }
             tb.Text = "hello world";
+        }
+        public string toString()
+        {
+            return "abc";
         }
 
         static bool IsMoth(string value)

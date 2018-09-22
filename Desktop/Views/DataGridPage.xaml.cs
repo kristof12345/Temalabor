@@ -73,7 +73,7 @@ namespace Desktop.Views
             if (f != null)
             {
                 f.ReserveSeat(1);
-                Debug.WriteLine(f.FreeSeats);
+                Debug.WriteLine(f.ToString());
             } //else nincs kijelölt elem
         }
 
