@@ -11,16 +11,23 @@
     mc:Ignorable="d">
     <NavigationView
         x:Name="navigationView"
-        SelectedItem="{x:Bind ViewModel.Selected, Mode=OneWay}"
-        Header="{x:Bind ViewModel.Selected.Content, Mode=OneWay}"
+        SelectedItem="{x:Bind ViewModel.Selected, Mode=TwoWay}"
+        Header="{x:Bind ViewModel.Selected.Content, Mode=TwoWay}"
         IsSettingsVisible="False"
         Background="{ThemeResource SystemControlBackgroundAltHighBrush}"
-        RequestedTheme="Dark"
-        
-        >
+        RequestedTheme="Dark"  
+        ExpandedModeThresholdWidth="1920">
         <NavigationView.MenuItems>
-            <NavigationViewItem x:Uid="Shell_DataGrid" Icon="Document" helpers:NavHelper.NavigateTo="Desktop.ViewModels.DataGridViewModel" />
-            <NavigationViewItem x:Uid="Shell_DataGrid2" Icon="Document" helpers:NavHelper.NavigateTo="Desktop.ViewModels.PlaneViewModel" />
+            <NavigationViewItem x:Uid="Shell_DataGrid" helpers:NavHelper.NavigateTo="Desktop.ViewModels.DataGridViewModel" >
+                <NavigationViewItem.Icon>
+                    <FontIcon Glyph="&#xE128;"/>
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+            <NavigationViewItem x:Uid="Shell_DataGrid2" helpers:NavHelper.NavigateTo="Desktop.ViewModels.PlaneViewModel" >
+                <NavigationViewItem.Icon>
+                    <FontIcon Glyph="&#xE709;"/>
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
         </NavigationView.MenuItems>
         <NavigationView.HeaderTemplate>
             <DataTemplate>

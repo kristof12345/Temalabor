@@ -26,6 +26,7 @@ namespace Desktop.Views
         {
             this.InitializeComponent();
             tb.Text = "hello world";
+            //imgPlane.Sco
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

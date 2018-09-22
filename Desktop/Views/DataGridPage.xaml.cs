@@ -76,5 +76,11 @@ namespace Desktop.Views
                 Debug.WriteLine(f.FreeSeats);
             } //else nincs kijelölt elem
         }
+
+        //Navigálás tesztelése
+        private void btNav_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(PlanePage));
+        }
     }
 }

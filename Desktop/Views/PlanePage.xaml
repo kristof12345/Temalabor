@@ -9,9 +9,9 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        
+
         <Button Content="Button" HorizontalAlignment="Left" Margin="339,200,0,0" VerticalAlignment="Top" Click="Button_Click"/>
-        <Image Source="Assets/planelogo.png" HorizontalAlignment="Left" Height="100" Margin="500,180,0,0" VerticalAlignment="Top" Width="100"/>
+        <Image x:Name="planeImg" Source="/Assets/planelogo.jpg" HorizontalAlignment="Left" Height="354" Margin="500,180,0,0" VerticalAlignment="Top" Width="649"/>
         <TextBox x:Name="tb" HorizontalAlignment="Left" Margin="208,313,0,0" Text="TextBox" VerticalAlignment="Top" TextChanged="TextBox_TextChanged"/>
 
     </Grid>

@@ -142,7 +142,7 @@
     <comment>The page is unknown or not registered in navigation service</comment>
   </data>
   <data name="Shell_DataGrid.Content" xml:space="preserve">
-    <value>DataGrid</value>
+    <value>Flights</value>
     <comment>Navigation view item name for DataGrid</comment>
   </data>
 </root>
