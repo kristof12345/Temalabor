@@ -121,6 +121,7 @@
     <Compile Include="Models\Flight.cs" />
     <Compile Include="Services\ActivationService.cs" />
     <Compile Include="Activation\DefaultLaunchActivationHandler.cs" />
+    <Compile Include="Services\HttpService.cs" />
     <Compile Include="Services\NavigationServiceEx.cs" />
     <Compile Include="Services\SampleDataService.cs" />
     <Compile Include="ViewModels\DataGridViewModel.cs" />
@@ -193,7 +194,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\planelogo.jpg" />
+    <Content Include="Assets\Antonov124black.png" />
+    <Content Include="Assets\Antonov124white.png" />
+    <Content Include="Assets\Boeing777black.png" />
+    <Content Include="Assets\Boeing777white.png" />
+    <Content Include="Assets\iconFlights.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

@@ -11,8 +11,6 @@ namespace Data_Transfer_Objects
         private List<Seat_DTO> seats;
         private int freeSeats;
 
-        public Flight_DTO() { }
-
         public Flight_DTO(int numOfSeats)
         {
             seats = new List<Seat_DTO>(numOfSeats);

@@ -3,7 +3,6 @@ using System.Diagnostics;
 using Desktop.Models;
 using Desktop.Services;
 using Desktop.ViewModels;
-
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 
@@ -11,7 +10,7 @@ namespace Desktop.Views
 {
     public sealed partial class DataGridPage : Page
     {
-        private int PlaneID =0;
+        private int PlaneID = 0;
 
         private DataGridViewModel ViewModel
         {
@@ -23,14 +22,32 @@ namespace Desktop.Views
             InitializeComponent();
             //A kijelölt sor változását jelző event
             dataTable.SelectionChanged += selected;
+            //ComboBox beállítása
+            cbType.ItemsSource = CreateComboBox();
+            cbType.SelectedIndex = 0;
+        }
+
+        //Combo box feltöltése
+        private object CreateComboBox()
+        {
+            string[] strArray =
+                {
+                "Airbus A380",
+                "Boeing 747",
+                "Boeing 777",
+                "Antonov 124",
+                //További repülő típusok
+            };
+            return strArray;
         }
 
         //Ha változott a kijelölt sor
         private void selected(object sender, SelectionChangedEventArgs e)
         {
-            //Esetleg részleteket írhatunk ki
+            //Esetleg részleteket írhatunk ki a kijelölt járatról
         }
 
+        //Új járat felvétele
         private void btAdd_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             int tempId;
@@ -47,14 +64,24 @@ namespace Desktop.Views
             tempTime = tempTime.Date + ts;
 
             //Járat hozzáadása
-            DataService.AddFlight(tempId, tempTime,tbDep.Text,tbDes.Text);
+            DataService.AddFlight(tempId, tempTime,tbDep.Text,tbDes.Text,cbType.SelectedItem.ToString());
         }
 
         private void btReserve_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             Flight f = (Flight)dataTable.SelectedItem;
-            f.ReserveSeat(1);
-            Debug.WriteLine(f.FreeSeats);
+            if (f != null)
+            {
+                f.ReserveSeat(1);
+                Debug.WriteLine(f.ToString());
+            } //else nincs kijelölt elem
+        }
+
+        //Navigálás tesztelése
+        private void btNav_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            Flight param = (Flight)dataTable.SelectedItem;
+            this.Frame.Navigate(typeof(PlanePage),param);
         }
     }
 }

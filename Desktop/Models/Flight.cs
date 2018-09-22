@@ -49,21 +49,25 @@ namespace Desktop.Models
 
         public override string ToString()
         {
-            return FlightId.ToString() + " " + PlaneType;
+            return FlightId.ToString() + " " + PlaneType + " " + FreeSeats;
         }
 
         public void ReserveSeat(int id)
         {
-            seats[id].Reserved=true;
-            freeSeats--;
-            NotifyPropertyChanged();
+            //Ha még nem foglalt, akkor lefoglaljuk
+            if (seats[id].Reserved == false)
+            {
+                seats[id].Reserved = true;
+                freeSeats--;
+                PropertyChanged(this, new PropertyChangedEventArgs("FreeSeats"));
+            }
         }
 
         //https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged
         //Valahogy ennek kellene értesítenie a listát a változásról, de nem megy
-        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        /*private void PropertyChanged([CallerMemberName] String propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        }*/
     }
 }

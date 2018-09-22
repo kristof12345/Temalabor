@@ -15,17 +15,20 @@ using Windows.UI.Xaml.Navigation;
 using Data_Transfer_Objects;
 using Newtonsoft.Json;
 using System.Net.Http;
-
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
+using Windows.UI.Xaml.Media.Imaging;
+using Desktop.ViewModels;
+using Desktop.Services;
+using Desktop.Models;
 
 namespace Desktop.Views
 {
     public sealed partial class PlanePage : Page
     {
+        //Itt érdemes lenne információt átadni, de akkor nem működik
         public PlanePage()
         {
             this.InitializeComponent();
-            tb.Text = "hello world";
+            txDetails.Text = "no flight selected";
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -34,25 +37,53 @@ namespace Desktop.Views
             POSTReserveRequest(1,1);
         }
 
+        //Http kérés indítása
         public async void POSTReserveRequest(long planeId, long seatId)
         {
-            Uri requestUri = new Uri("https://www.userauth"); //Ide majd a tényleges adatbázis elérés kell
+            String uri = "https://www.userauth";
+            Uri requestUri = new Uri(uri); //Ide majd a tényleges adatbázis elérés kell
 
             ReserveSeat_DTO reserve = new Data_Transfer_Objects.ReserveSeat_DTO(1,1);
-            string json = JsonConvert.SerializeObject(reserve, Formatting.Indented);
 
-            var objClint = new System.Net.Http.HttpClient();
-            //A Http válasz
-            System.Net.Http.HttpResponseMessage response;
-            //Aszinkron Http kérés
-            response = await objClint.PostAsync(requestUri, new StringContent(json, System.Text.Encoding.UTF8, "application/json"));
-            //A válasz szöveggé alakítása
-            string responJsonText = await response.Content.ReadAsStringAsync();
+            if (false)
+            {
+                string json = JsonConvert.SerializeObject(reserve, Formatting.Indented);
+
+                var objClint = new System.Net.Http.HttpClient();
+                //A Http válasz
+                System.Net.Http.HttpResponseMessage response;
+                //Aszinkron Http kérés
+                response = await objClint.PostAsync(requestUri, new StringContent(json, System.Text.Encoding.UTF8, "application/json"));
+                //A válasz szöveggé alakítása
+                string responJsonText = await response.Content.ReadAsStringAsync();
+            }
+            else
+            {
+                HttpService.PostJson(uri,reserve);
+            }
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        //Amikor ide navigálnak, átveszi a paramétereket
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            base.OnNavigatedTo(e);
+            //Beállít egy textboxot
+            if (e.Parameter != null)
+            {
+                Flight f = (Flight)e.Parameter;
+                txDetails.Text = "for " + f.ToString();
 
+                //A típus alapján választ képet a repülőről
+                switch (f.PlaneType.ToString())
+                {
+                    case "Boeing777":
+                        planeImg.Source = new BitmapImage(new Uri("ms-appx:///Assets/Boeing777white.png"));
+                        break;
+                    default:
+                        planeImg.Source = new BitmapImage(new Uri("ms-appx:///Assets/Antonov124white.png"));
+                        break;
+                }
+            }
         }
     }
 }

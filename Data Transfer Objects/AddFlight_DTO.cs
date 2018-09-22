@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Data_Transfer_Objects
 {
+    //Járat hozzáadása
     class AddFlight_DTO
     {
         //A listához adandó repülő

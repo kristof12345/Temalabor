@@ -8,21 +8,19 @@
     DataContext="{Binding DataGridViewModel, Source={StaticResource Locator}}"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:model="using:Desktop.Models"
-    mc:Ignorable="d" Width="1200">
-    <Grid
-        x:Name="ContentArea">
+    mc:Ignorable="d"
+    Width="1205">
+    <Grid x:Name="ContentArea">
         <Grid
-            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}" Margin="0,0,0,120">
+            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}"
+            Margin="0,0,0,120">
             <controls:DataGrid
                 x:Name="dataTable"
                 SelectionMode = "Single"
                 ItemsSource="{x:Bind ViewModel.Source}"
                 AutoGenerateColumns="False"
-                Margin="0,0,0,0"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch"
-                MinColumnWidth="140"
-                RequestedTheme="Default" Height="600" Width="1200" >
+                MinColumnWidth="146"
+                VerticalAlignment="Top" >
                 <controls:DataGrid.Columns>
                     <controls:DataGridTextColumn Header="FlightId" Binding="{Binding FlightId}" />
                     <controls:DataGridTextColumn Header="Date" Binding="{Binding Date}"  />
@@ -43,5 +41,6 @@
         <ComboBox x:Name="cbType" HorizontalAlignment="Left" Margin="930,0,0,75" VerticalAlignment="Bottom" Height="33" Width="130"/>
         <Button x:Name="btAdd" Content="Add flight" HorizontalAlignment="Left" Margin="1070,0,0,75" VerticalAlignment="Bottom" Click="btAdd_Click" Height="33" Width="125"/>
         <Button x:Name="btReserve" Content="Reserve Seat" HorizontalAlignment="Left" Margin="1070,0,0,25" VerticalAlignment="Bottom" Height="33" Width="125" Click="btReserve_Click"/>
+        <Button x:Name="btNav" Content="See details" HorizontalAlignment="Left" Margin="930,0,0,25" VerticalAlignment="Bottom" Height="33" Width="125" Click="btNav_Click"/>
     </Grid>
 </Page>
