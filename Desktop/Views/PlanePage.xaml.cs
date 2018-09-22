@@ -36,7 +36,7 @@ namespace Desktop.Views
                     planeImg.Source = new BitmapImage(new Uri("ms-appx:///Assets/Antonov124white.png"));
                     break;
             }
-            tb.Text = "hello world";
+            //tb.Text = "hello world";
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
