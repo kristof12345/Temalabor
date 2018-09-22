@@ -9,7 +9,6 @@ using Windows.UI.Xaml.Navigation;
 
 namespace Desktop.Views
 {
-    // TODO WTS: Change the icons and titles for all NavigationViewItems in ShellPage.xaml.
     public sealed partial class ShellPage : Page
     {
         private ShellViewModel ViewModel
@@ -25,8 +24,6 @@ namespace Desktop.Views
             ViewModel.Initialize(shellFrame, navigationView);
             KeyboardAccelerators.Add(ActivationService.AltLeftKeyboardAccelerator);
             KeyboardAccelerators.Add(ActivationService.BackKeyboardAccelerator);
-            //navigationView.IsPaneOpen = true;
-            //Debug.WriteLine(navigationView.DisplayMode.ToString());
         }
 
         private void HideNavViewBackButton()

@@ -18,14 +18,10 @@ using System.Net.Http;
 using Windows.UI.Xaml.Media.Imaging;
 using Desktop.ViewModels;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
-
 namespace Desktop.Views
 {
     public sealed partial class PlanePage : Page
     {
-        public string NavTitile => "ArticlePage";
-
         //Itt érdemes lenne információt átadni, de akkor nem működik
         public PlanePage()
         {
@@ -42,27 +38,6 @@ namespace Desktop.Views
             }
             tb.Text = "hello world";
         }
-        public string toString()
-        {
-            return "abc";
-        }
-
-        static bool IsMoth(string value)
-        {
-            switch (value)
-            {
-                case "Atlas Moth":
-                case "Beet Armyworm":
-                case "Indian Meal Moth":
-                case "Ash Pug":
-                case "Latticed Heath":
-                case "Ribald Wave":
-                case "The Streak":
-                    return true;
-                default:
-                    return false;
-            }
-        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -70,6 +45,7 @@ namespace Desktop.Views
             POSTReserveRequest(1,1);
         }
 
+        //Http kérés indítása
         public async void POSTReserveRequest(long planeId, long seatId)
         {
             Uri requestUri = new Uri("https://www.userauth"); //Ide majd a tényleges adatbázis elérés kell
@@ -84,11 +60,6 @@ namespace Desktop.Views
             response = await objClint.PostAsync(requestUri, new StringContent(json, System.Text.Encoding.UTF8, "application/json"));
             //A válasz szöveggé alakítása
             string responJsonText = await response.Content.ReadAsStringAsync();
-        }
-
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
         }
     }
 }
