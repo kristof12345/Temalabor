@@ -23,6 +23,7 @@ namespace Desktop.Views
 {
     public sealed partial class PlanePage : Page
     {
+        //Itt lehet, hogy érdemes lenne információt átadni
         public PlanePage()
         {
             this.InitializeComponent();

@@ -4,8 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-//Csak teszt komment
-
 namespace Data_Transfer_Objects
 {
     public class Seat_DTO

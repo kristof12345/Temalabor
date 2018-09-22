@@ -3,7 +3,6 @@ using System.Diagnostics;
 using Desktop.Models;
 using Desktop.Services;
 using Desktop.ViewModels;
-
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 
@@ -23,6 +22,7 @@ namespace Desktop.Views
             InitializeComponent();
             //A kijelölt sor változását jelző event
             dataTable.SelectionChanged += selected;
+            //ComboBox beállítása
             cbType.ItemsSource = CreateComboBox();
             cbType.SelectedIndex = 0;
         }
