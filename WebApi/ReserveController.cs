@@ -47,8 +47,7 @@ namespace WebApi
         public ActionResult<Flight_DTO> GetById(long id)
         {
             DAL.Flight temp = _context.Flights.Find(id);
-            // TODO Meg kéne találni a Flight méretét vagy méret paraméter nélküli konstruktor kell
-            Flight_DTO result = new Flight_DTO(1);
+            Flight_DTO result = new Flight_DTO(temp.seats.Count);
 
             if (temp == null)
             {
