@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Desktop.Services;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,6 +26,17 @@ namespace Desktop.Views
         public UserPage()
         {
             this.InitializeComponent();
+        }
+
+        //Ha a gombra kattintunk
+        private void btLogin_Click(object sender, RoutedEventArgs e)
+        {
+            //Bejelentkezési kérés elküldése
+            if (HttpService.PostLogin(tbName.Text, tbPass.Text))
+            {
+                this.Frame.Navigate(typeof(DataGridPage));
+            }
+            else tbPass.Text = "Incorrect";
         }
     }
 }

@@ -34,33 +34,7 @@ namespace Desktop.Views
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             //Az 1. repülő 1. széke
-            POSTReserveRequest(1,1);
-        }
-
-        //Http kérés indítása
-        public async void POSTReserveRequest(long planeId, long seatId)
-        {
-            String uri = "https://localhost:5001/api/values"; //Ide majd a tényleges adatbázis elérés kell
-            Uri requestUri = new Uri(uri); 
-
-            ReserveSeat_DTO reserve = new ReserveSeat_DTO(1,1);
-
-            if (false)
-            {
-                string json = JsonConvert.SerializeObject(reserve, Formatting.Indented);
-
-                var objClint = new System.Net.Http.HttpClient();
-                //A Http válasz
-                System.Net.Http.HttpResponseMessage response;
-                //Aszinkron Http kérés
-                response = await objClint.PostAsync(requestUri, new StringContent(json, System.Text.Encoding.UTF8, "application /json"));
-                //A válasz szöveggé alakítása
-                string responJsonText = await response.Content.ReadAsStringAsync();
-            }
-            else
-            {
-                HttpService.PostJson(uri,reserve);
-            }
+            HttpService.PostReservation(1, 1);
         }
 
         //Amikor ide navigálnak, átveszi a paramétereket
