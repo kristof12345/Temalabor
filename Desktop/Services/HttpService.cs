@@ -13,7 +13,7 @@ namespace Desktop.Services
 {
     public class HttpService
     {
-        private static string uri = "https://localhost:5001/api/values";
+        private static string uri = "https://localhost:5001/api/values"; //Majd a valódi URI kell ide
 
         public static void PostReservation(long planeId, long seatId)
         {

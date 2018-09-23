@@ -22,9 +22,18 @@ namespace Desktop.Views
             InitializeComponent();
             //A kijelölt sor változását jelző event
             dataTable.SelectionChanged += selected;
+            //A dupla kattintást jelző event
+            dataTable.DoubleTapped += doubleTapped;
             //ComboBox beállítása
             cbType.ItemsSource = CreateComboBox();
             cbType.SelectedIndex = 0;
+        }
+
+        //Dupla kattintásnál átváltunk a kiválasztott repülő nézetére
+        private void doubleTapped(object sender, DoubleTappedRoutedEventArgs e)
+        {
+            Flight param = (Flight)dataTable.SelectedItem;
+            this.Frame.Navigate(typeof(PlanePage), param);
         }
 
         //Combo box feltöltése
