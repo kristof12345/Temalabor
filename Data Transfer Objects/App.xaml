@@ -1,7 +1,0 @@
-﻿<Application
-    x:Class="Data_Transfer_Objects.App"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Data_Transfer_Objects">
-
-</Application>
