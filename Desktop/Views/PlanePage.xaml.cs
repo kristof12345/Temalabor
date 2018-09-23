@@ -40,8 +40,8 @@ namespace Desktop.Views
         //Http kérés indítása
         public async void POSTReserveRequest(long planeId, long seatId)
         {
-            String uri = "https://www.userauth";
-            Uri requestUri = new Uri(uri); //Ide majd a tényleges adatbázis elérés kell
+            String uri = "https://localhost:5001/api/values"; //Ide majd a tényleges adatbázis elérés kell
+            Uri requestUri = new Uri(uri); 
 
             ReserveSeat_DTO reserve = new ReserveSeat_DTO(1,1);
 
@@ -53,7 +53,7 @@ namespace Desktop.Views
                 //A Http válasz
                 System.Net.Http.HttpResponseMessage response;
                 //Aszinkron Http kérés
-                response = await objClint.PostAsync(requestUri, new StringContent(json, System.Text.Encoding.UTF8, "application/json"));
+                response = await objClint.PostAsync(requestUri, new StringContent(json, System.Text.Encoding.UTF8, "application /json"));
                 //A válasz szöveggé alakítása
                 string responJsonText = await response.Content.ReadAsStringAsync();
             }
