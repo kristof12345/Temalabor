@@ -11,12 +11,12 @@ namespace WebApi
 {
     [Route("api/reserve")]
     [ApiController]
-    public class TodoController : ControllerBase
+    public class ReserveController : ControllerBase
     {
         private readonly DAL.FlightContext _context;
         private readonly ReserveContext _context2;
 
-        public TodoController(DAL.FlightContext context, ReserveContext context2)
+        public ReserveController(DAL.FlightContext context, ReserveContext context2)
         {
             _context = context;
             _context2 = context2;
@@ -43,7 +43,7 @@ namespace WebApi
             return result;
         }
 
-        [HttpGet("{id}", Name = "GetTodo")]
+        [HttpGet("{id}", Name = "GetReserve")]
         public ActionResult<Flight_DTO> GetById(long id)
         {
             DAL.Flight temp = _context.Flights.Find(id);
@@ -66,7 +66,7 @@ namespace WebApi
             _context.Flights.Add(tempfl);
             _context.SaveChanges();
 
-            return CreatedAtRoute("GetTodo", new { id = tempfl.flightID }, item);
+            return CreatedAtRoute("GetReserve", new { id = tempfl.flightID }, item);
         }
     }
 }
