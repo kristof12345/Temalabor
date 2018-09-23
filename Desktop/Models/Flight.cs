@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Data_Transfer_Objects;
+using DTO;
 
 namespace Desktop.Models
 {

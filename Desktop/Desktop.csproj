@@ -196,12 +196,6 @@
     <Compile Include="Helpers\Singleton.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Data Transfer Objects\Data Transfer Objects.csproj">
-      <Project>{10755d45-fc5e-4ee8-905a-49284d4202a6}</Project>
-      <Name>Data Transfer Objects</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Assets\Antonov124black.png" />
     <Content Include="Assets\Antonov124white.png" />
     <Content Include="Assets\Boeing777black.png" />
@@ -225,6 +219,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DTO\DTO.csproj">
+      <Project>{042ee01c-5482-49b1-9e86-a1e2145603c6}</Project>
+      <Name>DTO</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

@@ -12,7 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using Data_Transfer_Objects;
+using DTO;
 using Newtonsoft.Json;
 using System.Net.Http;
 using Windows.UI.Xaml.Media.Imaging;
@@ -43,7 +43,7 @@ namespace Desktop.Views
             String uri = "https://www.userauth";
             Uri requestUri = new Uri(uri); //Ide majd a tényleges adatbázis elérés kell
 
-            ReserveSeat_DTO reserve = new Data_Transfer_Objects.ReserveSeat_DTO(1,1);
+            ReserveSeat_DTO reserve = new ReserveSeat_DTO(1,1);
 
             if (false)
             {

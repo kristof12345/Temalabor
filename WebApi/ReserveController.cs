@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Data_Transfer_Objects;
+using DTO;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -37,7 +37,7 @@ namespace WebApi
             List<Flight_DTO> result = new List<Flight_DTO>();
             for (int i = 0; i < DAL_list.Count; i++)
             {
-                result.Add(new Flight_DTO());
+                result.Add(new Flight_DTO(DAL_list.Count));
                 result[i].Departure = DAL_list[i].departure;
             }
             return result;
@@ -47,7 +47,8 @@ namespace WebApi
         public ActionResult<Flight_DTO> GetById(long id)
         {
             DAL.Flight temp = _context.Flights.Find(id);
-            Flight_DTO result = new Flight_DTO();
+            // TODO Meg kéne találni a Flight méretét vagy méret paraméter nélküli konstruktor kell
+            Flight_DTO result = new Flight_DTO(1);
 
             if (temp == null)
             {
