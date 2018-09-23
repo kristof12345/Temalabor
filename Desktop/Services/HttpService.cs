@@ -45,7 +45,7 @@ namespace Desktop.Services
             //Elküldeni
 
             //Ha van ilyen felhasználó
-            if (pass == "Password")
+            if (pass == "Password" || pass == "password")
                 return true;
             else
                 return false;

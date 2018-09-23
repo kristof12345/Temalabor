@@ -1,5 +1,6 @@
 ﻿using System;
-
+using System.Diagnostics;
+using System.IO;
 using Desktop.Services;
 
 using Windows.ApplicationModel.Activation;
@@ -39,7 +40,30 @@ namespace Desktop
 
         private ActivationService CreateActivationService()
         {
-            return new ActivationService(this, typeof(ViewModels.DataGridViewModel), new Lazy<UIElement>(CreateShell));
+            String name="";
+            String pass="";
+
+            try
+            {   // Open the text file using a stream reader.
+                using (StreamReader sr = new StreamReader("UserFile.txt"))
+                {
+                    // Read the stream to a string, and write the string to the console.
+                    name = sr.ReadLine();
+                    pass = sr.ReadLine();
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("The file could not be read");
+            }
+
+            //Automatikus bejelentkezés
+            if (HttpService.PostLogin(name, pass))
+            {
+                return new ActivationService(this, typeof(ViewModels.DataGridViewModel), new Lazy<UIElement>(CreateShell)); //Kezdő oldal ha sikerül
+            }
+            else
+                return new ActivationService(this, typeof(ViewModels.UserViewModel), new Lazy<UIElement>(CreateShell)); //Kezdő oldal ha nem sikerül
         }
 
         private UIElement CreateShell()

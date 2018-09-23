@@ -1,6 +1,7 @@
 ﻿using Desktop.Services;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -34,9 +35,31 @@ namespace Desktop.Views
             //Bejelentkezési kérés elküldése
             if (HttpService.PostLogin(tbName.Text, tbPass.Text))
             {
+                //Ha be van jelölve a checkbox, akkor elmentjük az adatokat
+                if (cbRemember.IsChecked == true)
+                {
+                    string[] text = { tbName.Text, tbPass.Text };
+                    //SaveUser(text);
+                }
                 this.Frame.Navigate(typeof(DataGridPage));
             }
             else tbPass.Text = "Incorrect";
+        }
+
+        private void SaveUser(string[] text)
+        {
+            try
+            {   // Open the text file using a stream writer.
+                using (StreamWriter sw = new StreamWriter("UserFile.txt"))
+                {
+                    sw.WriteLine(text[1]);
+                    sw.WriteLine(text[2]);
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("The file could not be opened");
+            }
         }
     }
 }
