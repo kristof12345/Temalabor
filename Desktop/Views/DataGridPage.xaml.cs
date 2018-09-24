@@ -12,7 +12,7 @@ namespace Desktop.Views
 {
     public sealed partial class DataGridPage : Page
     {
-        private int PlaneID = 0;
+        private static int PlaneID = 0;
 
         private DataGridViewModel ViewModel
         {
@@ -92,7 +92,7 @@ namespace Desktop.Views
         {
             //Paraméterek összeállítása
             Flight param = (Flight)dataTable.SelectedItem;
-
+            //Navigálás a PlanePage-re
             this.Frame.Navigate(typeof(PlanePage), param);
         }
 
@@ -106,7 +106,12 @@ namespace Desktop.Views
             {
                 Debug.WriteLine("You're not signed in.");
             }
-            else Debug.WriteLine("Signed in as "+SignInService.User.Name+" "+SignInService.User.UserType.ToString());
+            else
+            {
+                Debug.WriteLine("Signed in as " + SignInService.User.Name + " " + SignInService.User.UserType.ToString());
+                if(SignInService.User.UserType==UserType.Customer) inputArea.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            }
+
         }
     }
 }

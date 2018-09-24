@@ -1,8 +1,8 @@
-﻿using Desktop.Models;
-using Desktop.Services;
+﻿using Desktop.Services;
 using DTO;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 namespace Desktop.Views
 {
@@ -32,6 +32,25 @@ namespace Desktop.Views
                 this.Frame.Navigate(typeof(DataGridPage));
             }
             else tbPass.Text = "Incorrect";
+        }
+
+        private void btLogout_Click(object sender, RoutedEventArgs e)
+        {
+            //Kijelentkezünk
+            SignInService.SignOut();
+            //Újratöltjük az oldalt
+            this.Frame.Navigate(typeof(UserPage));
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            if (SignInService.User != null)
+            {
+                loginArea.Visibility = Visibility.Collapsed;
+                logoutArea.Visibility = Visibility.Visible;
+                tbUser2.Text = SignInService.User.Name;
+            }
         }
     }
 }

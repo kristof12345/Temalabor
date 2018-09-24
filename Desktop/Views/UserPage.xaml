@@ -7,12 +7,18 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
     <Grid>
-        <Image x:Name="planeImg" Source="/Assets/userwhite.png" Margin="0,-250,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="300"/>
-        <TextBox x:Name="tbName" HorizontalAlignment="Center" Margin="0,50,0,0" Text="Username" VerticalAlignment="Center" Width="200"/>
-        <TextBox x:Name="tbPass" HorizontalAlignment="Center" Margin="0,150,0,0" Text="Password" VerticalAlignment="Center" Width="200"/>
-        <CheckBox x:Name="cbAdmin" Content="Login as administrator" HorizontalAlignment="Center" Margin="0,230,0,0" VerticalAlignment="Center" Width="200"/>
-        <Button x:Name="btLogin" Content="Login" HorizontalAlignment="Center" Margin="0,300,0,0" VerticalAlignment="Center" Click="btLogin_Click"/>
+        <Image x:Name="userImg" Source="/Assets/userwhite.png" Margin="0,-250,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="300"/>
+        <Grid x:Name="loginArea">
+            <TextBox x:Name="tbName" HorizontalAlignment="Center" Margin="0,50,0,0" Text="Username" VerticalAlignment="Center" Width="200"/>
+            <TextBox x:Name="tbPass" HorizontalAlignment="Center" Margin="0,150,0,0" Text="Password" VerticalAlignment="Center" Width="200"/>
+            <CheckBox x:Name="cbAdmin" Content="Login as administrator" HorizontalAlignment="Center" Margin="0,230,0,0" VerticalAlignment="Center" Width="200"/>
+            <Button x:Name="btLogin" Content="Login" HorizontalAlignment="Center" Margin="0,300,0,0" VerticalAlignment="Center" Click="btLogin_Click"/>
+        </Grid>
+        <Grid x:Name="logoutArea" Visibility="Collapsed">
+            <TextBlock x:Name="tbUser1" Style="{StaticResource TitleTextBlockStyle}" TextWrapping="Wrap" HorizontalAlignment="Center" Margin="0,100,0,0" VerticalAlignment="Center" Text="You're signed in as:"/>
+            <TextBlock x:Name="tbUser2" Style="{StaticResource TitleTextBlockStyle}" TextWrapping="Wrap" HorizontalAlignment="Center" Margin="0,200,0,0" VerticalAlignment="Center"/>
+            <Button x:Name="btLogout" Content="Logout" HorizontalAlignment="Center" Margin="0,300,0,0" VerticalAlignment="Center" Click="btLogout_Click"/>
+        </Grid>
     </Grid>
 </Page>
