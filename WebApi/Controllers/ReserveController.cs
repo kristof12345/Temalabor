@@ -68,5 +68,43 @@ namespace WebApi
 
             return CreatedAtRoute("GetReserve", new { id = tempfl.flightID }, item);
         }
+
+        [HttpPut("{id}")]
+        public IActionResult Update(long id, Flight_DTO item)
+        {
+            var todo = _context.Flights.Find(id);
+            if (todo == null)
+            {
+                return NotFound();
+            }
+
+            todo.date = item.Date;
+            todo.departure = item.Departure;
+            todo.destination = item.Destination;
+            foreach(Seat_DTO seat in item.Seats)
+            {
+                DAL.Seat tempSeat = new DAL.Seat();
+                tempSeat.IsReserved = seat.Reserved;
+                todo.seats.Add(tempSeat);
+            }
+
+            _context.Flights.Update(todo);
+            _context.SaveChanges();
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(long id)
+        {
+            var todo = _context.Flights.Find(id);
+            if (todo == null)
+            {
+                return NotFound();
+            }
+
+            _context.Flights.Remove(todo);
+            _context.SaveChanges();
+            return NoContent();
+        }
     }
 }

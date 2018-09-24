@@ -31,6 +31,7 @@ namespace DTO
         public string PlaneType { get; set; } //Ez lehet, hogy enumként jobb lenne
 
         public string Status { get; set; } //Ez lehet, hogy enumként jobb lenne
+        public List<Seat_DTO> Seats { get; set; }
 
         public int NumberOfSeats
         {
