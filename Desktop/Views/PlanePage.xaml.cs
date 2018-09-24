@@ -1,22 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using DTO;
-using Newtonsoft.Json;
-using System.Net.Http;
 using Windows.UI.Xaml.Media.Imaging;
-using Desktop.ViewModels;
 using Desktop.Services;
 using Desktop.Models;
 
@@ -45,11 +32,9 @@ namespace Desktop.Views
             if (e.Parameter != null)
             {
                 //Az átadott paraméterek értelmezése
-                var p = (PageParameter)e.Parameter;
-                Flight f = p.Flight;
-                User_DTO u = p.User;
+                Flight f = (Flight)e.Parameter;
 
-                txDetails.Text = "for " + f.ToString()+ " " + u.Name;
+                txDetails.Text = "for " + f.ToString();
 
                 //A típus alapján választ képet a repülőről
                 switch (f.PlaneType.ToString())

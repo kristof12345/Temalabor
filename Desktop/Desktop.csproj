@@ -119,12 +119,12 @@
     <Compile Include="Activation\ActivationHandler.cs" />
     <Compile Include="Helpers\NavHelper.cs" />
     <Compile Include="Models\Flight.cs" />
-    <Compile Include="Models\PageParameter.cs" />
     <Compile Include="Services\ActivationService.cs" />
     <Compile Include="Activation\DefaultLaunchActivationHandler.cs" />
     <Compile Include="Services\HttpService.cs" />
     <Compile Include="Services\NavigationServiceEx.cs" />
     <Compile Include="Services\SampleDataService.cs" />
+    <Compile Include="Services\SignInService.cs" />
     <Compile Include="ViewModels\DataGridViewModel.cs" />
     <Compile Include="ViewModels\PlaneViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />

@@ -33,6 +33,8 @@
                 </controls:DataGrid.Columns>
             </controls:DataGrid>
         </Grid>
+        <Grid
+            x:Name="inputArea">
         <TextBox x:Name="tbId"  HorizontalAlignment="Left" Text="Flight Id" VerticalAlignment="Bottom" Margin="0,0,0,75" Height="33" Width="80"/>
         <DatePicker x:Name="dpDate" HorizontalAlignment="Left" Margin="90,0,0,75" VerticalAlignment="Bottom" Height="33" Width="330"/>
         <TimePicker x:Name="dpTime" HorizontalAlignment="Left" Margin="430,0,0,75" VerticalAlignment="Bottom" Height="33" Width="250"/>
@@ -42,5 +44,6 @@
         <Button x:Name="btAdd" Content="Add flight" HorizontalAlignment="Left" Margin="1070,0,0,75" VerticalAlignment="Bottom" Click="btAdd_Click" Height="33" Width="125"/>
         <Button x:Name="btReserve" Content="Reserve Seat" HorizontalAlignment="Left" Margin="1070,0,0,25" VerticalAlignment="Bottom" Height="33" Width="125" Click="btReserve_Click"/>
         <Button x:Name="btNav" Content="See details" HorizontalAlignment="Left" Margin="930,0,0,25" VerticalAlignment="Bottom" Height="33" Width="125" Click="btNav_Click"/>
+        </Grid>
     </Grid>
 </Page>

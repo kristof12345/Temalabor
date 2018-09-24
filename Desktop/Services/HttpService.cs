@@ -40,12 +40,10 @@ namespace Desktop.Services
         {
             Login_DTO request = new Login_DTO(new User_DTO(name, pass));
 
-            Debug.WriteLine(request.User.Name);
-
             //Elküldeni
 
             //Ha van ilyen felhasználó
-            if (pass == "Password" || pass == "password")
+            if (pass == "Password")
                 return true;
             else
                 return false;

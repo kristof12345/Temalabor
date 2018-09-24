@@ -13,7 +13,6 @@ namespace Desktop.Views
     public sealed partial class DataGridPage : Page
     {
         private int PlaneID = 0;
-        private User_DTO user;
 
         private DataGridViewModel ViewModel
         {
@@ -35,7 +34,7 @@ namespace Desktop.Views
         //Dupla kattintásnál átváltunk a kiválasztott repülő nézetére
         private void doubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
-            PageParameter param = new PageParameter(user, (Flight)dataTable.SelectedItem);
+            Flight param = (Flight)dataTable.SelectedItem;
             this.Frame.Navigate(typeof(PlanePage), param);
         }
 
@@ -85,7 +84,6 @@ namespace Desktop.Views
             if (f != null)
             {
                 f.ReserveSeat(1);
-                Debug.WriteLine(f.ToString());
             } //else nincs kijelölt elem
         }
 
@@ -93,7 +91,7 @@ namespace Desktop.Views
         private void btNav_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             //Paraméterek összeállítása
-            PageParameter param = new PageParameter(user, (Flight)dataTable.SelectedItem);
+            Flight param = (Flight)dataTable.SelectedItem;
 
             this.Frame.Navigate(typeof(PlanePage), param);
         }
@@ -103,14 +101,12 @@ namespace Desktop.Views
         {
             base.OnNavigatedTo(e);
 
-            if (e.Parameter != null)
+            //User ellenőrzése
+            if (SignInService.User == null)
             {
-                //Az átadott paraméterek értelmezése
-                var p = (PageParameter)e.Parameter;
-
-                //Elmentjük a felhasználót
-                user = p.User;
+                Debug.WriteLine("You're not signed in.");
             }
+            else Debug.WriteLine("Signed in as "+SignInService.User.Name+" "+SignInService.User.UserType.ToString());
         }
     }
 }
