@@ -7,16 +7,19 @@ using Windows.UI.Xaml.Media.Imaging;
 using Desktop.Services;
 using Desktop.Models;
 using Desktop.UserControls;
+using System.Collections.Generic;
 
 namespace Desktop.Views
 {
     public sealed partial class PlanePage : Page
     {
-        //Itt érdemes lenne információt átadni, de akkor nem működik
+        private List<Button> seats = new List<Button>();
+        private Button btn = new Button();
         public PlanePage()
         {
             this.InitializeComponent();
             txDetails.Text = "no flight selected";
+            btn.Width = 500;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -39,15 +42,15 @@ namespace Desktop.Views
 
                 for (int i = 0; i < f.NumberOfSeats; i++)
                 {
-
+                    var bt = new Button();
+                    bt.Margin = new Thickness(f.GetSeat(i).Coordinates.X);
+                    seats.Add(bt);
                 }
-
+     
                 //A típus alapján választ képet a repülőről
                 switch (f.PlaneType.ToString())
                 {
                     case "Boeing777":
-                        SeatUserControl uc = new SeatUserControl();
-                        uc.Margin = new Windows.UI.Xaml.Thickness(0);
                         planeImg.Source = new BitmapImage(new Uri("ms-appx:///Assets/Boeing777white.png"));
                         break;
                     default:

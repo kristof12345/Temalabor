@@ -19,6 +19,5 @@
                    VerticalAlignment="Top"
                    HorizontalAlignment="Left"
         />
-        <usercontrols:SeatUserControl Width="10" Height="10"/>
     </Grid>
 </Page>

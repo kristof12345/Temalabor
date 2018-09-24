@@ -19,7 +19,7 @@ namespace Desktop.Models
 
             for (int i = 0; i < numOfSeats; i++)
             {
-                seats.Add(new Seat_DTO(i));
+                seats.Add(new Seat_DTO(i,100*i,100*i));
             }
 
             freeSeats = numOfSeats;
@@ -63,11 +63,9 @@ namespace Desktop.Models
             }
         }
 
-        //https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged
-        //Valahogy ennek kellene értesítenie a listát a változásról, de nem megy
-        /*private void PropertyChanged([CallerMemberName] String propertyName = "")
+        public Seat_DTO GetSeat(int id)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }*/
+            return seats[id];
+        } 
     }
 }

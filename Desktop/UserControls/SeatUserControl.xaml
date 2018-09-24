@@ -10,6 +10,6 @@
     d:DesignWidth="100">
 
     <Grid>
-        <Image Source="/Assets/Seat-1.png" Height="100" Width="100"/>
+        <Image Source="/Assets/Seat-1.png" Height="30" Width="30"/>
     </Grid>
 </UserControl>

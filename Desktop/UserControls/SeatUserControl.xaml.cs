@@ -27,11 +27,9 @@ namespace Desktop.UserControls
             this.InitializeComponent();
         }
 
-        public string TextBlock { set { textBlock.Text = value; } }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Debug.WriteLine(SeatId);
+            Debug.WriteLine("valami");
         }
     }
 }
