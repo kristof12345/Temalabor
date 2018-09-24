@@ -44,8 +44,12 @@ namespace Desktop.Views
             //Beállít egy textboxot
             if (e.Parameter != null)
             {
-                Flight f = (Flight)e.Parameter;
-                txDetails.Text = "for " + f.ToString();
+                //Az átadott paraméterek értelmezése
+                var p = (PageParameter)e.Parameter;
+                Flight f = p.Flight;
+                User_DTO u = p.User;
+
+                txDetails.Text = "for " + f.ToString()+ " " + u.Name;
 
                 //A típus alapján választ képet a repülőről
                 switch (f.PlaneType.ToString())

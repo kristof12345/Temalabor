@@ -24,10 +24,7 @@ namespace DTO
 
         public string Name { get; set; }
 
-        public UserType GetUserType()
-        {
-            return type;
-        }
+        public UserType UserType { get; set; }
 
         //Ez nem túl biztonságos...
         public String GetPassword()

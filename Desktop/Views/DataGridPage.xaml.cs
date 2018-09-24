@@ -3,14 +3,17 @@ using System.Diagnostics;
 using Desktop.Models;
 using Desktop.Services;
 using Desktop.ViewModels;
+using DTO;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Navigation;
 
 namespace Desktop.Views
 {
     public sealed partial class DataGridPage : Page
     {
         private int PlaneID = 0;
+        private User_DTO user;
 
         private DataGridViewModel ViewModel
         {
@@ -32,7 +35,7 @@ namespace Desktop.Views
         //Dupla kattintásnál átváltunk a kiválasztott repülő nézetére
         private void doubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
-            Flight param = (Flight)dataTable.SelectedItem;
+            PageParameter param = new PageParameter(user, (Flight)dataTable.SelectedItem);
             this.Frame.Navigate(typeof(PlanePage), param);
         }
 
@@ -73,7 +76,7 @@ namespace Desktop.Views
             tempTime = tempTime.Date + ts;
 
             //Járat hozzáadása
-            DataService.AddFlight(tempId, tempTime,tbDep.Text,tbDes.Text,cbType.SelectedItem.ToString());
+            DataService.AddFlight(tempId, tempTime, tbDep.Text, tbDes.Text, cbType.SelectedItem.ToString());
         }
 
         private void btReserve_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
@@ -89,8 +92,25 @@ namespace Desktop.Views
         //Navigálás tesztelése
         private void btNav_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            Flight param = (Flight)dataTable.SelectedItem;
-            this.Frame.Navigate(typeof(PlanePage),param);
+            //Paraméterek összeállítása
+            PageParameter param = new PageParameter(user, (Flight)dataTable.SelectedItem);
+
+            this.Frame.Navigate(typeof(PlanePage), param);
+        }
+
+        //Amikor erre a lapra érkezünk
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            if (e.Parameter != null)
+            {
+                //Az átadott paraméterek értelmezése
+                var p = (PageParameter)e.Parameter;
+
+                //Elmentjük a felhasználót
+                user = p.User;
+            }
         }
     }
 }

@@ -119,6 +119,7 @@
     <Compile Include="Activation\ActivationHandler.cs" />
     <Compile Include="Helpers\NavHelper.cs" />
     <Compile Include="Models\Flight.cs" />
+    <Compile Include="Models\PageParameter.cs" />
     <Compile Include="Services\ActivationService.cs" />
     <Compile Include="Activation\DefaultLaunchActivationHandler.cs" />
     <Compile Include="Services\HttpService.cs" />
