@@ -19,7 +19,11 @@ namespace Desktop.Models
 
             for (int i = 0; i < numOfSeats; i++)
             {
-                seats.Add(new Seat_DTO(i,100*i,100*i));
+                var temp = new Seat_DTO(i);
+                //Csak hogy értelmes helyen legyenek
+                temp.Coordinates.X = 100+i * 50;
+                temp.Coordinates.Y = 610;
+                seats.Add(temp);
             }
 
             freeSeats = numOfSeats;

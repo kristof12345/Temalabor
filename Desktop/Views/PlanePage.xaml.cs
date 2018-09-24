@@ -8,25 +8,25 @@ using Desktop.Services;
 using Desktop.Models;
 using Desktop.UserControls;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Desktop.Views
 {
     public sealed partial class PlanePage : Page
     {
-        private List<Button> seats = new List<Button>();
-        private Button btn = new Button();
         public PlanePage()
         {
             this.InitializeComponent();
             txDetails.Text = "no flight selected";
-            btn.Width = 500;
-            btn.Visibility = Visibility.Visible;
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             //Az 1. repülő 1. széke
-            HttpService.PostReservationAsync(1, 1);
+            //HttpService.PostAddFlightAsync();
+            Debug.WriteLine("klikk");
+
         }
 
         //Amikor ide navigálnak, átveszi a paramétereket
@@ -43,9 +43,11 @@ namespace Desktop.Views
 
                 for (int i = 0; i < f.NumberOfSeats; i++)
                 {
-                    var bt = new Button();
-                    bt.Margin = new Thickness(f.GetSeat(i).Coordinates.X);
-                    seats.Add(bt);
+                    SeatUserControl newSeat = new SeatUserControl();
+                    //Left=0, Top=X, Right=Y, Bottom=0
+                    newSeat.Margin = new Thickness(0,f.GetSeat(i).Coordinates.X, f.GetSeat(i).Coordinates.Y, 0);
+                    //Add(newSeat);
+                    myList.Items.Insert(i,newSeat);
                 }
      
                 //A típus alapján választ képet a repülőről
@@ -59,13 +61,6 @@ namespace Desktop.Views
                         break;
                 }
             }
-        }
-
-        private void ListButton_Click(object sender, RoutedEventArgs e)
-            {
-                int index = myList.Items.IndexOf((e.OriginalSource as FrameworkElement).DataContext);
-                myList.Items.Insert(index, $"Btn {myList.Items.Count}");
-            }
-        
+        }       
     }
 }

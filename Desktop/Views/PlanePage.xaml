@@ -9,10 +9,9 @@
     xmlns:usercontrols="using:Desktop.UserControls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-    <Grid RequestedTheme="Default">
+    <Grid x:Name="grid">
         <Button Content="Button" HorizontalAlignment="Left" Margin="339,200,0,0" VerticalAlignment="Top" Click="Button_Click"/>
         <Image x:Name="planeImg" Source="/Assets/Antonov124white.png" HorizontalAlignment="Right" />
-
         <TextBlock x:Name="txDetails"
                    Style="{StaticResource TitleTextBlockStyle}"
                    Margin="25,-5,0,0"
@@ -25,12 +24,8 @@
                     <ItemsStackPanel Orientation="Horizontal" ScrollViewer.HorizontalScrollMode="Enabled" ScrollViewer.VerticalScrollMode="Disabled"/>
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Button Content="{Binding}" Click="ListButton_Click"/>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-            <x:String>StartBtn</x:String>
         </ListView>
+        <usercontrols:SeatUserControl x:Name="a" HorizontalAlignment="Left" Margin="686,233,0,0" VerticalAlignment="Top"/>
+
     </Grid>
 </Page>

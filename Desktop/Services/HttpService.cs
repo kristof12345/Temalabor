@@ -14,13 +14,24 @@ namespace Desktop.Services
 {
     public class HttpService
     {
-        private static string uri = "https://localhost:5001/api/";
+        private static string uri = "https://localhost:5001/api/reserve";
 
         public static async Task PostReservationAsync(long planeId, long seatId)
         {
             using (var client = new HttpClient())
             {
                 ReserveSeat_DTO reserveRequest = new ReserveSeat_DTO(1, 1);
+                HttpResponseMessage response = await client.PostAsJsonAsync(uri, reserveRequest);
+                response.EnsureSuccessStatusCode();
+                Debug.WriteLine(response);
+            }
+        }
+
+        public static async Task PostAddFlightAsync()
+        {
+            using (var client = new HttpClient())
+            {
+                Flight_DTO reserveRequest = new Flight_DTO(3);
                 HttpResponseMessage response = await client.PostAsJsonAsync(uri, reserveRequest);
                 response.EnsureSuccessStatusCode();
                 Debug.WriteLine(response);

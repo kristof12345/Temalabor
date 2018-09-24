@@ -19,7 +19,7 @@ namespace Desktop.Services
                     PlaneType = "Airbus A380",
                     Status = "Cancelled",
                 },
-        };
+            };
 
         private static IEnumerable<Flight> AllFlights()
         {

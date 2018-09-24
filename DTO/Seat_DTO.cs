@@ -8,19 +8,15 @@ namespace DTO
         public int Y { get; set; }
     }
 
-        public class Seat_DTO
+    public class Seat_DTO
     {
+        private Cord c = new Cord();
         public Seat_DTO(long id) { SeatId = id; }
-        public Seat_DTO(long id, int x, int y)
-        {
-            SeatId = id;
-            Coordinates.X = x;
-            Coordinates.Y = y;
-        }
+
         public long SeatId { get; set; }
         public String SeatType { get; set; }
         public int Price { get; set; }
         public bool Reserved { get; set; }
-        public Cord Coordinates { get; set; }
+        public Cord Coordinates { get { return c; } set { c = value; } }
     }
 }
