@@ -6,6 +6,7 @@ using DTO;
 using Windows.UI.Xaml.Media.Imaging;
 using Desktop.Services;
 using Desktop.Models;
+using Desktop.UserControls;
 
 namespace Desktop.Views
 {
@@ -21,7 +22,7 @@ namespace Desktop.Views
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             //Az 1. repülő 1. széke
-            HttpService.PostReservation(1, 1);
+            HttpService.PostReservationAsync(1, 1);
         }
 
         //Amikor ide navigálnak, átveszi a paramétereket
@@ -36,10 +37,17 @@ namespace Desktop.Views
 
                 txDetails.Text = "for " + f.ToString();
 
+                for (int i = 0; i < f.NumberOfSeats; i++)
+                {
+
+                }
+
                 //A típus alapján választ képet a repülőről
                 switch (f.PlaneType.ToString())
                 {
                     case "Boeing777":
+                        SeatUserControl uc = new SeatUserControl();
+                        uc.Margin = new Windows.UI.Xaml.Thickness(0);
                         planeImg.Source = new BitmapImage(new Uri("ms-appx:///Assets/Boeing777white.png"));
                         break;
                     default:

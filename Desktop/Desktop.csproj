@@ -92,6 +92,9 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.WebApi.Client">
+      <Version>5.2.6</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.Net.Http">
       <Version>2.2.29</Version>
     </PackageReference>
@@ -125,6 +128,9 @@
     <Compile Include="Services\NavigationServiceEx.cs" />
     <Compile Include="Services\SampleDataService.cs" />
     <Compile Include="Services\SignInService.cs" />
+    <Compile Include="UserControls\SeatUserControl.xaml.cs">
+      <DependentUpon>SeatUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\DataGridViewModel.cs" />
     <Compile Include="ViewModels\PlaneViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
@@ -170,6 +176,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\SeatUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\DataGridPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -202,6 +212,7 @@
     <Content Include="Assets\Boeing777black.png" />
     <Content Include="Assets\Boeing777white.png" />
     <Content Include="Assets\iconFlights.png" />
+    <Content Include="Assets\Seat-1.png" />
     <Content Include="Assets\userblack.png" />
     <Content Include="Assets\userwhite.png" />
     <Content Include="Properties\Default.rd.xml" />
@@ -229,6 +240,7 @@
       <Name>DTO</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

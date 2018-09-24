@@ -6,16 +6,19 @@
     xmlns:local="using:Desktop.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:usercontrols="using:Desktop.UserControls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Grid RequestedTheme="Default">
         <Button Content="Button" HorizontalAlignment="Left" Margin="339,200,0,0" VerticalAlignment="Top" Click="Button_Click"/>
         <Image x:Name="planeImg" Source="/Assets/Antonov124white.png" HorizontalAlignment="Right" />
+
         <TextBlock x:Name="txDetails"
                    Style="{StaticResource TitleTextBlockStyle}"
                    Margin="25,-5,0,0"
                    VerticalAlignment="Top"
                    HorizontalAlignment="Left"
         />
+        <usercontrols:SeatUserControl Width="10" Height="10"/>
     </Grid>
 </Page>

@@ -8,46 +8,44 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net.Http;
 
 namespace Desktop.Services
 {
     public class HttpService
     {
-        private static string uri = "https://localhost:5001/api/values"; //Majd a valódi URI kell ide
+        private static string uri = "https://localhost:5001/api/";
 
-        public static void PostReservation(long planeId, long seatId)
+        public static async Task PostReservationAsync(long planeId, long seatId)
         {
-            ReserveSeat_DTO postParameters = new ReserveSeat_DTO(planeId, seatId);
-            string postData = JsonConvert.SerializeObject(postParameters);
-            byte[] bytes = Encoding.UTF8.GetBytes(postData);
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create(uri);
-            httpWebRequest.Method = "POST";
-            httpWebRequest.ContentLength = bytes.Length;
-            httpWebRequest.ContentType = "text/xml";
-            using (Stream requestStream = httpWebRequest.GetRequestStream())
+            using (var client = new HttpClient())
             {
-                requestStream.Write(bytes, 0, bytes.Count());
-            }
-            var httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-            if (httpWebResponse.StatusCode != HttpStatusCode.OK)
-            {
-                string message = String.Format("POST failed. Received HTTP {0}", httpWebResponse.StatusCode);
-                throw new ApplicationException(message);
+                ReserveSeat_DTO reserveRequest = new ReserveSeat_DTO(1, 1);
+                HttpResponseMessage response = await client.PostAsJsonAsync(uri, reserveRequest);
+                response.EnsureSuccessStatusCode();
+                Debug.WriteLine(response);
             }
         }
 
+        public static async Task PostLoginAsync(string name, string pass)
+        {
+            using (var client = new HttpClient())
+            {
+                Login_DTO loginRequest = new Login_DTO(new User_DTO(name, pass));
+                HttpResponseMessage response = await client.PostAsJsonAsync(uri, loginRequest);
+                response.EnsureSuccessStatusCode();
+                Debug.WriteLine(response);
+            }
+        }
         public static bool PostLogin(string name, string pass)
         {
-            Login_DTO request = new Login_DTO(new User_DTO(name, pass));
+            PostLoginAsync(name, pass);
 
-            //Elküldeni
-
-            //Ha van ilyen felhasználó
+            //TODO: Ha van ilyen felhasználó
             if (pass == "Password")
                 return true;
             else
                 return false;
-
         }
     }
 }

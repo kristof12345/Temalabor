@@ -109,7 +109,13 @@ namespace Desktop.Views
             else
             {
                 Debug.WriteLine("Signed in as " + SignInService.User.Name + " " + SignInService.User.UserType.ToString());
-                if(SignInService.User.UserType==UserType.Customer) inputArea.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+
+                //Ha customer, akkor nem mutatjuk az admin funkciókat
+                if (SignInService.User.UserType == UserType.Customer)
+                {
+                    inputArea.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+                    searchArea.Visibility = Windows.UI.Xaml.Visibility.Visible;
+                }
             }
 
         }
