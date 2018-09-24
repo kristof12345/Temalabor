@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(FlightContext))]
-    [Migration("20180923150822_CreateFlightDB")]
+    [Migration("20180924163329_CreateFlightDB")]
     partial class CreateFlightDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
