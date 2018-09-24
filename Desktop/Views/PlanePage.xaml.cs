@@ -20,6 +20,7 @@ namespace Desktop.Views
             this.InitializeComponent();
             txDetails.Text = "no flight selected";
             btn.Width = 500;
+            btn.Visibility = Visibility.Visible;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -59,5 +60,12 @@ namespace Desktop.Views
                 }
             }
         }
+
+        private void ListButton_Click(object sender, RoutedEventArgs e)
+            {
+                int index = myList.Items.IndexOf((e.OriginalSource as FrameworkElement).DataContext);
+                myList.Items.Insert(index, $"Btn {myList.Items.Count}");
+            }
+        
     }
 }

@@ -19,5 +19,18 @@
                    VerticalAlignment="Top"
                    HorizontalAlignment="Left"
         />
+        <ListView x:Name="myList">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <ItemsStackPanel Orientation="Horizontal" ScrollViewer.HorizontalScrollMode="Enabled" ScrollViewer.VerticalScrollMode="Disabled"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Button Content="{Binding}" Click="ListButton_Click"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <x:String>StartBtn</x:String>
+        </ListView>
     </Grid>
 </Page>
