@@ -8,8 +8,7 @@
     DataContext="{Binding DataGridViewModel, Source={StaticResource Locator}}"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:model="using:Desktop.Models"
-    mc:Ignorable="d"
-    Width="1205">
+    mc:Ignorable="d">
     <Grid x:Name="ContentArea">
         <Grid
             Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}"
@@ -18,18 +17,19 @@
                 x:Name="dataTable"
                 SelectionMode = "Single"
                 ItemsSource="{x:Bind ViewModel.Source}"
-                AutoGenerateColumns="False"
-                MinColumnWidth="146"
-                VerticalAlignment="Top" >
+                AutoGenerateColumns="false"
+                VerticalAlignment="Top"
+                MinColumnWidth = "120"
+                >
                 <controls:DataGrid.Columns>
-                    <controls:DataGridTextColumn Header="FlightId" Binding="{Binding FlightId}" />
-                    <controls:DataGridTextColumn Header="Date" Binding="{Binding Date}"  />
-                    <controls:DataGridTextColumn Header="Departure" Binding="{Binding Departure}" />
-                    <controls:DataGridTextColumn Header="Sestination" Binding="{Binding Destination}" />
-                    <controls:DataGridTextColumn Header="Plane Type" Binding="{Binding PlaneType}" />
-                    <controls:DataGridTextColumn Header="Status" Binding="{Binding Status}"  />
-                    <controls:DataGridTextColumn Header="Total Seats" Binding="{Binding NumberOfSeats}"  />
-                    <controls:DataGridTextColumn Header="Free Seats" Binding="{Binding FreeSeats}"  />
+                    <controls:DataGridTextColumn Header="FlightId" Binding="{Binding FlightId}"/>
+                    <controls:DataGridTextColumn Header="Date" Binding="{Binding Date}" Width="*"/>
+                    <controls:DataGridTextColumn Header="Departure" Binding="{Binding Departure}"/>
+                    <controls:DataGridTextColumn Header="Sestination" Binding="{Binding Destination}"/>
+                    <controls:DataGridTextColumn Header="Plane Type" Binding="{Binding PlaneType}"/>
+                    <controls:DataGridTextColumn Header="Status" Binding="{Binding Status}" />
+                    <controls:DataGridTextColumn Header="Total Seats" Binding="{Binding NumberOfSeats}" />
+                    <controls:DataGridTextColumn Header="Free Seats" Binding="{Binding FreeSeats}" />
                 </controls:DataGrid.Columns>
             </controls:DataGrid>
         </Grid>

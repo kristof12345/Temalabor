@@ -7,17 +7,15 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-    Width="1205">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Grid RequestedTheme="Default">
         <Button Content="Button" HorizontalAlignment="Left" Margin="339,200,0,0" VerticalAlignment="Top" Click="Button_Click"/>
-        <Image x:Name="planeImg" Source="/Assets/Antonov124white.png" Margin="550,0,0,0" HorizontalAlignment="Stretch" />
+        <Image x:Name="planeImg" Source="/Assets/Antonov124white.png" HorizontalAlignment="Right" />
         <TextBlock x:Name="txDetails"
                    Style="{StaticResource TitleTextBlockStyle}"
-                   Margin="20,0,0,0"
+                   Margin="25,-5,0,0"
                    VerticalAlignment="Top"
                    HorizontalAlignment="Left"
-                   TextWrapping="Wrap"
         />
     </Grid>
 </Page>
