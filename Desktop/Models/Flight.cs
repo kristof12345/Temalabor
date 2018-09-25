@@ -17,16 +17,30 @@ namespace Desktop.Models
         {
             seats = new List<Seat_DTO>(numOfSeats);
 
+            freeSeats = numOfSeats;
+
             for (int i = 0; i < numOfSeats; i++)
             {
                 var temp = new Seat_DTO(i);
+
                 //Csak hogy értelmes helyen legyenek
-                temp.Coordinates.X = 100+i * 50;
-                temp.Coordinates.Y = 610;
+                if ((i % 2) == 0) { temp.Coordinates.X = 350; } //Vízszintes érték (balról)
+                else { temp.Coordinates.X = 330; }
+
+                //Csak, hogy legyen néhány foglalt hely is
+                if (i % 3 == 0)
+                {
+                    temp.Reserved = true;
+                    freeSeats--;
+                } 
+
+                temp.Price = 100; //Ára is legyen
+
+                temp.Coordinates.Y = 100+50*i; //Függőleges érték (felülről)
                 seats.Add(temp);
             }
 
-            freeSeats = numOfSeats;
+            
         }
 
         public long FlightId { get; set; }

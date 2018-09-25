@@ -10,7 +10,7 @@ namespace Desktop.Services
     {
             private static ObservableCollection<Flight> data = new ObservableCollection<Flight>
           {
-                new Flight(5)
+                new Flight(9)
                 {
                     FlightId = 0,
                     Date = new DateTime(2017, 05, 24),

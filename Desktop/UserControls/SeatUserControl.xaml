@@ -11,7 +11,7 @@
     d:DesignWidth="30">
 
     <Grid>
-        <Button x:Name="button" Content="" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#33FF0000" Click="button_Click"/>
+        <Button x:Name="button" Content="" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Lime" Click="button_Click"/>
 
     </Grid>
 </UserControl>

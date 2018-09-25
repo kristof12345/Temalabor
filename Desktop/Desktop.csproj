@@ -212,8 +212,6 @@
   <ItemGroup>
     <Content Include="Assets\Antonov124black.png" />
     <Content Include="Assets\Antonov124white.png" />
-    <Content Include="Assets\Boeing777black.png" />
-    <Content Include="Assets\Boeing777white.png" />
     <Content Include="Assets\iconFlights.png" />
     <Content Include="Assets\Seat-1.png" />
     <Content Include="Assets\userblack.png" />

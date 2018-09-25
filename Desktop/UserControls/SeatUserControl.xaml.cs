@@ -7,18 +7,45 @@ using Windows.UI.Xaml.Media;
 
 namespace Desktop.UserControls
 {
+    public enum State
+    {
+        Reserved,
+        Free,
+        Selected
+    }
+
     public sealed partial class SeatUserControl : UserControl
     {
         public long SeatId { get; set; }
+        public State State { get; private set; }
 
-        public SeatUserControl()
+        public SeatUserControl(long id, bool isReserved)
         {
             this.InitializeComponent();
+            SeatId = id;
+            if (isReserved)
+            {
+                State = State.Reserved;
+                button.Background = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0)); //Piros
+            }
+            else
+            {
+                State = State.Free;
+            }
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            button.Background = new SolidColorBrush(Color.FromArgb(255,0,0,255));
+            if (State == State.Free) //Ha szabad, kijelöljük
+            {
+                button.Background = new SolidColorBrush(Color.FromArgb(255, 0, 0, 255)); //Kék
+                State = State.Selected;
+            } else if (State == State.Selected) //Ha kijelölt, töröljük a jelölést
+            {
+                button.Background = new SolidColorBrush(Color.FromArgb(255, 0, 255, 0)); //Zöld
+                State = State.Free;
+            }
+            //Ha már foglalt, akkor semmit sem csinálunk
         }
     }
 }

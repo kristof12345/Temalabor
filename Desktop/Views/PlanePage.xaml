@@ -10,22 +10,21 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Grid x:Name="grid">
-        <Button Content="Button" HorizontalAlignment="Left" Margin="339,200,0,0" VerticalAlignment="Top" Click="Button_Click"/>
-        <Image x:Name="planeImg" Source="/Assets/Antonov124white.png" HorizontalAlignment="Right" />
+        <Button Content="Pay" HorizontalAlignment="Left" Margin="25,200,0,0" VerticalAlignment="Top" Click="Button_Click" Width="100"/>
+        <Image x:Name="planeImg" Source="/Assets/Antonov124white.png" HorizontalAlignment="Right" Width="700" Height="700" VerticalAlignment="Top" />
         <TextBlock x:Name="txDetails"
                    Style="{StaticResource TitleTextBlockStyle}"
-                   Margin="25,-5,0,0"
+                   Margin="25,0,0,0"
                    VerticalAlignment="Top"
                    HorizontalAlignment="Left"
         />
-        <ListView x:Name="myList">
-            <ListView.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <ItemsStackPanel Orientation="Horizontal" ScrollViewer.HorizontalScrollMode="Enabled" ScrollViewer.VerticalScrollMode="Disabled"/>
-                </ItemsPanelTemplate>
-            </ListView.ItemsPanel>
-        </ListView>
-        <usercontrols:SeatUserControl x:Name="a" HorizontalAlignment="Left" Margin="686,233,0,0" VerticalAlignment="Top"/>
-
+        <TextBlock x:Name="txPrice"
+                   Style="{StaticResource TitleTextBlockStyle}"
+                   Margin="25,100,0,0"
+                   VerticalAlignment="Top"
+                   HorizontalAlignment="Left"
+        />
+        <Canvas x:Name="myList" Width="700" HorizontalAlignment="Right" Height="700" VerticalAlignment="Top">
+        </Canvas>
     </Grid>
 </Page>

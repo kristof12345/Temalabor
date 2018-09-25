@@ -13,6 +13,7 @@ namespace Desktop.Views
     public sealed partial class DataGridPage : Page
     {
         private static int PlaneID = 0;
+        private Flight lastSelected;
 
         private DataGridViewModel ViewModel
         {
@@ -105,6 +106,8 @@ namespace Desktop.Views
             if (SignInService.User == null)
             {
                 Debug.WriteLine("You're not signed in.");
+                DisplayNoUserDialog();
+                
             }
             else
             {
@@ -116,7 +119,32 @@ namespace Desktop.Views
                     inputArea.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
                     searchArea.Visibility = Windows.UI.Xaml.Visibility.Visible;
                 }
+
+                //Ha adminisztrátor, akkor adhat hozzá repülőt
+                if (SignInService.User.UserType == UserType.Administrator)
+                {
+                    inputArea.Visibility = Windows.UI.Xaml.Visibility.Visible;
+                    searchArea.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+                }
             }
+
+        }
+
+        //Dialógusablak
+        private async void DisplayNoUserDialog()
+        {
+            ContentDialog noUser = new ContentDialog
+            {
+                Title = "You're not signed in.",
+                Content = "Plese sign in to continue.",
+                CloseButtonText = "Ok"
+            };
+            ContentDialogResult result = await noUser.ShowAsync();
+            this.Frame.Navigate(typeof(UserPage));
+        }
+
+        private void btSearch_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
 
         }
     }
