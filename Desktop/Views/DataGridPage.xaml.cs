@@ -13,7 +13,7 @@ namespace Desktop.Views
     public sealed partial class DataGridPage : Page
     {
         private static int PlaneID = 0;
-        private Flight lastSelected;
+        //public static Flight lastSelected;
 
         private DataGridViewModel ViewModel
         {

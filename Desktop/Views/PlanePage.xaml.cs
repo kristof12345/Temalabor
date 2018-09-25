@@ -19,7 +19,7 @@ namespace Desktop.Views
         public PlanePage()
         {
             this.InitializeComponent();
-            txDetails.Text = "no flight selected";
+            btPay.Visibility = Visibility.Collapsed;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -58,6 +58,8 @@ namespace Desktop.Views
                     //Left=0, Top=X, Right=Y, Bottom=0
                     newSeat.Margin = new Thickness(f.GetSeat(i).Coordinates.X, f.GetSeat(i).Coordinates.Y, 0, 0);
                     myList.Children.Add(newSeat);
+
+                    CalculatePrice(null, null);
                 }
      
                 //A típus alapján választ képet a repülőről
@@ -87,7 +89,16 @@ namespace Desktop.Views
                     totalPrice += f.GetSeat((int)s.SeatId).Price;
                 }
             }
-            txPrice.Text = "Total price: " + totalPrice;
+            txPrice.Text = "Total price: " + totalPrice + " $";
+            btPay.Visibility = Visibility.Visible;
+            //Ha van összeg, akkor elérhető a gomb
+            if (totalPrice > 0)
+            {
+                btPay.IsEnabled = true;
+            } else //Különben nem
+            {
+                btPay.IsEnabled = false;
+            }
         }
 
         //Dialógusablak
