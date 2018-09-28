@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using Desktop.Models;
+using DTO;
 
 namespace Desktop.Services
 {
@@ -20,6 +21,11 @@ namespace Desktop.Services
                     Status = "Cancelled",
                 },
             };
+
+        internal static ObservableCollection<Reservation> GetReservations()
+        {
+            throw new NotImplementedException();
+        }
 
         private static IEnumerable<Flight> AllFlights()
         {

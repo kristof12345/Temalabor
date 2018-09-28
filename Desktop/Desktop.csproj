@@ -136,6 +136,7 @@
     </Compile>
     <Compile Include="ViewModels\DataGridViewModel.cs" />
     <Compile Include="ViewModels\PlaneViewModel.cs" />
+    <Compile Include="ViewModels\ReservationViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
@@ -144,6 +145,9 @@
     </Compile>
     <Compile Include="Views\PlanePage.xaml.cs">
       <DependentUpon>PlanePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ReservationsPage.xaml.cs">
+      <DependentUpon>ReservationsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ShellPage.xaml.cs">
       <DependentUpon>ShellPage.xaml</DependentUpon>
@@ -188,6 +192,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\PlanePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ReservationsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
