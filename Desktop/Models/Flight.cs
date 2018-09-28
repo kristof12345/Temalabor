@@ -39,9 +39,7 @@ namespace Desktop.Models
 
                 temp.Coordinates.Y = 100+50*i; //Függőleges érték (felülről)
                 seats.Add(temp);
-            }
-
-            
+            } 
         }
 
         public long FlightId { get; set; }
@@ -68,7 +66,7 @@ namespace Desktop.Models
 
         public override string ToString()
         {
-            return "Flight "+ FlightId.ToString() + " from" + Departure + " to" + Destination;
+            return "Flight "+ FlightId.ToString() + " from " + Departure + " to " + Destination;
         }
 
         public void ReserveSeat(int id)

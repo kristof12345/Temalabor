@@ -12,9 +12,6 @@ namespace Desktop.Views
 {
     public sealed partial class DataGridPage : Page
     {
-        private static int PlaneID = 0;
-        //public static Flight lastSelected;
-
         private DataGridViewModel ViewModel
         {
             get { return DataContext as DataGridViewModel; }
@@ -28,7 +25,7 @@ namespace Desktop.Views
             //A dupla kattintást jelző event
             dataTable.DoubleTapped += doubleTapped;
             //ComboBox beállítása
-            cbType.ItemsSource = CreateComboBox();
+            cbType.ItemsSource = ViewModel.CreateComboBox();
             cbType.SelectedIndex = 0;
         }
 
@@ -37,20 +34,6 @@ namespace Desktop.Views
         {
             Flight param = (Flight)dataTable.SelectedItem;
             this.Frame.Navigate(typeof(PlanePage), param);
-        }
-
-        //Combo box feltöltése
-        private object CreateComboBox()
-        {
-            string[] strArray =
-                {
-                "Airbus A380",
-                "Boeing 747",
-                "Boeing 777",
-                "Antonov 124",
-                //További repülő típusok
-            };
-            return strArray;
         }
 
         //Ha változott a kijelölt sor
@@ -66,8 +49,8 @@ namespace Desktop.Views
             //Ha nem sikerül parsolni az ID-t, akkor az alap generált, növekvő id-t kapja
             if (!int.TryParse(tbId.Text, out tempId))
             {
-                PlaneID++;
-                tempId = PlaneID;
+                ViewModel.PlaneID++;
+                tempId = ViewModel.PlaneID;
             }
 
             //Idő összerakása a Date pickerből és a Time pickerből

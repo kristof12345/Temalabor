@@ -10,6 +10,8 @@ namespace Desktop.ViewModels
 {
     public class DataGridViewModel : ViewModelBase
     {
+        public int PlaneID = 0;
+
         public ObservableCollection<Flight> Source
         {
             get
@@ -17,6 +19,20 @@ namespace Desktop.ViewModels
                 // TODO WTS: Replace this with your actual data
                 return DataService.GetGridData();
             }
+        }
+
+        //Combo box feltöltése
+        public object CreateComboBox()
+        {
+            string[] strArray =
+                {
+                "Airbus A380",
+                "Boeing 747",
+                "Boeing 777",
+                "Antonov 124",
+                //További repülő típusok
+            };
+            return strArray;
         }
     }
 }
