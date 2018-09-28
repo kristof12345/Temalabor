@@ -58,5 +58,15 @@ namespace Desktop.Services
             else
                 return false;
         }
+        public static async Task PostListAsync(ListFlights_DTO list)
+        {
+            using (var client = new HttpClient())
+            {
+                HttpResponseMessage response = await client.PostAsJsonAsync(uri, list);
+                response.EnsureSuccessStatusCode();
+                Debug.WriteLine(response);
+            }
+        }
+
     }
 }

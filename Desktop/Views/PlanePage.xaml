@@ -10,7 +10,7 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Grid x:Name="grid">
-        <Button x:Name="btPay" Content="Pay" HorizontalAlignment="Left" Margin="25,200,0,0" VerticalAlignment="Top" Click="Button_Click" Width="100"/>
+        <Button x:Name="btPay" Content="Pay" HorizontalAlignment="Left" Margin="25,200,0,0" VerticalAlignment="Top" Click="Pay_Button_Click" Width="100"/>
         <Image x:Name="planeImg" HorizontalAlignment="Right" Width="700" Height="700" VerticalAlignment="Top" />
         <TextBlock x:Name="txDetails"
                    Style="{StaticResource TitleTextBlockStyle}"

@@ -34,20 +34,26 @@
             </controls:DataGrid>
         </Grid>
         <Grid x:Name="bothArea">
-            <DatePicker x:Name="dpDate" HorizontalAlignment="Left" Margin="90,0,0,75" VerticalAlignment="Bottom" Height="33" Width="330"/>
-            <TextBox x:Name="tbDep" HorizontalAlignment="Left" Text="Departure" VerticalAlignment="Bottom" Margin="690,0,0,75" Height="33" Width="110"/>
-            <TextBox x:Name="tbId"  HorizontalAlignment="Left" Text="Flight Id" VerticalAlignment="Bottom" Margin="0,0,0,75" Height="33" Width="80"/>
-            <TimePicker x:Name="dpTime" HorizontalAlignment="Left" Margin="430,0,0,75" VerticalAlignment="Bottom" Height="33" Width="250"/>
-            <ComboBox x:Name="cbType" HorizontalAlignment="Left" Margin="930,0,0,75" VerticalAlignment="Bottom" Height="33" Width="130"/>
-            <TextBox x:Name="tbDes" HorizontalAlignment="Left" Text="Destination" VerticalAlignment="Bottom" Margin="810,0,0,75" Height="33" Width="110"/>
-            <Button x:Name="btReserve" Content="Reserve Seat" HorizontalAlignment="Left" Margin="1200,0,0,75" VerticalAlignment="Bottom" Height="33" Width="120"  Click="btNav_Click"/>
-
+            <Button x:Name="btReserve" Content="Reserve Seat" HorizontalAlignment="Left" Margin="1200,0,0,75" VerticalAlignment="Bottom" Height="33" Width="120"  Click="btReserve_Click"/>
         </Grid>
+        
         <Grid x:Name="inputArea">
-            
+            <TextBox x:Name="tbId"  HorizontalAlignment="Left" Text="Flight Id" VerticalAlignment="Bottom" Margin="0,0,0,75" Height="33" Width="80"/>
+            <DatePicker x:Name="dpDate" HorizontalAlignment="Left" Margin="90,0,0,75" VerticalAlignment="Bottom" Height="33" Width="330"/>
+            <TimePicker x:Name="dpTime" HorizontalAlignment="Left" Margin="430,0,0,75" VerticalAlignment="Bottom" Height="33" Width="250"/>
+            <TextBox x:Name="tbDep" HorizontalAlignment="Left" Text="Departure" VerticalAlignment="Bottom" Margin="690,0,0,75" Height="33" Width="110"/>
+            <TextBox x:Name="tbDes" HorizontalAlignment="Left" Text="Destination" VerticalAlignment="Bottom" Margin="810,0,0,75" Height="33" Width="110"/>
+            <ComboBox x:Name="cbType" HorizontalAlignment="Left" Margin="930,0,0,75" VerticalAlignment="Bottom" Height="33" Width="130"/>
             <Button x:Name="btAdd" Content="Add flight" HorizontalAlignment="Left" Margin="1070,0,0,75" VerticalAlignment="Bottom" Click="btAdd_Click" Height="33" Width="120"/>
         </Grid>
+        
         <Grid x:Name="searchArea">
+            <DatePicker x:Name="dpDate2" HorizontalAlignment="Left" Margin="0,0,0,75" VerticalAlignment="Bottom" Height="33" Width="330"/>
+            <CheckBox x:Name="cbDate" Content="Only at this date" HorizontalAlignment="Left" Margin="340,0,0,75" VerticalAlignment="Bottom" Width="150" Height="33"/>
+            <TextBox x:Name="tbDep2" HorizontalAlignment="Left" Text="Departure" VerticalAlignment="Bottom" Margin="500,0,0,75" Height="33" Width="110"/>
+            <TextBox x:Name="tbDes2" HorizontalAlignment="Left" Text="Destination" VerticalAlignment="Bottom" Margin="620,0,0,75" Height="33" Width="110"/>
+            <CheckBox x:Name="cbLocation" Content="Only these locations" HorizontalAlignment="Left" Margin="740,0,0,75" VerticalAlignment="Bottom" Width="170" Height="33"/>
+            <CheckBox x:Name="cbAvailable" Content="Only available" HorizontalAlignment="Left" Margin="920,0,0,75" VerticalAlignment="Bottom" Width="150" Height="33"/>
             <Button x:Name="btSearch" Content="Search" HorizontalAlignment="Left" Margin="1070,0,0,75" VerticalAlignment="Bottom" Height="33" Width="120" Click="btSearch_Click"/>
         </Grid>
     </Grid>

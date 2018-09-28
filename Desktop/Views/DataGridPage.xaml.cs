@@ -79,17 +79,8 @@ namespace Desktop.Views
             DataService.AddFlight(tempId, tempTime, tbDep.Text, tbDes.Text, cbType.SelectedItem.ToString());
         }
 
+        //Foglalás gomb
         private void btReserve_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            Flight f = (Flight)dataTable.SelectedItem;
-            if (f != null)
-            {
-                f.ReserveSeat(1);
-            } //else nincs kijelölt elem
-        }
-
-        //Navigálás tesztelése
-        private void btNav_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             //Paraméterek összeállítása
             Flight param = (Flight)dataTable.SelectedItem;
@@ -105,14 +96,10 @@ namespace Desktop.Views
             //User ellenőrzése
             if (SignInService.User == null)
             {
-                Debug.WriteLine("You're not signed in.");
-                DisplayNoUserDialog();
-                
+                DisplayNoUserDialog();               
             }
             else
             {
-                Debug.WriteLine("Signed in as " + SignInService.User.Name + " " + SignInService.User.UserType.ToString());
-
                 //Ha customer, akkor nem mutatjuk az admin funkciókat
                 if (SignInService.User.UserType == UserType.Customer)
                 {
@@ -127,7 +114,6 @@ namespace Desktop.Views
                     searchArea.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
                 }
             }
-
         }
 
         //Dialógusablak
@@ -145,7 +131,12 @@ namespace Desktop.Views
 
         private void btSearch_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-
+            ListFlights_DTO list = new ListFlights_DTO();
+            //A textboxok alapján beállítjuk az adatokat
+            if (cbDate.IsChecked == true) { list.AtDate = dpDate2.Date.UtcDateTime; }
+            if (cbLocation.IsChecked == true) { list.From = tbDep2.Text; list.To = tbDes2.Text; }
+            if (cbAvailable.IsChecked == true) { list.OnlyAvailable = true; }
+            HttpService.PostListAsync(list);
         }
     }
 }

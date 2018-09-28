@@ -6,9 +6,14 @@ namespace DTO
     {
         //A listázandó repülők paraméterei
         //Pl.: Csak a szabad hellyel rendelkezők
-        private bool onlyFree;
-        //Csak az első osztályú helyekkel rendelkezők
-        private bool onlyFirstClass;
+        public bool OnlyAvailable { get; set; }
+        //Csak az adott dátumon (az idópont nem számít)
+        public DateTime AtDate { get; set; }
+        //Indulás
+        public String From { get; set; }
+        //Érkezés
+        public String To { get; set; }
+
         //Stb.
     }
 }

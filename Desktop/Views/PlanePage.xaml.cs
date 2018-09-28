@@ -19,20 +19,18 @@ namespace Desktop.Views
         public PlanePage()
         {
             this.InitializeComponent();
-            btPay.Visibility = Visibility.Collapsed;
+            btPay.Visibility = Visibility.Collapsed; //Amíg nincs összeg, nem mutatjuk
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        //Fizetés gomb lenyomása
+        private void Pay_Button_Click(object sender, RoutedEventArgs e)
         {
-            //Az 1. repülő 1. széke
-            
+            //Minden kiválasztott UC-ra összegezzük az árat
             foreach (SeatUserControl s in myList.Children)
             {
                 if (s.State == State.Selected)
                 {
                     f.ReserveSeat((int)s.SeatId);
-                    Debug.WriteLine("Lefoglalva: " + s.SeatId);
-                    //HttpService.PostReservationAsync(f.FlightId,s.SeatId);
                     this.Frame.Navigate(typeof(PlanePage), f); //Az oldal újratöltése
                 }
             }
@@ -42,19 +40,19 @@ namespace Desktop.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            //Beállít egy textboxot
             if (e.Parameter != null)
             {
                 //Az átadott paraméterek értelmezése
                 f = (Flight)e.Parameter;
 
-                txDetails.Text = "for " + f.ToString();
+                txDetails.Text = f.ToString();
 
+                //User controlok felrakása
                 for (int i = 0; i < f.NumberOfSeats; i++)
                 {
                     Seat_DTO s = f.GetSeat(i);
                     SeatUserControl newSeat = new SeatUserControl(s.SeatId, s.Reserved);
-                    newSeat.Tapped += CalculatePrice;
+                    newSeat.Tapped += CalculatePrice; //Eseménykezelő regisztrálása
                     //Left=0, Top=X, Right=Y, Bottom=0
                     newSeat.Margin = new Thickness(f.GetSeat(i).Coordinates.X, f.GetSeat(i).Coordinates.Y, 0, 0);
                     myList.Children.Add(newSeat);
@@ -69,6 +67,7 @@ namespace Desktop.Views
                         planeImg.Source = new BitmapImage(new Uri("ms-appx:///Assets/Antonov124white.png"));
                         break;
                 }
+                //Ha nincs bejelentkezve, vagy nem választott repülőt
             } else if(e.SourcePageType== typeof(DataGridPage))
             {
                 DisplayNoUserDialog();

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Desktop.Services;
 using DTO;
 
 namespace Desktop.Models
@@ -67,7 +68,7 @@ namespace Desktop.Models
 
         public override string ToString()
         {
-            return FlightId.ToString() + " " + PlaneType + " " + FreeSeats;
+            return "Flight "+ FlightId.ToString() + " from" + Departure + " to" + Destination;
         }
 
         public void ReserveSeat(int id)
@@ -77,7 +78,8 @@ namespace Desktop.Models
             {
                 seats[id].Reserved = true;
                 freeSeats--;
-                PropertyChanged(this, new PropertyChangedEventArgs("FreeSeats"));
+                PropertyChanged(this, new PropertyChangedEventArgs("FreeSeats")); //Értesítés a változásról
+                HttpService.PostReservationAsync(FlightId,id); //Http kérés a foglaláshoz
             }
         }
 
