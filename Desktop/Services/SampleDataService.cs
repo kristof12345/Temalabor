@@ -45,6 +45,7 @@ namespace Desktop.Services
             };
 
             data.Add(temp);
+            HttpService.PostAddFlightAsync();
         }
 
         public static void Reserve(int flightid, int seatid)

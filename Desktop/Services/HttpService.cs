@@ -9,33 +9,44 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http;
+using System.Net.Http.Headers;
 
 namespace Desktop.Services
 {
     public class HttpService
     {
-        private static string uri = "https://localhost:5001/api/reserve";
+        private static string uri = "api/reserve";
 
         public static async Task PostReservationAsync(long planeId, long seatId)
         {
-            using (var client = new HttpClient())
-            {
-                ReserveSeat_DTO reserveRequest = new ReserveSeat_DTO(1, 1);
+            var client = new HttpClient();
+            client.BaseAddress = new Uri("http://localhost:5001/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            ReserveSeat_DTO reserveRequest = new ReserveSeat_DTO(1, 2);
                 HttpResponseMessage response = await client.PostAsJsonAsync(uri, reserveRequest);
                 response.EnsureSuccessStatusCode();
                 Debug.WriteLine(response);
-            }
+
         }
 
         public static async Task PostAddFlightAsync()
         {
-            using (var client = new HttpClient())
-            {
-                Flight_DTO reserveRequest = new Flight_DTO(3);
-                HttpResponseMessage response = await client.PostAsJsonAsync(uri, reserveRequest);
+
+            var client = new HttpClient();
+
+
+                client.BaseAddress = new Uri("http://localhost:5001/");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                Flight_DTO addRequest = new Flight_DTO(3);
+                Debug.WriteLine(addRequest.Seats);
+                HttpResponseMessage response = await client.PostAsJsonAsync(uri, addRequest);
                 response.EnsureSuccessStatusCode();
-                Debug.WriteLine(response);
-            }
+                
+
         }
 
         public static async Task PostLoginAsync(string name, string pass)
