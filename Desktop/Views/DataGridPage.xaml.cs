@@ -42,7 +42,7 @@ namespace Desktop.Views
             //Esetleg részleteket írhatunk ki a kijelölt járatról
         }
 
-        //Új járat felvétele
+        //Új járat felvétele a gomb megnyomásakor
         private void btAdd_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             int tempId;
