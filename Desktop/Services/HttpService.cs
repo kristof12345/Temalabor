@@ -16,49 +16,45 @@ namespace Desktop.Services
     public class HttpService
     {
         private static string uri = "api/reserve";
-
-        public static async Task PostReservationAsync(long planeId, long seatId)
+        private static HttpClient CreateClient()
         {
             var client = new HttpClient();
             client.BaseAddress = new Uri("http://localhost:5001/");
             client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            return client;
+        }
 
+        public static async Task PostReservationAsync(long planeId, long seatId)
+        {
+            var client = CreateClient();
             ReserveSeat_DTO reserveRequest = new ReserveSeat_DTO(1, 2);
-                HttpResponseMessage response = await client.PostAsJsonAsync(uri, reserveRequest);
-                response.EnsureSuccessStatusCode();
-                Debug.WriteLine(response);
+            HttpResponseMessage response = await client.PostAsJsonAsync(uri, reserveRequest);
+            response.EnsureSuccessStatusCode();
+            Debug.WriteLine(response);
 
         }
 
         public static async Task PostAddFlightAsync()
         {
-
-            var client = new HttpClient();
-
-
-                client.BaseAddress = new Uri("http://localhost:5001/");
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                Flight_DTO addRequest = new Flight_DTO(3);
-                Debug.WriteLine(addRequest.Seats);
-                HttpResponseMessage response = await client.PostAsJsonAsync(uri, addRequest);
-                response.EnsureSuccessStatusCode();
+            var client = CreateClient();
+            Flight_DTO addRequest = new Flight_DTO(3);
+            Debug.WriteLine(addRequest.Seats);
+            HttpResponseMessage response = await client.PostAsJsonAsync(uri, addRequest);
+            response.EnsureSuccessStatusCode();
                 
 
         }
 
         public static async Task PostLoginAsync(string name, string pass)
         {
-            using (var client = new HttpClient())
-            {
-                Login_DTO loginRequest = new Login_DTO(new User_DTO(name, pass));
-                HttpResponseMessage response = await client.PostAsJsonAsync(uri, loginRequest);
-                response.EnsureSuccessStatusCode();
-                Debug.WriteLine(response);
-            }
+            var client = CreateClient();
+            Login_DTO loginRequest = new Login_DTO(new User_DTO(name, pass));
+            HttpResponseMessage response = await client.PostAsJsonAsync(uri, loginRequest);
+            response.EnsureSuccessStatusCode();
+            Debug.WriteLine(response);
         }
+
         public static bool PostLogin(string name, string pass)
         {
             PostLoginAsync(name, pass);
@@ -69,6 +65,7 @@ namespace Desktop.Services
             else
                 return false;
         }
+
         public static async Task PostListAsync(ListFlights_DTO list)
         {
             using (var client = new HttpClient())
