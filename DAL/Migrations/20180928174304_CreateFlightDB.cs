@@ -16,7 +16,10 @@ namespace DAL.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     date = table.Column<DateTime>(nullable: false),
                     departure = table.Column<string>(nullable: true),
-                    destination = table.Column<string>(nullable: true)
+                    destination = table.Column<string>(nullable: true),
+                    freeSeats = table.Column<int>(nullable: false),
+                    planeType = table.Column<string>(nullable: true),
+                    status = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -29,8 +32,12 @@ namespace DAL.Migrations
                 {
                     seatID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    flightID = table.Column<int>(nullable: true),
                     IsReserved = table.Column<bool>(nullable: false),
-                    flightID = table.Column<int>(nullable: true)
+                    seatType = table.Column<string>(nullable: true),
+                    price = table.Column<int>(nullable: false),
+                    Xcord = table.Column<int>(nullable: false),
+                    Ycord = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {

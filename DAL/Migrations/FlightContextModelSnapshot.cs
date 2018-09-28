@@ -31,6 +31,12 @@ namespace DAL.Migrations
 
                     b.Property<string>("destination");
 
+                    b.Property<int>("freeSeats");
+
+                    b.Property<string>("planeType");
+
+                    b.Property<string>("status");
+
                     b.HasKey("flightID");
 
                     b.ToTable("Flights");
@@ -44,7 +50,15 @@ namespace DAL.Migrations
 
                     b.Property<bool>("IsReserved");
 
+                    b.Property<int>("Xcord");
+
+                    b.Property<int>("Ycord");
+
                     b.Property<int?>("flightID");
+
+                    b.Property<int>("price");
+
+                    b.Property<string>("seatType");
 
                     b.HasKey("seatID");
 
@@ -55,8 +69,8 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.Seat", b =>
                 {
-                    b.HasOne("DAL.Flight")
-                        .WithMany("seats")
+                    b.HasOne("DAL.Flight", "flight")
+                        .WithMany()
                         .HasForeignKey("flightID");
                 });
 #pragma warning restore 612, 618
