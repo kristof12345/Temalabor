@@ -1,5 +1,5 @@
 ﻿using System;
-using DAL;
+using DAL; //Ezt nem szabadna használni helyette DTO
 
 namespace TempProba
 {
