@@ -15,35 +15,31 @@ namespace Desktop.Services
 {
     public class HttpService
     {
-        private static string uri = "api/reserve";
+        private static string uri = "/api/reserve";
         private static HttpClient CreateClient()
         {
             var client = new HttpClient();
             client.BaseAddress = new Uri("http://localhost:5001/");
             client.DefaultRequestHeaders.Accept.Clear();
-            //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             return client;
         }
 
         public static async Task PostReservationAsync(long planeId, long seatId)
         {
             var client = CreateClient();
-            ReserveSeat_DTO reserveRequest = new ReserveSeat_DTO(1, 2);
+            ReserveSeat_DTO reserveRequest = new ReserveSeat_DTO(planeId, seatId);
             HttpResponseMessage response = await client.PostAsJsonAsync(uri, reserveRequest);
             response.EnsureSuccessStatusCode();
             Debug.WriteLine(response);
-
         }
 
-        public static async Task PostAddFlightAsync()
+        public static async Task PostAddFlightAsync(Flight_DTO addRequest)
         {
             var client = CreateClient();
-            Flight_DTO addRequest = new Flight_DTO(3);
-            Debug.WriteLine(addRequest.Seats);
             HttpResponseMessage response = await client.PostAsJsonAsync(uri, addRequest);
             response.EnsureSuccessStatusCode();
-                
-
+            Debug.WriteLine(response);
         }
 
         public static async Task PostLoginAsync(string name, string pass)

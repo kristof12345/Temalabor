@@ -52,6 +52,19 @@ namespace Desktop.Models
 
         public string PlaneType { get; set; }
 
+        internal Flight_DTO ToDTO()
+        {
+            Flight_DTO ret = new Flight_DTO(this.NumberOfSeats);
+            ret.FlightId = this.FlightId;
+            ret.Departure = this.Departure;
+            ret.Destination = this.Destination;
+            ret.Date = this.Date;
+            ret.PlaneType = this.PlaneType;
+            ret.Status = this.Status;
+
+            return ret;
+        }
+
         public string Status { get; set; }
 
         public int NumberOfSeats
