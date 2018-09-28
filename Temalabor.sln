@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DTO", "DTO\DTO.csproj", "{0
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApplication", "WebApplication\WebApplication.csproj", "{55AB91E8-E24C-48FB-8B1A-652DF729F493}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{71CF6EE4-39A5-476E-B217-A6E1AF4AC15B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "DAL\DAL.csproj", "{71CF6EE4-39A5-476E-B217-A6E1AF4AC15B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TempProba", "TempProba\TempProba.csproj", "{2D51DB5A-9A39-4AAF-9878-FF5983AA74D8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -111,6 +113,22 @@ Global
 		{71CF6EE4-39A5-476E-B217-A6E1AF4AC15B}.Release|x64.Build.0 = Release|Any CPU
 		{71CF6EE4-39A5-476E-B217-A6E1AF4AC15B}.Release|x86.ActiveCfg = Release|Any CPU
 		{71CF6EE4-39A5-476E-B217-A6E1AF4AC15B}.Release|x86.Build.0 = Release|Any CPU
+		{2D51DB5A-9A39-4AAF-9878-FF5983AA74D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D51DB5A-9A39-4AAF-9878-FF5983AA74D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D51DB5A-9A39-4AAF-9878-FF5983AA74D8}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{2D51DB5A-9A39-4AAF-9878-FF5983AA74D8}.Debug|ARM.Build.0 = Debug|Any CPU
+		{2D51DB5A-9A39-4AAF-9878-FF5983AA74D8}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2D51DB5A-9A39-4AAF-9878-FF5983AA74D8}.Debug|x64.Build.0 = Debug|Any CPU
+		{2D51DB5A-9A39-4AAF-9878-FF5983AA74D8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2D51DB5A-9A39-4AAF-9878-FF5983AA74D8}.Debug|x86.Build.0 = Debug|Any CPU
+		{2D51DB5A-9A39-4AAF-9878-FF5983AA74D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D51DB5A-9A39-4AAF-9878-FF5983AA74D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D51DB5A-9A39-4AAF-9878-FF5983AA74D8}.Release|ARM.ActiveCfg = Release|Any CPU
+		{2D51DB5A-9A39-4AAF-9878-FF5983AA74D8}.Release|ARM.Build.0 = Release|Any CPU
+		{2D51DB5A-9A39-4AAF-9878-FF5983AA74D8}.Release|x64.ActiveCfg = Release|Any CPU
+		{2D51DB5A-9A39-4AAF-9878-FF5983AA74D8}.Release|x64.Build.0 = Release|Any CPU
+		{2D51DB5A-9A39-4AAF-9878-FF5983AA74D8}.Release|x86.ActiveCfg = Release|Any CPU
+		{2D51DB5A-9A39-4AAF-9878-FF5983AA74D8}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
