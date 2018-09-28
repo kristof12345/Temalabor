@@ -37,7 +37,7 @@ namespace WebApi
             List<Flight_DTO> result = new List<Flight_DTO>();
             for (int i = 0; i < DAL_list.Count; i++)
             {
-                result.Add(new Flight_DTO(DAL_list.Count));
+                result.Add(new Flight_DTO(DAL_list[i].seats.Count));
                 result[i].Departure = DAL_list[i].departure;
             }
             return result;
