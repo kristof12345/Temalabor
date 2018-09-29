@@ -12,7 +12,7 @@ namespace Desktop.ViewModels
     [Windows.UI.Xaml.Data.Bindable]
     public class ViewModelLocator
     {
-        //Nézetek regisztrálása FONTOS
+        //Nézetek regisztrálása FONTOS TODO
         public ViewModelLocator()
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
@@ -25,7 +25,8 @@ namespace Desktop.ViewModels
             Register<PlaneViewModel, PlanePage>();
             //UserView regisztrálása
             Register<UserViewModel, UserPage>();
-
+            //ReservationView regisztrálása
+            Register<ReservationViewModel, ReservationsPage>();
         }
 
         public DataGridViewModel DataGridViewModel => ServiceLocator.Current.GetInstance<DataGridViewModel>();

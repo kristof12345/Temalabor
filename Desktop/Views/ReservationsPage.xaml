@@ -10,6 +10,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="462,380,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top"/>
+
     </Grid>
 </Page>
