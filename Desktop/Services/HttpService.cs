@@ -1,15 +1,7 @@
 ﻿using DTO;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http;
-using System.Net.Http.Headers;
 
 namespace Desktop.Services
 {
@@ -21,28 +13,36 @@ namespace Desktop.Services
 
         public static async Task PostAddFlightAsync(Flight_DTO addRequest)
         {
-                HttpResponseMessage response = await client.PostAsJsonAsync(uri, addRequest);
-                var contents = await response.Content.ReadAsStringAsync();
-                Debug.WriteLine(contents);
+            HttpResponseMessage response = await client.PostAsJsonAsync(uri, addRequest);
+            var contents = await response.Content.ReadAsStringAsync();
+            Debug.WriteLine(contents);
         }
 
-        public static async Task PostReservationAsync(long planeId, long seatId)
+        public static async Task PostReservationAsync(ReserveSeat_DTO reserveRequest)
         {
-                ReserveSeat_DTO reserveRequest = new ReserveSeat_DTO(planeId, seatId);
-                HttpResponseMessage response = await client.PostAsJsonAsync(uri, reserveRequest);
-                Debug.WriteLine(response);
+            HttpResponseMessage response = await client.PostAsJsonAsync(uri, reserveRequest);
+            var contents = await response.Content.ReadAsStringAsync();
+            Debug.WriteLine(contents);
         }
 
-        public static async Task PostLoginAsync(string name, string pass)
+        public static async Task PostListAsync(ListFlights_DTO listRequest)
         {
-                Login_DTO loginRequest = new Login_DTO(new User_DTO(name, pass));
-                HttpResponseMessage response = await client.PostAsJsonAsync(uri, loginRequest);
-                Debug.WriteLine(response);
+            HttpResponseMessage response = await client.PostAsJsonAsync(uri, listRequest);
+            var contents = await response.Content.ReadAsStringAsync();
+            Debug.WriteLine(contents);
+        }
+
+        public static async Task PostLoginAsync(Login_DTO loginRequest)
+        {              
+            HttpResponseMessage response = await client.PostAsJsonAsync(uri, loginRequest);
+            var contents = await response.Content.ReadAsStringAsync();
+            Debug.WriteLine(contents);
         }
 
         public static bool PostLogin(string name, string pass)
         {
-            //PostLoginAsync(name, pass);
+            Login_DTO loginRequest = new Login_DTO(new User_DTO(name, pass));
+            //PostLoginAsync(loginRequest);
 
             //TODO: Ha van ilyen felhasználó
             if (pass == "Password")
@@ -50,15 +50,5 @@ namespace Desktop.Services
             else
                 return false;
         }
-
-        public static async Task PostListAsync(ListFlights_DTO list)
-        {
-            using (var client = new HttpClient())
-            {
-                HttpResponseMessage response = await client.PostAsJsonAsync(uri, list);
-                Debug.WriteLine(response);
-            }
-        }
-
     }
 }

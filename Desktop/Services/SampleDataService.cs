@@ -43,8 +43,10 @@ namespace Desktop.Services
                 PlaneType = type,
                 Status = "Sceduled",
             };
-
+            //Hozzáadás a memóriabeli adatbázishoz
             data.Add(temp);
+
+            //Http kérés kiadása
             HttpService.PostAddFlightAsync(temp.ToDTO());
         }
 

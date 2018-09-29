@@ -90,7 +90,7 @@ namespace Desktop.Models
                 seats[id].Reserved = true;
                 freeSeats--;
                 PropertyChanged(this, new PropertyChangedEventArgs("FreeSeats")); //Értesítés a változásról
-                HttpService.PostReservationAsync(FlightId,id); //Http kérés a foglaláshoz
+                HttpService.PostReservationAsync(new ReserveSeat_DTO(FlightId,id)); //Http kérés a foglaláshoz
             }
         }
 
