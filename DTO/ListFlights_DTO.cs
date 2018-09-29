@@ -4,6 +4,10 @@ namespace DTO
 {
     public class ListFlights_DTO
     {
+        public ListFlights_DTO()
+        {
+            OnlyAvailable = false;
+        }
         //A listázandó repülők paraméterei
         //Csak a szabad hellyel rendelkezők
         public bool OnlyAvailable { get; set; }

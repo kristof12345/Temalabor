@@ -67,7 +67,7 @@ namespace WebApi
         public IActionResult Create(Flight_DTO item)
         {
             DAL.Flight tempfl = new DAL.Flight();
-            tempfl.flightID = (int)item.FlightId;
+            //tempfl.flightID = (int)item.FlightId;
             tempfl.departure = item.Departure;
             tempfl.destination = item.Destination;
             tempfl.date = item.Date;

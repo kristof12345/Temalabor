@@ -45,6 +45,7 @@
             <TextBox x:Name="tbDes" HorizontalAlignment="Left" Text="Destination" VerticalAlignment="Bottom" Margin="810,0,0,75" Height="33" Width="110"/>
             <ComboBox x:Name="cbType" HorizontalAlignment="Left" Margin="930,0,0,75" VerticalAlignment="Bottom" Height="33" Width="130"/>
             <Button x:Name="btAdd" Content="Add flight" HorizontalAlignment="Left" Margin="1070,0,0,75" VerticalAlignment="Bottom" Click="btAdd_Click" Height="33" Width="120"/>
+            <Button x:Name="btDelete" Content="Delete flight" HorizontalAlignment="Left" Margin="1330,0,0,75" VerticalAlignment="Bottom" Height="33" Width="120" Click="btDelete_Click"/>
         </Grid>
         
         <Grid x:Name="searchArea">

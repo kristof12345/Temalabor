@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Net.Http;
+using System;
 
 namespace Desktop.Services
 {
@@ -9,25 +10,38 @@ namespace Desktop.Services
     {
         private static HttpClient client = new HttpClient();
         private static HttpClientHandler handler = new HttpClientHandler();
-        //private static string uri = "https://www.google.hu/";
         private static string uri = "https://localhost:5001/api/reserve";
 
         //Repülő hozzáadása
         public static async Task PostAddFlightAsync(Flight_DTO addRequest)
         {
+            //Ne változtasd meg, így működik
             handler.ClientCertificateOptions = ClientCertificateOption.Manual;
-
-            handler.ServerCertificateCustomValidationCallback =
-
-                (httpRequestMessage, cert, cetChain, policyErrors) =>
-
-                {
-
-                    return true;
-
-                };
+            handler.ServerCertificateCustomValidationCallback =(httpRequestMessage, cert, cetChain, policyErrors) => {return true;};
             client = new HttpClient(handler);
+
             HttpResponseMessage response = await client.PostAsJsonAsync(uri, addRequest);
+            var contents = await response.Content.ReadAsStringAsync();
+            Debug.WriteLine(contents);
+        }
+
+        //Járatok listázása
+        public static async Task PostListAsync(ListFlights_DTO listRequest)
+        {
+            //Ne változtasd meg, így működik
+            handler.ClientCertificateOptions = ClientCertificateOption.Manual;
+            handler.ServerCertificateCustomValidationCallback = (httpRequestMessage, cert, cetChain, policyErrors) => { return true; };
+            client = new HttpClient(handler);
+
+            HttpResponseMessage response = await client.PostAsJsonAsync(uri, listRequest);
+            var contents = await response.Content.ReadAsStringAsync();
+            Debug.WriteLine(contents);
+        }
+
+        //Járat törlése
+        public static async Task PostDeleteFlightAsync(DeleteFlight_DTO deleteRequest)
+        {
+            HttpResponseMessage response = await client.PostAsJsonAsync(uri, deleteRequest);
             var contents = await response.Content.ReadAsStringAsync();
             Debug.WriteLine(contents);
         }
@@ -36,14 +50,6 @@ namespace Desktop.Services
         public static async Task PostReservationAsync(ReserveSeat_DTO reserveRequest)
         {
             HttpResponseMessage response = await client.PostAsJsonAsync(uri, reserveRequest);
-            var contents = await response.Content.ReadAsStringAsync();
-            Debug.WriteLine(contents);
-        }
-
-        //Járatok listázása
-        public static async Task PostListAsync(ListFlights_DTO listRequest)
-        {
-            HttpResponseMessage response = await client.PostAsJsonAsync(uri, listRequest);
             var contents = await response.Content.ReadAsStringAsync();
             Debug.WriteLine(contents);
         }
