@@ -15,45 +15,34 @@ namespace Desktop.Services
 {
     public class HttpService
     {
-        private static string uri = "/api/reserve";
-        private static HttpClient CreateClient()
+        private static HttpClient client = new HttpClient();
+        private static string uri = "https://www.google.hu/";
+        //private static string uri = "https://localhost:5001/";
+
+        public static async Task PostAddFlightAsync(Flight_DTO addRequest)
         {
-            var client = new HttpClient();
-            client.BaseAddress = new Uri("http://localhost:5001/");
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            return client;
+                HttpResponseMessage response = await client.PostAsJsonAsync(uri, addRequest);
+                var contents = await response.Content.ReadAsStringAsync();
+                Debug.WriteLine(contents);
         }
 
         public static async Task PostReservationAsync(long planeId, long seatId)
         {
-            var client = CreateClient();
-            ReserveSeat_DTO reserveRequest = new ReserveSeat_DTO(planeId, seatId);
-            HttpResponseMessage response = await client.PostAsJsonAsync(uri, reserveRequest);
-            response.EnsureSuccessStatusCode();
-            Debug.WriteLine(response);
-        }
-
-        public static async Task PostAddFlightAsync(Flight_DTO addRequest)
-        {
-            var client = CreateClient();
-            HttpResponseMessage response = await client.PostAsJsonAsync(uri, addRequest);
-            response.EnsureSuccessStatusCode();
-            Debug.WriteLine(response);
+                ReserveSeat_DTO reserveRequest = new ReserveSeat_DTO(planeId, seatId);
+                HttpResponseMessage response = await client.PostAsJsonAsync(uri, reserveRequest);
+                Debug.WriteLine(response);
         }
 
         public static async Task PostLoginAsync(string name, string pass)
         {
-            var client = CreateClient();
-            Login_DTO loginRequest = new Login_DTO(new User_DTO(name, pass));
-            HttpResponseMessage response = await client.PostAsJsonAsync(uri, loginRequest);
-            response.EnsureSuccessStatusCode();
-            Debug.WriteLine(response);
+                Login_DTO loginRequest = new Login_DTO(new User_DTO(name, pass));
+                HttpResponseMessage response = await client.PostAsJsonAsync(uri, loginRequest);
+                Debug.WriteLine(response);
         }
 
         public static bool PostLogin(string name, string pass)
         {
-            PostLoginAsync(name, pass);
+            //PostLoginAsync(name, pass);
 
             //TODO: Ha van ilyen felhasználó
             if (pass == "Password")
@@ -67,7 +56,6 @@ namespace Desktop.Services
             using (var client = new HttpClient())
             {
                 HttpResponseMessage response = await client.PostAsJsonAsync(uri, list);
-                response.EnsureSuccessStatusCode();
                 Debug.WriteLine(response);
             }
         }
