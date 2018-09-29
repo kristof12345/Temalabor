@@ -11,6 +11,7 @@ namespace Desktop.Services
         private static string uri = "https://www.google.hu/";
         //private static string uri = "https://localhost:5001/";
 
+        //Repülő hozzáadása
         public static async Task PostAddFlightAsync(Flight_DTO addRequest)
         {
             HttpResponseMessage response = await client.PostAsJsonAsync(uri, addRequest);
@@ -18,6 +19,7 @@ namespace Desktop.Services
             Debug.WriteLine(contents);
         }
 
+        //Foglalás hozzáadása
         public static async Task PostReservationAsync(ReserveSeat_DTO reserveRequest)
         {
             HttpResponseMessage response = await client.PostAsJsonAsync(uri, reserveRequest);
@@ -25,6 +27,7 @@ namespace Desktop.Services
             Debug.WriteLine(contents);
         }
 
+        //Járatok listázása
         public static async Task PostListAsync(ListFlights_DTO listRequest)
         {
             HttpResponseMessage response = await client.PostAsJsonAsync(uri, listRequest);
@@ -32,6 +35,7 @@ namespace Desktop.Services
             Debug.WriteLine(contents);
         }
 
+        //Bejelentkezési kérés
         public static async Task PostLoginAsync(Login_DTO loginRequest)
         {              
             HttpResponseMessage response = await client.PostAsJsonAsync(uri, loginRequest);
@@ -42,9 +46,10 @@ namespace Desktop.Services
         public static bool PostLogin(string name, string pass)
         {
             Login_DTO loginRequest = new Login_DTO(new User_DTO(name, pass));
+
             //PostLoginAsync(loginRequest);
 
-            //TODO: Ha van ilyen felhasználó
+            //TODO: Ha van ilyen felhasználó és megfelelő a jelszó
             if (pass == "Password")
                 return true;
             else
