@@ -10,7 +10,7 @@ namespace Desktop.Services
         private static HttpClient client = new HttpClient();
         private static HttpClientHandler handler = new HttpClientHandler();
         //private static string uri = "https://www.google.hu/";
-        private static string uri = "https://localhost:44376/api/reserve";
+        private static string uri = "https://localhost:5001/api/reserve";
 
         //Repülő hozzáadása
         public static async Task PostAddFlightAsync(Flight_DTO addRequest)

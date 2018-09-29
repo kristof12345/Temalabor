@@ -67,7 +67,12 @@ namespace WebApi
         public IActionResult Create(Flight_DTO item)
         {
             DAL.Flight tempfl = new DAL.Flight();
+            tempfl.flightID = (int)item.FlightId;
             tempfl.departure = item.Departure;
+            tempfl.destination = item.Destination;
+            tempfl.date = item.Date;
+            tempfl.status = item.Status;
+            //TODO: a székeket nem tudom, hogy hogy kezeled az még kell
             _context.Flights.Add(tempfl);
             _context.SaveChanges();
 
