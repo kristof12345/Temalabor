@@ -129,7 +129,7 @@
     <Compile Include="Activation\DefaultLaunchActivationHandler.cs" />
     <Compile Include="Services\HttpService.cs" />
     <Compile Include="Services\NavigationServiceEx.cs" />
-    <Compile Include="Services\SampleDataService.cs" />
+    <Compile Include="Services\DataService.cs" />
     <Compile Include="Services\SignInService.cs" />
     <Compile Include="UserControls\SeatUserControl.xaml.cs">
       <DependentUpon>SeatUserControl.xaml</DependentUpon>
