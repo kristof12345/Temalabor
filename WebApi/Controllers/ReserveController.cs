@@ -37,8 +37,13 @@ namespace WebApi
             List<Flight_DTO> result = new List<Flight_DTO>();
             for (int i = 0; i < DAL_list.Count; i++)
             {
-                result.Add(new Flight_DTO(DAL_list[i].seats.Count));
+                result.Add(new Flight_DTO(DAL_list[i].freeSeats));
                 result[i].Departure = DAL_list[i].departure;
+                result[i].Date = DAL_list[i].date;
+                result[i].Destination = DAL_list[i].destination;
+                result[i].FreeSeats = DAL_list[i].freeSeats;
+                result[i].PlaneType = DAL_list[i].planeType;
+                result[i].Status = DAL_list[i].status;
             }
             return result;
         }
@@ -47,7 +52,7 @@ namespace WebApi
         public ActionResult<Flight_DTO> GetById(long id)
         {
             DAL.Flight temp = _context.Flights.Find(id);
-            Flight_DTO result = new Flight_DTO(temp.seats.Count);
+            Flight_DTO result = new Flight_DTO(temp.freeSeats);
 
             if (temp == null)
             {
@@ -80,14 +85,7 @@ namespace WebApi
 
             todo.date = item.Date;
             todo.departure = item.Departure;
-            todo.destination = item.Destination;
-            foreach(Seat_DTO seat in item.Seats)
-            {
-                DAL.Seat tempSeat = new DAL.Seat();
-                tempSeat.IsReserved = seat.Reserved;
-                todo.seats.Add(tempSeat);
-            }
-
+            todo.destination = item.Destination;    
             _context.Flights.Update(todo);
             _context.SaveChanges();
             return NoContent();

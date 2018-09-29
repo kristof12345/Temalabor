@@ -10,6 +10,9 @@ namespace DAL
         public DateTime date { get; set; }
         public String departure { get; set; }
         public String destination { get; set; }
-        public List<Seat> seats { get; set; }
+        public int freeSeats { get; set; }
+        public string planeType { get; set; }
+        public string status { get; set; }
+
     }
 }

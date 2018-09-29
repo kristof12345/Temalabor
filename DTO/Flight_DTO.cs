@@ -6,7 +6,6 @@ namespace DTO
     public class Flight_DTO
     {
         private List<Seat_DTO> seats;
-        private int freeSeats;
 
         public Flight_DTO(int numOfSeats)
         {
@@ -17,8 +16,9 @@ namespace DTO
                 seats.Add(new Seat_DTO(i));
             }
 
-            freeSeats = numOfSeats;
+            FreeSeats = numOfSeats;
         }
+
 
         public long FlightId { get; set; }
 
@@ -38,10 +38,7 @@ namespace DTO
             get { return seats.Count; }
         }
 
-        public int FreeSeats
-        {
-            get { return freeSeats; }
-        }
+        public int FreeSeats { get; set; }
 
         public override string ToString()
         {
