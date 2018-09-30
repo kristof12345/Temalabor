@@ -25,7 +25,7 @@ namespace Desktop.Views
             //A dupla kattintást jelző event
             dataTable.DoubleTapped += doubleTapped;
             //ComboBox beállítása
-            cbType.ItemsSource = ViewModel.CreateComboBox();
+            cbType.ItemsSource = PlaneTypes.CreateComboBox();
             cbType.SelectedIndex = 0;
         }
 
@@ -54,12 +54,17 @@ namespace Desktop.Views
             }
 
             //Idő összerakása a Date pickerből és a Time pickerből
-            DateTime tempTime = dpDate.Date.UtcDateTime;
-            TimeSpan ts = dpTime.Time;
-            tempTime = tempTime.Date + ts;
+            DateTime tempTime = CombineDateAndTime(dpDate.Date, dpTime.Time);
 
             //Járat hozzáadása
             DataService.AddFlight(tempId, tempTime, tbDep.Text, tbDes.Text, cbType.SelectedItem.ToString());
+        }
+
+        private DateTime CombineDateAndTime(DateTimeOffset date, TimeSpan time)
+        {
+            DateTime tempTime = date.UtcDateTime;
+            tempTime = tempTime.Date + time;
+            return tempTime;
         }
 
         //Foglalás gomb
@@ -135,11 +140,28 @@ namespace Desktop.Views
             }
         }
 
-        private void btUpdate_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private async void btUpdate_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             if (dataTable.SelectedItem != null)
             {
-                DataService.UpdateFlight((Flight)dataTable.SelectedItem);
+                Flight f = (Flight)dataTable.SelectedItem;
+                UpdateDialog dialog = new UpdateDialog(f);
+                ContentDialogResult res = await dialog.ShowAsync();
+                if(res==ContentDialogResult.Secondary)
+                {
+                    f.Date = CombineDateAndTime(dialog.Date, dialog.Time);
+                    f.Departure = dialog.Departure;
+                    f.Destination = dialog.Destination;
+                    f.Status = dialog.Status;
+                    f.PlaneType = dialog.PlaneType;
+                    this.Frame.Navigate(typeof(DataGridPage));
+                }
+                else
+                {
+                    Debug.WriteLine("Cancel");
+                }
+
+                //DataService.UpdateFlight((Flight)dataTable.SelectedItem);
             }
             else
             {

@@ -24,7 +24,7 @@
                     <controls:DataGridTextColumn Header="FlightId" Binding="{Binding FlightId}"/>
                     <controls:DataGridTextColumn Header="Date" Binding="{Binding Date}" Width="*"/>
                     <controls:DataGridTextColumn Header="Departure" Binding="{Binding Departure}"/>
-                    <controls:DataGridTextColumn Header="Sestination" Binding="{Binding Destination}"/>
+                    <controls:DataGridTextColumn Header="Destination" Binding="{Binding Destination}"/>
                     <controls:DataGridTextColumn Header="Plane Type" Binding="{Binding PlaneType}"/>
                     <controls:DataGridTextColumn Header="Status" Binding="{Binding Status}" />
                     <controls:DataGridTextColumn Header="Total Seats" Binding="{Binding NumberOfSeats}" />

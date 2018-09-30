@@ -19,19 +19,5 @@ namespace Desktop.ViewModels
                 return DataService.GetGridData();
             }
         }
-
-        //Combo box feltöltése
-        public object CreateComboBox()
-        {
-            string[] strArray =
-                {
-                "Airbus A380",
-                "Boeing 747",
-                "Boeing 777",
-                "Antonov 124",
-                //További repülő típusok
-            };
-            return strArray;
-        }
     }
 }
