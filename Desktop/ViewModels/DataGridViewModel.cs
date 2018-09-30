@@ -12,6 +12,7 @@ namespace Desktop.ViewModels
     {
         public int PlaneID = 0;
 
+        //Adatforrás
         public ObservableCollection<Flight> Source
         {
             get
@@ -20,18 +21,12 @@ namespace Desktop.ViewModels
             }
         }
 
-        //Combo box feltöltése
-        public object CreateComboBox()
+        //Segédfüggvény a dátum előállításához
+        public DateTime CombineDateAndTime(DateTimeOffset date, TimeSpan time)
         {
-            string[] strArray =
-                {
-                "Airbus A380",
-                "Boeing 747",
-                "Boeing 777",
-                "Antonov 124",
-                //További repülő típusok
-            };
-            return strArray;
+            DateTime tempTime = date.UtcDateTime;
+            tempTime = tempTime.Date + time;
+            return tempTime;
         }
     }
 }
