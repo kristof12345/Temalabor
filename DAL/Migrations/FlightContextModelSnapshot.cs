@@ -21,7 +21,7 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.Flight", b =>
                 {
-                    b.Property<int>("flightID")
+                    b.Property<long>("flightID")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -44,7 +44,7 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.Seat", b =>
                 {
-                    b.Property<int>("seatID")
+                    b.Property<long>("seatID")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -54,7 +54,7 @@ namespace DAL.Migrations
 
                     b.Property<int>("Ycord");
 
-                    b.Property<int?>("flightID");
+                    b.Property<long?>("flightID");
 
                     b.Property<int>("price");
 
@@ -69,8 +69,8 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.Seat", b =>
                 {
-                    b.HasOne("DAL.Flight", "flight")
-                        .WithMany()
+                    b.HasOne("DAL.Flight")
+                        .WithMany("seats")
                         .HasForeignKey("flightID");
                 });
 #pragma warning restore 612, 618
