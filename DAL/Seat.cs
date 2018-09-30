@@ -7,8 +7,7 @@ namespace DAL
 {
     public class Seat
     {
-        public int seatID { get; set; }
-        public Flight flight { get; set; }
+        public long seatID { get; set; }
         public bool IsReserved { get; set; }
         public String seatType { get; set; }
         public int price { get; set; }
