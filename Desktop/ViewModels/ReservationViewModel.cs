@@ -16,7 +16,6 @@ namespace Desktop.ViewModels
         {
             get
             {
-                Debug.WriteLine("ABC");
                 return DataService.GetReservations();
             }
         }

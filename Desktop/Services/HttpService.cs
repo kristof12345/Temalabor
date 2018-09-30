@@ -46,6 +46,14 @@ namespace Desktop.Services
             Debug.WriteLine(contents);
         }
 
+        //Járat módosítása
+        public static async Task PostUpdateFlightAsync(UpdateFlight_DTO updateRequest)
+        {
+            HttpResponseMessage response = await client.PostAsJsonAsync(uri, updateRequest);
+            var contents = await response.Content.ReadAsStringAsync();
+            Debug.WriteLine(contents);
+        }
+
         //Foglalás hozzáadása
         public static async Task PostReservationAsync(ReserveSeat_DTO reserveRequest)
         {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using Desktop.Models;
 using DTO;
@@ -12,7 +13,7 @@ namespace Desktop.Services
         private static ObservableCollection<Flight> flightList = new ObservableCollection<Flight>
         {
             //Alap járat
-            new Flight(9) {FlightId = 0, Date = new DateTime(2017, 05, 24), Departure = "London", Destination = "New York", PlaneType = "Airbus A380", Status = "Cancelled",},
+            new Flight(0, 9) { Date = new DateTime(2017, 05, 24), Departure = "London", Destination = "New York", PlaneType = "Airbus A380", Status = "Cancelled",},
         };
 
         private static ObservableCollection<Reservation> reservationList = new ObservableCollection<Reservation>();
@@ -32,15 +33,15 @@ namespace Desktop.Services
         //Járat hozzáadása
         public static void AddFlight(int id, DateTime date, String dep = "London", String dest="New York", String type = "Airbus A370")
         {
-            var temp = new Flight(5)
+            var temp = new Flight(id, 7)
             {
-                FlightId = id,
                 Date = date,
                 Departure = dep,
                 Destination = dest,
                 PlaneType = type,
                 Status = "Sceduled",
             };
+
             //Hozzáadás a memóriabeli adatbázishoz
             flightList.Add(temp);
 
@@ -58,13 +59,21 @@ namespace Desktop.Services
             HttpService.PostDeleteFlightAsync(new DeleteFlight_DTO(f.FlightId));
         }
 
+        //Járat módosítása
+        internal static void UpdateFlight(Flight f)
+        {
+            //Console
+            Debug.WriteLine(f);
+
+            //Http kérés kiadása
+            HttpService.PostUpdateFlightAsync(new UpdateFlight_DTO(f.ToDTO()));
+        }
+
         //Foglalás hozzáadása
         public static void Reserve(int flightId, int seatId)
         {
             flightList[flightId].ReserveSeat(seatId);
             reservationList.Add(new Reservation(flightId,seatId,SignInService.User.Name));
-
-            Debug.WriteLine(SignInService.User.Name);
 
             //Http kérés kiadása
             HttpService.PostReservationAsync(new ReserveSeat_DTO(flightId, seatId));

@@ -134,5 +134,17 @@ namespace Desktop.Views
                 Debug.WriteLine("Nincs kiválasztva.");
             }
         }
+
+        private void btUpdate_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            if (dataTable.SelectedItem != null)
+            {
+                DataService.UpdateFlight((Flight)dataTable.SelectedItem);
+            }
+            else
+            {
+                Debug.WriteLine("Nincs kiválasztva.");
+            }
+        }
     }
 }

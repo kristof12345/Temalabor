@@ -14,8 +14,9 @@ namespace Desktop.Models
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public Flight(int numOfSeats)
+        public Flight(long id, int numOfSeats)
         {
+            FlightId = id;
             seats = new List<Seat_DTO>(numOfSeats);
 
             freeSeats = numOfSeats;
@@ -42,7 +43,7 @@ namespace Desktop.Models
             } 
         }
 
-        public long FlightId { get; set; }
+        public long FlightId { get; private set; }
 
         public DateTime Date { get; set; }
 
