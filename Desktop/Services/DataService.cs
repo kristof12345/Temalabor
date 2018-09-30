@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Diagnostics;
 using Desktop.Models;
 using DTO;
 
@@ -62,9 +59,7 @@ namespace Desktop.Services
         //Járat módosítása
         internal static void UpdateFlight(Flight f)
         {
-            //Console
-            Debug.WriteLine(f);
-
+            //flightList.Add(f);
             //Http kérés kiadása
             HttpService.PostUpdateFlightAsync(new UpdateFlight_DTO(f.ToDTO()));
         }
