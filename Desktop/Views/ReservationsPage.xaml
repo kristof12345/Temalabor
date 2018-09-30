@@ -22,8 +22,8 @@
                 ItemsSource="{x:Bind ViewModel.Source}"
                 AutoGenerateColumns="True"
                 VerticalAlignment="Top"
-                MinColumnWidth = "120">
-                
+                MinColumnWidth = "120"
+                IsReadOnly="True">
             </controls:DataGrid>
         </Grid>
 

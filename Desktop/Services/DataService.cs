@@ -30,7 +30,7 @@ namespace Desktop.Services
         //Járat hozzáadása
         public static void AddFlight(int id, DateTime date, String dep = "London", String dest="New York", String type = "Airbus A370")
         {
-            var temp = new Flight(id, 7)
+            var f = new Flight(id, 7)
             {
                 Date = date,
                 Departure = dep,
@@ -40,10 +40,10 @@ namespace Desktop.Services
             };
 
             //Hozzáadás a memóriabeli adatbázishoz
-            flightList.Add(temp);
+            flightList.Add(f);
 
             //Http kérés kiadása
-            HttpService.PostAddFlightAsync(temp.ToDTO());
+            HttpService.PostAddFlightAsync(f.ToDTO());
         }
 
         //Járat törlése
@@ -59,7 +59,6 @@ namespace Desktop.Services
         //Járat módosítása
         internal static void UpdateFlight(Flight f)
         {
-            //flightList.Add(f);
             //Http kérés kiadása
             HttpService.PostUpdateFlightAsync(new UpdateFlight_DTO(f.ToDTO()));
         }

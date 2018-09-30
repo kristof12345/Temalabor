@@ -27,6 +27,8 @@ namespace Desktop.Views
             //ComboBox beállítása
             cbType.ItemsSource = PlaneTypes.CreateComboBox();
             cbType.SelectedIndex = 0;
+
+            dataTable.ItemsSource = ViewModel.Source;
         }
 
         //Dupla kattintásnál átváltunk a kiválasztott repülő nézetére
@@ -148,12 +150,19 @@ namespace Desktop.Views
                     f.Destination = dialog.Destination;
                     f.Status = dialog.Status;
                     f.PlaneType = dialog.PlaneType;
-                    
-                    DataService.UpdateFlight(f);
 
-                    this.Frame.Navigate(typeof(DataGridPage));
-                }               
+                    //Táblázat frissítése
+                    DataService.UpdateFlight(f);
+                    Update();
+                }
             }
+        }
+
+        //A táblázat frissítése
+        private void Update()
+        {
+            dataTable.ItemsSource = null;
+            dataTable.ItemsSource = ViewModel.Source;
         }
     }
 }
