@@ -18,7 +18,7 @@ namespace Desktop.Views
         }
 
         public DataGridPage()
-        {
+        {         
             InitializeComponent();
             //A kijelölt sor változását jelző event
             dataTable.SelectionChanged += selected;
@@ -54,26 +54,23 @@ namespace Desktop.Views
             }
 
             //Idő összerakása a Date pickerből és a Time pickerből
-            DateTime tempTime = CombineDateAndTime(dpDate.Date, dpTime.Time);
+            DateTime tempTime = ViewModel.CombineDateAndTime(dpDate.Date, dpTime.Time);
 
             //Járat hozzáadása
             DataService.AddFlight(tempId, tempTime, tbDep.Text, tbDes.Text, cbType.SelectedItem.ToString());
         }
 
-        private DateTime CombineDateAndTime(DateTimeOffset date, TimeSpan time)
-        {
-            DateTime tempTime = date.UtcDateTime;
-            tempTime = tempTime.Date + time;
-            return tempTime;
-        }
 
         //Foglalás gomb
         private void btReserve_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            //Paraméterek összeállítása
-            Flight param = (Flight)dataTable.SelectedItem;
-            //Navigálás a PlanePage-re
-            this.Frame.Navigate(typeof(PlanePage), param);
+            if (dataTable.SelectedItem != null)
+            {
+                //Paraméterek összeállítása
+                Flight param = (Flight)dataTable.SelectedItem;
+                //Navigálás a PlanePage-re
+                this.Frame.Navigate(typeof(PlanePage), param);
+            }
         }
 
         //Amikor erre a lapra érkezünk
@@ -134,10 +131,6 @@ namespace Desktop.Views
             {
                 DataService.DeleteFlight((Flight)dataTable.SelectedItem);
             }
-            else
-            {
-                Debug.WriteLine("Nincs kiválasztva.");
-            }
         }
 
         private async void btUpdate_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
@@ -146,26 +139,20 @@ namespace Desktop.Views
             {
                 Flight f = (Flight)dataTable.SelectedItem;
                 UpdateDialog dialog = new UpdateDialog(f);
-                ContentDialogResult res = await dialog.ShowAsync();
-                if(res==ContentDialogResult.Secondary)
+                ContentDialogResult result = await dialog.ShowAsync();
+                //Ha az Apply-re kattintott
+                if(result==ContentDialogResult.Secondary)
                 {
-                    f.Date = CombineDateAndTime(dialog.Date, dialog.Time);
+                    f.Date = ViewModel.CombineDateAndTime(dialog.Date, dialog.Time);
                     f.Departure = dialog.Departure;
                     f.Destination = dialog.Destination;
                     f.Status = dialog.Status;
                     f.PlaneType = dialog.PlaneType;
-                    this.Frame.Navigate(typeof(DataGridPage));
-                }
-                else
-                {
-                    Debug.WriteLine("Cancel");
-                }
+                    
+                    DataService.UpdateFlight(f);
 
-                //DataService.UpdateFlight((Flight)dataTable.SelectedItem);
-            }
-            else
-            {
-                Debug.WriteLine("Nincs kiválasztva.");
+                    this.Frame.Navigate(typeof(DataGridPage));
+                }               
             }
         }
     }

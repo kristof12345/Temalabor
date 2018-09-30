@@ -19,6 +19,7 @@
                 AutoGenerateColumns="false"
                 VerticalAlignment="Top"
                 MinColumnWidth = "120"
+                IsReadOnly="True"
                 >
                 <controls:DataGrid.Columns>
                     <controls:DataGridTextColumn Header="FlightId" Binding="{Binding FlightId}"/>
