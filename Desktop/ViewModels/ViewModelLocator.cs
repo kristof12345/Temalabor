@@ -12,7 +12,7 @@ namespace Desktop.ViewModels
     [Windows.UI.Xaml.Data.Bindable]
     public class ViewModelLocator
     {
-        //Nézetek regisztrálása FONTOS
+        //Nézetek regisztrálása TODO: új nézet regisztrálása
         public ViewModelLocator()
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
@@ -25,10 +25,14 @@ namespace Desktop.ViewModels
             Register<PlaneViewModel, PlanePage>();
             //UserView regisztrálása
             Register<UserViewModel, UserPage>();
-
+            //ReservationView regisztrálása
+            Register<ReservationViewModel, ReservationsPage>();
         }
 
+        //TODO: az új lapot itt is hozzá kell adni
         public DataGridViewModel DataGridViewModel => ServiceLocator.Current.GetInstance<DataGridViewModel>();
+
+        public ReservationViewModel ReservationViewModel => ServiceLocator.Current.GetInstance<ReservationViewModel>();
 
         public ShellViewModel ShellViewModel => ServiceLocator.Current.GetInstance<ShellViewModel>();
 

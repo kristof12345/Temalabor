@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,13 +10,12 @@ using DTO;
 
 namespace Desktop.ViewModels
 {
-    class ReservationViewModel
+    public class ReservationViewModel
     {
         public ObservableCollection<Reservation> Source
         {
             get
             {
-                // TODO WTS: Replace this with your actual data
                 return DataService.GetReservations();
             }
         }

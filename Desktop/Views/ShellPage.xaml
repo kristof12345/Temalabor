@@ -33,6 +33,12 @@
                 </NavigationViewItem.Icon>
             </NavigationViewItem>
 
+            <NavigationViewItem x:Uid="Shell_ReservationsPage" helpers:NavHelper.NavigateTo="Desktop.ViewModels.ReservationViewModel" >
+                <NavigationViewItem.Icon>
+                    <FontIcon Glyph="&#xF182;"/>
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+            
         </NavigationView.MenuItems>
         <NavigationView.HeaderTemplate>
             <DataTemplate>

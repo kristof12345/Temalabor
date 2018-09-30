@@ -5,11 +5,27 @@
     xmlns:local="using:Desktop.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Style="{StaticResource PageStyle}"
+    DataContext="{Binding ReservationViewModel, Source={StaticResource Locator}}"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="462,380,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <Grid
+            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}"
+            Margin="0,0,0,120">
+            <controls:DataGrid
+                x:Name="dataTable"
+                SelectionMode = "Single"
+                ItemsSource="{x:Bind ViewModel.Source}"
+                AutoGenerateColumns="True"
+                VerticalAlignment="Top"
+                MinColumnWidth = "120">
+                
+            </controls:DataGrid>
+        </Grid>
+
     </Grid>
 </Page>

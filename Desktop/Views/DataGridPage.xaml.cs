@@ -121,5 +121,30 @@ namespace Desktop.Views
             if (cbAvailable.IsChecked == true) { list.OnlyAvailable = true; }
             HttpService.PostListAsync(list);
         }
+
+        private void btDelete_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            //Ha van kiválasztott repülő, töröljük
+            if (dataTable.SelectedItem != null)
+            {
+                DataService.DeleteFlight((Flight)dataTable.SelectedItem);
+            }
+            else
+            {
+                Debug.WriteLine("Nincs kiválasztva.");
+            }
+        }
+
+        private void btUpdate_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            if (dataTable.SelectedItem != null)
+            {
+                DataService.UpdateFlight((Flight)dataTable.SelectedItem);
+            }
+            else
+            {
+                Debug.WriteLine("Nincs kiválasztva.");
+            }
+        }
     }
 }

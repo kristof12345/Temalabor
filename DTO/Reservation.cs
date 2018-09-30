@@ -7,8 +7,15 @@ namespace DTO
     //Egy foglalást reprezentáló osztály
     public class Reservation
     {
-        public String user;
-        public long flightId;
-        public long seatId;
+        public Reservation(long fid, long sid, String name="Felhasznalo")
+        {
+            FlightId = fid;
+            SeatId = sid;
+            User = name;
+        }
+
+        public String User { get; set; }
+        public long FlightId { get; set; }
+        public long SeatId { get; set; }
     }
 }
