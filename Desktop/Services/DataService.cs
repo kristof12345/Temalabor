@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
 using Desktop.Models;
 using DTO;
 
@@ -10,24 +12,40 @@ namespace Desktop.Services
     public static class DataService
     {
         private static ObservableCollection<Flight> flightList;
+        
 
         private static ObservableCollection<Reservation> reservationList = new ObservableCollection<Reservation>();
+        //private static Object syncObject = new Object();
 
-        //Teljes repülőjárat adatbázis
-        public static ObservableCollection<Flight> GetGridData()
+        public static event EventHandler ChangedEvent;
+
+        public static ObservableCollection<Flight> FlightList
         {
-            if (flightList == null) InitializeList();
-            return flightList;
+            get
+            {
+                if (flightList == null)
+                {
+                    InitializeList();
+                }
+                return flightList;
+            }
+            set
+            {
+                flightList = value;
+            }
         }
 
         private static async void InitializeList()
         {
-            flightList = new ObservableCollection<Flight>();
             List<Flight_DTO> dtoList = await HttpService.PostListAsync();
+            flightList = new ObservableCollection<Flight>();
             foreach (Flight_DTO dto in dtoList)
             {
+                Flight f = new Flight(dto);
+                flightList.Add(f);
                 Debug.WriteLine(dto);
             }
+            ChangedEvent(null, null);
         }
 
         //Foglalás adatbázis
@@ -48,9 +66,6 @@ namespace Desktop.Services
                 Status = "Sceduled",
             };
 
-            //Hozzáadás a memóriabeli adatbázishoz
-            flightList.Add(f);
-
             //Http kérés kiadása
             HttpService.PostAddFlightAsync(f.ToDTO());
         }
@@ -58,9 +73,6 @@ namespace Desktop.Services
         //Járat törlése
         public static void DeleteFlight(Flight f)
         {
-            //Törlés a memóriabeli adatbázisból
-            flightList.Remove(f);
-
             //Http kérés kiadása
             HttpService.PostDeleteFlightAsync(new DeleteFlight_DTO(f.FlightId));
         }

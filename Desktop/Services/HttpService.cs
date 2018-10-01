@@ -29,7 +29,7 @@ namespace Desktop.Services
             UriUsers = baseUri + "users/";
         }
 
-        //Repülő hozzáadása
+        //Repülő hozzáadása OK
         public static async Task PostAddFlightAsync(Flight_DTO addRequest)
         {
             client = new HttpClient(handler);
@@ -39,7 +39,7 @@ namespace Desktop.Services
             Debug.WriteLine(contents);
         }
 
-        //Járatok listázása
+        //Járatok listázása OK
         public static async Task<List<Flight_DTO>> PostListAsync(ListFlights_DTO listRequest=null)
         {
             client = new HttpClient(handler);
@@ -50,7 +50,7 @@ namespace Desktop.Services
             return list;
         }
 
-        //Járat törlése
+        //Járat törlése OK
         public static async Task PostDeleteFlightAsync(DeleteFlight_DTO deleteRequest)
         {
             client = new HttpClient(handler);

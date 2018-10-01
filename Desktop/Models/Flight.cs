@@ -17,6 +17,11 @@ namespace Desktop.Models
         public Flight(long id, int numOfSeats)
         {
             FlightId = id;
+            GenerateSeats(numOfSeats);
+        }
+
+        private void GenerateSeats(int numOfSeats)
+        {
             seats = new List<Seat>(numOfSeats);
 
             freeSeats = numOfSeats;
@@ -34,13 +39,19 @@ namespace Desktop.Models
                 {
                     temp.Reserved = true;
                     freeSeats--;
-                } 
+                }
 
                 temp.Price = 100; //Ára is legyen
 
-                temp.Coordinates.Y = 100+50*i; //Függőleges érték (felülről)
+                temp.Coordinates.Y = 100 + 50 * i; //Függőleges érték (felülről)
                 seats.Add(temp);
-            } 
+            }
+        }
+
+        public Flight(Flight_DTO dto)
+        {
+            this.FromDTO(dto);
+            if(dto.Seats != null) GenerateSeats(dto.Seats.Count);
         }
 
         public long FlightId { get; private set; }

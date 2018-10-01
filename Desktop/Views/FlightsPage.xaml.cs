@@ -12,9 +12,9 @@ namespace Desktop.Views
 {
     public sealed partial class DataGridPage : Page
     {
-        private FlightsViewModel ViewModel
+        private DataGridViewModel ViewModel
         {
-            get { return DataContext as FlightsViewModel; }
+            get { return DataContext as DataGridViewModel; }
         }
 
         public DataGridPage()
@@ -27,8 +27,8 @@ namespace Desktop.Views
             //ComboBox beállítása
             cbType.ItemsSource = PlaneTypes.CreateComboBox();
             cbType.SelectedIndex = 0;
-
-            dataTable.ItemsSource = ViewModel.Source;
+            //Eseménykezelő az adatok változására
+            DataService.ChangedEvent += Update;
         }
 
         //Dupla kattintásnál átváltunk a kiválasztott repülő nézetére
@@ -153,16 +153,14 @@ namespace Desktop.Views
 
                     //Táblázat frissítése
                     DataService.UpdateFlight(f);
-                    Update();
                 }
             }
         }
 
         //A táblázat frissítése
-        private void Update()
+        private void Update(Object sender, EventArgs e)
         {
-            dataTable.ItemsSource = null;
-            //dataTable.ItemsSource = ViewModel.SourceAsync();
+            dataTable.ItemsSource = ViewModel.Source;
         }
     }
 }

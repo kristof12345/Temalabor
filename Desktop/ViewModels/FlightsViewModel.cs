@@ -8,7 +8,7 @@ using GalaSoft.MvvmLight;
 
 namespace Desktop.ViewModels
 {
-    public class FlightsViewModel : ViewModelBase
+    public class DataGridViewModel : ViewModelBase
     {
         public int PlaneID = 0;
 
@@ -17,7 +17,7 @@ namespace Desktop.ViewModels
         {
             get
             {
-                return DataService.GetGridData();
+                return DataService.FlightList;
             }
         }
 
