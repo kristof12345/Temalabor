@@ -26,7 +26,7 @@ namespace WebApi
         public Flight_DTO Flight_DAL_to_DTO(long fID, DateTime d, string dep, string dest,  int frSeats, string ptype, string st, List<DAL.Seat> s)
         {
             Flight_DTO temp = new Flight_DTO(frSeats);
-
+            temp.FlightId = fID;
             temp.Departure = dep;
             temp.Date = d;
             temp.Destination = dest;
@@ -48,7 +48,7 @@ namespace WebApi
         public DAL.Flight Flight_DTO_to_DAL(long fID, DateTime d, string dep, string dest, int frSeats, string ptype, string st, List<Seat_DTO> s)
         {
             DAL.Flight temp = new DAL.Flight();
-
+            //temp.flightID = fID;
             temp.departure = dep;
             temp.date = d;
             temp.destination = dest;
@@ -87,9 +87,10 @@ namespace WebApi
         public ActionResult<Flight_DTO> GetById(long id)
         {
             DAL.Flight temp = _context.Flights.Find(id);
-            Flight_DTO result = Flight_DAL_to_DTO(temp.flightID, temp.date, temp.departure, temp.destination, temp.freeSeats, temp.planeType, temp.status, temp.seats);
             if (temp == null)
                 return NotFound();
+            Flight_DTO result = Flight_DAL_to_DTO(temp.flightID, temp.date, temp.departure, temp.destination, temp.freeSeats, temp.planeType, temp.status, temp.seats);
+
             return result;
         }
 

@@ -8,6 +8,7 @@ namespace DTO
         {
             OnlyAvailable = false;
         }
+
         //A listázandó repülők paraméterei
         //Csak a szabad hellyel rendelkezők
         public bool OnlyAvailable { get; set; }
