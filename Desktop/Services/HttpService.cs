@@ -81,20 +81,21 @@ namespace Desktop.Services
         }
 
         //Bejelentkezési kérés
-        public static async Task PostLoginAsync(Login_DTO loginRequest)
+        public static async Task<bool> PostLoginAsync(Login_DTO loginRequest)
         {
             client = new HttpClient(handler);
 
             HttpResponseMessage response = await client.PostAsJsonAsync(UriUsers, loginRequest);
-            var contents = await response.Content.ReadAsStringAsync();
-            //Debug.WriteLine(contents);
+            var contents = await response.Content.ReadAsAsync<bool>();
+            Debug.WriteLine(contents);
+            return contents;
         }
 
-        public static bool PostLogin(string name, string pass)
+        public static async Task<bool> PostLoginAsync(string name, string pass)
         {
             Login_DTO loginRequest = new Login_DTO(new User_DTO(name, pass));
 
-            //PostLoginAsync(loginRequest);
+            bool ret = await PostLoginAsync(loginRequest);
 
             //TODO: Ha van ilyen felhasználó és megfelelő a jelszó
             if (pass == "Password")

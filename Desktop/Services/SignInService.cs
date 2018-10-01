@@ -10,9 +10,14 @@ namespace Desktop.Services
     class SignInService
     {
         public static User_DTO User { get; private set; }
-        public static void SignIn(User_DTO u)
+        public static async Task<bool> SignInAsync(User_DTO u)
         {
-            User = u;
+            if (await HttpService.PostLoginAsync(u.Name, u.Password))
+            {
+                User = u;
+                return true;
+            }
+            return false;
         }
         public static void SignOut()
         {

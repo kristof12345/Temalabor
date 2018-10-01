@@ -14,21 +14,19 @@ namespace Desktop.Views
         }
 
         //Ha a gombra kattintunk
-        private void btLogin_Click(object sender, RoutedEventArgs e)
+        private async void btLogin_Click(object sender, RoutedEventArgs e)
         {
-            //Bejelentkezési kérés elküldése
-            if (HttpService.PostLogin(tbName.Text, tbPass.Text))
+            User_DTO user = new User_DTO(tbName.Text, tbPass.Text);
+
+            //Ha be van jelölve a checkbox, akkor admin belépés
+            if (cbAdmin.IsChecked == true)
             {
-                User_DTO user = new User_DTO(tbName.Text, tbPass.Text);
-                //Ha be van jelölve a checkbox, akkor admin belépés
-                if (cbAdmin.IsChecked == true)
-                {
-                    user.UserType = UserType.Administrator;
-                }
+                user.UserType = UserType.Administrator;
+            }
 
-                //User elmentése
-                SignInService.SignIn(user);
-
+            //User bejelentkezése
+            if (await SignInService.SignInAsync(user))
+            {
                 this.Frame.Navigate(typeof(DataGridPage));
             }
             else tbPass.Text = "Incorrect";
