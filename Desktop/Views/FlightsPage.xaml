@@ -44,11 +44,11 @@
                     <Setter Property="Padding" Value="6"/>
                 </Style>
             </ListView.ItemContainerStyle>
-            <TextBox x:Name="tbId"  HorizontalAlignment="Left" Text="Flight Id" VerticalAlignment="Bottom" Height="33" Width="80"/>
+            <TextBox x:Name="tbId"  HorizontalAlignment="Left" PlaceholderText="Flight ID" VerticalAlignment="Bottom" Height="33" Width="80"/>
             <DatePicker x:Name="dpDate" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="330"/>
             <TimePicker x:Name="dpTime" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="250"/>
-            <TextBox x:Name="tbDep" HorizontalAlignment="Left" Text="Departure" VerticalAlignment="Bottom" Height="33" Width="110"/>
-            <TextBox x:Name="tbDes" HorizontalAlignment="Left" Text="Destination" VerticalAlignment="Bottom" Height="33" Width="110"/>
+            <TextBox x:Name="tbDep" HorizontalAlignment="Left" PlaceholderText="Departure" VerticalAlignment="Bottom" Height="33" Width="110"/>
+            <TextBox x:Name="tbDes" HorizontalAlignment="Left" PlaceholderText="Destination" VerticalAlignment="Bottom" Height="33" Width="110"/>
             <ComboBox x:Name="cbType" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="130"/>
             <Button x:Name="btAdd" Content="Add flight" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="btAdd_Click" Height="33" Width="120"/>
             <Button x:Name="btDelete" Content="Delete flight" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="120" Click="btDelete_Click"/>

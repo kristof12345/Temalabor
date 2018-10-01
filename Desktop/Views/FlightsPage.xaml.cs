@@ -18,7 +18,7 @@ namespace Desktop.Views
         }
 
         public DataGridPage()
-        {         
+        {
             InitializeComponent();
             //A kijelölt sor változását jelző event
             dataTable.SelectionChanged += selected;
@@ -27,8 +27,6 @@ namespace Desktop.Views
             //ComboBox beállítása
             cbType.ItemsSource = PlaneTypes.CreateComboBox();
             cbType.SelectedIndex = 0;
-            //Eseménykezelő az adatok változására
-            DataService.ChangedEvent += Update;
         }
 
         //Dupla kattintásnál átváltunk a kiválasztott repülő nézetére
@@ -47,19 +45,7 @@ namespace Desktop.Views
         //Új járat felvétele a gomb megnyomásakor
         private void btAdd_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            int tempId;
-            //Ha nem sikerül parsolni az ID-t, akkor az alap generált, növekvő id-t kapja
-            if (!int.TryParse(tbId.Text, out tempId))
-            {
-                ViewModel.PlaneID++;
-                tempId = ViewModel.PlaneID;
-            }
-
-            //Idő összerakása a Date pickerből és a Time pickerből
-            DateTime tempTime = ViewModel.CombineDateAndTime(dpDate.Date, dpTime.Time);
-
-            //Járat hozzáadása
-            DataService.AddFlight(tempId, tempTime, tbDep.Text, tbDes.Text, cbType.SelectedItem.ToString());
+            ViewModel.AddFlight(tbId.Text, dpDate.Date, dpTime.Time, tbDep.Text, tbDes.Text, cbType.SelectedValue.ToString());
         }
 
 
@@ -131,7 +117,7 @@ namespace Desktop.Views
             //Ha van kiválasztott repülő, töröljük
             if (dataTable.SelectedItem != null)
             {
-                DataService.DeleteFlight((Flight)dataTable.SelectedItem);
+                DataService.DeleteFlightAsync((Flight)dataTable.SelectedItem);
             }
         }
 
@@ -152,15 +138,9 @@ namespace Desktop.Views
                     f.PlaneType = dialog.PlaneType;
 
                     //Táblázat frissítése
-                    DataService.UpdateFlight(f);
+                    DataService.UpdateFlightAsync(f);
                 }
             }
-        }
-
-        //A táblázat frissítése
-        private void Update(Object sender, EventArgs e)
-        {
-            dataTable.ItemsSource = ViewModel.Source;
         }
     }
 }

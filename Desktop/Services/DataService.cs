@@ -12,50 +12,32 @@ namespace Desktop.Services
     public static class DataService
     {
         private static ObservableCollection<Flight> flightList;
-        
 
-        private static ObservableCollection<Reservation> reservationList = new ObservableCollection<Reservation>();
-        //private static Object syncObject = new Object();
-
-        public static event EventHandler ChangedEvent;
+        public static event EventHandler FlightListLoadedEvent;
 
         public static ObservableCollection<Flight> FlightList
         {
             get
             {
-                if (flightList == null)
-                {
-                    InitializeList();
-                }
+                if (flightList == null) { flightList = new ObservableCollection<Flight>(); ReloadListAsync(); }
                 return flightList;
-            }
-            set
-            {
-                flightList = value;
             }
         }
 
-        private static async void InitializeList()
+        //A járatok letöltése a szerverről
+        private static async void ReloadListAsync()
         {
             List<Flight_DTO> dtoList = await HttpService.PostListAsync();
-            flightList = new ObservableCollection<Flight>();
+            flightList.Clear();
             foreach (Flight_DTO dto in dtoList)
             {
                 Flight f = new Flight(dto);
                 flightList.Add(f);
-                Debug.WriteLine(dto);
             }
-            ChangedEvent(null, null);
-        }
-
-        //Foglalás adatbázis
-        public static ObservableCollection<Reservation> GetReservations()
-        {
-            return reservationList;
         }
 
         //Járat hozzáadása
-        public static void AddFlight(int id, DateTime date, String dep = "London", String dest="New York", String type = "Airbus A370")
+        public static async void AddFlightAsync(int id, DateTime date, String dep = "London", String dest="New York", String type = "Airbus A370")
         {
             var f = new Flight(id, 7)
             {
@@ -67,21 +49,38 @@ namespace Desktop.Services
             };
 
             //Http kérés kiadása
-            HttpService.PostAddFlightAsync(f.ToDTO());
+            await HttpService.PostAddFlightAsync(f.ToDTO());
+
+            //Táblázat frissítése
+            ReloadListAsync();
         }
 
         //Járat törlése
-        public static void DeleteFlight(Flight f)
+        public static async void DeleteFlightAsync(Flight f)
         {
             //Http kérés kiadása
-            HttpService.PostDeleteFlightAsync(new DeleteFlight_DTO(f.FlightId));
+            await HttpService.PostDeleteFlightAsync(new DeleteFlight_DTO(f.FlightId));
+
+            //Táblázat frissítése
+            ReloadListAsync();
         }
 
         //Járat módosítása
-        internal static void UpdateFlight(Flight f)
+        public static async void UpdateFlightAsync(Flight f)
         {
             //Http kérés kiadása
-            HttpService.PostUpdateFlightAsync(new UpdateFlight_DTO(f.ToDTO()));
+            await HttpService.PostUpdateFlightAsync(new UpdateFlight_DTO(f.ToDTO()));
+
+            //Táblázat frissítése
+            ReloadListAsync();
+        }
+
+        private static ObservableCollection<Reservation> reservationList = new ObservableCollection<Reservation>();
+
+        //Foglalás adatbázis
+        public static ObservableCollection<Reservation> GetReservations()
+        {
+            return reservationList;
         }
 
         //Foglalás hozzáadása

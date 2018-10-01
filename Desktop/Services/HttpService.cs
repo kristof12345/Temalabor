@@ -36,7 +36,7 @@ namespace Desktop.Services
 
             HttpResponseMessage response = await client.PostAsJsonAsync(UriFlights, addRequest);
             var contents = await response.Content.ReadAsStringAsync();
-            Debug.WriteLine(contents);
+            //Debug.WriteLine(contents);
         }
 
         //Járatok listázása OK
@@ -57,7 +57,7 @@ namespace Desktop.Services
 
             HttpResponseMessage response = await client.DeleteAsync(UriFlights + deleteRequest.FlightId);
             var contents = await response.Content.ReadAsStringAsync();
-            Debug.WriteLine(contents);
+            //Debug.WriteLine(contents);
         }
 
         //Járat módosítása
@@ -67,7 +67,7 @@ namespace Desktop.Services
 
             HttpResponseMessage response = await client.PutAsJsonAsync(UriFlights + updateRequest.Flight.FlightId, updateRequest);
             var contents = await response.Content.ReadAsStringAsync();
-            Debug.WriteLine(contents);
+            Debug.WriteLine(updateRequest.Flight.Departure);
         }
 
         //Foglalás hozzáadása
@@ -77,7 +77,7 @@ namespace Desktop.Services
 
             HttpResponseMessage response = await client.PostAsJsonAsync(UriReservation, reserveRequest);
             var contents = await response.Content.ReadAsStringAsync();
-            Debug.WriteLine(contents);
+            //Debug.WriteLine(contents);
         }
 
         //Bejelentkezési kérés
@@ -87,7 +87,7 @@ namespace Desktop.Services
 
             HttpResponseMessage response = await client.PostAsJsonAsync(UriUsers, loginRequest);
             var contents = await response.Content.ReadAsStringAsync();
-            Debug.WriteLine(contents);
+            //Debug.WriteLine(contents);
         }
 
         public static bool PostLogin(string name, string pass)

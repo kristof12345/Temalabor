@@ -120,13 +120,15 @@ namespace WebApi
             todo.freeSeats = item.FreeSeats;
             todo.planeType = item.PlaneType;
 
-            for (int j = 0; j < item.Seats.Count; j++)
+            if (item.Seats != null) //Különben nem működne. Kristóf
             {
-                DAL.Seat tempS = SeatController.Seat_DTO_to_DAL(item.Seats[j].SeatId, item.Seats[j].Reserved, item.Seats[j].SeatType, item.Seats[j].Price,
-                    item.Seats[j].Coordinates.X, item.Seats[j].Coordinates.Y);
-                todo.seats.Add(tempS);
+                for (int j = 0; j < item.Seats.Count; j++)
+                {
+                    DAL.Seat tempS = SeatController.Seat_DTO_to_DAL(item.Seats[j].SeatId, item.Seats[j].Reserved, item.Seats[j].SeatType, item.Seats[j].Price,
+                        item.Seats[j].Coordinates.X, item.Seats[j].Coordinates.Y);
+                    todo.seats.Add(tempS);
+                }
             }
-
             _context.Flights.Update(todo);
             _context.SaveChanges();
             return NoContent();
