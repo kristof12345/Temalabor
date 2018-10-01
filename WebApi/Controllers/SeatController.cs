@@ -20,9 +20,9 @@ namespace WebApi.Controllers
             _context2 = context2;
         }
 
-        public static Seat_DTO Seat_DAL_to_DTO(long sID, bool rsv, String typ, int prc, int x, int y)
+        public static Seat Seat_DAL_to_DTO(long sID, bool rsv, String typ, int prc, int x, int y)
         {
-            Seat_DTO temp = new Seat_DTO(sID);
+            Seat temp = new Seat(sID);
 
             temp.Reserved = rsv;
             temp.SeatType = typ;
@@ -47,23 +47,23 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<Seat_DTO>> GetAll()
+        public ActionResult<List<Seat>> GetAll()
         {
             var DAL_list = _context.Seats.ToList();
-            List<Seat_DTO> result = new List<Seat_DTO>();
+            List<Seat> result = new List<Seat>();
             for (int i = 0; i < DAL_list.Count; i++)
             {
-                Seat_DTO current = Seat_DAL_to_DTO(DAL_list[i].seatID, DAL_list[i].IsReserved, DAL_list[i].seatType, DAL_list[i].price, DAL_list[i].Xcord, DAL_list[i].Ycord);
+                Seat current = Seat_DAL_to_DTO(DAL_list[i].seatID, DAL_list[i].IsReserved, DAL_list[i].seatType, DAL_list[i].price, DAL_list[i].Xcord, DAL_list[i].Ycord);
                 result.Add(current);
             }
             return result;
         }
 
         [HttpGet("{id}", Name = "GetSeat")]
-        public ActionResult<Seat_DTO> GetById(long id)
+        public ActionResult<Seat> GetById(long id)
         {
             DAL.Seat temp = _context.Seats.Find(id);
-            Seat_DTO result = Seat_DAL_to_DTO(temp.seatID, temp.IsReserved, temp.seatType, temp.price, temp.Xcord, temp.Ycord);
+            Seat result = Seat_DAL_to_DTO(temp.seatID, temp.IsReserved, temp.seatType, temp.price, temp.Xcord, temp.Ycord);
 
             if (temp == null)
                 return NotFound();              
@@ -71,7 +71,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Seat_DTO item)
+        public IActionResult Create(Seat item)
         {
             DAL.Seat tempfl = Seat_DTO_to_DAL(item.SeatId, item.Reserved, item.SeatType, item.Price, item.Coordinates.X, item.Coordinates.Y);
 
@@ -82,7 +82,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(long id, Seat_DTO item)
+        public IActionResult Update(long id, Seat item)
         {
             var todo = _context.Seats.Find(id);
             if (todo == null)

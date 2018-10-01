@@ -38,14 +38,14 @@ namespace WebApi
             {
                 for (int j = 0; j < s.Count; j++)
                 {
-                    Seat_DTO tempS = SeatController.Seat_DAL_to_DTO(s[j].seatID, s[j].IsReserved, s[j].seatType, s[j].price, s[j].Xcord, s[j].Ycord);
+                    Seat tempS = SeatController.Seat_DAL_to_DTO(s[j].seatID, s[j].IsReserved, s[j].seatType, s[j].price, s[j].Xcord, s[j].Ycord);
                     temp.Seats.Add(tempS);
                 }
             }
             return temp;
         }
 
-        public DAL.Flight Flight_DTO_to_DAL(long fID, DateTime d, string dep, string dest, int frSeats, string ptype, string st, List<Seat_DTO> s)
+        public DAL.Flight Flight_DTO_to_DAL(long fID, DateTime d, string dep, string dest, int frSeats, string ptype, string st, List<Seat> s)
         {
             DAL.Flight temp = new DAL.Flight();
             //temp.flightID = fID;

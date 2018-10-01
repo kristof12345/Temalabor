@@ -5,15 +5,15 @@ namespace DTO
 {
     public class Flight_DTO
     {
-        private List<Seat_DTO> seats;
+        private List<Seat> seats;
 
         public Flight_DTO(int numOfSeats)
         {
-            seats = new List<Seat_DTO>(numOfSeats);
+            seats = new List<Seat>(numOfSeats);
 
             for (int i = 0; i < numOfSeats; i++)
             {
-                seats.Add(new Seat_DTO(i));
+                seats.Add(new Seat(i));
             }
 
             FreeSeats = numOfSeats;
@@ -31,7 +31,7 @@ namespace DTO
         public string PlaneType { get; set; } //Ez lehet, hogy enumként jobb lenne
 
         public string Status { get; set; } //Ez lehet, hogy enumként jobb lenne
-        public List<Seat_DTO> Seats { get; set; }
+        public List<Seat> Seats { get; set; }
 
         public int NumberOfSeats
         {

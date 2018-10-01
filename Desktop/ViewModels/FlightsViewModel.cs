@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-
+using System.Threading.Tasks;
 using Desktop.Models;
 using Desktop.Services;
 
@@ -8,7 +8,7 @@ using GalaSoft.MvvmLight;
 
 namespace Desktop.ViewModels
 {
-    public class DataGridViewModel : ViewModelBase
+    public class FlightsViewModel : ViewModelBase
     {
         public int PlaneID = 0;
 

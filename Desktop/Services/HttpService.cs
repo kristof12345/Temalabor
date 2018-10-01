@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace Desktop.Services
 {
-    public class HttpService
+    public static class HttpService
     {
         private static HttpClient client = new HttpClient();
         private static HttpClientHandler handler = new HttpClientHandler();
@@ -19,17 +19,6 @@ namespace Desktop.Services
         private static string UriReservation;
         private static string UriUsers;
 
-        //Repülő hozzáadása
-        public static async Task PostAddFlightAsync(Flight_DTO addRequest)
-        {
-            client = new HttpClient(handler);
-
-            HttpResponseMessage response = await client.PostAsJsonAsync(UriFlights, addRequest);
-            var contents = await response.Content.ReadAsStringAsync();
-            Debug.WriteLine(contents);
-
-        }
-
         public static void Initialize()
         {
             //Ne változtasd meg, így működik
@@ -40,17 +29,25 @@ namespace Desktop.Services
             UriUsers = baseUri + "users/";
         }
 
+        //Repülő hozzáadása
+        public static async Task PostAddFlightAsync(Flight_DTO addRequest)
+        {
+            client = new HttpClient(handler);
+
+            HttpResponseMessage response = await client.PostAsJsonAsync(UriFlights, addRequest);
+            var contents = await response.Content.ReadAsStringAsync();
+            Debug.WriteLine(contents);
+        }
+
         //Járatok listázása
-        public static async Task PostListAsync(ListFlights_DTO listRequest)
+        public static async Task<List<Flight_DTO>> PostListAsync(ListFlights_DTO listRequest=null)
         {
             client = new HttpClient(handler);
 
             //HttpResponseMessage response = await client.PostAsJsonAsync(uri, listRequest);
             HttpResponseMessage response = await client.GetAsync(UriFlights);
-            List<Flight_DTO> fl = await response.Content.ReadAsAsync<List<Flight_DTO>>();
-            var contents = await response.Content.ReadAsStringAsync();
-            Debug.WriteLine(fl[1]);
-            Debug.WriteLine(fl[4]);
+            List<Flight_DTO> list = await response.Content.ReadAsAsync<List<Flight_DTO>>();
+            return list;
         }
 
         //Járat törlése
@@ -58,7 +55,7 @@ namespace Desktop.Services
         {
             client = new HttpClient(handler);
 
-            HttpResponseMessage response = await client.DeleteAsync(UriFlights + deleteRequest.FlightId); //TODO: id
+            HttpResponseMessage response = await client.DeleteAsync(UriFlights + deleteRequest.FlightId);
             var contents = await response.Content.ReadAsStringAsync();
             Debug.WriteLine(contents);
         }
@@ -68,7 +65,6 @@ namespace Desktop.Services
         {
             client = new HttpClient(handler);
 
-            //HttpResponseMessage response = await client.PostAsJsonAsync(uri, updateRequest);
             HttpResponseMessage response = await client.PutAsJsonAsync(UriFlights + updateRequest.Flight.FlightId, updateRequest);
             var contents = await response.Content.ReadAsStringAsync();
             Debug.WriteLine(contents);

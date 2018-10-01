@@ -12,9 +12,9 @@ namespace Desktop.Views
 {
     public sealed partial class DataGridPage : Page
     {
-        private DataGridViewModel ViewModel
+        private FlightsViewModel ViewModel
         {
-            get { return DataContext as DataGridViewModel; }
+            get { return DataContext as FlightsViewModel; }
         }
 
         public DataGridPage()
@@ -123,7 +123,7 @@ namespace Desktop.Views
             if (cbDate.IsChecked == true) { list.AtDate = dpDate2.Date.UtcDateTime; }
             if (cbLocation.IsChecked == true) { list.From = tbDep2.Text; list.To = tbDes2.Text; }
             if (cbAvailable.IsChecked == true) { list.OnlyAvailable = true; }
-            HttpService.PostListAsync(list);
+            //HttpService.PostListAsync(list);
         }
 
         private void btDelete_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
@@ -162,7 +162,7 @@ namespace Desktop.Views
         private void Update()
         {
             dataTable.ItemsSource = null;
-            dataTable.ItemsSource = ViewModel.Source;
+            //dataTable.ItemsSource = ViewModel.SourceAsync();
         }
     }
 }

@@ -135,14 +135,14 @@
     <Compile Include="UserControls\SeatUserControl.xaml.cs">
       <DependentUpon>SeatUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\DataGridViewModel.cs" />
+    <Compile Include="ViewModels\FlightsViewModel.cs" />
     <Compile Include="ViewModels\PlaneViewModel.cs" />
     <Compile Include="ViewModels\ReservationViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
-    <Compile Include="Views\DataGridPage.xaml.cs">
-      <DependentUpon>DataGridPage.xaml</DependentUpon>
+    <Compile Include="Views\FlightsPage.xaml.cs">
+      <DependentUpon>FlightsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PlanePage.xaml.cs">
       <DependentUpon>PlanePage.xaml</DependentUpon>
@@ -191,7 +191,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\DataGridPage.xaml">
+    <Page Include="Views\FlightsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

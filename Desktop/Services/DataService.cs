@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using Desktop.Models;
 using DTO;
 
@@ -7,18 +9,25 @@ namespace Desktop.Services
 {
     public static class DataService
     {
-        private static ObservableCollection<Flight> flightList = new ObservableCollection<Flight>
-        {
-            //Alap járat
-            new Flight(0, 9) { Date = new DateTime(2017, 05, 24), Departure = "London", Destination = "New York", PlaneType = "Airbus A380", Status = "Cancelled",},
-        };
+        private static ObservableCollection<Flight> flightList;
 
         private static ObservableCollection<Reservation> reservationList = new ObservableCollection<Reservation>();
 
         //Teljes repülőjárat adatbázis
         public static ObservableCollection<Flight> GetGridData()
         {
+            if (flightList == null) InitializeList();
             return flightList;
+        }
+
+        private static async void InitializeList()
+        {
+            flightList = new ObservableCollection<Flight>();
+            List<Flight_DTO> dtoList = await HttpService.PostListAsync();
+            foreach (Flight_DTO dto in dtoList)
+            {
+                Debug.WriteLine(dto);
+            }
         }
 
         //Foglalás adatbázis

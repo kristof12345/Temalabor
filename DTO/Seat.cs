@@ -8,10 +8,10 @@ namespace DTO
         public int Y { get; set; }
     }
 
-    public class Seat_DTO
+    public class Seat
     {
         private Cord c = new Cord();
-        public Seat_DTO(long id) { SeatId = id; }
+        public Seat(long id) { SeatId = id; }
 
         public long SeatId { get; set; }
         public String SeatType { get; set; }

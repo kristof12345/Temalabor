@@ -9,7 +9,7 @@ namespace Desktop.Models
 {
     public class Flight : INotifyPropertyChanged
     {
-        private List<Seat_DTO> seats;
+        private List<Seat> seats;
         private int freeSeats;
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -17,13 +17,13 @@ namespace Desktop.Models
         public Flight(long id, int numOfSeats)
         {
             FlightId = id;
-            seats = new List<Seat_DTO>(numOfSeats);
+            seats = new List<Seat>(numOfSeats);
 
             freeSeats = numOfSeats;
 
             for (int i = 0; i < numOfSeats; i++)
             {
-                var temp = new Seat_DTO(i);
+                var temp = new Seat(i);
 
                 //Csak hogy értelmes helyen legyenek
                 if ((i % 2) == 0) { temp.Coordinates.X = 350; } //Vízszintes érték (balról)
@@ -52,19 +52,6 @@ namespace Desktop.Models
         public string Destination { get; set; }
 
         public string PlaneType { get; set; }
-
-        internal Flight_DTO ToDTO()
-        {
-            Flight_DTO ret = new Flight_DTO(this.NumberOfSeats);
-            ret.FlightId = this.FlightId;
-            ret.Departure = this.Departure;
-            ret.Destination = this.Destination;
-            ret.Date = this.Date;
-            ret.PlaneType = this.PlaneType;
-            ret.Status = this.Status;
-
-            return ret;
-        }
 
         public string Status { get; set; }
 
@@ -95,9 +82,33 @@ namespace Desktop.Models
             }
         }
 
-        public Seat_DTO GetSeat(int id)
+        public Seat GetSeat(int id)
         {
             return seats[id];
-        } 
+        }
+
+        internal Flight_DTO ToDTO()
+        {
+            Flight_DTO ret = new Flight_DTO(this.NumberOfSeats);
+            ret.FlightId = this.FlightId;
+            ret.Departure = this.Departure;
+            ret.Destination = this.Destination;
+            ret.Date = this.Date;
+            ret.PlaneType = this.PlaneType;
+            ret.Status = this.Status;
+
+            return ret;
+        }
+
+        internal void FromDTO(Flight_DTO dto)
+        {
+            this.FlightId = dto.FlightId;
+            this.Date = dto.Date;
+            this.Departure = dto.Departure;
+            this.Destination = dto.Destination;
+            this.PlaneType = dto.PlaneType;
+            this.Status = dto.Status;
+            this.seats = new List<Seat>();
+        }
     }
 }

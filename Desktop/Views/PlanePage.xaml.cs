@@ -51,7 +51,7 @@ namespace Desktop.Views
                 //User controlok felrakása
                 for (int i = 0; i < f.NumberOfSeats; i++)
                 {
-                    Seat_DTO s = f.GetSeat(i);
+                    Seat s = f.GetSeat(i);
                     SeatUserControl newSeat = new SeatUserControl(s.SeatId, s.Reserved);
                     newSeat.Tapped += CalculatePrice; //Eseménykezelő regisztrálása
                     //Left=0, Top=X, Right=Y, Bottom=0
