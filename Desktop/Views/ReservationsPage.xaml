@@ -8,24 +8,20 @@
     Style="{StaticResource PageStyle}"
     DataContext="{Binding ReservationViewModel, Source={StaticResource Locator}}"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:tg="using:Telerik.UI.Xaml.Controls.Grid"
+    xmlns:model="using:Desktop.Models"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
-    <Grid>
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="462,380,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top"/>
+    <Grid
+        x:Name="ContentArea"
+        Margin="{StaticResource MediumLeftRightMargin}">
         <Grid
-            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}"
-            Margin="0,0,0,120">
-            <controls:DataGrid
-                x:Name="dataTable"
-                SelectionMode = "Single"
-                ItemsSource="{x:Bind ViewModel.Source}"
-                AutoGenerateColumns="True"
-                VerticalAlignment="Top"
-                MinColumnWidth = "120"
-                IsReadOnly="True">
-            </controls:DataGrid>
+            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+            <tg:RadDataGrid ColumnDataOperationsMode="Flyout" x:Name="grid" ItemsSource="{x:Bind ViewModel.Source}" AutoGenerateColumns="True" >
+                <tg:RadDataGrid.Columns>
+                    
+                </tg:RadDataGrid.Columns>
+            </tg:RadDataGrid>
         </Grid>
-
     </Grid>
 </Page>

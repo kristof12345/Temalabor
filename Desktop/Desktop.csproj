@@ -117,6 +117,9 @@
     <PackageReference Include="Newtonsoft.Json">
       <Version>11.0.2</Version>
     </PackageReference>
+    <PackageReference Include="Telerik.UI.for.UniversalWindowsPlatform">
+      <Version>1.0.1.1</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="Strings\en-us\Resources.resw" />
@@ -135,7 +138,7 @@
     <Compile Include="UserControls\SeatUserControl.xaml.cs">
       <DependentUpon>SeatUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\FlightsViewModel.cs" />
+    <Compile Include="ViewModels\FlightViewModel.cs" />
     <Compile Include="ViewModels\PlaneViewModel.cs" />
     <Compile Include="ViewModels\ReservationViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />

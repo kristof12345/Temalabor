@@ -1,79 +1,78 @@
 ﻿<Page
-    x:Class="Desktop.Views.DataGridPage"
+    x:Class="Desktop.Views.FlightsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Style="{StaticResource PageStyle}"
-    DataContext="{Binding DataGridViewModel, Source={StaticResource Locator}}"
+    DataContext="{Binding FlightViewModel, Source={StaticResource Locator}}"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:tg="using:Telerik.UI.Xaml.Controls.Grid"
     mc:Ignorable="d">
     <Grid x:Name="ContentArea">
-        <Grid
+        <Grid>
+            <Grid 
             Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}"
             Margin="0,0,0,120">
-            <controls:DataGrid
+            <tg:RadDataGrid
+                ColumnDataOperationsMode="Flyout"
                 x:Name="dataTable"
                 SelectionMode = "Single"
                 ItemsSource="{x:Bind ViewModel.Source}"
                 AutoGenerateColumns="false"
                 VerticalAlignment="Top"
-                MinColumnWidth = "120"
-                IsReadOnly="True">
-                <controls:DataGrid.Columns>
-                    <controls:DataGridTextColumn Header="FlightId" Binding="{Binding FlightId}"/>
-                    <controls:DataGridTextColumn Header="Date" Binding="{Binding Date}" Width="*"/>
-                    <controls:DataGridTextColumn Header="Departure" Binding="{Binding Departure}"/>
-                    <controls:DataGridTextColumn Header="Destination" Binding="{Binding Destination}"/>
-                    <controls:DataGridTextColumn Header="Plane Type" Binding="{Binding PlaneType}"/>
-                    <controls:DataGridTextColumn Header="Status" Binding="{Binding Status}" />
-                    <controls:DataGridTextColumn Header="Total Seats" Binding="{Binding NumberOfSeats}" />
-                    <controls:DataGridTextColumn Header="Free Seats" Binding="{Binding FreeSeats}" />
-                </controls:DataGrid.Columns>
-            </controls:DataGrid>
+                Height="900">
+                    <tg:RadDataGrid.Columns>
+                        <tg:DataGridNumericalColumn PropertyName="FlightId"/>
+                        <tg:DataGridDateColumn PropertyName="Date"/>
+                        <tg:DataGridTextColumn PropertyName="Departure"/>
+                        <tg:DataGridTextColumn PropertyName="Destination"/>
+                        <tg:DataGridTextColumn PropertyName="PlaneType"/>
+                        <tg:DataGridTextColumn PropertyName="Status"/>
+                        <tg:DataGridNumericalColumn PropertyName="NumberOfSeats"/>
+                        <tg:DataGridNumericalColumn PropertyName="FreeSeats"/>
+                    </tg:RadDataGrid.Columns>
+                </tg:RadDataGrid>
+            </Grid>
+
+            <ListView x:Name="inputArea" Visibility="Visible" VerticalAlignment="Bottom" Margin="0,0,0,50" SelectionMode="None">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <ItemsStackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Padding" Value="6"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <DatePicker x:Name="dpDate" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="330"/>
+                <TimePicker x:Name="dpTime" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="250"/>
+                <TextBox x:Name="tbDep" HorizontalAlignment="Left" PlaceholderText="Departure" VerticalAlignment="Bottom" Height="33" Width="110"/>
+                <TextBox x:Name="tbDes" HorizontalAlignment="Left" PlaceholderText="Destination" VerticalAlignment="Bottom" Height="33" Width="110"/>
+                <ComboBox x:Name="cbType" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="130"/>
+                <Button x:Name="btAdd" Content="Add flight" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="btAdd_Click" Height="33" Width="120"/>
+                <Button x:Name="btDelete" Content="Delete flight" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="120" Click="btDelete_Click"/>
+                <Button x:Name="btUpdate" Content="Update flight" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="120" Click="btUpdate_Click"/>
+            </ListView>
         </Grid>
 
-        <ListView x:Name="inputArea" Visibility="Visible" VerticalAlignment="Bottom" Margin="0,0,0,70" SelectionMode="None">
-            <ListView.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <ItemsStackPanel Orientation="Horizontal"/>
-                </ItemsPanelTemplate>
-            </ListView.ItemsPanel>
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="Padding" Value="6"/>
-                </Style>
-            </ListView.ItemContainerStyle>
-            <TextBox x:Name="tbId"  HorizontalAlignment="Left" PlaceholderText="Flight ID" VerticalAlignment="Bottom" Height="33" Width="80"/>
-            <DatePicker x:Name="dpDate" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="330"/>
-            <TimePicker x:Name="dpTime" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="250"/>
-            <TextBox x:Name="tbDep" HorizontalAlignment="Left" PlaceholderText="Departure" VerticalAlignment="Bottom" Height="33" Width="110"/>
-            <TextBox x:Name="tbDes" HorizontalAlignment="Left" PlaceholderText="Destination" VerticalAlignment="Bottom" Height="33" Width="110"/>
-            <ComboBox x:Name="cbType" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="130"/>
-            <Button x:Name="btAdd" Content="Add flight" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="btAdd_Click" Height="33" Width="120"/>
-            <Button x:Name="btDelete" Content="Delete flight" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="120" Click="btDelete_Click"/>
-            <Button x:Name="btUpdate" Content="Update flight" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="120" Click="btUpdate_Click"/>
-        </ListView>
+        <Grid x:Name="searchArea" Visibility="Collapsed">
 
-        <ListView x:Name="searchArea" Visibility="Collapsed" VerticalAlignment="Bottom" Margin="0,0,0,70" SelectionMode="None">
-            <ListView.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <ItemsStackPanel Orientation="Horizontal"/>
-                </ItemsPanelTemplate>
-            </ListView.ItemsPanel>
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="Padding" Value="6"/>
-                </Style>
-            </ListView.ItemContainerStyle>
-            <DatePicker x:Name="dpDate2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="330"/>
-            <CheckBox x:Name="cbDate" Content="Only at this date" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="150" Height="33"/>
-            <TextBox x:Name="tbDep2" HorizontalAlignment="Left" Text="Departure" VerticalAlignment="Bottom" Height="33" Width="110"/>
-            <TextBox x:Name="tbDes2" HorizontalAlignment="Left" Text="Destination" VerticalAlignment="Bottom" Height="33" Width="110"/>
-            <CheckBox x:Name="cbLocation" Content="Only these locations" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="170" Height="33"/>
-            <CheckBox x:Name="cbAvailable" Content="Only available" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="150" Height="33"/>
-            <Button x:Name="btSearch" Content="Search" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="120" Click="btSearch_Click"/>
-            <Button x:Name="btReserve" Content="Reserve Seat" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="120"  Click="btReserve_Click"/>
-        </ListView>
+            <ListView VerticalAlignment="Bottom" Margin="0,0,0,50" SelectionMode="None">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <ItemsStackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Padding" Value="6"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <Button x:Name="btSearch" Content="Search" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="120" Click="btSearch_Click"/>
+                <Button x:Name="btReserve" Content="Reserve Seat" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="120"  Click="btReserve_Click"/>
+            </ListView>
+        </Grid>
     </Grid>
 </Page>

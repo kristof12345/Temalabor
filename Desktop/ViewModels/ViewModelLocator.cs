@@ -20,7 +20,7 @@ namespace Desktop.ViewModels
             SimpleIoc.Default.Register(() => new NavigationServiceEx());
             SimpleIoc.Default.Register<ShellViewModel>();
             //DataGridView regisztrálása
-            Register<DataGridViewModel, DataGridPage>();
+            Register<FlightViewModel, FlightsPage>();
             //PlaneView regisztrálása
             Register<PlaneViewModel, PlanePage>();
             //UserView regisztrálása
@@ -30,7 +30,7 @@ namespace Desktop.ViewModels
         }
 
         //TODO: az új lapot itt is hozzá kell adni
-        public DataGridViewModel DataGridViewModel => ServiceLocator.Current.GetInstance<DataGridViewModel>();
+        public FlightViewModel FlightViewModel => ServiceLocator.Current.GetInstance<FlightViewModel>();
 
         public ReservationViewModel ReservationViewModel => ServiceLocator.Current.GetInstance<ReservationViewModel>();
 

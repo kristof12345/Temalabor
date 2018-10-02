@@ -21,7 +21,7 @@
 
             <NavigationViewItem x:Uid="Shell_UserPage" helpers:NavHelper.NavigateTo="Desktop.ViewModels.UserViewModel" Icon="Contact" />
             
-            <NavigationViewItem x:Uid="Shell_DataGrid" helpers:NavHelper.NavigateTo="Desktop.ViewModels.DataGridViewModel" >
+            <NavigationViewItem x:Uid="Shell_Flights" helpers:NavHelper.NavigateTo="Desktop.ViewModels.FlightViewModel" >
                 <NavigationViewItem.Icon>
                     <FontIcon Glyph="&#xE128;"/>
                 </NavigationViewItem.Icon>

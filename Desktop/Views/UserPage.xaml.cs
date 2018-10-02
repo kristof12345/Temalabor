@@ -27,7 +27,7 @@ namespace Desktop.Views
             //User bejelentkezése
             if (await SignInService.SignInAsync(user))
             {
-                this.Frame.Navigate(typeof(DataGridPage));
+                this.Frame.Navigate(typeof(FlightsPage));
             }
             else tbPass.Text = "Incorrect";
         }

@@ -10,7 +10,7 @@ using GalaSoft.MvvmLight;
 
 namespace Desktop.ViewModels
 {
-    public class DataGridViewModel : ViewModelBase
+    public class FlightViewModel : ViewModelBase
     {
         public int PlaneID = 0;
 

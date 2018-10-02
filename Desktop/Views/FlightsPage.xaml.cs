@@ -10,18 +10,18 @@ using Windows.UI.Xaml.Navigation;
 
 namespace Desktop.Views
 {
-    public sealed partial class DataGridPage : Page
+    public sealed partial class FlightsPage : Page
     {
-        private DataGridViewModel ViewModel
+        private FlightViewModel ViewModel
         {
-            get { return DataContext as DataGridViewModel; }
+            get { return DataContext as FlightViewModel; }
         }
 
-        public DataGridPage()
+        public FlightsPage()
         {
             InitializeComponent();
             //A kijelölt sor változását jelző event
-            dataTable.SelectionChanged += selected;
+            //dataTable.SelectionChanged += selected;
             //A dupla kattintást jelző event
             dataTable.DoubleTapped += doubleTapped;
             //ComboBox beállítása
@@ -45,7 +45,13 @@ namespace Desktop.Views
         //Új járat felvétele a gomb megnyomásakor
         private void btAdd_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            ViewModel.AddFlight(tbId.Text, dpDate.Date, dpTime.Time, tbDep.Text, tbDes.Text, cbType.SelectedValue.ToString());
+            ViewModel.AddFlight(
+                "0", //TODO: remove
+                dpDate.Date,
+                dpTime.Time,
+                tbDep.Text,
+                tbDes.Text,
+                cbType.SelectedValue.ToString());
         }
 
 
@@ -104,12 +110,7 @@ namespace Desktop.Views
 
         private void btSearch_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            ListFlights_DTO list = new ListFlights_DTO();
-            //A textboxok alapján beállítjuk az adatokat
-            if (cbDate.IsChecked == true) { list.AtDate = dpDate2.Date.UtcDateTime; }
-            if (cbLocation.IsChecked == true) { list.From = tbDep2.Text; list.To = tbDes2.Text; }
-            if (cbAvailable.IsChecked == true) { list.OnlyAvailable = true; }
-            //HttpService.PostListAsync(list);
+            //TODO: valami
         }
 
         private void btDelete_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)

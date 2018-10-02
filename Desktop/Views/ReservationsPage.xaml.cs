@@ -33,7 +33,7 @@ namespace Desktop.Views
             else
             {
                 //TODO: kiírjuk a felhasználó foglalásait
-                textBlock.Text = SignInService.User.Name;
+                //textBlock.Text = SignInService.User.Name;
             }
         }
 

@@ -141,9 +141,9 @@
     <value>The page '{0}' is unknown by the NavigationService</value>
     <comment>The page is unknown or not registered in navigation service</comment>
   </data>
-  <data name="Shell_DataGrid.Content" xml:space="preserve">
+  <data name="Shell_Flights.Content" xml:space="preserve">
     <value>Flights</value>
-    <comment>Navigation view item name for DataGrid</comment>
+    <comment>Navigation view item name for Flights</comment>
   </data>
   <data name="Shell_PlanePage.Content" xml:space="preserve">
     <value>Seats</value>

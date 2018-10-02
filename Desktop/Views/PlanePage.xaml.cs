@@ -69,7 +69,7 @@ namespace Desktop.Views
                         break;
                 }
                 //Ha nincs bejelentkezve, vagy nem választott repülőt
-            } else if(e.SourcePageType== typeof(DataGridPage))
+            } else if(e.SourcePageType== typeof(FlightsPage))
             {
                 DisplayNoUserDialog();
             } else
@@ -111,7 +111,7 @@ namespace Desktop.Views
                 CloseButtonText = "Ok"
             };
             ContentDialogResult result = await noPlane.ShowAsync();
-            this.Frame.Navigate(typeof(DataGridPage));
+            this.Frame.Navigate(typeof(FlightsPage));
         }
 
         //Dialógusablak
