@@ -4,6 +4,7 @@ using Desktop.Models;
 using Desktop.Services;
 using Desktop.ViewModels;
 using DTO;
+using Telerik.UI.Xaml.Controls.Grid;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
@@ -21,12 +22,19 @@ namespace Desktop.Views
         {
             InitializeComponent();
             //A kijelölt sor változását jelző event
-            //dataTable.SelectionChanged += selected;
+            dataTable.SelectionChanged += selected;
             //A dupla kattintást jelző event
             dataTable.DoubleTapped += doubleTapped;
             //ComboBox beállítása
             cbType.ItemsSource = PlaneTypes.CreateComboBox();
             cbType.SelectedIndex = 0;
+        }
+
+
+        //Ha változott a kijelölt sor
+        private void selected(object sender, DataGridSelectionChangedEventArgs e)
+        {
+            //Valami
         }
 
         //Dupla kattintásnál átváltunk a kiválasztott repülő nézetére
@@ -36,26 +44,15 @@ namespace Desktop.Views
             this.Frame.Navigate(typeof(PlanePage), param);
         }
 
-        //Ha változott a kijelölt sor
-        private void selected(object sender, SelectionChangedEventArgs e)
-        {
-            //Esetleg részleteket írhatunk ki a kijelölt járatról
-        }
-
         //Új járat felvétele a gomb megnyomásakor
         private void btAdd_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            ViewModel.AddFlight(
-                "0", //TODO: remove
-                dpDate.Date,
-                dpTime.Time,
-                tbDep.Text,
-                tbDes.Text,
-                cbType.SelectedValue.ToString());
+            ICommandBase cmd = new AddCommand(dpDate.Date, dpTime.Time, tbDep.Text, tbDes.Text, cbType.SelectedValue.ToString());
+            ViewModel.ExecuteCommand(cmd);
         }
+        
 
-
-        //Foglalás gomb
+            //Foglalás gomb
         private void btReserve_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             if (dataTable.SelectedItem != null)
@@ -118,7 +115,9 @@ namespace Desktop.Views
             //Ha van kiválasztott repülő, töröljük
             if (dataTable.SelectedItem != null)
             {
-                DataService.DeleteFlightAsync((Flight)dataTable.SelectedItem);
+                //DataService.DeleteFlightAsync((Flight)dataTable.SelectedItem);
+                ICommandBase cmd = new DeleteCommand((Flight)dataTable.SelectedItem);
+                ViewModel.ExecuteCommand(cmd);
             }
         }
 
@@ -132,7 +131,7 @@ namespace Desktop.Views
                 //Ha az Apply-re kattintott
                 if(result==ContentDialogResult.Secondary)
                 {
-                    f.Date = ViewModel.CombineDateAndTime(dialog.Date, dialog.Time);
+                    //f.Date = ViewModel.CombineDateAndTime(dialog.Date, dialog.Time);
                     f.Departure = dialog.Departure;
                     f.Destination = dialog.Destination;
                     f.Status = dialog.Status;
@@ -142,6 +141,16 @@ namespace Desktop.Views
                     DataService.UpdateFlightAsync(f);
                 }
             }
+        }
+
+        private void btUndo_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            ViewModel.UnExecuteCommand();
+        }
+
+        private void btRedo_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            ViewModel.ReExecuteCommand();
         }
     }
 }

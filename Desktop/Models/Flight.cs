@@ -14,7 +14,7 @@ namespace Desktop.Models
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public Flight(long id, int numOfSeats)
+        public Flight(long id=0, int numOfSeats=7)
         {
             FlightId = id;
             GenerateSeats(numOfSeats);
@@ -52,6 +52,14 @@ namespace Desktop.Models
         {
             this.FromDTO(dto);
             if(dto.Seats != null) GenerateSeats(dto.Seats.Count);
+        }
+
+        public Flight(DateTime date, string dep, string des, string type)
+        {
+            Date = date;
+            Departure = dep;
+            Destination = des;
+            PlaneType = type;
         }
 
         public long FlightId { get; private set; }

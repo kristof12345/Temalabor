@@ -37,9 +37,9 @@ namespace Desktop.Services
         }
 
         //Járat hozzáadása
-        public static async void AddFlightAsync(int id, DateTime date, String dep = "London", String dest="New York", String type = "Airbus A370")
+        public static async void AddFlightAsync(DateTime date, String dep = "London", String dest="New York", String type = "Airbus A370")
         {
-            var f = new Flight(id, 7)
+            var f = new Flight()
             {
                 Date = date,
                 Departure = dep,
@@ -48,6 +48,16 @@ namespace Desktop.Services
                 Status = "Sceduled",
             };
 
+            //Http kérés kiadása
+            await HttpService.PostAddFlightAsync(f.ToDTO());
+
+            //Táblázat frissítése
+            ReloadListAsync();
+        }
+
+        //Járat hozzáadása 2
+        public static async void AddFlightAsync(Flight f)
+        {
             //Http kérés kiadása
             await HttpService.PostAddFlightAsync(f.ToDTO());
 

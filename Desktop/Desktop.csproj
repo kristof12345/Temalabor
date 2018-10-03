@@ -138,6 +138,7 @@
     <Compile Include="UserControls\SeatUserControl.xaml.cs">
       <DependentUpon>SeatUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\Commands.cs" />
     <Compile Include="ViewModels\FlightViewModel.cs" />
     <Compile Include="ViewModels\PlaneViewModel.cs" />
     <Compile Include="ViewModels\ReservationViewModel.cs" />

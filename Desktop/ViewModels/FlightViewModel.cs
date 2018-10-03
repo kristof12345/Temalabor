@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -10,9 +11,24 @@ using GalaSoft.MvvmLight;
 
 namespace Desktop.ViewModels
 {
-    public class FlightViewModel : ViewModelBase
+    public class FlightViewModel : ViewModelBase, INotifyPropertyChanged
     {
-        public int PlaneID = 0;
+        private Stack<ICommandBase> commandStack = new Stack<ICommandBase>();
+        private Stack<ICommandBase> undoStack = new Stack<ICommandBase>();
+        private bool undoEnabled = false;
+        private bool redoEnabled = false;
+
+        public bool UndoEnabled
+        {
+            get { return undoEnabled; }
+            set { undoEnabled = value; RaisePropertyChanged("UndoEnabled"); }
+        }
+
+        public bool RedoEnabled
+        {
+            get { return redoEnabled; }
+            set { redoEnabled = value; RaisePropertyChanged("RedoEnabled"); }
+        }
 
         //Adatforrás
         public ObservableCollection<Flight> Source
@@ -23,29 +39,42 @@ namespace Desktop.ViewModels
             }
         }
 
-        public void AddFlight(String FlightId, DateTimeOffset DatePicked, TimeSpan TimePicked, String Departure, String Destination, String PlaneType)
+        internal void ExecuteCommand(ICommandBase cmd)
         {
-            int tempId;
-            //Ha nem sikerül parsolni az ID-t, akkor az alap generált, növekvő id-t kapja
-            if (!int.TryParse(FlightId, out tempId))
-            {
-                PlaneID++;
-                tempId = PlaneID;
-            }
+            cmd.Execute();
+            commandStack.Push(cmd);
+            undoStack.Clear();
 
-            //Idő összerakása a Date pickerből és a Time pickerből
-            DateTime tempTime = CombineDateAndTime(DatePicked, TimePicked);
-
-            //Járat hozzáadása
-            DataService.AddFlightAsync(tempId, tempTime, Departure, Destination, PlaneType);
+            //Parancs után lehet undo, de nem lehet redo
+            UndoEnabled = true;
+            RedoEnabled = false;
         }
 
-        //Segédfüggvény a dátum előállításához
-        public DateTime CombineDateAndTime(DateTimeOffset date, TimeSpan time)
+        internal void UnExecuteCommand()
         {
-            DateTime tempTime = date.UtcDateTime;
-            tempTime = tempTime.Date + time;
-            return tempTime;
+            var cmd = commandStack.Pop();
+            cmd.UnExecute();
+            undoStack.Push(cmd);
+
+            //Ha üres, akkor nem lehet undo
+            if (commandStack.Count == 0)
+            {
+                UndoEnabled = false;
+            }
+            RedoEnabled = true;
+        }
+
+        internal void ReExecuteCommand()
+        {
+            var cmd = undoStack.Pop();
+            cmd.Execute();
+            commandStack.Push(cmd);
+
+            //Ha üres, akkor nem lehet redo
+            if (undoStack.Count == 0)
+            {
+                RedoEnabled = false;
+            }
         }
     }
 }
