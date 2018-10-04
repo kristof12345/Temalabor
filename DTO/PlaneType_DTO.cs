@@ -4,11 +4,12 @@ using System.Text;
 
 namespace DTO
 {
-    public class PlaneType_DTO
+    public class PlaneType
     {
-        public PlaneType_DTO(string type) { PlaneType = type; }
+        public PlaneType(string type) { PlaneTypeName = type; }
+
         public long PlaneTypeID { get; set; }
-        public string PlaneType { get; set; }
+        public string PlaneTypeName { get; set; }
         public List<Seat> Seats { get; set; }
     }
 }

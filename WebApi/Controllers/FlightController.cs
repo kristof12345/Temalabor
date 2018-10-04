@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using DTO;
 using WebApi.Controllers;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -38,10 +39,10 @@ namespace WebApi
             return temp;
         }
 
-        public DAL.Flight Flight_DTO_to_DAL(long fID, DateTime d, string dep, string dest, int frSeats, PlaneType_DTO ptype, string st)
+        public DAL.Flight Flight_DTO_to_DAL(long fID, DateTime d, string dep, string dest, int frSeats, PlaneType ptype, string st)
         {
             DAL.Flight temp = new DAL.Flight();
-            //temp.flightID = fID;
+            //temp.flightID = fID; //EZ KELLENE
             temp.departure = dep;
             temp.date = d;
             temp.destination = dest;

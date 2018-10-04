@@ -11,6 +11,7 @@ namespace Desktop.Models
     {
         private List<Seat> seats;
         private int freeSeats;
+        private PlaneType type;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -70,7 +71,11 @@ namespace Desktop.Models
 
         public string Destination { get; set; }
 
-        public string PlaneType { get; set; }
+        public string PlaneType
+        {
+            get { return type.PlaneTypeName; }
+            set { type = new PlaneType(value); }
+        }
 
         public string Status { get; set; }
 
@@ -113,8 +118,7 @@ namespace Desktop.Models
             ret.Departure = this.Departure;
             ret.Destination = this.Destination;
             ret.Date = this.Date;
-            //ret.PlaneType = this.PlaneType;
-          
+            ret.PlaneType = this.type;         
             ret.Status = this.Status;
 
             return ret;
@@ -126,7 +130,7 @@ namespace Desktop.Models
             this.Date = dto.Date;
             this.Departure = dto.Departure;
             this.Destination = dto.Destination;
-            //this.PlaneType = dto.PlaneType;
+            this.PlaneType = dto.PlaneType.PlaneTypeName;
             this.Status = dto.Status;
             this.seats = new List<Seat>();
         }

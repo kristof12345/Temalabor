@@ -17,6 +17,7 @@ namespace DTO
             }
 
             FreeSeats = numOfSeats;
+            PlaneType = new PlaneType("A380");
         }
 
 
@@ -28,7 +29,7 @@ namespace DTO
 
         public string Destination { get; set; }
 
-        public PlaneType_DTO PlaneType { get; set; } //Ez lehet, hogy enumként jobb lenne
+        public PlaneType PlaneType { get; set; } 
 
         public string Status { get; set; } //Ez lehet, hogy enumként jobb lenne
         public List<Seat> Seats { get; set; }
@@ -42,7 +43,7 @@ namespace DTO
 
         public override string ToString()
         {
-            return FlightId.ToString() + " " + PlaneType;
+            return "id: " + FlightId.ToString() + " from: " + Departure + " to: " + Destination + " type: " + PlaneType.PlaneTypeName;
         }
     }
 }

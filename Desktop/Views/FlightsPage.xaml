@@ -55,7 +55,7 @@
                 <Button x:Name="btDelete" Content="Delete flight" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="120" Click="btDelete_Click"/>
                 <Button x:Name="btUpdate" Content="Update flight" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="120" Click="btUpdate_Click"/>
             </ListView>
-            <ListView Visibility="Visible" VerticalAlignment="Bottom" Margin="50,0,0,0" SelectionMode="None">
+            <ListView Visibility="Visible" VerticalAlignment="Bottom" Margin="1046,0,0,0" SelectionMode="None">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <ItemsStackPanel Orientation="Horizontal"/>

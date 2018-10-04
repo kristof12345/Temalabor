@@ -46,9 +46,9 @@ namespace WebApi.Controllers
             return temp;
         }
 
-        public static PlaneType_DTO PlaneType_DAL_to_DTO(long ID, string ptype, List<DAL.Seat> s)
+        public static PlaneType PlaneType_DAL_to_DTO(long ID, string ptype, List<DAL.Seat> s)
         {
-            PlaneType_DTO temp = new PlaneType_DTO(ptype);
+            PlaneType temp = new PlaneType(ptype);
 
             temp.PlaneTypeID = ID;
             if (s != null)

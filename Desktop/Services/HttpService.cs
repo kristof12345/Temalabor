@@ -12,8 +12,9 @@ namespace Desktop.Services
         private static HttpClient client = new HttpClient();
         private static HttpClientHandler handler = new HttpClientHandler();
 
-        //private static string baseUri = "https://localhost:5001/api/"; //Kristóf
-        private static string baseUri = "https://localhost:44376/api/"; //Gábor
+        //TODO: config fájlból beolvasni
+        private static string baseUri = "https://localhost:5001/api/"; //Kristóf 
+        //private static string baseUri = "https://localhost:44376/api/"; //Gábor 
 
         private static string UriFlights;
         private static string UriReservation;
@@ -24,7 +25,7 @@ namespace Desktop.Services
             //Ne változtasd meg, így működik
             handler.ClientCertificateOptions = ClientCertificateOption.Manual;
             handler.ServerCertificateCustomValidationCallback = (httpRequestMessage, cert, cetChain, policyErrors) => { return true; };
-            UriFlights = baseUri + "flight/"; //UriFlights = baseUri + "flights/";
+            UriFlights = baseUri + "flight/";
             UriReservation = baseUri + "reservation/";
             UriUsers = baseUri + "users/";
         }
@@ -36,7 +37,7 @@ namespace Desktop.Services
 
             HttpResponseMessage response = await client.PostAsJsonAsync(UriFlights, addRequest);
             var contents = await response.Content.ReadAsStringAsync();
-            //Debug.WriteLine(contents);
+            //Debug.WriteLine("A hozzáadott repülő típusa: " + addRequest.PlaneType.PlaneTypeName);
         }
 
         //Járatok listázása OK
@@ -44,7 +45,6 @@ namespace Desktop.Services
         {
             client = new HttpClient(handler);
 
-            //HttpResponseMessage response = await client.PostAsJsonAsync(uri, listRequest);
             HttpResponseMessage response = await client.GetAsync(UriFlights);
             List<Flight_DTO> list = await response.Content.ReadAsAsync<List<Flight_DTO>>();
             return list;
@@ -57,17 +57,16 @@ namespace Desktop.Services
 
             HttpResponseMessage response = await client.DeleteAsync(UriFlights + deleteRequest.FlightId);
             var contents = await response.Content.ReadAsStringAsync();
-            //Debug.WriteLine(contents);
         }
 
-        //Járat módosítása
+        //Járat módosítása OK
         public static async Task PostUpdateFlightAsync(UpdateFlight_DTO updateRequest)
         {
             client = new HttpClient(handler);
 
-            HttpResponseMessage response = await client.PutAsJsonAsync(UriFlights + updateRequest.Flight.FlightId, updateRequest);
+            HttpResponseMessage response = await client.PutAsJsonAsync(UriFlights + updateRequest.Flight.FlightId, updateRequest.Flight);
             var contents = await response.Content.ReadAsStringAsync();
-            Debug.WriteLine(updateRequest.Flight.Departure);
+            //Debug.WriteLine("A módosított repülő adatai: " + updateRequest.Flight.ToString());
         }
 
         //Foglalás hozzáadása
