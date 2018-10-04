@@ -46,6 +46,40 @@ namespace WebApi.Controllers
             return temp;
         }
 
+        public static PlaneType_DTO PlaneType_DAL_to_DTO(long ID, string ptype, List<DAL.Seat> s)
+        {
+            PlaneType_DTO temp = new PlaneType_DTO(ptype);
+
+            temp.PlaneTypeID = ID;
+            if (s != null)
+            {
+                for (int j = 0; j < s.Count; j++)
+                {
+                    Seat tempS = SeatController.Seat_DAL_to_DTO(s[j].seatID, s[j].IsReserved, s[j].seatType, s[j].price, s[j].Xcord, s[j].Ycord);
+                    temp.Seats.Add(tempS);
+                }
+            }
+
+            return temp;
+        }
+
+        public static DAL.PlaneType PlaneType_DTO_to_DAL(long ID, string ptype, List<Seat> s)
+        {
+            DAL.PlaneType temp = new DAL.PlaneType();
+
+            //temp.PlaneTypeID = ID;
+            if (s != null)
+            {
+                for (int j = 0; j < s.Count; j++)
+                {
+                    DAL.Seat tempS = SeatController.Seat_DTO_to_DAL(s[j].SeatId, s[j].Reserved, s[j].SeatType, s[j].Price, s[j].Coordinates.X, s[j].Coordinates.Y);
+                    temp.seats.Add(tempS);
+                }
+            }
+
+            return temp;
+        }
+
         [HttpGet]
         public ActionResult<List<Seat>> GetAll()
         {

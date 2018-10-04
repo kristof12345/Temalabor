@@ -113,7 +113,8 @@ namespace Desktop.Models
             ret.Departure = this.Departure;
             ret.Destination = this.Destination;
             ret.Date = this.Date;
-            ret.PlaneType = this.PlaneType;
+            //ret.PlaneType = this.PlaneType;
+          
             ret.Status = this.Status;
 
             return ret;
@@ -125,7 +126,7 @@ namespace Desktop.Models
             this.Date = dto.Date;
             this.Departure = dto.Departure;
             this.Destination = dto.Destination;
-            this.PlaneType = dto.PlaneType;
+            //this.PlaneType = dto.PlaneType;
             this.Status = dto.Status;
             this.seats = new List<Seat>();
         }

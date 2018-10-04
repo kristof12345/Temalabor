@@ -17,7 +17,7 @@ namespace WebApi
     public class Startup
     {
         public void ConfigureServices(IServiceCollection services)
-        {
+        {          
             services.AddDbContext<DAL.FlightContext>();
             services.AddDbContext<ReserveContext>(opt =>
                 opt.UseInMemoryDatabase("TodoList"));
@@ -28,6 +28,6 @@ namespace WebApi
         public void Configure(IApplicationBuilder app)
         {
             app.UseMvc();
-        }
+        }       
     }
 }

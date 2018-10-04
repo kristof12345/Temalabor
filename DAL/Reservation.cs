@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DAL
 {
-    class Reservation
+    public class Reservation
     {
         public long reservationID { get; set; }
         public String user { get; set; }

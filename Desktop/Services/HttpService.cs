@@ -12,8 +12,8 @@ namespace Desktop.Services
         private static HttpClient client = new HttpClient();
         private static HttpClientHandler handler = new HttpClientHandler();
 
-        private static string baseUri = "https://localhost:5001/api/"; //Kristóf
-        //private static string baseUri = "https://localhost:44376/api/"; //Gábor
+        //private static string baseUri = "https://localhost:5001/api/"; //Kristóf
+        private static string baseUri = "https://localhost:44376/api/"; //Gábor
 
         private static string UriFlights;
         private static string UriReservation;
@@ -24,7 +24,7 @@ namespace Desktop.Services
             //Ne változtasd meg, így működik
             handler.ClientCertificateOptions = ClientCertificateOption.Manual;
             handler.ServerCertificateCustomValidationCallback = (httpRequestMessage, cert, cetChain, policyErrors) => { return true; };
-            UriFlights = baseUri + "reserve/"; //UriFlights = baseUri + "flights/";
+            UriFlights = baseUri + "flight/"; //UriFlights = baseUri + "flights/";
             UriReservation = baseUri + "reservation/";
             UriUsers = baseUri + "users/";
         }

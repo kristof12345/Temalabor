@@ -5,25 +5,26 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using DTO;
 using WebApi.Controllers;
+using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace WebApi
 {
-    [Route("api/reserve")]
+    [Route("api/flight")]
     [ApiController]
-    public class ReserveController : ControllerBase
+    public class FlightController : ControllerBase
     {
         private readonly DAL.FlightContext _context;
         private readonly ReserveContext _context2;
 
-        public ReserveController(DAL.FlightContext context, ReserveContext context2)
+        public FlightController(DAL.FlightContext context, ReserveContext context2)
         {
             _context = context;
             _context2 = context2;  
         }
 
-        public Flight_DTO Flight_DAL_to_DTO(long fID, DateTime d, string dep, string dest,  int frSeats, string ptype, string st, List<DAL.Seat> s)
+        public Flight_DTO Flight_DAL_to_DTO(long fID, DateTime d, string dep, string dest,  int frSeats, DAL.PlaneType ptype, string st)
         {
             Flight_DTO temp = new Flight_DTO(frSeats);
             temp.FlightId = fID;
@@ -31,21 +32,13 @@ namespace WebApi
             temp.Date = d;
             temp.Destination = dest;
             temp.FreeSeats = frSeats;
-            temp.PlaneType = ptype;
+            //temp.PlaneType = SeatController.PlaneType_DAL_to_DTO(ptype.planeTypeID, ptype.planeType, ptype.seats);
             temp.Status = st;
 
-            if (s != null)
-            {
-                for (int j = 0; j < s.Count; j++)
-                {
-                    Seat tempS = SeatController.Seat_DAL_to_DTO(s[j].seatID, s[j].IsReserved, s[j].seatType, s[j].price, s[j].Xcord, s[j].Ycord);
-                    temp.Seats.Add(tempS);
-                }
-            }
             return temp;
         }
 
-        public DAL.Flight Flight_DTO_to_DAL(long fID, DateTime d, string dep, string dest, int frSeats, string ptype, string st, List<Seat> s)
+        public DAL.Flight Flight_DTO_to_DAL(long fID, DateTime d, string dep, string dest, int frSeats, PlaneType_DTO ptype, string st)
         {
             DAL.Flight temp = new DAL.Flight();
             //temp.flightID = fID;
@@ -53,19 +46,10 @@ namespace WebApi
             temp.date = d;
             temp.destination = dest;
             temp.freeSeats = frSeats;
-            temp.planeType = ptype;
+            //temp.planeType = SeatController.PlaneType_DTO_to_DAL(ptype.PlaneTypeID, ptype.PlaneType, ptype.Seats);
             temp.status = st;
             temp.freeSeats = frSeats;
-
-            if (s != null)
-            {
-                for (int j = 0; j < s.Count; j++)
-                {
-                    DAL.Seat tempS = SeatController.Seat_DTO_to_DAL(s[j].SeatId, s[j].Reserved, s[j].SeatType, s[j].Price, s[j].Coordinates.X, s[j].Coordinates.Y);
-                    temp.seats.Add(tempS);
-                }
-            }
-
+           
             return temp;
         }
 
@@ -77,19 +61,19 @@ namespace WebApi
             for (int i = 0; i < DAL_list.Count; i++)
             {
                 Flight_DTO current = Flight_DAL_to_DTO(DAL_list[i].flightID, DAL_list[i].date, DAL_list[i].departure, DAL_list[i].destination, DAL_list[i].freeSeats, 
-                    DAL_list[i].planeType, DAL_list[i].status, DAL_list[i].seats);
+                    DAL_list[i].planeType, DAL_list[i].status);
                 result.Add(current);             
             }
             return result;
         }
 
-        [HttpGet("{id}", Name = "GetReserve")]
+        [HttpGet("{id}", Name = "GetFlight")]
         public ActionResult<Flight_DTO> GetById(long id)
         {
             DAL.Flight temp = _context.Flights.Find(id);
             if (temp == null)
                 return NotFound();
-            Flight_DTO result = Flight_DAL_to_DTO(temp.flightID, temp.date, temp.departure, temp.destination, temp.freeSeats, temp.planeType, temp.status, temp.seats);
+            Flight_DTO result = Flight_DAL_to_DTO(temp.flightID, temp.date, temp.departure, temp.destination, temp.freeSeats, temp.planeType, temp.status);
 
             return result;
         }
@@ -97,11 +81,11 @@ namespace WebApi
         [HttpPost]
         public IActionResult Create(Flight_DTO item)
         {
-            DAL.Flight tempfl = Flight_DTO_to_DAL(item.FlightId , item.Date, item.Departure, item.Destination, item.FreeSeats, item.PlaneType, item.Status, item.Seats);        
+            DAL.Flight tempfl = Flight_DTO_to_DAL(item.FlightId , item.Date, item.Departure, item.Destination, item.FreeSeats, item.PlaneType, item.Status);        
             _context.Flights.Add(tempfl);
             _context.SaveChanges();
 
-            return CreatedAtRoute("GetReserve", new { id = tempfl.flightID }, item);
+            return CreatedAtRoute("GetFlight", new { id = tempfl.flightID }, item);
         }
 
         [HttpPut("{id}")]
@@ -118,17 +102,8 @@ namespace WebApi
             todo.destination = item.Destination;
             todo.status = item.Status;
             todo.freeSeats = item.FreeSeats;
-            todo.planeType = item.PlaneType;
-
-            if (item.Seats != null) //Különben nem működne. Kristóf
-            {
-                for (int j = 0; j < item.Seats.Count; j++)
-                {
-                    DAL.Seat tempS = SeatController.Seat_DTO_to_DAL(item.Seats[j].SeatId, item.Seats[j].Reserved, item.Seats[j].SeatType, item.Seats[j].Price,
-                        item.Seats[j].Coordinates.X, item.Seats[j].Coordinates.Y);
-                    todo.seats.Add(tempS);
-                }
-            }
+            //todo.planeType = item.PlaneType;
+          
             _context.Flights.Update(todo);
             _context.SaveChanges();
             return NoContent();
