@@ -1,43 +1,49 @@
 ﻿using Desktop.Models;
 using Desktop.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Desktop.ViewModels
 {
-    //Az ICommand már foglalt volt
-    public interface ICommandBase
+    public abstract class CommandBase : ICommand
     {
-        void Execute();
-        void UnExecute();
+        public event EventHandler CanExecuteChanged;
+
+        public bool CanExecute(object parameter)
+        {
+            return true;
+        }
+
+        public abstract void Execute(object parameter = null);
+
+        public abstract void UnExecute();
     }
 
-    public class AddCommand : ICommandBase
+    public class AddCommand : CommandBase
     {
+        long id;
         private DateTime date;
         private string dep;
         private string des;
         private string type;
 
-        public AddCommand(DateTimeOffset date, TimeSpan time, string dep, string des, string type)
+        public AddCommand(long id, DateTimeOffset date, TimeSpan time, string dep, string des, string type)
         {
+            this.id = id;
             this.date = CombineDateAndTime(date, time);
             this.dep = dep;
             this.des = des;
             this.type = type;
         }
 
-        public void Execute()
+        public override void Execute(object parameter = null)
         {
-            DataService.AddFlightAsync(date, dep, des, type);
+            DataService.AddFlightAsync(id, date, dep, des, type);
         }
 
-        public void UnExecute()
+        public override void UnExecute()
         {
-            DataService.DeleteFlightAsync(new Flight(date, dep, des, type));
+            DataService.DeleteFlightAsync(new Flight(id));
         }
 
         //Segédfüggvény a dátum előállításához
@@ -49,21 +55,42 @@ namespace Desktop.ViewModels
         }
     }
 
-    public class DeleteCommand : ICommandBase
+    public class DeleteCommand : CommandBase
     {
         private Flight flight;
         public DeleteCommand(Flight flight)
         {
             this.flight = flight;
         }
-        public void Execute()
+        public override void Execute(object parameter = null)
         {
             DataService.DeleteFlightAsync(flight);
         }
 
-        public void UnExecute()
+        public override void UnExecute()
         {
             DataService.AddFlightAsync(flight);
+        }
+    }
+
+    public class UpdateCommand : CommandBase
+    {
+        Flight oldFlight;
+        Flight newFlight;
+        public UpdateCommand(Flight flight, Flight old)
+        {
+            this.newFlight = flight;
+            this.oldFlight = old;
+        }
+
+        public override void Execute(object parameter = null)
+        {
+            DataService.UpdateFlightAsync(newFlight);
+        }
+
+        public override void UnExecute()
+        {
+            DataService.UpdateFlightAsync(oldFlight);
         }
     }
 }

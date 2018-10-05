@@ -37,9 +37,9 @@ namespace Desktop.Services
         }
 
         //Járat hozzáadása
-        public static async void AddFlightAsync(DateTime date, String dep = "London", String dest="New York", String type = "Airbus A370")
+        public static async void AddFlightAsync(long id, DateTime date, String dep = "London", String dest="New York", String type = "Airbus A370")
         {
-            var f = new Flight()
+            var f = new Flight(id)
             {
                 Date = date,
                 Departure = dep,
@@ -69,7 +69,7 @@ namespace Desktop.Services
         public static async void DeleteFlightAsync(Flight f)
         {
             //Http kérés kiadása
-            await HttpService.PostDeleteFlightAsync(new DeleteFlight_DTO(f.FlightId));
+            await HttpService.PostDeleteFlightAsync(f.ToDTO());
 
             //Táblázat frissítése
             ReloadListAsync();
@@ -79,7 +79,7 @@ namespace Desktop.Services
         public static async void UpdateFlightAsync(Flight f)
         {
             //Http kérés kiadása
-            await HttpService.PostUpdateFlightAsync(new UpdateFlight_DTO(f.ToDTO()));
+            await HttpService.PostUpdateFlightAsync(f.ToDTO());
 
             //Táblázat frissítése
             ReloadListAsync();

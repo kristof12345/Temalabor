@@ -13,10 +13,16 @@ namespace Desktop.ViewModels
 {
     public class FlightViewModel : ViewModelBase, INotifyPropertyChanged
     {
-        private Stack<ICommandBase> commandStack = new Stack<ICommandBase>();
-        private Stack<ICommandBase> undoStack = new Stack<ICommandBase>();
+        private Stack<CommandBase> commandStack = new Stack<CommandBase>();
+        private Stack<CommandBase> undoStack = new Stack<CommandBase>();
         private bool undoEnabled = false;
         private bool redoEnabled = false;
+        private long nextId = 0;
+
+        public long NextId
+        {
+            get { nextId++; return nextId; }
+        }
 
         public bool UndoEnabled
         {
@@ -39,7 +45,7 @@ namespace Desktop.ViewModels
             }
         }
 
-        internal void ExecuteCommand(ICommandBase cmd)
+        internal void ExecuteCommand(CommandBase cmd)
         {
             cmd.Execute();
             commandStack.Push(cmd);

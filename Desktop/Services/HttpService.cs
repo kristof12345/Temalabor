@@ -37,11 +37,11 @@ namespace Desktop.Services
 
             HttpResponseMessage response = await client.PostAsJsonAsync(UriFlights, addRequest);
             var contents = await response.Content.ReadAsStringAsync();
-            //Debug.WriteLine("A hozzáadott repülő típusa: " + addRequest.PlaneType.PlaneTypeName);
+            Debug.WriteLine("A hozzáadott repülő ID-ja: " + addRequest.FlightId);
         }
 
         //Járatok listázása OK
-        public static async Task<List<Flight_DTO>> PostListAsync(ListFlights_DTO listRequest=null)
+        public static async Task<List<Flight_DTO>> PostListAsync()
         {
             client = new HttpClient(handler);
 
@@ -51,22 +51,24 @@ namespace Desktop.Services
         }
 
         //Járat törlése OK
-        public static async Task PostDeleteFlightAsync(DeleteFlight_DTO deleteRequest)
+        public static async Task PostDeleteFlightAsync(Flight_DTO deleteRequest)
         {
             client = new HttpClient(handler);
 
             HttpResponseMessage response = await client.DeleteAsync(UriFlights + deleteRequest.FlightId);
             var contents = await response.Content.ReadAsStringAsync();
+            Debug.WriteLine("A törölt repülő ID-ja: " + deleteRequest.FlightId);
         }
 
         //Járat módosítása OK
-        public static async Task PostUpdateFlightAsync(UpdateFlight_DTO updateRequest)
+        public static async Task PostUpdateFlightAsync(Flight_DTO updateRequest)
         {
             client = new HttpClient(handler);
 
-            HttpResponseMessage response = await client.PutAsJsonAsync(UriFlights + updateRequest.Flight.FlightId, updateRequest.Flight);
+            HttpResponseMessage response = await client.PutAsJsonAsync(UriFlights + updateRequest.FlightId, updateRequest);
             var contents = await response.Content.ReadAsStringAsync();
-            //Debug.WriteLine("A módosított repülő adatai: " + updateRequest.Flight.ToString());
+            Debug.WriteLine("A módosított repülő ID-ja: " + updateRequest.FlightId);
+            Debug.WriteLine("A módosított repülő adatai: " + updateRequest.ToString());
         }
 
         //Foglalás hozzáadása

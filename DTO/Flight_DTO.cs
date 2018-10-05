@@ -17,7 +17,7 @@ namespace DTO
             }
 
             FreeSeats = numOfSeats;
-            PlaneType = new PlaneType("A380");
+            PlaneType = new PlaneType("Airbus A380");
         }
 
 
