@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DTO
 {
-    //Egy foglalást reprezentáló osztály
+    //Egy foglalást reprezentáló osztály LEHET, HOGY NEM SZÉKENKÉNT KELLENE...
     public class Reservation
     {
         public Reservation(long fid, long sid, String name="Felhasznalo")

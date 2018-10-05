@@ -9,8 +9,8 @@ namespace Desktop.Services
 {
     class SignInService
     {
-        public static User_DTO User { get; private set; }
-        public static async Task<bool> SignInAsync(User_DTO u)
+        public static User User { get; private set; }
+        public static async Task<bool> SignInAsync(User u)
         {
             if (await HttpService.PostLoginAsync(u.Name, u.Password))
             {

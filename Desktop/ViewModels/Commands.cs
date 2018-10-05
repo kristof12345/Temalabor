@@ -21,7 +21,7 @@ namespace Desktop.ViewModels
 
     public class AddCommand : CommandBase
     {
-        long id;
+        private long id;
         private DateTime date;
         private string dep;
         private string des;

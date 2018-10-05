@@ -16,7 +16,7 @@ namespace Desktop.Views
         //Ha a gombra kattintunk
         private async void btLogin_Click(object sender, RoutedEventArgs e)
         {
-            User_DTO user = new User_DTO(tbName.Text, tbPass.Text);
+            User user = new User(tbName.Text, tbPass.Text);
 
             //Ha be van jelölve a checkbox, akkor admin belépés
             if (cbAdmin.IsChecked == true)

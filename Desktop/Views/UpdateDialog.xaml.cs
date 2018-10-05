@@ -1,5 +1,5 @@
 ﻿using Desktop.Models;
-using System;
+using DTO;
 using System.Diagnostics;
 using Windows.UI.Xaml.Controls;
 
@@ -16,7 +16,7 @@ namespace Desktop.Views
             Flight = f;
             datePicker.Date = f.Date;
             timePicker.Time = f.Date.TimeOfDay;
-            comboBox.ItemsSource = PlaneTypes.CreateComboBox();
+            comboBox.ItemsSource = PlaneType.CreateComboBox();
         }
 
         private void OnApplyClicked(ContentDialog sender, ContentDialogButtonClickEventArgs args)

@@ -27,13 +27,13 @@ namespace Desktop.ViewModels
         public bool UndoEnabled
         {
             get { return undoEnabled; }
-            set { undoEnabled = value; RaisePropertyChanged("UndoEnabled"); }
+            private set { undoEnabled = value; RaisePropertyChanged("UndoEnabled"); }
         }
 
         public bool RedoEnabled
         {
             get { return redoEnabled; }
-            set { redoEnabled = value; RaisePropertyChanged("RedoEnabled"); }
+            private set { redoEnabled = value; RaisePropertyChanged("RedoEnabled"); }
         }
 
         //Adatforrás

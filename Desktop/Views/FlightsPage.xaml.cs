@@ -26,7 +26,7 @@ namespace Desktop.Views
             //A dupla kattintást jelző event
             dataTable.DoubleTapped += doubleTapped;
             //ComboBox beállítása
-            cbType.ItemsSource = PlaneTypes.CreateComboBox();
+            cbType.ItemsSource = PlaneType.CreateComboBox();
             cbType.SelectedIndex = 0;
         }
 

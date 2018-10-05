@@ -10,9 +10,9 @@ namespace DTO
         Administrator
     }
 
-    public class User_DTO
+    public class User
     {
-        public User_DTO(string name, string pass, UserType t = UserType.Customer)
+        public User(string name, string pass, UserType t = UserType.Customer)
         {
             Name = name;
             Password = pass;

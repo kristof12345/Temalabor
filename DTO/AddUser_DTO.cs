@@ -7,6 +7,6 @@ namespace DTO
     //Hozzáad egy felhasználót
     class AddUser_DTO
     {
-        public User_DTO User { get; set; }
+        public User User { get; set; }
     }
 }

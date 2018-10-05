@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace Desktop.Models
+namespace DTO
 {
-    public class PlaneTypes
+    public class PlaneType
     {
+        public PlaneType(string type) { PlaneTypeName = type; }
+
+        public long PlaneTypeID { get; set; }
+        public string PlaneTypeName { get; set; }
+        public List<Seat> Seats { get; set; }
+
         //Combo box feltöltése
         public static object CreateComboBox()
         {

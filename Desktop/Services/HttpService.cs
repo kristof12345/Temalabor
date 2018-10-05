@@ -12,9 +12,8 @@ namespace Desktop.Services
         private static HttpClient client = new HttpClient();
         private static HttpClientHandler handler = new HttpClientHandler();
 
-        //TODO: config fájlból beolvasni
-        private static string baseUri = "https://localhost:5001/api/"; //Kristóf 
-        //private static string baseUri = "https://localhost:44376/api/"; //Gábor 
+        //Config fájlból olvassa be
+        private static string baseUri;
 
         private static string UriFlights;
         private static string UriReservation;
@@ -25,6 +24,7 @@ namespace Desktop.Services
             //Ne változtasd meg, így működik
             handler.ClientCertificateOptions = ClientCertificateOption.Manual;
             handler.ServerCertificateCustomValidationCallback = (httpRequestMessage, cert, cetChain, policyErrors) => { return true; };
+            baseUri = System.IO.File.ReadAllText(@"ConfigUri.txt"); //C:\Users\pappkristof\source\repos\Temalabor\Desktop\bin\x86\Debug
             UriFlights = baseUri + "flight/";
             UriReservation = baseUri + "reservation/";
             UriUsers = baseUri + "users/";
@@ -94,7 +94,7 @@ namespace Desktop.Services
 
         public static async Task<bool> PostLoginAsync(string name, string pass)
         {
-            Login_DTO loginRequest = new Login_DTO(new User_DTO(name, pass));
+            Login_DTO loginRequest = new Login_DTO(new User(name, pass));
 
             bool ret = await PostLoginAsync(loginRequest);
 
