@@ -40,8 +40,11 @@ namespace Desktop.Views
         //Dupla kattintásnál átváltunk a kiválasztott repülő nézetére
         private void doubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
-            Flight param = (Flight)dataTable.SelectedItem;
-            this.Frame.Navigate(typeof(PlanePage), param);
+            if (dataTable.SelectedItem != null)
+            {
+                Flight param = (Flight)dataTable.SelectedItem;
+                this.Frame.Navigate(typeof(PlanePage), param);
+            }
         }
 
         //Új járat felvétele a gomb megnyomásakor

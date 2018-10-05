@@ -69,7 +69,7 @@ namespace Desktop.Services
         public static async void DeleteFlightAsync(Flight f)
         {
             //Http kérés kiadása
-            await HttpService.PostDeleteFlightAsync(new DeleteFlight_DTO(f.FlightId));
+            await HttpService.PostDeleteFlightAsync(f.ToDTO());
 
             //Táblázat frissítése
             ReloadListAsync();
@@ -79,7 +79,7 @@ namespace Desktop.Services
         public static async void UpdateFlightAsync(Flight f)
         {
             //Http kérés kiadása
-            await HttpService.PostUpdateFlightAsync(new UpdateFlight_DTO(f.ToDTO()));
+            await HttpService.PostUpdateFlightAsync(f.ToDTO());
 
             //Táblázat frissítése
             ReloadListAsync();

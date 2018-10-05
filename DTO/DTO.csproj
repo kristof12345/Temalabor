@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="AddFlight_DTO.cs" />
+    <Compile Remove="DeleteFlight_DTO.cs" />
+    <Compile Remove="ListFlights_DTO.cs" />
+    <Compile Remove="UpdateFlight_DTO.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.3" />
   </ItemGroup>
