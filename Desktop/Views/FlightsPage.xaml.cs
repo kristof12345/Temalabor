@@ -50,12 +50,12 @@ namespace Desktop.Views
         //Új járat felvétele a gomb megnyomásakor
         private void btAdd_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            ICommandBase cmd = new AddCommand(dpDate.Date, dpTime.Time, tbDep.Text, tbDes.Text, cbType.SelectedValue.ToString());
+            CommandBase cmd = new AddCommand(ViewModel.NextId, dpDate.Date, dpTime.Time, tbDep.Text, tbDes.Text, cbType.SelectedValue.ToString());
             ViewModel.ExecuteCommand(cmd);
         }
         
 
-            //Foglalás gomb
+        //Foglalás gomb
         private void btReserve_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             if (dataTable.SelectedItem != null)
@@ -108,18 +108,13 @@ namespace Desktop.Views
             this.Frame.Navigate(typeof(UserPage));
         }
 
-        private void btSearch_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            //TODO: valami
-        }
-
         private void btDelete_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             //Ha van kiválasztott repülő, töröljük
             if (dataTable.SelectedItem != null)
             {
                 //DataService.DeleteFlightAsync((Flight)dataTable.SelectedItem);
-                ICommandBase cmd = new DeleteCommand((Flight)dataTable.SelectedItem);
+                CommandBase cmd = new DeleteCommand((Flight)dataTable.SelectedItem);
                 ViewModel.ExecuteCommand(cmd);
             }
         }
@@ -129,19 +124,19 @@ namespace Desktop.Views
             if (dataTable.SelectedItem != null)
             {
                 Flight f = (Flight)dataTable.SelectedItem;
+                Flight old = f.Copy();
+
                 UpdateDialog dialog = new UpdateDialog(f);
                 ContentDialogResult result = await dialog.ShowAsync();
                 //Ha az Apply-re kattintott
                 if(result==ContentDialogResult.Secondary)
+                { 
+                    CommandBase cmd = new UpdateCommand(f, old);
+                    ViewModel.ExecuteCommand(cmd);
+                }
+                else //Különben CANCEL
                 {
-                    //f.Date = ViewModel.CombineDateAndTime(dialog.Date, dialog.Time);
-                    f.Departure = dialog.Departure;
-                    f.Destination = dialog.Destination;
-                    f.Status = dialog.Status;
-                    f.PlaneType = dialog.PlaneType;
-
-                    //Táblázat frissítése
-                    DataService.UpdateFlightAsync(f);
+                    f = old;
                 }
             }
         }

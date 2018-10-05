@@ -134,5 +134,16 @@ namespace Desktop.Models
             this.Status = dto.Status;
             this.seats = new List<Seat>();
         }
+
+        internal Flight Copy()
+        {
+            var copied = new Flight(FlightId);
+            copied.Date = Date;
+            copied.Departure = Departure;
+            copied.Destination = Destination;
+            copied.Status = Status;
+            copied.PlaneType = PlaneType;
+            return copied;
+        }
     }
 }

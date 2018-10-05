@@ -8,8 +8,8 @@
     mc:Ignorable="d"
     Title="Update flight"
     PrimaryButtonText="Cancel"
-    SecondaryButtonText="Apply">
-
+    SecondaryButtonText="Apply"
+    SecondaryButtonClick="OnApplyClicked">
     <Grid>
         <ListView x:Name="listView" SelectionMode="None">
             <ListView.ItemsPanel>
@@ -22,13 +22,13 @@
             <TextBlock Text="Flight time" TextWrapping="Wrap"/>
             <TimePicker x:Name="timePicker" Width="300" Height="33"/>
             <TextBlock Text="Departure" TextWrapping="Wrap"/>
-            <TextBox x:Name="tbDep" Width="300" Height="33"/>
+            <TextBox x:Name="tbDep" Text="{x:Bind Flight.Departure, Mode=TwoWay}" Width="300" Height="33"/>
             <TextBlock Text="Destination" TextWrapping="Wrap"/>
-            <TextBox x:Name="tbDes" Width="300" Height="33"/>
+            <TextBox x:Name="tbDes" Text="{x:Bind Flight.Destination, Mode=TwoWay}" Width="300" Height="33"/>
             <TextBlock Text="Status" TextWrapping="Wrap"/>
-            <TextBox x:Name="tbSta" Width="300" Height="33"/>
+            <TextBox x:Name="tbSta" Text="{x:Bind Flight.Status, Mode=TwoWay}" Width="300" Height="33"/>
             <TextBlock Text="Plane type" TextWrapping="Wrap"/>
-            <ComboBox x:Name="comboBox" Width="300" Height="33"/>
+            <ComboBox x:Name="comboBox" SelectedItem="{x:Bind Flight.PlaneType, Mode=TwoWay}" Width="300" Height="33"/>
         </ListView>
     </Grid>
 </ContentDialog>

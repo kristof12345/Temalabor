@@ -37,7 +37,7 @@ namespace Desktop.Services
 
             HttpResponseMessage response = await client.PostAsJsonAsync(UriFlights, addRequest);
             var contents = await response.Content.ReadAsStringAsync();
-            //Debug.WriteLine("A hozzáadott repülő típusa: " + addRequest.PlaneType.PlaneTypeName);
+            Debug.WriteLine("A hozzáadott repülő ID-ja: " + addRequest.FlightId);
         }
 
         //Járatok listázása OK
@@ -57,6 +57,7 @@ namespace Desktop.Services
 
             HttpResponseMessage response = await client.DeleteAsync(UriFlights + deleteRequest.FlightId);
             var contents = await response.Content.ReadAsStringAsync();
+            Debug.WriteLine("A törölt repülő ID-ja: " + deleteRequest.FlightId);
         }
 
         //Járat módosítása OK
@@ -66,7 +67,8 @@ namespace Desktop.Services
 
             HttpResponseMessage response = await client.PutAsJsonAsync(UriFlights + updateRequest.FlightId, updateRequest);
             var contents = await response.Content.ReadAsStringAsync();
-            //Debug.WriteLine("A módosított repülő adatai: " + updateRequest.Flight.ToString());
+            Debug.WriteLine("A módosított repülő ID-ja: " + updateRequest.FlightId);
+            Debug.WriteLine("A módosított repülő adatai: " + updateRequest.ToString());
         }
 
         //Foglalás hozzáadása

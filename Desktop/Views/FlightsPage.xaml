@@ -84,7 +84,6 @@
                         <Setter Property="Padding" Value="6"/>
                     </Style>
                 </ListView.ItemContainerStyle>
-                <Button x:Name="btSearch" Content="Search" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="120" Click="btSearch_Click"/>
                 <Button x:Name="btReserve" Content="Reserve Seat" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="120"  Click="btReserve_Click"/>
             </ListView>
         </Grid>
