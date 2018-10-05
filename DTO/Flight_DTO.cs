@@ -23,21 +23,22 @@ namespace DTO
 
         public long FlightId { get; set; }
 
+        public long BusinessId { get; set; }
+
         public DateTime Date { get; set; }
 
         public string Departure { get; set; }
 
         public string Destination { get; set; }
 
-        public PlaneType PlaneType { get; set; } 
+        public PlaneType PlaneType { get; set; }
+
+        public long PlaneTypeID { get; set; }
 
         public string Status { get; set; } //Ez lehet, hogy enumként jobb lenne
         public List<Seat> Seats { get; set; }
 
-        public int NumberOfSeats
-        {
-            get { return seats.Count; }
-        }
+        public int NumberOfSeats { get; set; }
 
         public int FreeSeats { get; set; }
 

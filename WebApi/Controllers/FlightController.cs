@@ -25,31 +25,38 @@ namespace WebApi
             _context2 = context2;  
         }
 
-        public Flight_DTO Flight_DAL_to_DTO(long fID, DateTime d, string dep, string dest,  int frSeats, DAL.PlaneType ptype, string st)
+        public Flight_DTO Flight_DAL_to_DTO(long fID, long bID, DateTime d, string dep, string dest, int frSeats, long pID, string st)
         {
             Flight_DTO temp = new Flight_DTO(frSeats);
             temp.FlightId = fID;
+            temp.BusinessId = bID;
             temp.Departure = dep;
             temp.Date = d;
             temp.Destination = dest;
             temp.FreeSeats = frSeats;
-            //temp.PlaneType = SeatController.PlaneType_DAL_to_DTO(ptype.planeTypeID, ptype.planeType, ptype.seats);
+            var seats = _context.Seats.Where(s => s.planeTypeID == pID);
+            temp.NumberOfSeats = seats.ToList().Count;
+            var dplanet = _context.PlaneTypes.Single(p => p.planeTypeID == pID);
+            temp.PlaneType = SeatController.PlaneType_DAL_to_DTO(dplanet.planeTypeID, dplanet.planeType);
             temp.Status = st;
 
             return temp;
         }
 
-        public DAL.Flight Flight_DTO_to_DAL(long fID, DateTime d, string dep, string dest, int frSeats, PlaneType ptype, string st)
+        public DAL.Flight Flight_DTO_to_DAL(long fID, long bID, DateTime d, string dep, string dest, int frSeats, long pID, string st)
         {
             DAL.Flight temp = new DAL.Flight();
             //temp.flightID = fID; //EZ KELLENE
+            temp.businessID = bID;
             temp.departure = dep;
             temp.date = d;
             temp.destination = dest;
             temp.freeSeats = frSeats;
-            //temp.planeType = SeatController.PlaneType_DTO_to_DAL(ptype.PlaneTypeID, ptype.PlaneType, ptype.Seats);
+            var seats = _context.Seats.Where(s => s.planeTypeID == pID);
+            temp.numberofSeats = seats.ToList().Count;
+            var dplanet = _context.PlaneTypes.Single(p => p.planeTypeID == pID);
+            temp.planeType = dplanet;
             temp.status = st;
-            temp.freeSeats = frSeats;
            
             return temp;
         }
@@ -61,8 +68,9 @@ namespace WebApi
             List<Flight_DTO> result = new List<Flight_DTO>();
             for (int i = 0; i < DAL_list.Count; i++)
             {
-                Flight_DTO current = Flight_DAL_to_DTO(DAL_list[i].flightID, DAL_list[i].date, DAL_list[i].departure, DAL_list[i].destination, DAL_list[i].freeSeats, 
-                    DAL_list[i].planeType, DAL_list[i].status);
+                Flight_DTO current = Flight_DAL_to_DTO(DAL_list[i].flightID, DAL_list[i].businessID, DAL_list[i].date, DAL_list[i].departure, DAL_list[i].destination, DAL_list[i].freeSeats, 
+                    DAL_list[i].planeTypeID, 
+                    DAL_list[i].status);
                 result.Add(current);             
             }
             return result;
@@ -71,10 +79,11 @@ namespace WebApi
         [HttpGet("{id}", Name = "GetFlight")]
         public ActionResult<Flight_DTO> GetById(long id)
         {
-            DAL.Flight temp = _context.Flights.Find(id);
+            //DAL.Flight temp = _context.Flights.Find(id);
+            var temp = _context.Flights.Single(p => p.businessID == id);
             if (temp == null)
                 return NotFound();
-            Flight_DTO result = Flight_DAL_to_DTO(temp.flightID, temp.date, temp.departure, temp.destination, temp.freeSeats, temp.planeType, temp.status);
+            Flight_DTO result = Flight_DAL_to_DTO(temp.flightID, temp.businessID, temp.date, temp.departure, temp.destination, temp.freeSeats, temp.planeTypeID, temp.status);
 
             return result;
         }
@@ -82,7 +91,7 @@ namespace WebApi
         [HttpPost]
         public IActionResult Create(Flight_DTO item)
         {
-            DAL.Flight tempfl = Flight_DTO_to_DAL(item.FlightId , item.Date, item.Departure, item.Destination, item.FreeSeats, item.PlaneType, item.Status);        
+            DAL.Flight tempfl = Flight_DTO_to_DAL(item.FlightId , item.BusinessId, item.Date, item.Departure, item.Destination, item.FreeSeats, item.PlaneTypeID, item.Status);        
             _context.Flights.Add(tempfl);
             _context.SaveChanges();
 
@@ -92,7 +101,8 @@ namespace WebApi
         [HttpPut("{id}")]
         public IActionResult Update(long id, Flight_DTO item)
         {
-            var todo = _context.Flights.Find(id);
+            //var todo = _context.Flights.Find(id);
+            var todo = _context.Flights.Single(p => p.businessID == id);
             if (todo == null)
             {
                 return NotFound();
@@ -103,7 +113,7 @@ namespace WebApi
             todo.destination = item.Destination;
             todo.status = item.Status;
             todo.freeSeats = item.FreeSeats;
-            //todo.planeType = item.PlaneType;
+            todo.planeTypeID = item.PlaneTypeID;
           
             _context.Flights.Update(todo);
             _context.SaveChanges();
@@ -113,7 +123,8 @@ namespace WebApi
         [HttpDelete("{id}")]
         public IActionResult Delete(long id)
         {
-            var todo = _context.Flights.Find(id);
+            //var todo = _context.Flights.Find(id);
+            var todo = _context.Flights.Single(p => p.businessID == id);
             if (todo == null)
             {
                 return NotFound();

@@ -13,8 +13,8 @@ namespace Desktop.Services
         private static HttpClientHandler handler = new HttpClientHandler();
 
         //TODO: config fájlból beolvasni
-        private static string baseUri = "https://localhost:5001/api/"; //Kristóf 
-        //private static string baseUri = "https://localhost:44376/api/"; //Gábor 
+        //private static string baseUri = "https://localhost:5001/api/"; //Kristóf 
+        private static string baseUri = "https://localhost:44376/api/"; //Gábor 
 
         private static string UriFlights;
         private static string UriReservation;

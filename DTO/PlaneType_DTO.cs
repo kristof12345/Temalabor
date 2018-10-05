@@ -10,6 +10,6 @@ namespace DTO
 
         public long PlaneTypeID { get; set; }
         public string PlaneTypeName { get; set; }
-        public List<Seat> Seats { get; set; }
+        //public List<Seat> Seats { get; set; }
     }
 }
