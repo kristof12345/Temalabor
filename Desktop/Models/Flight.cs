@@ -52,7 +52,7 @@ namespace Desktop.Models
         public Flight(Flight_DTO dto)
         {
             this.FromDTO(dto);
-            if(dto.Seats != null) GenerateSeats(dto.Seats.Count);
+            if(dto.PlaneType.Seats == null) GenerateSeats(dto.PlaneType.Seats.Count);
         }
 
         public Flight(DateTime date, string dep, string des, string type)
@@ -113,12 +113,11 @@ namespace Desktop.Models
 
         internal Flight_DTO ToDTO()
         {
-            Flight_DTO ret = new Flight_DTO(this.NumberOfSeats);
+            Flight_DTO ret = new Flight_DTO(this.PlaneType);
             ret.FlightId = this.FlightId;
             ret.Departure = this.Departure;
             ret.Destination = this.Destination;
-            ret.Date = this.Date;
-            ret.PlaneType = this.type;         
+            ret.Date = this.Date;        
             ret.Status = this.Status;
 
             return ret;

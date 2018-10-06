@@ -54,8 +54,10 @@ namespace WebApi
             temp.freeSeats = frSeats;
             var seats = _context.Seats.Where(s => s.planeTypeID == pID);
             temp.numberofSeats = seats.ToList().Count;
+            //EXCEPTIONT DOB
             var dplanet = _context.PlaneTypes.Single(p => p.planeTypeID == pID);
             temp.planeType = dplanet;
+
             temp.status = st;
            
             return temp;
