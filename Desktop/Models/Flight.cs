@@ -78,28 +78,17 @@ namespace Desktop.Models
         public string Destination { get; set; }
 
         //Repülő típusa, tartalmazza a székeket
-        public string PlaneType
-        {
-            get { return planeType.PlaneTypeName; }
-            set
-            {
-                if (value != null) planeType = new PlaneType(value);
-            }
-        }
+        public string PlaneType { get; set; }
+
 
         //A járat státusza (pl: Cancelled, Sceduled, Delayed)
         public string Status { get; set; }
 
         //A székek száma
-        public int NumberOfSeats
-        {
-            get { return planeType.GetTotalSeatsCount(); }
-        }
+        public int NumberOfSeats { get; set; }
 
-        public int FreeSeats
-        {
-            get { return planeType.GetFreeSeatsCount(); }
-        }
+        public int FreeSeats { get; set; }
+
 
         //A szabad székek száma
         public override string ToString()
