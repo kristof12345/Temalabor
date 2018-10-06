@@ -66,11 +66,10 @@ namespace Desktop.Services
         {
             client = new HttpClient(handler);
 
-            Debug.WriteLine("Kérés elküldve");
+            Debug.WriteLine("Kérés elküldve.");
             HttpResponseMessage response = await client.GetAsync(UriFlights);
             List<Flight_DTO> list = await response.Content.ReadAsAsync<List<Flight_DTO>>();
 
-            Debug.WriteLine(response.Content.ToString());
             return list;
         }
 
