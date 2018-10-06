@@ -24,6 +24,16 @@ namespace Desktop.Services
             }
         }
 
+        public static long MaxId
+        {
+            get
+            {
+                long max = 0;
+                foreach (Flight f in flightList) { if (f.FlightId >= max) max = f.FlightId; }
+                return max;
+            }
+        }
+
         //A járatok letöltése a szerverről
         private static async void ReloadListAsync()
         {
