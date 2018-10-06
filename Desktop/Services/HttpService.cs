@@ -18,8 +18,9 @@ namespace Desktop.Services
         private static string UriFlights;
         private static string UriReservation;
         private static string UriUsers;
+        private static string UriTypes;
 
-        public static void Initialize()
+        public static async void InitializeAsync()
         {
             //Ne változtasd meg, így működik
             handler.ClientCertificateOptions = ClientCertificateOption.Manual;
@@ -28,18 +29,34 @@ namespace Desktop.Services
             UriFlights = baseUri + "flight/";
             UriReservation = baseUri + "reservation/";
             UriUsers = baseUri + "users/";
+            UriTypes = baseUri + "types/"; //TODO: Gábor ezt légyszi rakd a webapiba
 
-            //TODO: Adatbázisból kell lekérdezni
-            string[] strArray =
-                {
-                "Airbus A380",
-                "Boeing 747",
-                "Boeing 777",
-                "Antonov 124",
-                //További repülő típusok
-            };
+            List<String> strArray = new List<string>();
 
-            PlaneType.Initialize(strArray);
+            try
+            {
+                strArray = await GetTypesAsync();
+            }
+            catch (Exception)
+            {
+                Debug.WriteLine("Unable to connect to server.");
+                strArray.Add("Airbus A380");
+                strArray.Add("Boeing 747");
+                strArray.Add("Boeing 777");
+                strArray.Add("Antonov 124");
+            }
+
+            PlaneType.Initialize(strArray.ToArray());
+        }
+
+        //Repülőtípusok lekérdezése
+        private static async Task<List<String>> GetTypesAsync()
+        {
+            client = new HttpClient(handler);
+
+            HttpResponseMessage response = await client.GetAsync(UriTypes);
+            List<String> list = await response.Content.ReadAsAsync<List<String>>();
+            return list;
         }
 
         //Repülő hozzáadása OK

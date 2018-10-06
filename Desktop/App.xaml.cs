@@ -27,7 +27,7 @@ namespace Desktop
 
         protected override async void OnLaunched(LaunchActivatedEventArgs args)
         {
-            HttpService.Initialize();
+            HttpService.InitializeAsync();
             if (!args.PrelaunchActivated)
             {
                 await ActivationService.ActivateAsync(args);
