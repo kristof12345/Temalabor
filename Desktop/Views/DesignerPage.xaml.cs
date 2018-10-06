@@ -21,15 +21,19 @@ namespace Desktop.Views
 {
     public sealed partial class DesignerPage : Page
     {
+        private DesignerViewModel ViewModel
+        {
+            get { return DataContext as DesignerViewModel; }
+        }
+
         public DesignerPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             canvas.PointerPressed += clicked;
         }
 
         private void clicked(object sender, PointerRoutedEventArgs e)
         {
-            Debug.WriteLine("Click");
             var pos = e.GetCurrentPoint(canvas);
             tbCordX.Text = pos.Position.X.ToString();
             tbCordY.Text = pos.Position.Y.ToString();
@@ -37,13 +41,9 @@ namespace Desktop.Views
             //Left=0, Top=X, Right=Y, Bottom=0
             newSeat.Margin = new Thickness(pos.Position.X-10, pos.Position.Y-15, 0, 0);
             canvas.Children.Add(newSeat);
-            tbNum.Text = ViewModel.NumberOfSeats;
+            ViewModel.AddSeat(pos.Position.X - 10, pos.Position.Y - 15);
         }
 
-        private DesignerViewModel ViewModel
-        {
-            get { return DataContext as DesignerViewModel; }
-        }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
@@ -64,6 +64,11 @@ namespace Desktop.Views
             };
             ContentDialogResult result = await noUser.ShowAsync();
             this.Frame.Navigate(typeof(UserPage));
+        }
+
+        private void btSave_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.Save();
         }
     }
 }
