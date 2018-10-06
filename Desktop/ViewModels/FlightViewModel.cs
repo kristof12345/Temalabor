@@ -17,7 +17,7 @@ namespace Desktop.ViewModels
         private Stack<CommandBase> undoStack = new Stack<CommandBase>();
         private bool undoEnabled = false;
         private bool redoEnabled = false;
-        private long nextId = 0;
+        private long nextId = 100;
 
         public long NextId
         {

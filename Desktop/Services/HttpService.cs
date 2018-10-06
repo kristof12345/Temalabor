@@ -67,6 +67,7 @@ namespace Desktop.Services
         public static async Task PostAddFlightAsync(Flight_DTO addRequest)
         {
             client = new HttpClient(handler);
+
             Debug.WriteLine("A hozzáadott repülő: " + addRequest);
 
             HttpResponseMessage response = await client.PostAsJsonAsync(UriFlights, addRequest);
@@ -79,6 +80,7 @@ namespace Desktop.Services
             client = new HttpClient(handler);
 
             Debug.WriteLine("Kérés elküldve.");
+
             HttpResponseMessage response = await client.GetAsync(UriFlights);
             List<Flight_DTO> list = await response.Content.ReadAsAsync<List<Flight_DTO>>();
             foreach (Flight_DTO f in list) Debug.WriteLine(f);
@@ -91,9 +93,11 @@ namespace Desktop.Services
         {
             client = new HttpClient(handler);
 
+            Debug.WriteLine("A törölt repülő ID-ja: " + deleteRequest.FlightId);
+
             HttpResponseMessage response = await client.DeleteAsync(UriFlights + deleteRequest.FlightId);
             var contents = await response.Content.ReadAsStringAsync();
-            Debug.WriteLine("A törölt repülő ID-ja: " + deleteRequest.FlightId);
+            
         }
 
         //Járat módosítása
@@ -101,10 +105,12 @@ namespace Desktop.Services
         {
             client = new HttpClient(handler);
 
-            HttpResponseMessage response = await client.PutAsJsonAsync(UriFlights + updateRequest.FlightId, updateRequest);
-            var contents = await response.Content.ReadAsStringAsync();
             Debug.WriteLine("A módosított repülő ID-ja: " + updateRequest.FlightId);
             Debug.WriteLine("A módosított repülő adatai: " + updateRequest.ToString());
+
+            HttpResponseMessage response = await client.PutAsJsonAsync(UriFlights + updateRequest.FlightId, updateRequest);
+            var contents = await response.Content.ReadAsStringAsync();
+
         }
 
         //Foglalás hozzáadása
