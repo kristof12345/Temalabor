@@ -13,6 +13,7 @@ namespace Desktop.Models
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        //Konstruktor
         public Flight(long id=0, String type="Airbus A380")
         {
             FlightId = id;
@@ -47,17 +48,21 @@ namespace Desktop.Models
             }
         }*/
 
+        //Konstruktor DTO-ból
         public Flight(Flight_DTO dto)
         {
             this.FromDTO(dto);
         }
 
-        public Flight(DateTime date, string dep, string des, string type)
+        //Konstruktor teljes paramétrlistával
+        public Flight(long id, DateTime date, string dep, string des, string type, string stat)
         {
+            FlightId = id;
             Date = date;
             Departure = dep;
             Destination = des;
             PlaneType = type;
+            Status = stat;
         }
 
         //Egyedi azonosító a kliensben
