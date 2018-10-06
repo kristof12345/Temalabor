@@ -90,9 +90,9 @@ namespace WebApi
         [HttpPost]
         public IActionResult Create(Flight_DTO item)
         {
-            Debug.WriteLine("1");
+            Debug.WriteLine("1"); //Ez még lefut
             DAL.Flight tempfl = Flight_DTO_to_DAL(item.FlightId, item.DatabaseId, item.Date, item.Departure, item.Destination, item.FreeSeats, item.PlaneType.PlaneTypeName, item.Status);
-            Debug.WriteLine("2");
+            Debug.WriteLine("2"); //Ez már nem
             _context.Flights.Add(tempfl);
             Debug.WriteLine("3");
             _context.SaveChanges();
