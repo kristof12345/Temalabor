@@ -43,7 +43,7 @@ namespace DTO
         //Kiíráshoz ToStirng
         public override string ToString()
         {
-            return "id: " + FlightId.ToString() + " from: " + Departure + " to: " + Destination + " type: " + PlaneType;
+            return "DatabaseId: " + DatabaseId.ToString() + " FlightId: " + FlightId.ToString() + " from: " + Departure + " to: " + Destination + " type: " + PlaneType;
         }
     }
 }

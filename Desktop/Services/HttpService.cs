@@ -33,9 +33,10 @@ namespace Desktop.Services
 
             List<String> strArray = new List<String>();
 
+            strArray.Add("Boeing 777");
             strArray.Add("Airbus A380");
             strArray.Add("Boeing 747");
-            strArray.Add("Boeing 777");
+            strArray.Add("Boeing 222");
             strArray.Add("Antonov 124");
 
             PlaneType.Initialize(strArray.ToArray());
@@ -58,6 +59,7 @@ namespace Desktop.Services
 
             HttpResponseMessage response = await client.GetAsync(UriTypes);
             List<String> list = await response.Content.ReadAsAsync<List<String>>();
+            
             return list;
         }
 
@@ -79,6 +81,7 @@ namespace Desktop.Services
             Debug.WriteLine("Kérés elküldve.");
             HttpResponseMessage response = await client.GetAsync(UriFlights);
             List<Flight_DTO> list = await response.Content.ReadAsAsync<List<Flight_DTO>>();
+            foreach (Flight_DTO f in list) Debug.WriteLine(f);
 
             return list;
         }
