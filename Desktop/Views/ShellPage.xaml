@@ -38,6 +38,12 @@
                     <FontIcon Glyph="&#xF182;"/>
                 </NavigationViewItem.Icon>
             </NavigationViewItem>
+
+            <NavigationViewItem x:Uid="Shell_DesignerPage" helpers:NavHelper.NavigateTo="Desktop.ViewModels.DesignerViewModel" >
+                <NavigationViewItem.Icon>
+                    <FontIcon Glyph="&#xF182;"/>
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
             
         </NavigationView.MenuItems>
         <NavigationView.HeaderTemplate>
