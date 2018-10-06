@@ -42,10 +42,12 @@ namespace WebApi
             return temp;
         }
 
+        //Ilyen paraméterekkel hívod:
+        //                Flight_DTO_to_DAL(item.FlightId, item.DatabaseId, item.Date, item.Departure, item.Destination, item.FreeSeats, item.PlaneType.PlaneTypeName, item.Status);
         public DAL.Flight Flight_DTO_to_DAL(long fID, long bID, DateTime d, string dep, string dest, int frSeats, string ptName, string st)
         {
             DAL.Flight temp = new DAL.Flight();
-            temp.flightID = fID; //EZ KELLENE
+            temp.flightID = fID; //TODO EZ szerintem FORDÍTVA KELLENE
             temp.businessID = bID;
             temp.departure = dep;
             temp.date = d;
