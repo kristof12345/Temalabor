@@ -41,6 +41,16 @@ namespace Desktop.Services
             PlaneType.Initialize(strArray.ToArray());
         }
 
+        public static async void PostAddPlaneTypeAsync(string name, List<Seat> seats)
+        {
+            client = new HttpClient(handler);
+            Debug.WriteLine("A hozzáadott design neve: " + name);
+            var addRequest = new NewType_DTO(name, seats);
+
+            HttpResponseMessage response = await client.PostAsJsonAsync(UriFlights, addRequest);
+            var contents = await response.Content.ReadAsStringAsync();
+        }
+
         //Repülőtípusok lekérdezése
         private static async Task<List<String>> GetTypesAsync()
         {
