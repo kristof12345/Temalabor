@@ -28,9 +28,8 @@ namespace WebApi
         public Flight_DTO Flight_DAL_to_DTO(long fID, long bID, DateTime d, string dep, string dest, long pID, string st)
         {
             var plane = _context.PlaneTypes.Single(i => i.planeTypeID == pID);
-            String planeName = String.Copy(plane.planeType);
-
-            Flight_DTO temp = new Flight_DTO(planeName);
+            var seats = _context.Seats.Where(s => s.planeTypeID == plane.planeTypeID);
+            Flight_DTO temp = new Flight_DTO(plane.planeType);
 
             temp.FlightId = fID; //TODO: EZ szerintem FORDÍTVA KELLENE
             temp.DatabaseId = bID;
@@ -38,24 +37,26 @@ namespace WebApi
             temp.Date = d;
             temp.Destination = dest;
             temp.Status = st;
-
+            temp.FreeSeats = seats.ToList().Count;
+            temp.NumberOfSeats = seats.ToList().Count;
             return temp;
         }
 
         //Ilyen paraméterekkel hívod:
         //                Flight_DTO_to_DAL(item.FlightId, item.DatabaseId, item.Date, item.Departure, item.Destination, item.FreeSeats, item.PlaneType.PlaneTypeName, item.Status);
-        public DAL.Flight Flight_DTO_to_DAL(long fID, long bID, DateTime d, string dep, string dest, int frSeats, string ptName, string st)
+        public DAL.Flight Flight_DTO_to_DAL(long fID, long bID, DateTime d, string dep, string dest, string ptName, string st)
         {
             DAL.Flight temp = new DAL.Flight();
-            temp.flightID = fID; //TODO: EZ szerintem FORDÍTVA KELLENE
+            //temp.flightID = fID; //TODO: EZ szerintem FORDÍTVA KELLENE
             temp.businessID = bID;
             temp.departure = dep;
             temp.date = d;
             temp.destination = dest;
-            temp.freeSeats = frSeats;
+            
             var plane = _context.PlaneTypes.Single(i => i.planeType.Equals(ptName)); //Néha ez is dob kivételt. Sőt mindíg.
             var seats = _context.Seats.Where(s => s.planeTypeID == plane.planeTypeID);
             temp.numberofSeats = seats.ToList().Count;
+            temp.freeSeats = seats.ToList().Count; // egyelőre csak így
             temp.planeType = plane;
             temp.status = st;
 
@@ -93,7 +94,7 @@ namespace WebApi
         public IActionResult Create(Flight_DTO item)
         {
             Debug.WriteLine("1"); //Ez még lefut
-            DAL.Flight tempfl = Flight_DTO_to_DAL(item.FlightId, item.DatabaseId, item.Date, item.Departure, item.Destination, item.FreeSeats, item.PlaneType.PlaneTypeName, item.Status);
+            DAL.Flight tempfl = Flight_DTO_to_DAL(item.FlightId, item.DatabaseId, item.Date, item.Departure, item.Destination, item.PlaneType, item.Status);
             Debug.WriteLine("2"); //Ez már nem
             _context.Flights.Add(tempfl);
             Debug.WriteLine("3");
@@ -118,7 +119,7 @@ namespace WebApi
             todo.departure = item.Departure;
             todo.destination = item.Destination;
             todo.status = item.Status;
-            todo.freeSeats = item.FreeSeats;
+            //todo.freeSeats = item.FreeSeats;
             var plane = _context.PlaneTypes.Single(i => i.planeType.Equals(item.PlaneType));
             todo.planeTypeID = plane.planeTypeID;
 
