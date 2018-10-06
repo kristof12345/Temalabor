@@ -87,7 +87,33 @@ namespace DAL
             List<Seat> seatsList2 = new List<Seat>();
             seatsList2.Add(seat3); seatsList2.Add(seat4);
 
-            
+            modelBuilder.Entity<Flight>().HasData(
+                new
+                {
+                    flightID = (long)1,
+                    businessID = (long)1,
+                    planeTypeID = (long)1,
+                    date = new DateTime(2018, 10, 4),
+                    departure = "Delhi",
+                    destination = "Budapest",
+                    freeSeats = seatsList.Count,
+                    numberofSeats = seatsList.Count,
+                    status = "ok"
+                });
+
+            modelBuilder.Entity<Flight>().HasData(
+                new
+                {
+                    flightID = (long)2,
+                    businessID = (long)2,
+                    planeTypeID = (long)2,
+                    date = new DateTime(2018, 10, 5),
+                    departure = "Moscow",
+                    destination = "London",
+                    freeSeats = seatsList2.Count,
+                    numberofSeats = seatsList2.Count,
+                    status = "ok"
+                });
         }
     }
 }

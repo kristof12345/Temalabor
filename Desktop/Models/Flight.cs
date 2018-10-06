@@ -136,7 +136,7 @@ namespace Desktop.Models
             ret.Date = this.Date;
             ret.Departure = this.Departure;
             ret.Destination = this.Destination;
-            ret.PlaneType = this.planeType;        
+            ret.PlaneType = this.PlaneType;        
             ret.Status = this.Status;
 
             return ret;
@@ -149,7 +149,7 @@ namespace Desktop.Models
             this.Date = dto.Date;
             this.Departure = dto.Departure;
             this.Destination = dto.Destination;
-            this.planeType = dto.PlaneType;
+            this.PlaneType = dto.PlaneType;
             this.Status = dto.Status;
         }
 
