@@ -59,7 +59,7 @@ namespace Desktop.Services
             return list;
         }
 
-        //Repülő hozzáadása OK
+        //Repülő hozzáadása
         public static async Task PostAddFlightAsync(Flight_DTO addRequest)
         {
             client = new HttpClient(handler);
@@ -69,7 +69,7 @@ namespace Desktop.Services
             Debug.WriteLine("A hozzáadott repülő ID-ja: " + addRequest.FlightId);
         }
 
-        //Járatok listázása OK
+        //Járatok listázása
         public static async Task<List<Flight_DTO>> PostListAsync()
         {
             client = new HttpClient(handler);
@@ -79,7 +79,7 @@ namespace Desktop.Services
             return list;
         }
 
-        //Járat törlése OK
+        //Járat törlése
         public static async Task PostDeleteFlightAsync(Flight_DTO deleteRequest)
         {
             client = new HttpClient(handler);
@@ -89,7 +89,7 @@ namespace Desktop.Services
             Debug.WriteLine("A törölt repülő ID-ja: " + deleteRequest.FlightId);
         }
 
-        //Járat módosítása OK
+        //Járat módosítása
         public static async Task PostUpdateFlightAsync(Flight_DTO updateRequest)
         {
             client = new HttpClient(handler);
@@ -113,11 +113,20 @@ namespace Desktop.Services
         //Bejelentkezési kérés
         public static async Task<bool> PostLoginAsync(Login_DTO loginRequest)
         {
-            client = new HttpClient(handler);
+            bool contents=false;
+            try
+            {
+                client = new HttpClient(handler);
 
-            HttpResponseMessage response = await client.PostAsJsonAsync(UriUsers, loginRequest);
-            var contents = await response.Content.ReadAsAsync<bool>();
-            Debug.WriteLine(contents);
+                HttpResponseMessage response = await client.PostAsJsonAsync(UriUsers, loginRequest);
+                contents = await response.Content.ReadAsAsync<bool>();
+                Debug.WriteLine(contents);
+            }
+            catch (Exception)
+            {
+                Debug.WriteLine("Unable to login.");
+            }
+
             return contents;
         }
 
