@@ -13,7 +13,7 @@ namespace Desktop.Models
         public event PropertyChangedEventHandler PropertyChanged;
 
         //Konstruktor
-        public Flight(long id=0, String type="Airbus A380")
+        public Flight(long id, String type)
         {
             FlightId = id;
             planeType = new PlaneType(type);
@@ -153,9 +153,8 @@ namespace Desktop.Models
         //Flight másolása (kb. copy construktor)
         internal Flight Copy()
         {
-            var copied = new Flight(FlightId);
+            var copied = new Flight(FlightId, null);
 
-            copied.FlightId = FlightId;
             copied.Date = Date;
             copied.Departure = Departure;
             copied.Destination = Destination;

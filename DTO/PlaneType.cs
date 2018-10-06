@@ -26,7 +26,6 @@ namespace DTO
             {
                 for (int i = 0; i < 5; i++)
                     Seats.Add(new Seat(i));
-                Debug.WriteLine("NULL TYPE " + PlaneTypeName.Length);
             }
         }
 

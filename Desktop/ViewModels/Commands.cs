@@ -43,7 +43,7 @@ namespace Desktop.ViewModels
 
         public override void UnExecute()
         {
-            DataService.DeleteFlightAsync(new Flight(id));
+            DataService.DeleteFlightAsync(new Flight(id, type));
         }
 
         //Segédfüggvény a dátum előállításához

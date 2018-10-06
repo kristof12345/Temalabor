@@ -64,10 +64,10 @@ namespace Desktop.Services
         public static async Task PostAddFlightAsync(Flight_DTO addRequest)
         {
             client = new HttpClient(handler);
+            Debug.WriteLine("A hozzáadott repülő: " + addRequest);
 
             HttpResponseMessage response = await client.PostAsJsonAsync(UriFlights, addRequest);
-            var contents = await response.Content.ReadAsStringAsync();
-            Debug.WriteLine("A hozzáadott repülő ID-ja: " + addRequest.FlightId);
+            var contents = await response.Content.ReadAsStringAsync();           
         }
 
         //Járatok listázása

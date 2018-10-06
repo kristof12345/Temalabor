@@ -51,7 +51,7 @@ namespace WebApi
             temp.date = d;
             temp.destination = dest;
             temp.freeSeats = frSeats;
-            var plane = _context.PlaneTypes.Single(i => i.planeType.Equals(ptName));
+            var plane = _context.PlaneTypes.Single(i => i.planeType.Equals(ptName)); //Néha ez is dob kivételt. Sőt mindíg.
             var seats = _context.Seats.Where(s => s.planeTypeID == plane.planeTypeID);
             temp.numberofSeats = seats.ToList().Count;
             temp.planeType = plane;

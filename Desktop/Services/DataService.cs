@@ -37,9 +37,9 @@ namespace Desktop.Services
         }
 
         //Járat hozzáadása
-        public static async void AddFlightAsync(long id, DateTime date, String dep = "London", String dest="New York", String type = "Airbus A370")
+        public static async void AddFlightAsync(long id, DateTime date, String dep, String dest, String type)
         {
-            var f = new Flight(id)
+            var f = new Flight(id, type)
             {
                 Date = date,
                 Departure = dep,
