@@ -90,11 +90,16 @@ namespace WebApi
         [HttpPost]
         public IActionResult Create(Flight_DTO item)
         {
+            Debug.WriteLine("1");
             DAL.Flight tempfl = Flight_DTO_to_DAL(item.FlightId, item.DatabaseId, item.Date, item.Departure, item.Destination, item.FreeSeats, item.PlaneType.PlaneTypeName, item.Status);
+            Debug.WriteLine("2");
             _context.Flights.Add(tempfl);
+            Debug.WriteLine("3");
             _context.SaveChanges();
-
-            return CreatedAtRoute("GetFlight", new { id = tempfl.flightID }, item);
+            Debug.WriteLine("4");
+            var ret = CreatedAtRoute("GetFlight", new { id = tempfl.flightID }, item);
+            Debug.WriteLine("5");
+            return ret;
         }
 
         [HttpPut("{id}")]
