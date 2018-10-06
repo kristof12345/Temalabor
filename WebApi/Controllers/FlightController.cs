@@ -43,7 +43,7 @@ namespace WebApi
             return temp;
         }
 
-        public DAL.Flight Flight_DTO_to_DAL(long fID, long bID, DateTime d, string dep, string dest, int frSeats, long pID, string st)
+        public DAL.Flight Flight_DTO_to_DAL(long fID, long bID, DateTime d, string dep, string dest, int frSeats, string ptName, string st)
         {
             DAL.Flight temp = new DAL.Flight();
             //temp.flightID = fID; //EZ KELLENE
@@ -52,9 +52,10 @@ namespace WebApi
             temp.date = d;
             temp.destination = dest;
             temp.freeSeats = frSeats;
-            var seats = _context.Seats.Where(s => s.planeTypeID == pID);
+            var plane = _context.PlaneTypes.Single(i => i.planeType.Equals(ptName));
+            var seats = _context.Seats.Where(s => s.planeTypeID == plane.planeTypeID);
             temp.numberofSeats = seats.ToList().Count;
-            var dplanet = _context.PlaneTypes.Single(p => p.planeTypeID == pID);
+            var dplanet = _context.PlaneTypes.Single(p => p.planeTypeID == plane.planeTypeID);
             temp.planeType = dplanet;
             temp.status = st;
            
@@ -91,7 +92,7 @@ namespace WebApi
         [HttpPost]
         public IActionResult Create(Flight_DTO item)
         {
-            DAL.Flight tempfl = Flight_DTO_to_DAL(item.FlightId , item.BusinessId, item.Date, item.Departure, item.Destination, item.FreeSeats, item.PlaneTypeID, item.Status);        
+            DAL.Flight tempfl = Flight_DTO_to_DAL(item.FlightId , item.BusinessId, item.Date, item.Departure, item.Destination, item.FreeSeats, item.PlaneType.PlaneTypeName, item.Status);        
             _context.Flights.Add(tempfl);
             _context.SaveChanges();
 
