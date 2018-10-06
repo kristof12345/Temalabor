@@ -46,14 +46,6 @@ namespace WebApi.Controllers
             return temp;
         }
 
-        public static PlaneType PlaneType_DAL_to_DTO(long ID, string ptype)
-        {
-            PlaneType temp = new PlaneType(ptype);
-
-            temp.PlaneTypeID = ID;
-            return temp;
-        }
-
         public static DAL.PlaneType PlaneType_DTO_to_DAL(long ID, string ptype)
         {
             DAL.PlaneType temp = new DAL.PlaneType();
@@ -82,7 +74,7 @@ namespace WebApi.Controllers
             Seat result = Seat_DAL_to_DTO(temp.seatID, temp.IsReserved, temp.seatType, temp.price, temp.Xcord, temp.Ycord);
 
             if (temp == null)
-                return NotFound();              
+                return NotFound();
             return result;
         }
 
