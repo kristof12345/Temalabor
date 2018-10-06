@@ -110,42 +110,51 @@ namespace Desktop.Models
             }
         }
 
+
+        //Szék elkérése ID alapján
         public Seat GetSeat(int id)
         {
             return planeType.GetSeat(id);
         }
 
+        //Átalakítás DTO-ba
         internal Flight_DTO ToDTO()
         {
             Flight_DTO ret = new Flight_DTO(this.PlaneType);
+
             ret.FlightId = this.FlightId;
+            ret.Date = this.Date;
             ret.Departure = this.Departure;
             ret.Destination = this.Destination;
-            ret.Date = this.Date;        
+            ret.PlaneType = this.planeType;        
             ret.Status = this.Status;
 
             return ret;
         }
 
+        //Átalakítás DTO-ból
         internal void FromDTO(Flight_DTO dto)
         {
             this.FlightId = dto.FlightId;
             this.Date = dto.Date;
             this.Departure = dto.Departure;
             this.Destination = dto.Destination;
-            this.PlaneType = dto.PlaneType.PlaneTypeName;
+            this.planeType = dto.PlaneType;
             this.Status = dto.Status;
-            this.seats = new List<Seat>();
         }
 
+        //Flight másolása (kb. copy construktor)
         internal Flight Copy()
         {
             var copied = new Flight(FlightId);
+
+            copied.FlightId = FlightId;
             copied.Date = Date;
             copied.Departure = Departure;
             copied.Destination = Destination;
+            copied.planeType = planeType;
             copied.Status = Status;
-            copied.PlaneType = PlaneType;
+            
             return copied;
         }
     }
