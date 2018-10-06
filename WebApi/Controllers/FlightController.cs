@@ -31,8 +31,8 @@ namespace WebApi
             var seats = _context.Seats.Where(s => s.planeTypeID == plane.planeTypeID);
             Flight_DTO temp = new Flight_DTO(plane.planeType);
 
-            temp.FlightId = fID; //TODO: EZ szerintem FORDÍTVA KELLENE
-            temp.DatabaseId = bID;
+            temp.FlightId = bID; 
+            temp.DatabaseId = fID;
             temp.Departure = dep;
             temp.Date = d;
             temp.Destination = dest;
@@ -94,7 +94,7 @@ namespace WebApi
         public IActionResult Create(Flight_DTO item)
         {
             Debug.WriteLine("1"); //Ez még lefut
-            DAL.Flight tempfl = Flight_DTO_to_DAL(item.FlightId, item.DatabaseId, item.Date, item.Departure, item.Destination, item.PlaneType, item.Status);
+            DAL.Flight tempfl = Flight_DTO_to_DAL(item.DatabaseId, item.FlightId, item.Date, item.Departure, item.Destination, item.PlaneType, item.Status);
             Debug.WriteLine("2"); //Ez már nem
             _context.Flights.Add(tempfl);
             Debug.WriteLine("3");
