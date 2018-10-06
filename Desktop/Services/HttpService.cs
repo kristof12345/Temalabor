@@ -31,20 +31,21 @@ namespace Desktop.Services
             UriUsers = baseUri + "users/";
             UriTypes = baseUri + "types/"; //TODO: Gábor ezt légyszi rakd a webapiba
 
-            List<String> strArray = new List<string>();
+            List<String> strArray = new List<String>();
 
-            try
+            /*try
             {
                 strArray = await GetTypesAsync();
             }
             catch (Exception)
             {
-                Debug.WriteLine("Unable to connect to server.");
-                strArray.Add("Airbus A380");
-                strArray.Add("Boeing 747");
-                strArray.Add("Boeing 777");
-                strArray.Add("Antonov 124");
-            }
+            Debug.WriteLine("Unable to connect to server.");
+            }*/
+
+            strArray.Add("Airbus A380");
+            strArray.Add("Boeing 747");
+            strArray.Add("Boeing 777");
+            strArray.Add("Antonov 124");
 
             PlaneType.Initialize(strArray.ToArray());
         }
@@ -76,6 +77,8 @@ namespace Desktop.Services
 
             HttpResponseMessage response = await client.GetAsync(UriFlights);
             List<Flight_DTO> list = await response.Content.ReadAsAsync<List<Flight_DTO>>();
+
+            foreach (Flight_DTO f in list) Debug.WriteLine(f);
             return list;
         }
 

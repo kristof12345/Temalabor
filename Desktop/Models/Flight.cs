@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using Desktop.Services;
 using DTO;
 
@@ -79,7 +80,10 @@ namespace Desktop.Models
         public string PlaneType
         {
             get { return planeType.PlaneTypeName; }
-            set { planeType = new PlaneType(value); }
+            set
+            {
+                planeType = new PlaneType(value);
+            }
         }
 
         //A járat státusza (pl: Cancelled, Sceduled, Delayed)

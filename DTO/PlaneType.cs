@@ -9,13 +9,15 @@ namespace DTO
     {
         private static String[] typesArray;
         //Konstruktor
-        public PlaneType(string type)
+        public PlaneType(String type)
         {
             PlaneTypeName = type;
             Seats = new List<Seat>();
 
+            if (type == null) type = "Airbus A380"; //Még így se lesz egyező
+
             //TODO: Ide majd az adatbázis alapján kell valami
-            if(type.Equals("Airbus A380"))
+            if (type.Equals("Airbus A380"))
             {
                 for(int i=0; i<7; i++)
                     Seats.Add(new Seat(i));
@@ -24,6 +26,7 @@ namespace DTO
             {
                 for (int i = 0; i < 5; i++)
                     Seats.Add(new Seat(i));
+                Debug.WriteLine("NULL TYPE " + PlaneTypeName.Length);
             }
         }
 

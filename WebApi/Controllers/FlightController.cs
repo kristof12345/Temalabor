@@ -28,10 +28,10 @@ namespace WebApi
         public Flight_DTO Flight_DAL_to_DTO(long fID, long bID, DateTime d, string dep, string dest, long pID, string st)
         {
             var plane = _context.PlaneTypes.Single(i => i.planeTypeID == pID);
-            //Debug.WriteLine(plane.planeType);
             String planeName = String.Copy(plane.planeType);
 
             Flight_DTO temp = new Flight_DTO(planeName);
+
             temp.FlightId = fID;
             temp.DatabaseId = bID;
             temp.Departure = dep;
