@@ -24,7 +24,7 @@ namespace DAL
             modelBuilder.Entity<PlaneType>().HasData(
                 new
                 {
-                    flightID = (long)1,
+                    //flightID = (long)1,
                     planeTypeID = (long)1,
                     planeType = "Airbus A380"
                 });
@@ -32,23 +32,23 @@ namespace DAL
             modelBuilder.Entity<PlaneType>().HasData(
                 new
                 {
-                    flightID = (long)2,
+                    //flightID = (long)2,
                     planeTypeID = (long)2,
-                    planeType = "Boeing 747"
+                    planeType = "Boeing 777"
                 });
 
             modelBuilder.Entity<PlaneType>().HasData(
                 new
                 {
-                    flightID = (long)2,
-                    planeTypeID = (long)2,
+                    //flightID = (long)3,
+                    planeTypeID = (long)3,
                     planeType = "Boeing 747"
                 });
             modelBuilder.Entity<PlaneType>().HasData(
                 new
                 {
-                    flightID = (long)2,
-                    planeTypeID = (long)2,
+                    //flightID = (long)4,
+                    planeTypeID = (long)4,
                     planeType = "Antonov 124"
                 });
            
