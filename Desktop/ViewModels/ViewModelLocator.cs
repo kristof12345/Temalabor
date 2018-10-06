@@ -27,12 +27,16 @@ namespace Desktop.ViewModels
             Register<UserViewModel, UserPage>();
             //ReservationView regisztrálása
             Register<ReservationViewModel, ReservationsPage>();
+            //DesignerView regisztrálása
+            Register<DesignerViewModel, DesignerPage>();
         }
 
         //TODO: az új lapot itt is hozzá kell adni
         public FlightViewModel FlightViewModel => ServiceLocator.Current.GetInstance<FlightViewModel>();
 
         public ReservationViewModel ReservationViewModel => ServiceLocator.Current.GetInstance<ReservationViewModel>();
+
+        public DesignerViewModel DesignerViewModel => ServiceLocator.Current.GetInstance<DesignerViewModel>();
 
         public ShellViewModel ShellViewModel => ServiceLocator.Current.GetInstance<ShellViewModel>();
 

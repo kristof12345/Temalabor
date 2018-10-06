@@ -9,8 +9,7 @@ namespace DTO
         //Konstruktor
         public Flight_DTO(string type)
         {
-            if(type!=null)
-                PlaneType = new PlaneType(type, "A");
+            if(type!=null) PlaneType = new PlaneType(type);
         }
 
         //Elsődleges kulcs az adatbázisban

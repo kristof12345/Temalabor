@@ -157,4 +157,8 @@
     <value>Reservations</value>
     <comment>Navigation view item name for ReservationsPage</comment>
   </data>
+<data name="Shell_DesignerPage.Content" xml:space="preserve">
+    <value>Plane designer</value>
+    <comment>Navigation view item name for DesignerPage</comment>
+  </data>
 </root>

@@ -69,7 +69,7 @@ namespace Desktop.Views
                         break;
                 }
                 //Ha nincs bejelentkezve, vagy nem választott repülőt
-            } else if(e.SourcePageType== typeof(FlightsPage))
+            } else if(SignInService.User == null)
             {
                 DisplayNoUserDialog();
             } else
