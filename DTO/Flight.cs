@@ -10,6 +10,7 @@ namespace DTO
         {
             PlaneType = new PlaneType(type);
         }
+
         //Elsődleges kulcs az adatbázisban
         public long DatabaseId { get; set; }
 

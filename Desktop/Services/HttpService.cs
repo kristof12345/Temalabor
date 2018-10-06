@@ -28,6 +28,18 @@ namespace Desktop.Services
             UriFlights = baseUri + "flight/";
             UriReservation = baseUri + "reservation/";
             UriUsers = baseUri + "users/";
+
+            //TODO: Adatbázisból kell lekérdezni
+            string[] strArray =
+                {
+                "Airbus A380",
+                "Boeing 747",
+                "Boeing 777",
+                "Antonov 124",
+                //További repülő típusok
+            };
+
+            PlaneType.Initialize(strArray);
         }
 
         //Repülő hozzáadása OK

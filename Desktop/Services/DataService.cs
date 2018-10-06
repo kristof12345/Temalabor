@@ -94,7 +94,7 @@ namespace Desktop.Services
         }
 
         //Foglalás hozzáadása
-        public static void Reserve(int flightId, int seatId)
+        public static void Reserve(int flightId, long seatId)
         {
             flightList[flightId].ReserveSeat(seatId);
             reservationList.Add(new Reservation(flightId,seatId,SignInService.User.Name));

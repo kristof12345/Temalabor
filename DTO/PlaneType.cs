@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 
 namespace DTO
 {
     public class PlaneType
     {
+        private static String[] typesArray;
         //Konstruktor
         public PlaneType(string type)
         {
@@ -65,19 +67,17 @@ namespace DTO
             return Seats[id];
         }
 
+        //Repülőtípusok betöltése
+        public static void Initialize(string[] strArray)
+        {
+            typesArray = strArray;
+
+        }
+
         //Combo box feltöltése
         public static object CreateComboBox()
         {
-            //TODO: Adatbázisból kell lekérdezni
-            string[] strArray =
-                {
-                "Airbus A380",
-                "Boeing 747",
-                "Boeing 777",
-                "Antonov 124",
-                //További repülő típusok
-            };
-            return strArray;
+            return typesArray;
         }
     }
 }

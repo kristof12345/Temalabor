@@ -30,8 +30,8 @@ namespace Desktop.Views
             {
                 if (s.State == State.Selected)
                 {
-                    
-                    DataService.Reserve((int)f.FlightId, (int)s.SeatId);
+
+                    DataService.Reserve((int)f.FlightId, s.SeatId);
                     this.Frame.Navigate(typeof(PlanePage), f); //Az oldal újratöltése
                 }
             }
