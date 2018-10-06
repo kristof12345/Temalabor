@@ -27,7 +27,7 @@ namespace DTO
             }
         }
 
-        //public long PlaneTypeID { get; set; } //Ez nem kell, csak az adatbázisbeli azonosításra. Ezt a kliens nem állítja.
+        //public long PlaneTypeID { get; set; } //Ez nem kell, csak az adatbázisbeli azonosításra. Ezt a kliens nem használja.
 
         //A repülő típus neve (pl: "Airbus A380")
         public string PlaneTypeName { get; private set; }
