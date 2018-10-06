@@ -9,8 +9,6 @@ namespace DTO
         public Flight_DTO(String type)
         {
             PlaneType = new PlaneType(type);
-            NumberOfSeats = PlaneType.Seats.Count;
-            FreeSeats = PlaneType.Seats.Count; //TODO: Ez nem jó
         }
         //Elsődleges kulcs az adatbázisban
         public long DatabaseId { get; set; }
@@ -34,10 +32,16 @@ namespace DTO
         public string Status { get; set; }
 
         //A székek száma
-        public int NumberOfSeats { get; private set; }
+        public int NumberOfSeats
+        {
+            get{ return PlaneType.GetTotalSeatsCount(); }
+        }
 
         //A szabad székek száma
-        public int FreeSeats { get; }
+        public int FreeSeats
+        {
+            get{ return PlaneType.GetFreeSeatsCount(); }
+        }
 
         //Kiíráshoz ToStirng
         public override string ToString()

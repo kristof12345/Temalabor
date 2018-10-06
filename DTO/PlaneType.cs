@@ -15,12 +15,12 @@ namespace DTO
             //TODO: Ide majd az adatbázis alapján kell valami
             if(type.Equals("Airbus A380"))
             {
-                for(int i=1; i<7; i++)
+                for(int i=0; i<7; i++)
                     Seats.Add(new Seat(i));
             }
             else
             {
-                for (int i = 1; i < 5; i++)
+                for (int i = 0; i < 5; i++)
                     Seats.Add(new Seat(i));
             }
         }
@@ -28,10 +28,10 @@ namespace DTO
         //public long PlaneTypeID { get; set; } //Ez nem kell, csak az adatbázisbeli azonosításra. Ezt a kliens nem állítja.
 
         //A repülő típus neve (pl: "Airbus A380")
-        public string PlaneTypeName { get; set; }
+        public string PlaneTypeName { get; private set; }
 
         //A székek tömbje
-        public List<Seat> Seats { get; set; }
+        private List<Seat> Seats { get; set; }
 
         //Az összes szék száma
         public int GetTotalSeatsCount()
@@ -48,6 +48,21 @@ namespace DTO
                 if (!s.Reserved) ret++;
             }
             return ret;
+        }
+
+        //Szék lefoglalása
+        public bool ReserveSeat(int id)
+        {
+            if (Seats[id].Reserved == true) return false; //Ha már foglalt, akkor nem sikerül
+
+            Seats[id].Reserved = true;
+            return true;
+        }
+
+        //Szék elkérése ID alapján
+        public Seat GetSeat(int id)
+        {
+            return Seats[id];
         }
 
         //Combo box feltöltése
