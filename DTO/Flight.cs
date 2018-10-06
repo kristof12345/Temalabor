@@ -5,43 +5,45 @@ namespace DTO
 {
     public class Flight_DTO
     {
-        private List<Seat> seats;
-
-        public Flight_DTO(int numOfSeats)
+        //Konstruktor
+        public Flight_DTO(String type)
         {
-            seats = new List<Seat>(numOfSeats);
-
-            for (int i = 0; i < numOfSeats; i++)
-            {
-                seats.Add(new Seat(i));
-            }
-
-            FreeSeats = numOfSeats;
-            PlaneType = new PlaneType("Airbus A380");
+            PlaneType = new PlaneType(type);
         }
+        //Elsődleges kulcs az adatbázisban
+        public long DatabaseId { get; set; }
 
-
+        //Egyedi azonosító a kliensben (ez alapján lehet törölni és módosítani)
         public long FlightId { get; set; }
 
-        public long BusinessId { get; set; }
-
+        //Dátum
         public DateTime Date { get; set; }
 
+        //Indulás helye
         public string Departure { get; set; }
 
+        //Érkezés helye
         public string Destination { get; set; }
 
+        //Repülő típusa, tartalmazza a székeket
         public PlaneType PlaneType { get; set; }
 
-        public long PlaneTypeID { get; set; }
+        //A járat státusza (pl: Cancelled, Sceduled, Delayed)
+        public string Status { get; set; }
 
-        public string Status { get; set; } //Ez lehet, hogy enumként jobb lenne
-        public List<Seat> Seats { get; set; }
+        //A székek száma
+        public int NumberOfSeats
+        {
+            get{ return PlaneType.GetTotalSeatsCount(); }
+        }
 
-        public int NumberOfSeats { get; set; }
+        //A szabad székek száma
+        public int FreeSeats
+        {
+            get{ return PlaneType.GetFreeSeatsCount(); }
+        }
 
-        public int FreeSeats { get; set; }
-
+        //Kiíráshoz ToStirng
         public override string ToString()
         {
             return "id: " + FlightId.ToString() + " from: " + Departure + " to: " + Destination + " type: " + PlaneType.PlaneTypeName;

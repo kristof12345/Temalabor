@@ -55,8 +55,9 @@ namespace WebApi
             var plane = _context.PlaneTypes.Single(i => i.planeType.Equals(ptName));
             var seats = _context.Seats.Where(s => s.planeTypeID == plane.planeTypeID);
             temp.numberofSeats = seats.ToList().Count;
-            var dplanet = _context.PlaneTypes.Single(p => p.planeTypeID == plane.planeTypeID);
+            var dplanet = _context.PlaneTypes.Single(p => p.planeTypeID == pID);
             temp.planeType = dplanet;
+
             temp.status = st;
            
             return temp;

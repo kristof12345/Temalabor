@@ -9,19 +9,18 @@ namespace Desktop.Models
 {
     public class Flight : INotifyPropertyChanged
     {
-        private List<Seat> seats;
-        private int freeSeats;
-        private PlaneType type;
+        private PlaneType planeType;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public Flight(long id=0, int numOfSeats=7)
+        //Konstruktor
+        public Flight(long id=0, String type="Airbus A380")
         {
             FlightId = id;
-            GenerateSeats(numOfSeats);
+            planeType = new PlaneType(type);
         }
 
-        private void GenerateSeats(int numOfSeats)
+        /*private void GenerateSeats(int numOfSeats)
         {
             seats = new List<Seat>(numOfSeats);
 
@@ -47,102 +46,120 @@ namespace Desktop.Models
                 temp.Coordinates.Y = 100 + 50 * i; //Függőleges érték (felülről)
                 seats.Add(temp);
             }
-        }
+        }*/
 
+        //Konstruktor DTO-ból
         public Flight(Flight_DTO dto)
         {
             this.FromDTO(dto);
-            if(dto.Seats != null) GenerateSeats(dto.Seats.Count);
         }
 
-        public Flight(DateTime date, string dep, string des, string type)
+        //Konstruktor teljes paramétrlistával
+        public Flight(long id, DateTime date, string dep, string des, string type, string stat)
         {
+            FlightId = id;
             Date = date;
             Departure = dep;
             Destination = des;
             PlaneType = type;
+            Status = stat;
         }
 
+        //Egyedi azonosító a kliensben
         public long FlightId { get; private set; }
 
+        //Dátum
         public DateTime Date { get; set; }
 
+        //Indulás helye
         public string Departure { get; set; }
 
+        //Érkezés helye
         public string Destination { get; set; }
 
+        //Repülő típusa, tartalmazza a székeket
         public string PlaneType
         {
-            get { return type.PlaneTypeName; }
-            set { type = new PlaneType(value); }
+            get { return planeType.PlaneTypeName; }
+            set { planeType = new PlaneType(value); }
         }
 
+        //A járat státusza (pl: Cancelled, Sceduled, Delayed)
         public string Status { get; set; }
 
+        //A székek száma
         public int NumberOfSeats
         {
-            get { return seats.Count; }
+            get { return planeType.GetTotalSeatsCount(); }
         }
 
         public int FreeSeats
         {
-            get { return freeSeats; }
+            get { return planeType.GetFreeSeatsCount(); }
         }
 
+        //A szabad székek száma
         public override string ToString()
         {
             return "Flight "+ FlightId.ToString() + " from " + Departure + " to " + Destination;
         }
 
+        //Egy szék lefoglalása
         public void ReserveSeat(int id)
         {
             //Ha még nem foglalt, akkor lefoglaljuk
-            if (seats[id].Reserved == false)
+            if (planeType.ReserveSeat(id))
             {
-                seats[id].Reserved = true;
-                freeSeats--;
                 PropertyChanged(this, new PropertyChangedEventArgs("FreeSeats")); //Értesítés a változásról
-                HttpService.PostReservationAsync(new ReserveSeat_DTO(FlightId,id)); //Http kérés a foglaláshoz
+                HttpService.PostReservationAsync(new ReserveSeat_DTO(FlightId, id)); //Http kérés a foglaláshoz
             }
         }
 
+
+        //Szék elkérése ID alapján
         public Seat GetSeat(int id)
         {
-            return seats[id];
+            return planeType.GetSeat(id);
         }
 
+        //Átalakítás DTO-ba
         internal Flight_DTO ToDTO()
         {
-            Flight_DTO ret = new Flight_DTO(this.NumberOfSeats);
+            Flight_DTO ret = new Flight_DTO(this.PlaneType);
+
             ret.FlightId = this.FlightId;
+            ret.Date = this.Date;
             ret.Departure = this.Departure;
             ret.Destination = this.Destination;
-            ret.Date = this.Date;
-            ret.PlaneType = this.type;         
+            ret.PlaneType = this.planeType;        
             ret.Status = this.Status;
 
             return ret;
         }
 
+        //Átalakítás DTO-ból
         internal void FromDTO(Flight_DTO dto)
         {
             this.FlightId = dto.FlightId;
             this.Date = dto.Date;
             this.Departure = dto.Departure;
             this.Destination = dto.Destination;
-            this.PlaneType = dto.PlaneType.PlaneTypeName;
+            this.planeType = dto.PlaneType;
             this.Status = dto.Status;
-            this.seats = new List<Seat>();
         }
 
+        //Flight másolása (kb. copy construktor)
         internal Flight Copy()
         {
             var copied = new Flight(FlightId);
+
+            copied.FlightId = FlightId;
             copied.Date = Date;
             copied.Departure = Departure;
             copied.Destination = Destination;
+            copied.planeType = planeType;
             copied.Status = Status;
-            copied.PlaneType = PlaneType;
+            
             return copied;
         }
     }
