@@ -32,7 +32,7 @@ namespace WebApi
 
             Flight_DTO temp = new Flight_DTO(planeName);
 
-            temp.FlightId = fID;
+            temp.FlightId = fID; //TODO: EZ szerintem FORDÍTVA KELLENE
             temp.DatabaseId = bID;
             temp.Departure = dep;
             temp.Date = d;
@@ -47,7 +47,7 @@ namespace WebApi
         public DAL.Flight Flight_DTO_to_DAL(long fID, long bID, DateTime d, string dep, string dest, int frSeats, string ptName, string st)
         {
             DAL.Flight temp = new DAL.Flight();
-            temp.flightID = fID; //TODO EZ szerintem FORDÍTVA KELLENE
+            temp.flightID = fID; //TODO: EZ szerintem FORDÍTVA KELLENE
             temp.businessID = bID;
             temp.departure = dep;
             temp.date = d;
