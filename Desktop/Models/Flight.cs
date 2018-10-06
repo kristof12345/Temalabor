@@ -17,8 +17,7 @@ namespace Desktop.Models
         {
             FlightId = id;
 
-            if(type!=null)
-                planeType = new PlaneType(type, "B");
+            if(type!=null) planeType = new PlaneType(type);
         }
 
         /*private void GenerateSeats(int numOfSeats)
@@ -84,8 +83,7 @@ namespace Desktop.Models
             get { return planeType.PlaneTypeName; }
             set
             {
-                if (value != null)
-                    planeType = new PlaneType(value, "C");
+                if (value != null) planeType = new PlaneType(value);
             }
         }
 

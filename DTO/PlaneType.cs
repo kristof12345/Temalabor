@@ -10,24 +10,20 @@ namespace DTO
         private static String[] typesArray;
 
         //Konstruktor
-        public PlaneType(String type, String msg)
+        public PlaneType(String type)
         {
             PlaneTypeName = type;
             Seats = new List<Seat>();
-            Debug.WriteLine("//////////////////////////////////////////////////////////////");
-            Debug.WriteLine(msg);
-                //TODO: Ide majd az adatbázis alapján kell valami
-                /*
-                if (type.Length>0)
-                {
-                    for (int i = 0; i < 7; i++)
-                        Seats.Add(new Seat(i));
-                }
-                else
-                {
-                    for (int i = 0; i < 5; i++)
-                        Seats.Add(new Seat(i));
-                }*/
+            
+            //TODO: Ide majd az adatbázis alapján kell valami
+            if (type == "Airbus A380")
+            {
+                for (int i = 0; i < 7; i++) Seats.Add(new Seat(i));
+            }
+            else
+            {
+                for (int i = 0; i < 5; i++) Seats.Add(new Seat(i));
+            }
         }
 
         //public long PlaneTypeID { get; set; } //Ez nem kell, csak az adatbázisbeli azonosításra. Ezt a kliens nem használja.

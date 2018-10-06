@@ -33,15 +33,6 @@ namespace Desktop.Services
 
             List<String> strArray = new List<String>();
 
-            /*try
-            {
-                strArray = await GetTypesAsync();
-            }
-            catch (Exception)
-            {
-            Debug.WriteLine("Unable to connect to server.");
-            }*/
-
             strArray.Add("Airbus A380");
             strArray.Add("Boeing 747");
             strArray.Add("Boeing 777");
@@ -75,10 +66,11 @@ namespace Desktop.Services
         {
             client = new HttpClient(handler);
 
+            Debug.WriteLine("Kérés elküldve");
             HttpResponseMessage response = await client.GetAsync(UriFlights);
             List<Flight_DTO> list = await response.Content.ReadAsAsync<List<Flight_DTO>>();
 
-            foreach (Flight_DTO f in list) Debug.WriteLine(f);
+            Debug.WriteLine(response.Content.ToString());
             return list;
         }
 
