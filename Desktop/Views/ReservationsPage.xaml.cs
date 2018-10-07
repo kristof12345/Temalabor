@@ -38,5 +38,10 @@ namespace Desktop.Views
                 //textBlock.Text = SignInService.User.Name;
             }
         }
+
+        private void btDelete_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            //TODO:töröljük a kijelölt foglalást
+        }
     }
 }

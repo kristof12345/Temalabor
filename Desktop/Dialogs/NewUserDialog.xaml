@@ -17,7 +17,6 @@
                     <ItemsStackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
-            
             <TextBlock Text="Username" TextWrapping="Wrap"/>
             <TextBox x:Name="tbName" Width="300" Height="33"/>
             <TextBlock Text="Password" TextWrapping="Wrap"/>

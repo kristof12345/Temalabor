@@ -10,7 +10,7 @@
     <Grid>
         <Image x:Name="userImg" Source="/Assets/userwhite.png" Margin="0,-250,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="300"/>
         <Grid x:Name="loginArea">
-            <ListView SelectionMode="None" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,350,0,0">
+            <ListView SelectionMode="None" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,300,0,0">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <ItemsStackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" />
@@ -24,15 +24,15 @@
             </ListView>
         </Grid>
         <Grid x:Name="logoutArea" Visibility="Collapsed">
-            <ListView SelectionMode="None" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,350,0,0">
+            <ListView SelectionMode="None" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,200,0,0">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <ItemsStackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
-                <TextBlock x:Name="tbUser1" Style="{StaticResource TitleTextBlockStyle}" TextWrapping="Wrap" Text="You're signed in as:"/>
-                <TextBlock x:Name="tbUser2" Style="{StaticResource TitleTextBlockStyle}" TextWrapping="Wrap"/>
-                <Button x:Name="btLogout" Content="Logout" Click="btLogout_Click"/>
+                <TextBlock x:Name="tbUser1" Style="{StaticResource TitleTextBlockStyle}" TextWrapping="Wrap" Text="You're signed in as:" Width="200"/>
+                <TextBlock x:Name="tbUser2" Style="{StaticResource TitleTextBlockStyle}" TextWrapping="Wrap" Width="200"/>
+                <Button x:Name="btLogout" Content="Logout" Width="200" Click="btLogout_Click"/>
             </ListView>
         </Grid>
     </Grid>

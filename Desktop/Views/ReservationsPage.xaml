@@ -12,22 +12,38 @@
     xmlns:model="using:Desktop.Models"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-    <Grid
-        x:Name="ContentArea"
-        Margin="{StaticResource MediumLeftRightMargin}">
+    <Grid x:Name="ContentArea">
         <Grid
-            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
-            <tg:RadDataGrid ColumnDataOperationsMode="Flyout"
-                            x:Name="grid"
-                            ItemsSource="{x:Bind ViewModel.Source}"
-                            AutoGenerateColumns="True"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Top"
-                            Height="900">
+            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}"
+            Height="700"
+            Margin="0,0,0,120">
+            <tg:RadDataGrid
+                ColumnDataOperationsMode="Flyout"
+                x:Name="grid"
+                SelectionMode = "Single"
+                ItemsSource="{x:Bind ViewModel.Source}"
+                AutoGenerateColumns="True"
+                VerticalAlignment="Top" Height="700">
                 <tg:RadDataGrid.Columns>
+
                 </tg:RadDataGrid.Columns>
             </tg:RadDataGrid>
         </Grid>
-        
+
+        <Grid x:Name="inputArea">
+            <ListView Visibility="Visible" VerticalAlignment="Bottom" Margin="50,0,0,50" SelectionMode="None">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <ItemsStackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Padding" Value="6"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <Button x:Name="btDelete" Content="Delete reservation" IsEnabled="{x:Bind ViewModel.IsReservationSelected, Mode=OneWay}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="150" Click="btDelete_Click"/>
+            </ListView>
+        </Grid>
     </Grid>
 </Page>
