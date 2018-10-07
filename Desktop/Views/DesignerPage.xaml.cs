@@ -3,20 +3,10 @@ using Desktop.Services;
 using Desktop.UserControls;
 using Desktop.ViewModels;
 using DTO;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace Desktop.Views
@@ -74,7 +64,8 @@ namespace Desktop.Views
 
         private void btundo_Click(object sender, RoutedEventArgs e)
         {
-
+            canvas.Children.RemoveAt(ViewModel.Seats.Count-1); //Töröljük az utolsót a vászonról
+            ViewModel.RemoveLastSeat(); //Töröljük a listából is
         }
     }
 }

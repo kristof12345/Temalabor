@@ -41,7 +41,7 @@
 
             <NavigationViewItem x:Uid="Shell_DesignerPage" helpers:NavHelper.NavigateTo="Desktop.ViewModels.DesignerViewModel" >
                 <NavigationViewItem.Icon>
-                    <FontIcon Glyph="&#xF182;"/>
+                    <FontIcon Glyph="&#xE771;"/>
                 </NavigationViewItem.Icon>
             </NavigationViewItem>
             
