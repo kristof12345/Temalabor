@@ -52,12 +52,15 @@ namespace WebApi
             temp.departure = dep;
             temp.date = d;
             temp.destination = dest;
-            
-            var plane = _context.PlaneTypes.Single(i => i.planeType.Equals(ptName)); //Néha ez is dob kivételt. Sőt mindíg.
-            var seats = _context.Seats.Where(s => s.planeTypeID == plane.planeTypeID);
-            temp.numberofSeats = seats.ToList().Count;
-            temp.freeSeats = seats.ToList().Count; // egyelőre csak így
-            temp.planeType = plane;
+            try
+            {
+                var plane = _context.PlaneTypes.Single(i => i.planeType.Equals(ptName)); //Néha ez is dob kivételt. Sőt mindíg.
+                var seats = _context.Seats.Where(s => s.planeTypeID == plane.planeTypeID);
+                temp.numberofSeats = seats.ToList().Count;
+                temp.freeSeats = seats.ToList().Count; // egyelőre csak így
+                temp.planeType = plane;
+            }
+            catch (Exception) { Debug.WriteLine("HIBA A FLIGHTCONTROLLERBEN 1"); }
             temp.status = st;
 
             return temp;
@@ -93,15 +96,14 @@ namespace WebApi
         [HttpPost]
         public IActionResult Create(Flight_DTO item)
         {
-            Debug.WriteLine("1"); //Ez még lefut
             DAL.Flight tempfl = Flight_DTO_to_DAL(item.DatabaseId, item.FlightId, item.Date, item.Departure, item.Destination, item.PlaneType, item.Status);
-            Debug.WriteLine("2"); //Ez már nem
             _context.Flights.Add(tempfl);
-            Debug.WriteLine("3");
-            _context.SaveChanges();
-            Debug.WriteLine("4");
+            try {
+                _context.SaveChanges();
+            }
+            catch (Exception) { Debug.WriteLine("HIBA A FLIGHTCONTROLLERBEN 2"); }
+
             var ret = CreatedAtRoute("GetFlight", new { id = tempfl.flightID }, item);
-            Debug.WriteLine("5");
             return ret;
         }
 

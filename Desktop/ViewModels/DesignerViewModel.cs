@@ -19,19 +19,22 @@ namespace Desktop.ViewModels
 
         public String Name { get { return name; } set { name = value; RaisePropertyChanged("Name"); } }
 
-        public int Price { get { return price; } set { price = value; RaisePropertyChanged("Price"); } }
+        public String Price { get { return price.ToString(); } set { Int32.TryParse(value, out price); RaisePropertyChanged("Price"); } }
 
         public String NumberOfSeats
         {
             get{ return seats.Count.ToString(); }
         }
 
+        public List<Seat> Seats { get { return seats; } }
+
         public void AddSeat(double x, double y, int seatType=1)
         {
             Seat s = new Seat(seats.Count);
+            s.Coordinates = new Cord((int)x, (int)y);
+
             seats.Add(s);
             RaisePropertyChanged("NumberOfSeats");
-            Debug.WriteLine(NumberOfSeats);
         }
 
         internal void Save()
