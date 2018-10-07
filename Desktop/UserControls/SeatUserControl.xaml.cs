@@ -1,4 +1,5 @@
-﻿using Windows.UI;
+﻿using DTO;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
@@ -16,14 +17,14 @@ namespace Desktop.UserControls
 
     public sealed partial class SeatUserControl : UserControl
     {
-        public long SeatId { get; set; }
+        public Seat Seat { get; set; }
         public State State { get; private set; }
 
-        public SeatUserControl(long id, bool isReserved)
+        public SeatUserControl(Seat s)
         {
             this.InitializeComponent();
-            SeatId = id;
-            if (isReserved)
+            Seat = s;
+            if (s.Reserved)
             {
                 State = State.Reserved;
                 button.Background = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0)); //Piros

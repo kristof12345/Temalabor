@@ -55,7 +55,7 @@ namespace Desktop.Services
             client = new HttpClient(handler);
             Debug.WriteLine("A hozzáadott design neve: " + addRequest.PlaneTypeName);
 
-            HttpResponseMessage response = await client.PostAsJsonAsync(UriFlights, addRequest);
+            HttpResponseMessage response = await client.PostAsJsonAsync(UriTypes, addRequest);
             //var contents = await response.Content.ReadAsStringAsync();
         }
 

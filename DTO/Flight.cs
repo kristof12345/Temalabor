@@ -46,12 +46,17 @@ namespace DTO
         //A szabad székek száma
         public int FreeSeats
         {
-            get{ return PlaneType.GetFreeSeatsCount(); }
+            get
+            {
+                if (PlaneType == null) return -1;
+                return PlaneType.GetFreeSeatsCount();
+            }
         }
 
         //Kiíráshoz ToStirng
         public override string ToString()
         {
+            if( PlaneType==null ) return "id: " + FlightId.ToString() + " from: " + Departure + " to: " + Destination + " type: null";
             return "id: " + FlightId.ToString() + " from: " + Departure + " to: " + Destination + " type: " + PlaneType.PlaneTypeName;
         }
     }

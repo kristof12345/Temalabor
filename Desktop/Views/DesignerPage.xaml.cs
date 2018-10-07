@@ -30,7 +30,7 @@ namespace Desktop.Views
             //Egér pozíciójának lekérdezése
             var mousePos = e.GetCurrentPoint(canvas).Position;
             var seatPos = new Point(mousePos.X - 10, mousePos.Y - 15); //Hogy az egér a UserControl középpontjában legyen
-            SeatUserControl newSeat = new SeatUserControl(1, false);
+            SeatUserControl newSeat = new SeatUserControl(new Seat());
             //Left=X, Top=Y, Right=0, Bottom=0
             newSeat.Margin = new Thickness(seatPos.X, seatPos.Y, 0, 0);
             canvas.Children.Add(newSeat);
@@ -50,7 +50,7 @@ namespace Desktop.Views
                 //A korábbi székeket visszarajzoljuk
                 foreach(Seat s in ViewModel.Seats)
                 {
-                    SeatUserControl newSeat = new SeatUserControl(1, false);
+                    SeatUserControl newSeat = new SeatUserControl(s);
                     newSeat.Margin = new Thickness(s.Coordinates.X, s.Coordinates.Y, 0, 0);
                     canvas.Children.Add(newSeat);
                 }

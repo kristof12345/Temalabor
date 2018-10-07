@@ -18,6 +18,11 @@ namespace DTO
     public class Seat
     {
         private Cord c;
+
+        public Seat()
+        {
+        }
+
         public Seat(long id) { SeatId = id; }
 
         public long SeatId { get; set; }

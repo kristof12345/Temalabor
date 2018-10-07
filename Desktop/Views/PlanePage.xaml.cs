@@ -16,7 +16,8 @@ namespace Desktop.Views
 {
     public sealed partial class PlanePage : Page
     {
-        Flight f;
+        private Flight f;
+        private int totalPrice = 0;
         public PlanePage()
         {
             this.InitializeComponent();
@@ -31,11 +32,13 @@ namespace Desktop.Views
             {
                 if (s.State == State.Selected)
                 {
-                    reservation.AddSeatId(s.SeatId); //Összekészítjük a foglalást
-                    ReservationsDataService.Reserve(reservation);
-                    this.Frame.Navigate(typeof(PlanePage), f); //Az oldal újratöltése
+                    reservation.AddSeatId(s.Seat.SeatId); //Összekészítjük a foglalást
                 }
             }
+
+            reservation.Cost = totalPrice;
+            ReservationsDataService.Reserve(reservation);
+            this.Frame.Navigate(typeof(PlanePage), f); //Az oldal újratöltése
         }
 
         //Amikor ide navigálnak, átveszi a paramétereket
@@ -53,7 +56,7 @@ namespace Desktop.Views
                 for (int i = 0; i < f.NumberOfSeats; i++)
                 {
                     Seat s = f.GetSeat(i);
-                    SeatUserControl newSeat = new SeatUserControl(s.SeatId, s.Reserved);
+                    SeatUserControl newSeat = new SeatUserControl(s);
                     newSeat.Tapped += CalculatePrice; //Eseménykezelő regisztrálása
                     //Left=0, Top=X, Right=Y, Bottom=0
                     newSeat.Margin = new Thickness(f.GetSeat(i).Coordinates.X, f.GetSeat(i).Coordinates.Y, 0, 0);
@@ -86,12 +89,12 @@ namespace Desktop.Views
         //Kiválasztott székek árának összegzése
         private void CalculatePrice(object sender, TappedRoutedEventArgs e)
         {
-            int totalPrice = 0;
+            totalPrice = 0;
             foreach (SeatUserControl s in myList.Children)
             {
                 if (s.State == State.Selected)
                 {
-                    totalPrice += f.GetSeat((int)s.SeatId).Price;
+                    totalPrice += s.Seat.Price;
                 }
             }
             txPrice.Text = "Total price: " + totalPrice + " $";
