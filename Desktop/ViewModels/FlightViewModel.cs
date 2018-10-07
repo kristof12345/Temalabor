@@ -17,6 +17,7 @@ namespace Desktop.ViewModels
         private Stack<CommandBase> undoStack = new Stack<CommandBase>();
         private bool undoEnabled = false;
         private bool redoEnabled = false;
+        private bool isFlightSelected = false;
         private long nextId = 0;
 
         public long NextId
@@ -39,6 +40,12 @@ namespace Desktop.ViewModels
         {
             get { return redoEnabled; }
             private set { redoEnabled = value; RaisePropertyChanged("RedoEnabled"); }
+        }
+
+        public bool IsFlightSelected
+        {
+            get { return isFlightSelected; }
+            set { isFlightSelected = value; RaisePropertyChanged("IsFlightSelected"); }
         }
 
         //Adatforrás

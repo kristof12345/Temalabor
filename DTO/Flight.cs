@@ -12,11 +12,6 @@ namespace DTO
             if(type!=null) PlaneType = new PlaneType(type);
         }
 
-        public Flight_DTO()
-        {
-
-        }
-
         //Elsődleges kulcs az adatbázisban
         public long DatabaseId { get; set; }
 
@@ -41,7 +36,11 @@ namespace DTO
         //A székek száma
         public int NumberOfSeats
         {
-            get{ return PlaneType.GetTotalSeatsCount(); }
+            get
+            {
+                if (PlaneType == null) return -1;
+                return PlaneType.GetTotalSeatsCount();
+            }
         }
 
         //A szabad székek száma

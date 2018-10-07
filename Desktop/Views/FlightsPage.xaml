@@ -52,8 +52,8 @@
                 <TextBox x:Name="tbDes" HorizontalAlignment="Left" PlaceholderText="Destination" VerticalAlignment="Bottom" Height="33" Width="110"/>
                 <ComboBox x:Name="cbType" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="130"/>
                 <Button x:Name="btAdd" Content="Add flight" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="btAdd_Click" Height="33" Width="120"/>
-                <Button x:Name="btDelete" Content="Delete flight" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="120" Click="btDelete_Click"/>
-                <Button x:Name="btUpdate" Content="Update flight" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="120" Click="btUpdate_Click"/>
+                <Button x:Name="btDelete" Content="Delete flight" IsEnabled="{x:Bind ViewModel.IsFlightSelected, Mode=OneWay}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="120" Click="btDelete_Click"/>
+                <Button x:Name="btUpdate" Content="Update flight" IsEnabled="{x:Bind ViewModel.IsFlightSelected, Mode=OneWay}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="120" Click="btUpdate_Click"/>
             </ListView>
             <ListView Visibility="Visible" VerticalAlignment="Bottom" Margin="1046,0,0,0" SelectionMode="None">
                 <ListView.ItemsPanel>
@@ -68,6 +68,7 @@
                 </ListView.ItemContainerStyle>
                 <Button x:Name="btUndo" Content="Undo" IsEnabled="{x:Bind ViewModel.UndoEnabled, Mode=OneWay}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="120" Click="btUndo_Click"/>
                 <Button x:Name="btRedo" Content="Redo" IsEnabled="{x:Bind ViewModel.RedoEnabled, Mode=OneWay}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="120" Click="btRedo_Click"/>
+                <Button x:Name="btSeats" Content="Show seats" IsEnabled="{x:Bind ViewModel.IsFlightSelected, Mode=OneWay}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="120" Click="btReserve_Click"/>
             </ListView>
         </Grid>
 

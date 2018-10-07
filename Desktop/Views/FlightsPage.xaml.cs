@@ -35,7 +35,14 @@ namespace Desktop.Views
         //Ha változott a kijelölt sor
         private void selected(object sender, DataGridSelectionChangedEventArgs e)
         {
-            //Valami
+            if (dataTable.SelectedItem != null)
+            {
+                ViewModel.IsFlightSelected = true;
+            }
+            else
+            {
+                ViewModel.IsFlightSelected = false;
+            }
         }
 
         //Dupla kattintásnál átváltunk a kiválasztott repülő nézetére
