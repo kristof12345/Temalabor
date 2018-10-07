@@ -10,7 +10,7 @@ namespace Desktop.ViewModels
         {
             get
             {
-                return DataService.ReservationList;
+                return ReservationsDataService.ReservationList;
             }
         }
     }

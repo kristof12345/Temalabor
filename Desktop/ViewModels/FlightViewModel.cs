@@ -24,7 +24,7 @@ namespace Desktop.ViewModels
         {
             get
             {
-                if (nextId == 0) nextId = DataService.MaxId;
+                if (nextId == 0) nextId = FlightsDataService.MaxId;
                 nextId++;
                 return nextId;
             }
@@ -53,7 +53,7 @@ namespace Desktop.ViewModels
         {
             get
             {
-                return DataService.FlightList;
+                return FlightsDataService.FlightList;
             }
         }
 

@@ -9,11 +9,9 @@ using DTO;
 
 namespace Desktop.Services
 {
-    public static class DataService
+    public static class FlightsDataService
     {
         private static ObservableCollection<Flight> flightList;
-
-        //public static event EventHandler FlightListLoadedEvent;
 
         public static ObservableCollection<Flight> FlightList
         {
@@ -93,40 +91,6 @@ namespace Desktop.Services
 
             //Táblázat frissítése
             ReloadFlightListAsync();
-        }
-
-        private static ObservableCollection<Reservation> reservationList = new ObservableCollection<Reservation>();
-
-        //Foglalás adatbázis
-        public static ObservableCollection<Reservation> ReservationList
-        {
-            get
-            {
-                if (reservationList == null) { reservationList = new ObservableCollection<Reservation>(); ReloadReservationListAsync(); }
-                return reservationList;
-            }
-        }
-
-        //A foglalások letöltése a szerverről
-        private static async void ReloadReservationListAsync()
-        {
-            List<Reservation> dtoList = await HttpService.GetReservationsAsync();
-            reservationList.Clear();
-            foreach (Reservation dto in dtoList)
-            {
-                reservationList.Add(dto);
-            }
-        }
-
-        //Foglalás hozzáadása
-        public static void Reserve(Reservation reserveRequest)
-        {
-            //Felhasználó beállítása
-            reserveRequest.User = SignInService.User.Name;
-            //Http kérés kiadása
-            HttpService.PostReservationAsync(reserveRequest);
-
-            ReloadReservationListAsync();
         }
     }
 }

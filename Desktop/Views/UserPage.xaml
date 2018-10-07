@@ -10,15 +10,30 @@
     <Grid>
         <Image x:Name="userImg" Source="/Assets/userwhite.png" Margin="0,-250,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="300"/>
         <Grid x:Name="loginArea">
-            <TextBox x:Name="tbName" HorizontalAlignment="Center" Margin="0,50,0,0" Text="Username" VerticalAlignment="Center" Width="200"/>
-            <TextBox x:Name="tbPass" HorizontalAlignment="Center" Margin="0,150,0,0" Text="Password" VerticalAlignment="Center" Width="200"/>
-            <CheckBox x:Name="cbAdmin" Content="Login as administrator" HorizontalAlignment="Center" Margin="0,230,0,0" VerticalAlignment="Center" Width="200"/>
-            <Button x:Name="btLogin" Content="Login" HorizontalAlignment="Center" Margin="0,300,0,0" VerticalAlignment="Center" Click="btLogin_Click"/>
+            <ListView SelectionMode="None" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,350,0,0">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <ItemsStackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <TextBox x:Name="tbName" Text="Username" Width="200"/>
+                <TextBox x:Name="tbPass" Text="Password"  Width="200"/>
+                <CheckBox x:Name="cbAdmin" Content="Login as administrator"  Width="200"/>
+                <Button x:Name="btLogin" Content="Login" Click="btLogin_Click" Width="200"/>
+                <Button x:Name="btNew" Content="New User" Click="btNew_Click" Width="200"/>
+            </ListView>
         </Grid>
         <Grid x:Name="logoutArea" Visibility="Collapsed">
-            <TextBlock x:Name="tbUser1" Style="{StaticResource TitleTextBlockStyle}" TextWrapping="Wrap" HorizontalAlignment="Center" Margin="0,100,0,0" VerticalAlignment="Center" Text="You're signed in as:"/>
-            <TextBlock x:Name="tbUser2" Style="{StaticResource TitleTextBlockStyle}" TextWrapping="Wrap" HorizontalAlignment="Center" Margin="0,200,0,0" VerticalAlignment="Center"/>
-            <Button x:Name="btLogout" Content="Logout" HorizontalAlignment="Center" Margin="0,300,0,0" VerticalAlignment="Center" Click="btLogout_Click"/>
+            <ListView SelectionMode="None" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,350,0,0">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <ItemsStackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <TextBlock x:Name="tbUser1" Style="{StaticResource TitleTextBlockStyle}" TextWrapping="Wrap" Text="You're signed in as:"/>
+                <TextBlock x:Name="tbUser2" Style="{StaticResource TitleTextBlockStyle}" TextWrapping="Wrap"/>
+                <Button x:Name="btLogout" Content="Logout" Click="btLogout_Click"/>
+            </ListView>
         </Grid>
     </Grid>
 </Page>

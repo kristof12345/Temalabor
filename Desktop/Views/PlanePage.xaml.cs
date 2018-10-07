@@ -32,7 +32,7 @@ namespace Desktop.Views
                 if (s.State == State.Selected)
                 {
                     reservation.AddSeatId(s.SeatId); //Összekészítjük a foglalást
-                    DataService.Reserve(reservation);
+                    ReservationsDataService.Reserve(reservation);
                     this.Frame.Navigate(typeof(PlanePage), f); //Az oldal újratöltése
                 }
             }

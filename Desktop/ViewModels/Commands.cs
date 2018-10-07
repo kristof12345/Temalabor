@@ -38,12 +38,12 @@ namespace Desktop.ViewModels
 
         public override void Execute(object parameter = null)
         {
-            DataService.AddFlightAsync(id, date, dep, des, type);
+            FlightsDataService.AddFlightAsync(id, date, dep, des, type);
         }
 
         public override void UnExecute()
         {
-            DataService.DeleteFlightAsync(new Flight(id, type));
+            FlightsDataService.DeleteFlightAsync(new Flight(id, type));
         }
 
         //Segédfüggvény a dátum előállításához
@@ -64,12 +64,12 @@ namespace Desktop.ViewModels
         }
         public override void Execute(object parameter = null)
         {
-            DataService.DeleteFlightAsync(flight);
+            FlightsDataService.DeleteFlightAsync(flight);
         }
 
         public override void UnExecute()
         {
-            DataService.AddFlightAsync(flight);
+            FlightsDataService.AddFlightAsync(flight);
         }
     }
 
@@ -85,12 +85,12 @@ namespace Desktop.ViewModels
 
         public override void Execute(object parameter = null)
         {
-            DataService.UpdateFlightAsync(newFlight);
+            FlightsDataService.UpdateFlightAsync(newFlight);
         }
 
         public override void UnExecute()
         {
-            DataService.UpdateFlightAsync(oldFlight);
+            FlightsDataService.UpdateFlightAsync(oldFlight);
         }
     }
 }

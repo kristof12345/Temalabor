@@ -17,7 +17,7 @@ namespace Desktop.ViewModels
         private String name;
         private int price;
         private String[] seatTypes = { "Normal", "Premium" };
-        private int selectedSeatType =1;
+        private int selectedSeatTypeIndex =0;
 
         public String Name { get { return name; } set { name = value; RaisePropertyChanged("Name"); } }
 
@@ -27,8 +27,8 @@ namespace Desktop.ViewModels
 
         public int SelectedSeatType
         {
-            get { return selectedSeatType; }
-            set { selectedSeatType = value; RaisePropertyChanged("SelectedSeatType"); }
+            get { return selectedSeatTypeIndex; }
+            set { selectedSeatTypeIndex = value; RaisePropertyChanged("SelectedSeatType"); }
         }
 
         public String NumberOfSeats

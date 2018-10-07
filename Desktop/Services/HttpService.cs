@@ -42,13 +42,21 @@ namespace Desktop.Services
             PlaneType.Initialize(strArray.ToArray());
         }
 
+        internal static async void PostAddUserAsync(User addRequest)
+        {
+            client = new HttpClient(handler);
+
+            HttpResponseMessage response = await client.PostAsJsonAsync(UriUsers, addRequest);
+            //var contents = await response.Content.ReadAsStringAsync();
+        }
+
         public static async void PostAddPlaneTypeAsync(PlaneType addRequest)
         {
             client = new HttpClient(handler);
             Debug.WriteLine("A hozzáadott design neve: " + addRequest.PlaneTypeName);
 
             HttpResponseMessage response = await client.PostAsJsonAsync(UriFlights, addRequest);
-            var contents = await response.Content.ReadAsStringAsync();
+            //var contents = await response.Content.ReadAsStringAsync();
         }
 
         //Repülőtípusok lekérdezése

@@ -1,8 +1,10 @@
-﻿using Desktop.Services;
+﻿using Desktop.Dialogs;
+using Desktop.Services;
 using DTO;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using System;
 
 namespace Desktop.Views
 {
@@ -49,6 +51,12 @@ namespace Desktop.Views
                 logoutArea.Visibility = Visibility.Visible;
                 tbUser2.Text = SignInService.User.Name;
             }
+        }
+
+        private async void btNew_Click(object sender, RoutedEventArgs e)
+        {
+            NewUserDialog dialog = new NewUserDialog();
+            ContentDialogResult result = await dialog.ShowAsync();
         }
     }
 }
