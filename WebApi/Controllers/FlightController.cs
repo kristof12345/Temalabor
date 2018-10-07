@@ -45,20 +45,27 @@ namespace WebApi
         public DAL.Flight Flight_DTO_to_DAL(long fID, long bID, DateTime d, string dep, string dest, string ptName, string st)
         {
             DAL.Flight temp = new DAL.Flight();
-            //temp.flightID = fID; //TODO: EZ szerintem FORDÍTVA KELLENE
+            //temp.flightID = fID;
             temp.businessID = bID;
             temp.departure = dep;
             temp.date = d;
             temp.destination = dest;
-            //try
+            DAL.PlaneType plane = new DAL.PlaneType
             {
-                var plane = _context.PlaneTypes.Single(i => i.planeType.Equals(ptName)); //Néha ez is dob kivételt. Sőt mindíg.
-                var seats = _context.Seats.Where(s => s.planeTypeID == plane.planeTypeID);
+                planeTypeID = 1
+            };
+
+            try
+            {
+                plane = _context.PlaneTypes.Single(i => i.planeType.Equals(ptName)); //Néha ez is dob kivételt. Sőt mindíg.
+            }
+            catch (Exception) { Debug.WriteLine("HIBA A FLIGHTCONTROLLERBEN 1"); }
+
+            var seats = _context.Seats.Where(s => s.planeTypeID == plane.planeTypeID);
                 temp.numberofSeats = seats.ToList().Count;
                 temp.freeSeats = seats.ToList().Count; // egyelőre csak így
                 temp.planeType = plane;
-            }
-            //catch (Exception) { Debug.WriteLine("HIBA A FLIGHTCONTROLLERBEN 1"); }
+            
             temp.status = st;
 
             return temp;
