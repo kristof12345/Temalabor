@@ -7,15 +7,21 @@ namespace DTO
     //Egy foglalást reprezentáló osztály LEHET, HOGY NEM SZÉKENKÉNT KELLENE...
     public class Reservation
     {
-        public Reservation(long fid, long sid, String name="Felhasznalo")
+        //A foglaláshoz tartozó székek listája (azonosítók)
+        private List<long> seatList;
+
+        public Reservation(long fid)
         {
             FlightId = fid;
-            SeatId = sid;
-            User = name;
+            seatList = new List<long>();
         }
 
         public String User { get; set; }
         public long FlightId { get; set; }
-        public long SeatId { get; set; }
+        public int SeatCount { get { return seatList.Count; } }
+        public void AddSeatId(long id)
+        {
+            seatList.Add(id);
+        }
     }
 }

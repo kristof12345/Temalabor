@@ -107,18 +107,6 @@ namespace Desktop.Models
             return "Flight "+ FlightId.ToString() + " from " + Departure + " to " + Destination;
         }
 
-        //Egy szék lefoglalása
-        public void ReserveSeat(long id)
-        {
-            //Ha még nem foglalt, akkor lefoglaljuk
-            if (planeType.ReserveSeat((int)id))
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs("FreeSeats")); //Értesítés a változásról
-                HttpService.PostReservationAsync(new ReserveSeat_DTO(FlightId, id)); //Http kérés a foglaláshoz
-            }
-        }
-
-
         //Szék elkérése ID alapján
         public Seat GetSeat(int id)
         {

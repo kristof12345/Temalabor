@@ -87,6 +87,17 @@ namespace Desktop.Services
             return list;
         }
 
+        //Foglalások listázása
+        public static async Task<List<Reservation>> GetReservationsAsync()
+        {
+            client = new HttpClient(handler);
+
+            HttpResponseMessage response = await client.GetAsync(UriReservation);
+            List<Reservation> list = await response.Content.ReadAsAsync<List<Reservation>>();
+
+            return list;
+        }
+
         //Járat törlése
         public static async Task PostDeleteFlightAsync(Flight_DTO deleteRequest)
         {
@@ -113,7 +124,7 @@ namespace Desktop.Services
         }
 
         //Foglalás hozzáadása
-        public static async Task PostReservationAsync(ReserveSeat_DTO reserveRequest)
+        public static async Task PostReservationAsync(Reservation reserveRequest)
         {
             client = new HttpClient(handler);
 

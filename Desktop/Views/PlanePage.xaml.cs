@@ -26,13 +26,13 @@ namespace Desktop.Views
         //Fizetés gomb lenyomása
         private void Pay_Button_Click(object sender, RoutedEventArgs e)
         {
-            //Minden kiválasztott UC-ra összegezzük az árat
+            var reservation = new Reservation(f.FlightId);
             foreach (SeatUserControl s in myList.Children)
             {
                 if (s.State == State.Selected)
                 {
-
-                    DataService.Reserve((int)f.FlightId, s.SeatId);
+                    reservation.AddSeatId(s.SeatId); //Összekészítjük a foglalást
+                    DataService.Reserve(reservation);
                     this.Frame.Navigate(typeof(PlanePage), f); //Az oldal újratöltése
                 }
             }
