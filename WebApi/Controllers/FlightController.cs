@@ -37,8 +37,6 @@ namespace WebApi
             temp.Date = d;
             temp.Destination = dest;
             temp.Status = st;
-            temp.FreeSeats = seats.ToList().Count;
-            temp.NumberOfSeats = seats.ToList().Count;
             return temp;
         }
 
@@ -52,7 +50,7 @@ namespace WebApi
             temp.departure = dep;
             temp.date = d;
             temp.destination = dest;
-            try
+            //try
             {
                 var plane = _context.PlaneTypes.Single(i => i.planeType.Equals(ptName)); //Néha ez is dob kivételt. Sőt mindíg.
                 var seats = _context.Seats.Where(s => s.planeTypeID == plane.planeTypeID);
@@ -60,7 +58,7 @@ namespace WebApi
                 temp.freeSeats = seats.ToList().Count; // egyelőre csak így
                 temp.planeType = plane;
             }
-            catch (Exception) { Debug.WriteLine("HIBA A FLIGHTCONTROLLERBEN 1"); }
+            //catch (Exception) { Debug.WriteLine("HIBA A FLIGHTCONTROLLERBEN 1"); }
             temp.status = st;
 
             return temp;
@@ -96,12 +94,13 @@ namespace WebApi
         [HttpPost]
         public IActionResult Create(Flight_DTO item)
         {
-            DAL.Flight tempfl = Flight_DTO_to_DAL(item.DatabaseId, item.FlightId, item.Date, item.Departure, item.Destination, item.PlaneType, item.Status);
+            DAL.Flight tempfl = Flight_DTO_to_DAL(item.DatabaseId, item.FlightId, item.Date, item.Departure, item.Destination, item.PlaneType.PlaneTypeName, item.Status);
             _context.Flights.Add(tempfl);
-            try {
+            //try 
+            {
                 _context.SaveChanges();
             }
-            catch (Exception) { Debug.WriteLine("HIBA A FLIGHTCONTROLLERBEN 2"); }
+            //catch (Exception) { Debug.WriteLine("HIBA A FLIGHTCONTROLLERBEN 2"); }
 
             var ret = CreatedAtRoute("GetFlight", new { id = tempfl.flightID }, item);
             return ret;
@@ -133,16 +132,20 @@ namespace WebApi
         [HttpDelete("{id}")]
         public IActionResult Delete(long id)
         {
-            //var todo = _context.Flights.Find(id);
-            var todo = _context.Flights.Single(p => p.businessID == id);
-            if (todo == null)
+            //try 
             {
-                return NotFound();
-            }
+                //var todo = _context.Flights.Find(id);
+                var todo = _context.Flights.Single(p => p.businessID == id);
+                if (todo == null)
+                {
+                    return NotFound();
+                }
 
-            _context.Flights.Remove(todo);
-            _context.SaveChanges();
-            return NoContent();
+                _context.Flights.Remove(todo);
+                _context.SaveChanges();
+            }
+            //catch (Exception) { Debug.WriteLine("HIBA A FLIGHTCONTROLLERBEN 3"); }
+        return NoContent();
         }
     }
 }

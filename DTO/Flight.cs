@@ -12,6 +12,11 @@ namespace DTO
             if(type!=null) PlaneType = new PlaneType(type);
         }
 
+        public Flight_DTO()
+        {
+
+        }
+
         //Elsődleges kulcs az adatbázisban
         public long DatabaseId { get; set; }
 

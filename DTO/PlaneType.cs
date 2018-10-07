@@ -33,9 +33,12 @@ namespace DTO
             Seats = list;
         }
 
+        //Üres konstruktor
+        public PlaneType() {}
+
         //public long PlaneTypeID { get; set; } //Ez nem kell, csak az adatbázisbeli azonosításra. Ezt a kliens nem használja.
 
-        //A repülő típus neve (pl: "Airbus A380")
+            //A repülő típus neve (pl: "Airbus A380")
         public string PlaneTypeName { get; private set; }
 
         //A székek tömbje
@@ -44,12 +47,15 @@ namespace DTO
         //Az összes szék száma
         public int GetTotalSeatsCount()
         {
+            if (Seats == null) return -1;
             return Seats.Count;
         }
 
         //A szabad székek száma
         public int GetFreeSeatsCount()
         {
+            if (Seats == null) return -1;
+
             int ret = 0;
             foreach(Seat s in Seats)
             {
