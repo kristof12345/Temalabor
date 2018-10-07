@@ -20,6 +20,34 @@ namespace Desktop.Models
             if(type!=null) planeType = new PlaneType(type);
         }
 
+        /*private void GenerateSeats(int numOfSeats)
+        {
+            seats = new List<Seat>(numOfSeats);
+
+            freeSeats = numOfSeats;
+
+            for (int i = 0; i < numOfSeats; i++)
+            {
+                var temp = new Seat(i);
+
+                //Csak hogy értelmes helyen legyenek
+                if ((i % 2) == 0) { temp.Coordinates.X = 350; } //Vízszintes érték (balról)
+                else { temp.Coordinates.X = 330; }
+
+                //Csak, hogy legyen néhány foglalt hely is
+                if (i % 3 == 0)
+                {
+                    temp.Reserved = true;
+                    freeSeats--;
+                }
+
+                temp.Price = 100; //Ára is legyen
+
+                temp.Coordinates.Y = 100 + 50 * i; //Függőleges érték (felülről)
+                seats.Add(temp);
+            }
+        }*/
+
         //Konstruktor DTO-ból
         public Flight(Flight_DTO dto)
         {
@@ -50,17 +78,28 @@ namespace Desktop.Models
         public string Destination { get; set; }
 
         //Repülő típusa, tartalmazza a székeket
-        public string PlaneType { get; set; }
-
+        public string PlaneType
+        {
+            get { return planeType.PlaneTypeName; }
+            set
+            {
+                if (value != null) planeType = new PlaneType(value);
+            }
+        }
 
         //A járat státusza (pl: Cancelled, Sceduled, Delayed)
         public string Status { get; set; }
 
         //A székek száma
-        public int NumberOfSeats { get; set; }
+        public int NumberOfSeats
+        {
+            get { return planeType.GetTotalSeatsCount(); }
+        }
 
-        public int FreeSeats { get; set; }
-
+        public int FreeSeats
+        {
+            get { return planeType.GetFreeSeatsCount(); }
+        }
 
         //A szabad székek száma
         public override string ToString()
@@ -95,7 +134,7 @@ namespace Desktop.Models
             ret.Date = this.Date;
             ret.Departure = this.Departure;
             ret.Destination = this.Destination;
-            ret.PlaneType = this.PlaneType;        
+            ret.PlaneType = this.planeType;        
             ret.Status = this.Status;
 
             return ret;
@@ -108,7 +147,7 @@ namespace Desktop.Models
             this.Date = dto.Date;
             this.Departure = dto.Departure;
             this.Destination = dto.Destination;
-            this.PlaneType = dto.PlaneType;
+            this.planeType = dto.PlaneType;
             this.Status = dto.Status;
         }
 

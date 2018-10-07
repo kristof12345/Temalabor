@@ -7,9 +7,9 @@ namespace DTO
     public class Flight_DTO
     {
         //Konstruktor
-        public Flight_DTO(string type)
+        public Flight_DTO(String type)
         {
-            PlaneType = type;
+            if(type!=null) PlaneType = new PlaneType(type);
         }
 
         //Elsődleges kulcs az adatbázisban
@@ -28,22 +28,27 @@ namespace DTO
         public string Destination { get; set; }
 
         //Repülő típusa, tartalmazza a székeket
-        public string PlaneType { get; set; }
+        public PlaneType PlaneType { get; set; }
 
         //A járat státusza (pl: Cancelled, Sceduled, Delayed)
         public string Status { get; set; }
 
-        //ezt hagyd így
-         public int NumberOfSeats { get; set; }
-        
-        //majd ezt valamilyen sql lekérdezéssel kell meghatározni, de most jó lesz így
-        public int FreeSeats { get; set; }
+        //A székek száma
+        public int NumberOfSeats
+        {
+            get{ return PlaneType.GetTotalSeatsCount(); }
+        }
 
+        //A szabad székek száma
+        public int FreeSeats
+        {
+            get{ return PlaneType.GetFreeSeatsCount(); }
+        }
 
         //Kiíráshoz ToStirng
         public override string ToString()
         {
-            return "DatabaseId: " + DatabaseId.ToString() + " FlightId: " + FlightId.ToString() + " from: " + Departure + " to: " + Destination + " type: " + PlaneType;
+            return "id: " + FlightId.ToString() + " from: " + Departure + " to: " + Destination + " type: " + PlaneType.PlaneTypeName;
         }
     }
 }
