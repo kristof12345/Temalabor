@@ -1,4 +1,5 @@
-﻿using Desktop.Services;
+﻿using Desktop.Dialogs;
+using Desktop.Services;
 using Desktop.UserControls;
 using Desktop.ViewModels;
 using System;
@@ -49,21 +50,9 @@ namespace Desktop.Views
             base.OnNavigatedTo(e);
             if(SignInService.User == null)
             {
-                DisplayNoUserDialog();
+                AlertDialog dialog = new AlertDialog();
+                dialog.DisplayNoUserDialog(this);
             }
-        }
-
-        //Dialógusablak
-        private async void DisplayNoUserDialog()
-        {
-            ContentDialog noUser = new ContentDialog
-            {
-                Title = "You're not signed in.",
-                Content = "Plese sign in to continue.",
-                CloseButtonText = "Ok"
-            };
-            ContentDialogResult result = await noUser.ShowAsync();
-            this.Frame.Navigate(typeof(UserPage));
         }
 
         private void btSave_Click(object sender, RoutedEventArgs e)

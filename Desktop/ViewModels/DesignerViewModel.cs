@@ -15,13 +15,15 @@ namespace Desktop.ViewModels
     {
         private List<Seat> seats = new List<Seat>();
         private String name;
+        private int price;
 
         public String Name { get { return name; } set { name = value; RaisePropertyChanged("Name"); } }
+
+        public int Price { get { return price; } set { price = value; RaisePropertyChanged("Price"); } }
 
         public String NumberOfSeats
         {
             get{ return seats.Count.ToString(); }
-            set { }
         }
 
         public void AddSeat(double x, double y, int seatType=1)
@@ -34,7 +36,8 @@ namespace Desktop.ViewModels
 
         internal void Save()
         {
-            HttpService.PostAddPlaneTypeAsync(Name,seats);
+            var request = new PlaneType(Name, seats);
+            HttpService.PostAddPlaneTypeAsync(request);
         }
     }
 }

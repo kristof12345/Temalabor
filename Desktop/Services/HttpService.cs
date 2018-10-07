@@ -42,11 +42,10 @@ namespace Desktop.Services
             PlaneType.Initialize(strArray.ToArray());
         }
 
-        public static async void PostAddPlaneTypeAsync(string name, List<Seat> seats)
+        public static async void PostAddPlaneTypeAsync(PlaneType addRequest)
         {
             client = new HttpClient(handler);
-            Debug.WriteLine("A hozzáadott design neve: " + name);
-            var addRequest = new NewType_DTO(name, seats);
+            Debug.WriteLine("A hozzáadott design neve: " + addRequest.PlaneTypeName);
 
             HttpResponseMessage response = await client.PostAsJsonAsync(UriFlights, addRequest);
             var contents = await response.Content.ReadAsStringAsync();

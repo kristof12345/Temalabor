@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using Desktop.Dialogs;
 using Desktop.Models;
 using Desktop.Services;
 using Desktop.ViewModels;
@@ -75,7 +76,8 @@ namespace Desktop.Views
             //User ellenőrzése
             if (SignInService.User == null)
             {
-                DisplayNoUserDialog();               
+                AlertDialog dialog = new AlertDialog();
+                dialog.DisplayNoUserDialog(this);               
             }
             else
             {
@@ -93,19 +95,6 @@ namespace Desktop.Views
                     searchArea.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
                 }
             }
-        }
-
-        //Dialógusablak
-        private async void DisplayNoUserDialog()
-        {
-            ContentDialog noUser = new ContentDialog
-            {
-                Title = "You're not signed in.",
-                Content = "Plese sign in to continue.",
-                CloseButtonText = "Ok"
-            };
-            ContentDialogResult result = await noUser.ShowAsync();
-            this.Frame.Navigate(typeof(UserPage));
         }
 
         private void btDelete_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)

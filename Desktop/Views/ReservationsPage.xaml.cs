@@ -1,4 +1,5 @@
-﻿using Desktop.Services;
+﻿using Desktop.Dialogs;
+using Desktop.Services;
 using Desktop.ViewModels;
 using System;
 using Windows.UI.Xaml.Controls;
@@ -28,26 +29,14 @@ namespace Desktop.Views
             //User ellenőrzése
             if (SignInService.User == null)
             {
-                DisplayNoUserDialog();
+                AlertDialog dialog = new AlertDialog();
+                dialog.DisplayNoUserDialog(this);
             }
             else
             {
                 //TODO: kiírjuk a felhasználó foglalásait
                 //textBlock.Text = SignInService.User.Name;
             }
-        }
-
-        //Dialógusablak
-        private async void DisplayNoUserDialog()
-        {
-            ContentDialog noUser = new ContentDialog
-            {
-                Title = "You're not signed in.",
-                Content = "Plese sign in to continue.",
-                CloseButtonText = "Ok"
-            };
-            ContentDialogResult result = await noUser.ShowAsync();
-            this.Frame.Navigate(typeof(UserPage));
         }
     }
 }

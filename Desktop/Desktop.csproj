@@ -126,6 +126,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activation\ActivationHandler.cs" />
+    <Compile Include="Dialogs\AlertDialog.cs" />
     <Compile Include="Helpers\NavHelper.cs" />
     <Compile Include="Models\Flight.cs" />
     <Compile Include="Services\ActivationService.cs" />
@@ -160,7 +161,7 @@
     <Compile Include="Views\ShellPage.xaml.cs">
       <DependentUpon>ShellPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UpdateDialog.xaml.cs">
+    <Compile Include="Dialogs\UpdateDialog.xaml.cs">
       <DependentUpon>UpdateDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserPage.xaml.cs">
@@ -218,7 +219,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\UpdateDialog.xaml">
+    <Page Include="Dialogs\UpdateDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

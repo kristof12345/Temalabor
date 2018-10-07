@@ -10,6 +10,7 @@ using Desktop.UserControls;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Windows.UI.Xaml.Input;
+using Desktop.Dialogs;
 
 namespace Desktop.Views
 {
@@ -60,7 +61,7 @@ namespace Desktop.Views
 
                     CalculatePrice(null, null);
                 }
-     
+
                 //A típus alapján választ képet a repülőről
                 switch (f.PlaneType.ToString())
                 {
@@ -68,13 +69,17 @@ namespace Desktop.Views
                         planeImg.Source = new BitmapImage(new Uri("ms-appx:///Assets/Antonov124white.png"));
                         break;
                 }
-                //Ha nincs bejelentkezve, vagy nem választott repülőt
-            } else if(SignInService.User == null)
+            //Ha nincs bejelentkezve, vagy nem választott repülőt
+            }
+            else if (SignInService.User == null)
             {
-                DisplayNoUserDialog();
-            } else
+                AlertDialog dialog = new AlertDialog();
+                dialog.DisplayNoUserDialog(this);                
+            }
+            else
             {
-                DisplayNoPlaneDialog();
+                AlertDialog dialog = new AlertDialog();
+                dialog.DisplayNoPlaneDialog(this);
             }
         }
 
@@ -95,36 +100,11 @@ namespace Desktop.Views
             if (totalPrice > 0)
             {
                 btPay.IsEnabled = true;
-            } else //Különben nem
+            }
+            else //Különben nem
             {
                 btPay.IsEnabled = false;
             }
-        }
-
-        //Dialógusablak
-        private async void DisplayNoPlaneDialog()
-        {
-            ContentDialog noPlane = new ContentDialog
-            {
-                Title = "No flight selected",
-                Content = "Plese select a flight to continue.",
-                CloseButtonText = "Ok"
-            };
-            ContentDialogResult result = await noPlane.ShowAsync();
-            this.Frame.Navigate(typeof(FlightsPage));
-        }
-
-        //Dialógusablak
-        private async void DisplayNoUserDialog()
-        {
-            ContentDialog noUser = new ContentDialog
-            {
-                Title = "You're not signed in.",
-                Content = "Plese sign in to continue.",
-                CloseButtonText = "Ok"
-            };
-            ContentDialogResult result = await noUser.ShowAsync();
-            this.Frame.Navigate(typeof(UserPage));
         }
     }
 }
