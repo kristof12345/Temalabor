@@ -12,7 +12,7 @@ namespace Desktop.Services
         public static User User { get; private set; }
         public static async Task<bool> SignInAsync(User u)
         {
-            if (await HttpService.PostLoginAsync(u.Name, u.Password))
+            if (await HttpService.LoginAsync(u))
             {
                 User = u;
                 return true;

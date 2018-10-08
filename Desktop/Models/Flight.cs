@@ -20,34 +20,6 @@ namespace Desktop.Models
             if(type!=null) PlaneType = type;
         }
 
-        /*private void GenerateSeats(int numOfSeats)
-        {
-            seats = new List<Seat>(numOfSeats);
-
-            freeSeats = numOfSeats;
-
-            for (int i = 0; i < numOfSeats; i++)
-            {
-                var temp = new Seat(i);
-
-                //Csak hogy értelmes helyen legyenek
-                if ((i % 2) == 0) { temp.Coordinates.X = 350; } //Vízszintes érték (balról)
-                else { temp.Coordinates.X = 330; }
-
-                //Csak, hogy legyen néhány foglalt hely is
-                if (i % 3 == 0)
-                {
-                    temp.Reserved = true;
-                    freeSeats--;
-                }
-
-                temp.Price = 100; //Ára is legyen
-
-                temp.Coordinates.Y = 100 + 50 * i; //Függőleges érték (felülről)
-                seats.Add(temp);
-            }
-        }*/
-
         //Konstruktor teljes paramétrlistával
         public Flight(long id, DateTime date, string dep, string des, string type, string stat)
         {
@@ -116,6 +88,7 @@ namespace Desktop.Models
             ret.Date = this.Date;
             ret.Departure = this.Departure;
             ret.Destination = this.Destination;
+            ret.PlaneTypeName = this.PlaneType;
             ret.PlaneType = this.planeType;        
             ret.Status = this.Status;
 

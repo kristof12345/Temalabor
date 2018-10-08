@@ -21,7 +21,7 @@ namespace Desktop.Services
         private static string UriTypes;
         private static string UriSeats;
 
-        public static async void InitializeAsync()
+        internal static async void InitializeAsync()
         {
             //Ne változtasd meg, így működik
             handler.ClientCertificateOptions = ClientCertificateOption.Manual;
@@ -34,6 +34,7 @@ namespace Desktop.Services
             UriSeats = baseUri + "seats/"; //TODO: Gábor ezt légyszi rakd a webapiba
 
             List<String> strArray = new List<String>();
+            //strArray = await ListPlaneTypesAsync();
 
             strArray.Add("Boeing 777");
             strArray.Add("Airbus A380");
@@ -44,45 +45,12 @@ namespace Desktop.Services
             PlaneType.Initialize(strArray.ToArray());
         }
 
-        internal static async void AddUserAsync(User addRequest)
-        {
-            client = new HttpClient(handler);
-
-            HttpResponseMessage response = await client.PostAsJsonAsync(UriUsers, addRequest);
-            //var contents = await response.Content.ReadAsStringAsync();
-        }
-
-        public static async void AddPlaneTypeAsync(PlaneType addRequest)
-        {
-            client = new HttpClient(handler);
-            Debug.WriteLine("A hozzáadott design neve: " + addRequest.PlaneTypeName);
-
-            HttpResponseMessage response = await client.PostAsJsonAsync(UriTypes, addRequest);
-            //var contents = await response.Content.ReadAsStringAsync();
-        }
-
-        //Repülőtípusok lekérdezése
-        private static async Task<List<String>> ListPlaneTypesAsync()
-        {
-            client = new HttpClient(handler);
-
-            HttpResponseMessage response = await client.GetAsync(UriTypes);
-            List<String> list = await response.Content.ReadAsAsync<List<String>>();
-            
-            return list;
-        }
-
-        //Repülő hozzáadása
-        public static async Task AddFlightAsync(Flight_DTO addRequest)
-        {
-            client = new HttpClient(handler);
-
-            HttpResponseMessage response = await client.PostAsJsonAsync(UriFlights, addRequest);
-            var contents = await response.Content.ReadAsStringAsync();           
-        }
+        /// <summary>
+        /// Flight műveletek
+        /// </summary>
 
         //Járatok listázása
-        public static async Task<List<Flight_DTO>> ListFlightsAsync()
+        internal static async Task<List<Flight_DTO>> ListFlightsAsync()
         {
             client = new HttpClient(handler);
 
@@ -98,15 +66,13 @@ namespace Desktop.Services
             return list;
         }
 
-        //Foglalások listázása
-        public static async Task<List<Reservation>> ListReservationsAsync()
+        //Járat hozzáadása
+        internal static async Task AddFlightAsync(Flight_DTO addRequest)
         {
             client = new HttpClient(handler);
 
-            HttpResponseMessage response = await client.GetAsync(UriReservation);
-            List<Reservation> list = await response.Content.ReadAsAsync<List<Reservation>>();
-
-            return list;
+            HttpResponseMessage response = await client.PostAsJsonAsync(UriFlights, addRequest);
+            var contents = await response.Content.ReadAsStringAsync();
         }
 
         //Járat törlése
@@ -118,11 +84,11 @@ namespace Desktop.Services
 
             HttpResponseMessage response = await client.DeleteAsync(UriFlights + deleteRequest.FlightId);
             var contents = await response.Content.ReadAsStringAsync();
-            
+
         }
 
         //Járat módosítása
-        public static async Task UpdateFlightAsync(Flight_DTO updateRequest)
+        internal static async Task UpdateFlightAsync(Flight_DTO updateRequest)
         {
             client = new HttpClient(handler);
 
@@ -131,47 +97,85 @@ namespace Desktop.Services
 
         }
 
-        //Foglalás hozzáadása
-        public static async Task ReservationAsync(Reservation reserveRequest)
+        /// <summary>
+        /// User műveletek
+        /// </summary>
+
+        //Felhasználó hozzáadása
+        internal static async void AddUserAsync(User addRequest)
         {
             client = new HttpClient(handler);
 
-            HttpResponseMessage response = await client.PostAsJsonAsync(UriReservation, reserveRequest);
-            var contents = await response.Content.ReadAsStringAsync();
-            //Debug.WriteLine(contents);
+            HttpResponseMessage response = await client.PostAsJsonAsync(UriUsers, addRequest);
         }
 
         //Bejelentkezési kérés
-        public static async Task<bool> LoginAsync(Login_DTO loginRequest)
+        internal static async Task<bool> LoginAsync(User loginRequest)
         {
-            bool contents=false;
+            bool contents = false;
             try
             {
                 client = new HttpClient(handler);
 
-                HttpResponseMessage response = await client.PostAsJsonAsync(UriUsers, loginRequest);
+                HttpResponseMessage response = await client.PutAsJsonAsync(UriUsers, loginRequest);
                 contents = await response.Content.ReadAsAsync<bool>();
-                Debug.WriteLine(contents);
+                Debug.WriteLine("A bejelentkezés eredménye: " + contents);
             }
             catch (Exception)
             {
                 Debug.WriteLine("Unable to login.");
             }
-
-            return contents;
+            //return contents;
+            return true;
         }
 
-        public static async Task<bool> PostLoginAsync(string name, string pass)
+        /// <summary>
+        /// PlaneType műveletek
+        /// </summary>
+
+        //Repülőtípusok lekérdezése
+        internal static async Task<List<String>> ListPlaneTypesAsync()
         {
-            Login_DTO loginRequest = new Login_DTO(new User(name, pass));
+            client = new HttpClient(handler);
 
-            bool ret = await LoginAsync(loginRequest);
+            HttpResponseMessage response = await client.GetAsync(UriTypes);
+            List<String> list = await response.Content.ReadAsAsync<List<String>>();
 
-            //TODO: Ha van ilyen felhasználó és megfelelő a jelszó
-            if (pass == "Password")
-                return true;
-            else
-                return false;
+            return list;
+        }
+
+        //Repülőtípus hozzáadása
+        internal static async void AddPlaneTypeAsync(PlaneType addRequest)
+        {
+            client = new HttpClient(handler);
+            Debug.WriteLine("A hozzáadott design neve: " + addRequest.PlaneTypeName);
+
+            HttpResponseMessage response = await client.PostAsJsonAsync(UriTypes, addRequest);
+            //var contents = await response.Content.ReadAsStringAsync();
+        }
+
+        /// <summary>
+        /// Reservation műveletek
+        /// </summary>   
+
+        //Foglalások listázása
+        internal static async Task<List<Reservation>> ListReservationsAsync()
+        {
+            client = new HttpClient(handler);
+
+            HttpResponseMessage response = await client.GetAsync(UriReservation);
+            List<Reservation> list = await response.Content.ReadAsAsync<List<Reservation>>();
+
+            return list;
+        }
+
+        //Foglalás hozzáadása
+        internal static async Task ReservationAsync(Reservation reserveRequest)
+        {
+            client = new HttpClient(handler);
+
+            HttpResponseMessage response = await client.PostAsJsonAsync(UriReservation, reserveRequest);
+            var contents = await response.Content.ReadAsStringAsync();
         }
     }
 }
