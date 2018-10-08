@@ -14,7 +14,7 @@ namespace DTO
         }
 
         //PlaneType neve
-        public String PlaneTypeName { get; private set; }
+        public String PlaneTypeName { get; set; }
 
         //Elsődleges kulcs az adatbázisban
         public long DatabaseId { get; set; }
