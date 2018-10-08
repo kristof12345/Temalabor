@@ -9,7 +9,7 @@ namespace DTO
         //Konstruktor
         public Flight_DTO(String type)
         {
-            if(type!=null) PlaneType = new PlaneType(type);
+            PlaneType = new PlaneType(type);
         }
 
         //Elsődleges kulcs az adatbázisban
@@ -56,7 +56,7 @@ namespace DTO
         //Kiíráshoz ToStirng
         public override string ToString()
         {
-            if( PlaneType==null ) return "id: " + FlightId.ToString() + " from: " + Departure + " to: " + Destination + " type: null";
+            //if( PlaneType==null ) return "id: " + FlightId.ToString() + " from: " + Departure + " to: " + Destination + " type: null";
             return "id: " + FlightId.ToString() + " from: " + Departure + " to: " + Destination + " type: " + PlaneType.PlaneTypeName;
         }
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
@@ -10,13 +11,14 @@ namespace DTO
         private static String[] typesArray;
 
         //Konstruktor
+        [JsonConstructor]
         public PlaneType(String name)
         {
             PlaneTypeName = name;
             Seats = new List<Seat>();
             
             //TODO: Ide majd az adatbázis alapján kell valami
-            if (name == "Airbus A380")
+            if (name!=null)
             {
                 for (int i = 0; i < 7; i++) Seats.Add(new Seat(i));
             }
@@ -33,12 +35,9 @@ namespace DTO
             Seats = list;
         }
 
-        //Üres konstruktor
-        public PlaneType() {}
-
         //public long PlaneTypeID { get; set; } //Ez nem kell, csak az adatbázisbeli azonosításra. Ezt a kliens nem használja.
 
-            //A repülő típus neve (pl: "Airbus A380")
+        //A repülő típus neve (pl: "Airbus A380")
         public string PlaneTypeName { get; private set; }
 
         //A székek tömbje
