@@ -25,10 +25,11 @@ namespace WebApi
             _context2 = context2;
         }
 
-        public Flight_DTO Flight_DAL_to_DTO(long fID, long bID, DateTime d, string dep, string dest, long pID, string st)
+        public Flight_DTO Flight_DAL_to_DTO(DAL.Flight dalFlight)
         {
-            var plane = _context.PlaneTypes.Single(i => i.planeTypeID == pID);
+            var plane = _context.PlaneTypes.Single(i => i.planeTypeID == dalFlight.planeTypeID);
             var seats = _context.Seats.Where(s => s.planeTypeID == plane.planeTypeID);
+
             Flight_DTO temp = new Flight_DTO(plane.planeType);
 
             temp.FlightId = bID; 
@@ -69,9 +70,7 @@ namespace WebApi
             List<Flight_DTO> result = new List<Flight_DTO>();
             for (int i = 0; i < DAL_list.Count; i++)
             {
-                Flight_DTO current = Flight_DAL_to_DTO(DAL_list[i].flightID, DAL_list[i].businessID, DAL_list[i].date, DAL_list[i].departure, DAL_list[i].destination,
-                    DAL_list[i].planeTypeID,
-                    DAL_list[i].status);
+                Flight_DTO current = Flight_DAL_to_DTO(DAL_list[i]);
                 //current.PlaneTypeName = current.PlaneType.PlaneTypeName;
                 result.Add(current);
                 //Debug.WriteLine("Server1: " + current.PlaneType.PlaneTypeName);
