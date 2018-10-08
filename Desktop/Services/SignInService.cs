@@ -27,7 +27,7 @@ namespace Desktop.Services
         internal static void AddUser(string name, string pass, string type)
         {
             User user = new User(name, pass); //TODO: különböző típusú felhasználók
-            HttpService.PostAddUserAsync(user);
+            HttpService.AddUserAsync(user);
         }
     }
 }

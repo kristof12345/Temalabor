@@ -44,7 +44,7 @@ namespace Desktop.Services
             PlaneType.Initialize(strArray.ToArray());
         }
 
-        internal static async void PostAddUserAsync(User addRequest)
+        internal static async void AddUserAsync(User addRequest)
         {
             client = new HttpClient(handler);
 
@@ -52,7 +52,7 @@ namespace Desktop.Services
             //var contents = await response.Content.ReadAsStringAsync();
         }
 
-        public static async void PostAddPlaneTypeAsync(PlaneType addRequest)
+        public static async void AddPlaneTypeAsync(PlaneType addRequest)
         {
             client = new HttpClient(handler);
             Debug.WriteLine("A hozzáadott design neve: " + addRequest.PlaneTypeName);
@@ -62,7 +62,7 @@ namespace Desktop.Services
         }
 
         //Repülőtípusok lekérdezése
-        private static async Task<List<String>> GetTypesAsync()
+        private static async Task<List<String>> ListPlaneTypesAsync()
         {
             client = new HttpClient(handler);
 
@@ -73,7 +73,7 @@ namespace Desktop.Services
         }
 
         //Repülő hozzáadása
-        public static async Task PostAddFlightAsync(Flight_DTO addRequest)
+        public static async Task AddFlightAsync(Flight_DTO addRequest)
         {
             client = new HttpClient(handler);
 
@@ -82,7 +82,7 @@ namespace Desktop.Services
         }
 
         //Járatok listázása
-        public static async Task<List<Flight_DTO>> PostListAsync()
+        public static async Task<List<Flight_DTO>> ListFlightsAsync()
         {
             client = new HttpClient(handler);
 
@@ -99,7 +99,7 @@ namespace Desktop.Services
         }
 
         //Foglalások listázása
-        public static async Task<List<Reservation>> GetReservationsAsync()
+        public static async Task<List<Reservation>> ListReservationsAsync()
         {
             client = new HttpClient(handler);
 
@@ -110,7 +110,7 @@ namespace Desktop.Services
         }
 
         //Járat törlése
-        public static async Task PostDeleteFlightAsync(Flight_DTO deleteRequest)
+        public static async Task DeleteFlightAsync(Flight_DTO deleteRequest)
         {
             client = new HttpClient(handler);
 
@@ -122,7 +122,7 @@ namespace Desktop.Services
         }
 
         //Járat módosítása
-        public static async Task PostUpdateFlightAsync(Flight_DTO updateRequest)
+        public static async Task UpdateFlightAsync(Flight_DTO updateRequest)
         {
             client = new HttpClient(handler);
 
@@ -132,7 +132,7 @@ namespace Desktop.Services
         }
 
         //Foglalás hozzáadása
-        public static async Task PostReservationAsync(Reservation reserveRequest)
+        public static async Task ReservationAsync(Reservation reserveRequest)
         {
             client = new HttpClient(handler);
 
@@ -142,7 +142,7 @@ namespace Desktop.Services
         }
 
         //Bejelentkezési kérés
-        public static async Task<bool> PostLoginAsync(Login_DTO loginRequest)
+        public static async Task<bool> LoginAsync(Login_DTO loginRequest)
         {
             bool contents=false;
             try
@@ -165,7 +165,7 @@ namespace Desktop.Services
         {
             Login_DTO loginRequest = new Login_DTO(new User(name, pass));
 
-            bool ret = await PostLoginAsync(loginRequest);
+            bool ret = await LoginAsync(loginRequest);
 
             //TODO: Ha van ilyen felhasználó és megfelelő a jelszó
             if (pass == "Password")

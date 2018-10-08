@@ -26,7 +26,7 @@ namespace Desktop.Services
         //A foglalások letöltése a szerverről
         private static async void ReloadReservationListAsync()
         {
-            List<Reservation> dtoList = await HttpService.GetReservationsAsync();
+            List<Reservation> dtoList = await HttpService.ListReservationsAsync();
             reservationList.Clear();
             foreach (Reservation dto in dtoList)
             {
@@ -40,7 +40,7 @@ namespace Desktop.Services
             //Felhasználó beállítása
             reserveRequest.User = SignInService.User.Name;
             //Http kérés kiadása
-            HttpService.PostReservationAsync(reserveRequest);
+            HttpService.ReservationAsync(reserveRequest);
 
             ReloadReservationListAsync();
         }

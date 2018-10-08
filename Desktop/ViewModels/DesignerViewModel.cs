@@ -58,7 +58,7 @@ namespace Desktop.ViewModels
         internal void Save()
         {
             var request = new PlaneType(Name, seats);
-            HttpService.PostAddPlaneTypeAsync(request);
+            HttpService.AddPlaneTypeAsync(request);
         }
 
         internal void RemoveLastSeat()

@@ -35,7 +35,7 @@ namespace Desktop.Services
         //A járatok letöltése a szerverről
         private static async void ReloadFlightListAsync()
         {
-            List<Flight_DTO> dtoList = await HttpService.PostListAsync();
+            List<Flight_DTO> dtoList = await HttpService.ListFlightsAsync();
             flightList.Clear();
             foreach (Flight_DTO dto in dtoList)
             {
@@ -58,7 +58,7 @@ namespace Desktop.Services
             };
 
             //Http kérés kiadása
-            await HttpService.PostAddFlightAsync(f.ToDTO());
+            await HttpService.AddFlightAsync(f.ToDTO());
 
             //Táblázat frissítése
             ReloadFlightListAsync();
@@ -68,7 +68,7 @@ namespace Desktop.Services
         public static async void AddFlightAsync(Flight f)
         {
             //Http kérés kiadása
-            await HttpService.PostAddFlightAsync(f.ToDTO());
+            await HttpService.AddFlightAsync(f.ToDTO());
 
             //Táblázat frissítése
             ReloadFlightListAsync();
@@ -78,7 +78,7 @@ namespace Desktop.Services
         public static async void DeleteFlightAsync(Flight f)
         {
             //Http kérés kiadása
-            await HttpService.PostDeleteFlightAsync(f.ToDTO());
+            await HttpService.DeleteFlightAsync(f.ToDTO());
 
             //Táblázat frissítése
             ReloadFlightListAsync();
@@ -88,7 +88,7 @@ namespace Desktop.Services
         public static async void UpdateFlightAsync(Flight f)
         {
             //Http kérés kiadása
-            await HttpService.PostUpdateFlightAsync(f.ToDTO());
+            await HttpService.UpdateFlightAsync(f.ToDTO());
 
             //Táblázat frissítése
             ReloadFlightListAsync();
