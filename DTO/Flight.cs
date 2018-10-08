@@ -37,6 +37,7 @@ namespace DTO
         //A járat státusza (pl: Cancelled, Sceduled, Delayed)
         public string Status { get; set; }
 
+
         //A székek száma
         public int NumberOfSeats
         {
