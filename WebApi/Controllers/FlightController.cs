@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
+//MOST VÁLTOZTATTAM VALAMIT
 namespace WebApi
 {
     [Route("api/flight")]
