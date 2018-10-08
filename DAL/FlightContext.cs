@@ -51,12 +51,14 @@ namespace DAL
                     planeTypeID = (long)4,
                     planeType = "Antonov 124"
                 });
-           
+
 
             Seat seat1 = new Seat
             {
                 seatID = (long)1,
+                businessID = (long)1,
                 planeTypeID = (long)1,
+                flightID = (long)1,
                 IsReserved = false,
                 seatType = "fapados",
                 price = 15000,
@@ -66,7 +68,9 @@ namespace DAL
             Seat seat2 = new Seat
             {
                 seatID = (long)2,
+                businessID = (long)2,
                 planeTypeID = (long)1,
+                flightID = (long)1,
                 IsReserved = false,
                 seatType = "1. osztályú",
                 price = 200000,
@@ -78,7 +82,9 @@ namespace DAL
             Seat seat3 = new Seat
             {
                 seatID = (long)3,
+                businessID = (long)3,
                 planeTypeID = (long)2,
+                flightID = (long)2,
                 IsReserved = false,
                 seatType = "fapados",
                 price = 15000,
@@ -88,7 +94,9 @@ namespace DAL
             Seat seat4 = new Seat
             {
                 seatID = (long)4,
+                businessID = (long)4,
                 planeTypeID = (long)2,
+                flightID = (long)2,
                 IsReserved = false,
                 seatType = "1. osztályú",
                 price = 200000,

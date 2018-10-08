@@ -25,40 +25,46 @@ namespace WebApi
             _context2 = context2;
         }
 
-        public Flight_DTO Flight_DAL_to_DTO(long fID, long bID, DateTime d, string dep, string dest, long pID, string st)
+        //Ha a DAL.Seat-ben bennmarad a flightID, akkor azt is át kéne írni
+        public Flight_DTO Flight_DAL_to_DTO(DAL.Flight dalFlight)
         {
-            var plane = _context.PlaneTypes.Single(i => i.planeTypeID == pID);
-            var seats = _context.Seats.Where(s => s.planeTypeID == plane.planeTypeID);
+            var plane = _context.PlaneTypes.Single(i => i.planeTypeID == dalFlight.planeTypeID);
+
             Flight_DTO temp = new Flight_DTO(plane.planeType);
 
-            temp.FlightId = bID; 
-            temp.DatabaseId = fID;
-            temp.Departure = dep;
-            temp.Date = d;
-            temp.Destination = dest;
-            temp.Status = st;
+            temp.FlightId = dalFlight.flightID; 
+            temp.DatabaseId = dalFlight.businessID;
+            temp.Departure = dalFlight.departure;
+            temp.Date = dalFlight.date;
+            temp.Destination = dalFlight.destination;
+            temp.Status = dalFlight.status;
+            temp.PlaneTypeName = plane.planeType;
+
+            DTO.PlaneType dtoPlaneType = new PlaneType(plane.planeType);
+            temp.PlaneType = dtoPlaneType;
+
             return temp;
         }
 
-        //Ilyen paraméterekkel hívod:
-        //                Flight_DTO_to_DAL(item.FlightId, item.DatabaseId, item.Date, item.Departure, item.Destination, item.FreeSeats, item.PlaneType.PlaneTypeName, item.Status);
-        public DAL.Flight Flight_DTO_to_DAL(long fID, long bID, DateTime d, string dep, string dest, string ptName, string st)
+        public DAL.Flight Flight_DTO_to_DAL(DTO.Flight_DTO dtoFlight)
         {
             DAL.Flight temp = new DAL.Flight();
             //temp.flightID = fID;
-            temp.businessID = bID;
-            temp.departure = dep;
-            temp.date = d;
-            temp.destination = dest;
-            DAL.PlaneType plane = new DAL.PlaneType(); //TODO: név alapján ID
+            temp.businessID = dtoFlight.DatabaseId;
+            temp.departure = dtoFlight.Departure;
+            temp.date = dtoFlight.Date;
+            temp.destination = dtoFlight.Destination;
+            temp.status = dtoFlight.Status;
 
-            var seats = _context.Seats.Where(s => s.planeTypeID == plane.planeTypeID);
-                temp.numberofSeats = seats.ToList().Count;
-                temp.freeSeats = seats.ToList().Count; // egyelőre csak így
-                temp.planeType = plane;
-            
-            temp.status = st;
+            var plane = _context.PlaneTypes.Single(i => i.planeType.Equals(dtoFlight.PlaneTypeName));
 
+            plane.planeType = dtoFlight.PlaneTypeName;            
+
+            //var seats = _context.Seats.Where(s => s.planeTypeID == plane.planeTypeID);
+              //  temp.numberofSeats = seats.ToList().Count;
+                //temp.freeSeats = seats.ToList().Count; // egyelőre csak így
+                //temp.planeType = plane;
+                  
             return temp;
         }
 
@@ -69,9 +75,7 @@ namespace WebApi
             List<Flight_DTO> result = new List<Flight_DTO>();
             for (int i = 0; i < DAL_list.Count; i++)
             {
-                Flight_DTO current = Flight_DAL_to_DTO(DAL_list[i].flightID, DAL_list[i].businessID, DAL_list[i].date, DAL_list[i].departure, DAL_list[i].destination,
-                    DAL_list[i].planeTypeID,
-                    DAL_list[i].status);
+                Flight_DTO current = Flight_DAL_to_DTO(DAL_list[i]);
                 //current.PlaneTypeName = current.PlaneType.PlaneTypeName;
                 result.Add(current);
                 //Debug.WriteLine("Server1: " + current.PlaneType.PlaneTypeName);
@@ -86,7 +90,7 @@ namespace WebApi
             var temp = _context.Flights.Single(p => p.businessID == id);
             if (temp == null)
                 return NotFound();
-            Flight_DTO result = Flight_DAL_to_DTO(temp.flightID, temp.businessID, temp.date, temp.departure, temp.destination, temp.planeTypeID, temp.status);
+            Flight_DTO result = Flight_DAL_to_DTO(temp);
 
             return result;
         }
@@ -94,7 +98,7 @@ namespace WebApi
         [HttpPost]
         public IActionResult Create(Flight_DTO item)
         {
-            DAL.Flight tempfl = Flight_DTO_to_DAL(item.DatabaseId, item.FlightId, item.Date, item.Departure, item.Destination, item.PlaneType.PlaneTypeName, item.Status);
+            DAL.Flight tempfl = Flight_DTO_to_DAL(item);
             tempfl.planeType.planeType = item.PlaneTypeName;
             _context.Flights.Add(tempfl);
             //try 
@@ -108,7 +112,7 @@ namespace WebApi
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(long id, Flight_DTO item)
+        public IActionResult Update(long id, Flight_DTO dtoFlight)
         {
             //var todo = _context.Flights.Find(id);
             var todo = _context.Flights.Single(p => p.businessID == id);
@@ -117,16 +121,14 @@ namespace WebApi
                 return NotFound();
             }
 
-            todo.date = item.Date;
-            todo.departure = item.Departure;
-            todo.destination = item.Destination;
-            todo.status = item.Status;
+            todo.businessID = dtoFlight.DatabaseId;
+            todo.date = dtoFlight.Date;
+            todo.departure = dtoFlight.Departure;
+            todo.destination = dtoFlight.Destination;
+            todo.status = dtoFlight.Status;
 
-            todo.planeTypeID = 1; //TODO: név alapján kikersni
-            todo.planeType = new DAL.PlaneType();
-            //todo.planeType.planeTypeID = todo.planeTypeID;
-            //Debug.WriteLine("Server2: " + item.PlaneTypeName);
-            todo.planeType.planeType = item.PlaneTypeName;
+            var plane = _context.PlaneTypes.Single(i => i.planeType.Equals(dtoFlight.PlaneTypeName));
+            todo.planeTypeID = plane.planeTypeID;
 
             _context.Flights.Update(todo);
             _context.SaveChanges();

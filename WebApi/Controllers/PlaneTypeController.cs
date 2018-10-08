@@ -4,18 +4,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using DTO;
-using System.Diagnostics;
+
+// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace WebApi.Controllers
 {
-    [Route("api/seat")]
-    [ApiController]
-    public class SeatController : ControllerBase
+    [Route("api/[controller]")]
+    public class PlaneTypeController : Controller
     {
         private readonly DAL.FlightContext _context;
         private readonly ReserveContext _context2;
 
-        public SeatController(DAL.FlightContext context, ReserveContext context2)
+        public PlaneTypeController(DAL.FlightContext context, ReserveContext context2)
         {
             _context = context;
             _context2 = context2;
@@ -52,39 +52,47 @@ namespace WebApi.Controllers
             return temp;
         }
 
-        [HttpGet]
-        public ActionResult<List<Seat>> GetAll()
+        public PlaneType PlaneType_DAL_to_DTO(DAL.PlaneType dalPlaneType)
         {
-            var DAL_list = _context.Seats.ToList();
-            List<Seat> result = new List<Seat>();
-            for (int i = 0; i < DAL_list.Count; i++)
-            {
-                Seat current = Seat_DAL_to_DTO(DAL_list[i]);
-                result.Add(current);
-            }
-            return result;
-        }
+            PlaneType temp = new PlaneType(dalPlaneType.planeType);
 
-        [HttpGet("flightID/{flightID}", Name = "GetAllSeatsForFlight")]
-        public ActionResult<List<Seat>> GetAllSeatsForFlight(long flightID)
-        {
-            List<Seat> result = new List<Seat>();
-            var queriedSeats = _context.Seats.Where(s => s.flightID == flightID);
-                      
+            var queriedSeats = _context.Seats.Where(s => s.planeTypeID == dalPlaneType.planeTypeID);
+
+            List<Seat> dtoSeats = new List<Seat>();
             foreach (DAL.Seat seat in queriedSeats)
             {
                 Seat current = Seat_DAL_to_DTO(seat);
-                
+                dtoSeats.Add(current);
+            }
+
+            return temp;
+        }
+
+        public DAL.PlaneType PlaneType_DTO_to_DAL(PlaneType dtoPlaneType)
+        {
+            DAL.PlaneType temp = new DAL.PlaneType();
+            temp.planeType = dtoPlaneType.PlaneTypeName;
+            return temp;
+        }
+
+        [HttpGet]
+        public ActionResult<List<PlaneType>> GetAll()
+        {
+            var DAL_list = _context.PlaneTypes.ToList();
+            List<PlaneType> result = new List<PlaneType>();
+            for (int i = 0; i < DAL_list.Count; i++)
+            {
+                PlaneType current = PlaneType_DAL_to_DTO(DAL_list[i]);
                 result.Add(current);
             }
             return result;
         }
 
-        [HttpGet("{id}", Name = "GetSeat")]
-        public ActionResult<Seat> GetById(long id)
+        [HttpGet("{id}", Name = "GetPlaneType")]
+        public ActionResult<PlaneType> GetById(long id)
         {
-            var temp = _context.Seats.Single(p => p.businessID == id);
-            Seat result = Seat_DAL_to_DTO(temp);
+            var temp = _context.PlaneTypes.Single(p => p.planeTypeID == id);
+            PlaneType result = PlaneType_DAL_to_DTO(temp);
 
             if (temp == null)
                 return NotFound();
@@ -92,33 +100,28 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Seat item)
+        public IActionResult Create(PlaneType item)
         {
-            DAL.Seat tempfl = Seat_DTO_to_DAL(item);
+            DAL.PlaneType tempfl = PlaneType_DTO_to_DAL(item);
 
-            _context.Seats.Add(tempfl);
+            _context.PlaneTypes.Add(tempfl);
             _context.SaveChanges();
 
-            return CreatedAtRoute("GetSeat", new { id = tempfl.seatID }, item);
+            return CreatedAtRoute("GetSeat", new { id = tempfl.planeTypeID }, item);
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(long id, Seat item)
+        public IActionResult Update(long id, PlaneType item)
         {
-            var todo = _context.Seats.Single(p => p.businessID == id);
+            var todo = _context.PlaneTypes.Single(p => p.planeTypeID == id);
             if (todo == null)
             {
                 return NotFound();
             }
 
-            todo.businessID = item.SeatId;
-            todo.seatType = item.SeatType;
-            todo.IsReserved = item.Reserved;
-            todo.price = item.Price;
-            todo.Xcord = item.Coordinates.X;
-            todo.Ycord = item.Coordinates.Y;
+            todo.planeType = item.PlaneTypeName;
 
-            _context.Seats.Update(todo);
+            _context.PlaneTypes.Update(todo);
             _context.SaveChanges();
             return NoContent();
         }
@@ -126,16 +129,15 @@ namespace WebApi.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(long id)
         {
-            var todo = _context.Seats.Single(p => p.businessID == id);
+            var todo = _context.PlaneTypes.Single(p => p.planeTypeID == id);
             if (todo == null)
             {
                 return NotFound();
             }
 
-            _context.Seats.Remove(todo);
+            _context.PlaneTypes.Remove(todo);
             _context.SaveChanges();
             return NoContent();
         }
-
     }
 }
