@@ -50,16 +50,7 @@ namespace WebApi
             temp.departure = dep;
             temp.date = d;
             temp.destination = dest;
-            DAL.PlaneType plane = new DAL.PlaneType
-            {
-                planeTypeID = 1
-            };
-
-            try
-            {
-                plane = _context.PlaneTypes.Single(i => i.planeType.Equals(ptName)); //Néha ez is dob kivételt. Sőt mindíg.
-            }
-            catch (Exception) { Debug.WriteLine("HIBA A FLIGHTCONTROLLERBEN 1"); }
+            DAL.PlaneType plane = new DAL.PlaneType(); //TODO: név alapján ID
 
             var seats = _context.Seats.Where(s => s.planeTypeID == plane.planeTypeID);
                 temp.numberofSeats = seats.ToList().Count;
@@ -81,7 +72,9 @@ namespace WebApi
                 Flight_DTO current = Flight_DAL_to_DTO(DAL_list[i].flightID, DAL_list[i].businessID, DAL_list[i].date, DAL_list[i].departure, DAL_list[i].destination,
                     DAL_list[i].planeTypeID,
                     DAL_list[i].status);
+                //current.PlaneTypeName = current.PlaneType.PlaneTypeName;
                 result.Add(current);
+                //Debug.WriteLine("Server1: " + current.PlaneType.PlaneTypeName);
             }
             return result;
         }
@@ -102,6 +95,7 @@ namespace WebApi
         public IActionResult Create(Flight_DTO item)
         {
             DAL.Flight tempfl = Flight_DTO_to_DAL(item.DatabaseId, item.FlightId, item.Date, item.Departure, item.Destination, item.PlaneType.PlaneTypeName, item.Status);
+            tempfl.planeType.planeType = item.PlaneTypeName;
             _context.Flights.Add(tempfl);
             //try 
             {
@@ -127,9 +121,12 @@ namespace WebApi
             todo.departure = item.Departure;
             todo.destination = item.Destination;
             todo.status = item.Status;
-            //todo.freeSeats = item.FreeSeats;
-            var plane = _context.PlaneTypes.Single(i => i.planeType.Equals(item.PlaneType));
-            todo.planeTypeID = plane.planeTypeID;
+
+            todo.planeTypeID = 1; //TODO: név alapján kikersni
+            todo.planeType = new DAL.PlaneType();
+            //todo.planeType.planeTypeID = todo.planeTypeID;
+            //Debug.WriteLine("Server2: " + item.PlaneTypeName);
+            todo.planeType.planeType = item.PlaneTypeName;
 
             _context.Flights.Update(todo);
             _context.SaveChanges();

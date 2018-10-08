@@ -17,7 +17,7 @@ namespace Desktop.Models
         {
             FlightId = id;
 
-            if(type!=null) planeType = new PlaneType(type);
+            if(type!=null) PlaneType = type;
         }
 
         /*private void GenerateSeats(int numOfSeats)
@@ -48,12 +48,6 @@ namespace Desktop.Models
             }
         }*/
 
-        //Konstruktor DTO-ból
-        public Flight(Flight_DTO dto)
-        {
-            this.FromDTO(dto);
-        }
-
         //Konstruktor teljes paramétrlistával
         public Flight(long id, DateTime date, string dep, string des, string type, string stat)
         {
@@ -78,12 +72,12 @@ namespace Desktop.Models
         public string Destination { get; set; }
 
         //Repülő típusa, tartalmazza a székeket
-        public string PlaneType
+        public String PlaneType
         {
             get { return planeType.PlaneTypeName; }
             set
             {
-                if (value != null) planeType = new PlaneType(value);
+                 planeType = new PlaneType(value);
             }
         }
 

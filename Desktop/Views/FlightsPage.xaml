@@ -20,7 +20,9 @@
                 SelectionMode = "Single"
                 ItemsSource="{x:Bind ViewModel.Source}"
                 AutoGenerateColumns="false"
-                VerticalAlignment="Stretch" Height="700">
+                ScrollViewer.HorizontalScrollMode="Enabled"
+                VerticalAlignment="Stretch"
+                Height="700">
                     <tg:RadDataGrid.Columns>
                         <tg:DataGridNumericalColumn PropertyName="FlightId"/>
                         <tg:DataGridDateColumn PropertyName="Date"/>

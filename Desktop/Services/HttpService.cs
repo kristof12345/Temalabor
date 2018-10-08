@@ -19,6 +19,7 @@ namespace Desktop.Services
         private static string UriReservation;
         private static string UriUsers;
         private static string UriTypes;
+        private static string UriSeats;
 
         public static async void InitializeAsync()
         {
@@ -30,6 +31,7 @@ namespace Desktop.Services
             UriReservation = baseUri + "reservation/";
             UriUsers = baseUri + "users/";
             UriTypes = baseUri + "types/"; //TODO: Gábor ezt légyszi rakd a webapiba
+            UriSeats = baseUri + "seats/"; //TODO: Gábor ezt légyszi rakd a webapiba
 
             List<String> strArray = new List<String>();
 
@@ -75,8 +77,6 @@ namespace Desktop.Services
         {
             client = new HttpClient(handler);
 
-            Debug.WriteLine("A hozzáadott repülő: " + addRequest);
-
             HttpResponseMessage response = await client.PostAsJsonAsync(UriFlights, addRequest);
             var contents = await response.Content.ReadAsStringAsync();           
         }
@@ -86,11 +86,14 @@ namespace Desktop.Services
         {
             client = new HttpClient(handler);
 
-            Debug.WriteLine("Kérés elküldve.");
-
             HttpResponseMessage response = await client.GetAsync(UriFlights);
             List<Flight_DTO> list = await response.Content.ReadAsAsync<List<Flight_DTO>>();
-            foreach (Flight_DTO f in list) Debug.WriteLine(f);
+            foreach (Flight_DTO f in list)
+            {
+                HttpResponseMessage seatResponse = await client.GetAsync(UriSeats + f.FlightId);
+                List<Seat> seatList = await seatResponse.Content.ReadAsAsync<List<Seat>>();
+                f.PlaneType = new PlaneType(f.PlaneTypeName, seatList);
+            }
 
             return list;
         }
@@ -122,9 +125,6 @@ namespace Desktop.Services
         public static async Task PostUpdateFlightAsync(Flight_DTO updateRequest)
         {
             client = new HttpClient(handler);
-
-            Debug.WriteLine("A módosított repülő ID-ja: " + updateRequest.FlightId);
-            Debug.WriteLine("A módosított repülő adatai: " + updateRequest.ToString());
 
             HttpResponseMessage response = await client.PutAsJsonAsync(UriFlights + updateRequest.FlightId, updateRequest);
             var contents = await response.Content.ReadAsStringAsync();

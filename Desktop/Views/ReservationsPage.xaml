@@ -23,7 +23,9 @@
                 SelectionMode = "Single"
                 ItemsSource="{x:Bind ViewModel.Source}"
                 AutoGenerateColumns="True"
-                VerticalAlignment="Top" Height="700">
+                ScrollViewer.HorizontalScrollMode="Enabled"
+                VerticalAlignment="Top"
+                Height="700">
                 <tg:RadDataGrid.Columns>
 
                 </tg:RadDataGrid.Columns>

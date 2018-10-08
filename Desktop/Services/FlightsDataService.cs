@@ -39,7 +39,8 @@ namespace Desktop.Services
             flightList.Clear();
             foreach (Flight_DTO dto in dtoList)
             {
-                Flight f = new Flight(dto);
+                Flight f = new Flight(dto.FlightId, dto.PlaneTypeName);
+                f.FromDTO(dto);
                 flightList.Add(f);
             }
         }

@@ -10,7 +10,11 @@ namespace DTO
         public Flight_DTO(String type)
         {
             PlaneType = new PlaneType(type);
+            PlaneTypeName = type;
         }
+
+        //PlaneType neve
+        public String PlaneTypeName { get; private set; }
 
         //Elsődleges kulcs az adatbázisban
         public long DatabaseId { get; set; }
