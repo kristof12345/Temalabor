@@ -7,24 +7,22 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:usercontrols="using:Desktop.UserControls"
+    Style="{StaticResource PageStyle}"
+    DataContext="{Binding PlaneViewModel, Source={StaticResource Locator}}"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-    <Grid x:Name="grid">
-        <Button x:Name="btPay" Content="Pay" HorizontalAlignment="Left" Margin="25,200,0,0" VerticalAlignment="Top" Click="Pay_Button_Click" Width="100"/>
-        <Image x:Name="planeImg" HorizontalAlignment="Right" Width="100" Height="100" VerticalAlignment="Top" />
-        <TextBlock x:Name="txDetails"
-                   Style="{StaticResource TitleTextBlockStyle}"
-                   Margin="25,0,0,0"
-                   VerticalAlignment="Top"
-                   HorizontalAlignment="Left"
-        />
-        <TextBlock x:Name="txPrice"
-                   Style="{StaticResource TitleTextBlockStyle}"
-                   Margin="25,100,0,0"
-                   VerticalAlignment="Top"
-                   HorizontalAlignment="Left"
-        />
-        <Canvas x:Name="myList" Width="100" HorizontalAlignment="Right" Height="100" VerticalAlignment="Top">
-        </Canvas>
+    <Grid>
+        <Image x:Name="planeImg" Source="/Assets/Antonov124white.png" HorizontalAlignment="Right" Width="1000" Height="700"/>
+        <Canvas x:Name="canvas" HorizontalAlignment="Right" VerticalAlignment="Stretch" Width="1000" Background="Transparent" Height="700"/>
+        <ListView SelectionMode="None" HorizontalAlignment="Left" Width="522">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <ItemsStackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top" />
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <TextBlock Text="{x:Bind ViewModel.Details, Mode=OneWay}" Style="{StaticResource TitleTextBlockStyle}" Width="300"/>
+            <TextBlock Text="{x:Bind ViewModel.TotalPrice, Mode=OneWay}" Style="{StaticResource TitleTextBlockStyle}" Width="300"/>
+            <Button Content="Pay" IsEnabled="{x:Bind ViewModel.IsPayEnabled, Mode=OneWay}" Click="Pay_Button_Click" Width="300"/>
+        </ListView>
     </Grid>
 </Page>

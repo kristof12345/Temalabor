@@ -1,7 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Diagnostics;
-using Desktop.Services;
 using DTO;
 
 namespace Desktop.Models
