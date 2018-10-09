@@ -80,16 +80,20 @@ namespace WebApi.Controllers
             return result;
         }
 
+        /*
         [HttpGet("{id}", Name = "GetSeat")]
         public ActionResult<Seat> GetById(long id)
         {
+            try { 
             var temp = _context.Seats.Single(p => p.businessID == id);
             Seat result = Seat_DAL_to_DTO(temp);
 
             if (temp == null)
                 return NotFound();
+
             return result;
         }
+        */
 
         [HttpPost]
         public IActionResult Create(Seat item)

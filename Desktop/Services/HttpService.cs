@@ -31,7 +31,7 @@ namespace Desktop.Services
             UriReservation = baseUri + "reservation/";
             UriUsers = baseUri + "users/";
             UriTypes = baseUri + "types/"; //TODO: Gábor ezt légyszi rakd a webapiba
-            UriSeats = baseUri + "seats/"; //TODO: Gábor ezt légyszi rakd a webapiba
+            UriSeats = baseUri + "seat/"; //TODO: Gábor ezt légyszi rakd a webapiba
 
             List<String> strArray = new List<String>();
             //strArray = await ListPlaneTypesAsync();
