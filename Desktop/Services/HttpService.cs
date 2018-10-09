@@ -31,7 +31,7 @@ namespace Desktop.Services
             UriReservation = baseUri + "reservation/";
             UriUsers = baseUri + "users/";
             UriTypes = baseUri + "types/"; //TODO: Gábor ezt légyszi rakd a webapiba
-            UriSeats = baseUri + "seat/"; //TODO: Gábor ezt légyszi rakd a webapiba
+            UriSeats = baseUri + "seat/flightID/"; //TODO: Gábor ezt légyszi rakd a webapiba
 
             List<String> strArray = new List<String>();
             //strArray = await ListPlaneTypesAsync();
@@ -60,6 +60,10 @@ namespace Desktop.Services
             {
                 HttpResponseMessage seatResponse = await client.GetAsync(UriSeats + f.FlightId);
                 List<Seat> seatList = await seatResponse.Content.ReadAsAsync<List<Seat>>();
+
+                if (seatList == null) Debug.WriteLine(f.ToString() + "NULL LISTA");
+                else Debug.WriteLine(f.ToString() + seatList.Count.ToString());
+
                 f.PlaneType = new PlaneType(f.PlaneTypeName, seatList);
             }
 
