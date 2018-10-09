@@ -28,7 +28,7 @@
                         <tg:DataGridDateColumn PropertyName="Date"/>
                         <tg:DataGridTextColumn PropertyName="Departure"/>
                         <tg:DataGridTextColumn PropertyName="Destination"/>
-                        <tg:DataGridTextColumn PropertyName="PlaneType"/>
+                        <tg:DataGridTextColumn PropertyName="PlaneTypeName"/>
                         <tg:DataGridTextColumn PropertyName="Status"/>
                         <tg:DataGridNumericalColumn PropertyName="NumberOfSeats"/>
                         <tg:DataGridNumericalColumn PropertyName="FreeSeats"/>

@@ -12,9 +12,10 @@ namespace DTO
 
         //Konstruktor
         [JsonConstructor]
-        public PlaneType(String name)
+        public PlaneType(String name, long id)
         {
             PlaneTypeName = name;
+            PlaneTypeID = id;
             Seats = new List<Seat>();
             
             //TODO: Ide majd az adatbázis alapján kell valami
@@ -35,7 +36,8 @@ namespace DTO
             Seats = list;
         }
 
-        //public long PlaneTypeID { get; set; } //Ez nem kell, csak az adatbázisbeli azonosításra. Ezt a kliens nem használja.
+        //A repülő azonosítója
+        public long PlaneTypeID { get; private set; }
 
         //A repülő típus neve (pl: "Airbus A380")
         public string PlaneTypeName { get; private set; }

@@ -31,10 +31,15 @@ namespace Desktop.Services
             UriReservation = baseUri + "reservation/";
             UriUsers = baseUri + "users/";
             UriTypes = baseUri + "types/"; //TODO: Gábor ezt légyszi rakd a webapiba
-            UriSeats = baseUri + "seat/flightID/"; //TODO: Gábor ezt légyszi rakd a webapiba
+            UriSeats = baseUri + "seat/flightID/";
 
-            List<String> strArray = new List<String>();
-            //strArray = await ListPlaneTypesAsync();
+            List<PlaneType> typesArray = new List<PlaneType>();
+            //typesArray = await ListPlaneTypesAsync();
+            List<String> strArray = new List<string>();
+            foreach(PlaneType t in typesArray)
+            {
+                strArray.Add(t.PlaneTypeName);
+            }
 
             strArray.Add("Boeing 777");
             strArray.Add("Airbus A380");
@@ -60,10 +65,6 @@ namespace Desktop.Services
             {
                 HttpResponseMessage seatResponse = await client.GetAsync(UriSeats + f.FlightId);
                 List<Seat> seatList = await seatResponse.Content.ReadAsAsync<List<Seat>>();
-
-                if (seatList == null) Debug.WriteLine(f.ToString() + "NULL LISTA");
-                else Debug.WriteLine(f.ToString() + seatList.Count.ToString());
-
                 f.PlaneType = new PlaneType(f.PlaneTypeName, seatList);
             }
 
@@ -74,7 +75,7 @@ namespace Desktop.Services
         internal static async Task AddFlightAsync(Flight_DTO addRequest)
         {
             client = new HttpClient(handler);
-
+            
             HttpResponseMessage response = await client.PostAsJsonAsync(UriFlights, addRequest);
             var contents = await response.Content.ReadAsStringAsync();
         }
@@ -83,8 +84,6 @@ namespace Desktop.Services
         public static async Task DeleteFlightAsync(Flight_DTO deleteRequest)
         {
             client = new HttpClient(handler);
-
-            Debug.WriteLine("A törölt repülő ID-ja: " + deleteRequest.FlightId);
 
             HttpResponseMessage response = await client.DeleteAsync(UriFlights + deleteRequest.FlightId);
             var contents = await response.Content.ReadAsStringAsync();
@@ -95,7 +94,7 @@ namespace Desktop.Services
         internal static async Task UpdateFlightAsync(Flight_DTO updateRequest)
         {
             client = new HttpClient(handler);
-
+            Debug.WriteLine("Added: " + updateRequest.PlaneTypeID);
             HttpResponseMessage response = await client.PutAsJsonAsync(UriFlights + updateRequest.FlightId, updateRequest);
             var contents = await response.Content.ReadAsStringAsync();
 
@@ -138,12 +137,12 @@ namespace Desktop.Services
         /// </summary>
 
         //Repülőtípusok lekérdezése
-        internal static async Task<List<String>> ListPlaneTypesAsync()
+        internal static async Task<List<PlaneType>> ListPlaneTypesAsync()
         {
             client = new HttpClient(handler);
 
             HttpResponseMessage response = await client.GetAsync(UriTypes);
-            List<String> list = await response.Content.ReadAsAsync<List<String>>();
+            List<PlaneType> list = await response.Content.ReadAsAsync<List<PlaneType>>();
 
             return list;
         }

@@ -17,11 +17,13 @@ namespace Desktop.Views
             datePicker.Date = f.Date;
             timePicker.Time = f.Date.TimeOfDay;
             comboBox.ItemsSource = PlaneType.CreateComboBox();
+            comboBox.SelectedIndex = (int) f.PlaneType.PlaneTypeID;
         }
 
         private void OnApplyClicked(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             Flight.Date = datePicker.Date.Date + timePicker.Time;
+            Flight.PlaneType = new PlaneType((string)comboBox.SelectedItem, comboBox.SelectedIndex);
         }
     }
 }

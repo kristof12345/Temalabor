@@ -58,7 +58,8 @@ namespace Desktop.Views
         //Új járat felvétele a gomb megnyomásakor
         private void btAdd_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            CommandBase cmd = new AddCommand(ViewModel.NextId, dpDate.Date, dpTime.Time, tbDep.Text, tbDes.Text, cbType.SelectedValue.ToString());
+            CommandBase cmd = new AddCommand(ViewModel.NextId, dpDate.Date, dpTime.Time, tbDep.Text, tbDes.Text, cbType.SelectedValue.ToString(), cbType.SelectedIndex);
+            Debug.WriteLine("Selected: " + cbType.SelectedIndex);
             ViewModel.ExecuteCommand(cmd);
         }
         

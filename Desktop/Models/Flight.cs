@@ -6,26 +6,27 @@ namespace Desktop.Models
 {
     public class Flight : INotifyPropertyChanged
     {
-        private PlaneType planeType;
+        //A járat repülőjének típusa
+        internal PlaneType PlaneType { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         //Konstruktor
-        public Flight(long id, String type)
+        public Flight(long id, String type, long typeId)
         {
             FlightId = id;
 
-            if(type!=null) PlaneType = type;
+            if(type!=null) PlaneType = new PlaneType(type, typeId);
         }
 
         //Konstruktor teljes paramétrlistával
-        public Flight(long id, DateTime date, string dep, string des, string type, string stat)
+        public Flight(long id, DateTime date, string dep, string des, string type,long typeId, string stat)
         {
             FlightId = id;
             Date = date;
             Departure = dep;
             Destination = des;
-            PlaneType = type;
+            PlaneType = new PlaneType(type, typeId);
             Status = stat;
         }
 
@@ -42,13 +43,10 @@ namespace Desktop.Models
         public string Destination { get; set; }
 
         //Repülő típusa, tartalmazza a székeket
-        public String PlaneType
+        public String PlaneTypeName
         {
-            get { return planeType.PlaneTypeName; }
-            set
-            {
-                 planeType = new PlaneType(value);
-            }
+            get { return PlaneType.PlaneTypeName; }
+
         }
 
         //A járat státusza (pl: Cancelled, Sceduled, Delayed)
@@ -57,12 +55,12 @@ namespace Desktop.Models
         //A székek száma
         public int NumberOfSeats
         {
-            get { return planeType.GetTotalSeatsCount(); }
+            get { return PlaneType.GetTotalSeatsCount(); }
         }
 
         public int FreeSeats
         {
-            get { return planeType.GetFreeSeatsCount(); }
+            get { return PlaneType.GetFreeSeatsCount(); }
         }
 
         //A szabad székek száma
@@ -74,20 +72,20 @@ namespace Desktop.Models
         //Szék elkérése ID alapján
         public Seat GetSeat(int id)
         {
-            return planeType.GetSeat(id);
+            return PlaneType.GetSeat(id);
         }
 
         //Átalakítás DTO-ba
         internal Flight_DTO ToDTO()
         {
-            Flight_DTO ret = new Flight_DTO(this.PlaneType);
+            Flight_DTO ret = new Flight_DTO(this.PlaneTypeName, this.PlaneType.PlaneTypeID);
 
             ret.FlightId = this.FlightId;
             ret.Date = this.Date;
             ret.Departure = this.Departure;
             ret.Destination = this.Destination;
-            ret.PlaneTypeName = this.PlaneType;
-            ret.PlaneType = this.planeType;        
+            ret.PlaneTypeName = this.PlaneTypeName;
+            ret.PlaneType = this.PlaneType;
             ret.Status = this.Status;
 
             return ret;
@@ -100,19 +98,19 @@ namespace Desktop.Models
             this.Date = dto.Date;
             this.Departure = dto.Departure;
             this.Destination = dto.Destination;
-            this.planeType = dto.PlaneType;
+            this.PlaneType = dto.PlaneType;
             this.Status = dto.Status;
         }
 
         //Flight másolása (kb. copy construktor)
         internal Flight Copy()
         {
-            var copied = new Flight(FlightId, null);
+            var copied = new Flight(FlightId, null, PlaneType.PlaneTypeID);
 
             copied.Date = Date;
             copied.Departure = Departure;
             copied.Destination = Destination;
-            copied.planeType = planeType;
+            copied.PlaneType = PlaneType;
             copied.Status = Status;
             
             return copied;

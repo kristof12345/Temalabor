@@ -54,7 +54,7 @@ namespace WebApi.Controllers
 
         public PlaneType PlaneType_DAL_to_DTO(DAL.PlaneType dalPlaneType)
         {
-            PlaneType temp = new PlaneType(dalPlaneType.planeType);
+            PlaneType temp = new PlaneType(dalPlaneType.planeType, 1); //TODO: Az 1 helyett az id
 
             var queriedSeats = _context.Seats.Where(s => s.planeTypeID == dalPlaneType.planeTypeID);
 

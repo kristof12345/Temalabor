@@ -29,7 +29,7 @@ namespace WebApi
         {
             var plane = _context.PlaneTypes.Single(i => i.planeTypeID == pID);
             var seats = _context.Seats.Where(s => s.planeTypeID == plane.planeTypeID);
-            Flight_DTO temp = new Flight_DTO(plane.planeType);
+            Flight_DTO temp = new Flight_DTO(plane.planeType, 1);//TODO: az 1 helyett az id
 
             temp.FlightId = bID; 
             temp.DatabaseId = fID;

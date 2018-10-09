@@ -39,21 +39,21 @@ namespace Desktop.Services
             flightList.Clear();
             foreach (Flight_DTO dto in dtoList)
             {
-                Flight f = new Flight(dto.FlightId, dto.PlaneTypeName);
+                Flight f = new Flight(dto.FlightId, dto.PlaneTypeName, dto.PlaneTypeID);
                 f.FromDTO(dto);
                 flightList.Add(f);
             }
         }
 
         //Járat hozzáadása
-        public static async void AddFlightAsync(long id, DateTime date, String dep, String dest, String type)
+        public static async void AddFlightAsync(long id, DateTime date, String dep, String dest, String type, long typeId)
         {
-            var f = new Flight(id, type)
+            var f = new Flight(id, type, typeId)
             {
                 Date = date,
                 Departure = dep,
                 Destination = dest,
-                PlaneType = type,
+                //PlaneType = type,
                 Status = "Sceduled",
             };
 

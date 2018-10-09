@@ -26,24 +26,26 @@ namespace Desktop.ViewModels
         private string dep;
         private string des;
         private string type;
+        private long typeID;
 
-        public AddCommand(long id, DateTimeOffset date, TimeSpan time, string dep, string des, string type)
+        public AddCommand(long id, DateTimeOffset date, TimeSpan time, string dep, string des, string type, long typeID)
         {
             this.id = id;
             this.date = CombineDateAndTime(date, time);
             this.dep = dep;
             this.des = des;
             this.type = type;
+            this.typeID = typeID;
         }
 
         public override void Execute(object parameter = null)
         {
-            FlightsDataService.AddFlightAsync(id, date, dep, des, type);
+            FlightsDataService.AddFlightAsync(id, date, dep, des, type, typeID);
         }
 
         public override void UnExecute()
         {
-            FlightsDataService.DeleteFlightAsync(new Flight(id, type));
+            FlightsDataService.DeleteFlightAsync(new Flight(id, type, 1));
         }
 
         //Segédfüggvény a dátum előállításához

@@ -5,14 +5,18 @@ namespace DTO
     public class Flight_DTO
     {
         //Konstruktor
-        public Flight_DTO(String type)
+        public Flight_DTO(String type, long typeId)
         {
-            PlaneType = new PlaneType(type);
+            PlaneType = new PlaneType(type, typeId);
             PlaneTypeName = type;
+            PlaneTypeID = typeId;
         }
 
         //PlaneType neve
         public String PlaneTypeName { get; set; }
+
+        //PlaneType ID-ja
+        public long PlaneTypeID { get; private set; }
 
         //Elsődleges kulcs az adatbázisban
         public long DatabaseId { get; set; }
