@@ -21,7 +21,7 @@ namespace Desktop.Services
         private static string UriTypes;
         private static string UriSeats;
 
-        internal static async void InitializeAsync()
+        internal static async Task InitializeAsync()
         {
             //Ne változtasd meg, így működik
             handler.ClientCertificateOptions = ClientCertificateOption.Manual;

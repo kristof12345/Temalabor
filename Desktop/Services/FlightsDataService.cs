@@ -32,6 +32,14 @@ namespace Desktop.Services
             }
         }
 
+        //Kapcsolat inicializálása
+        public static async Task Initialize()
+        {
+            await HttpService.InitializeAsync();
+            flightList = new ObservableCollection<Flight>();
+            ReloadFlightListAsync();
+        }
+
         //A járatok letöltése a szerverről
         private static async void ReloadFlightListAsync()
         {

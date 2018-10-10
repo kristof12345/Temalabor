@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Diagnostics;
-using System.IO;
 using Desktop.Services;
-
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 
@@ -27,7 +24,8 @@ namespace Desktop
 
         protected override async void OnLaunched(LaunchActivatedEventArgs args)
         {
-            HttpService.InitializeAsync();
+            //await HttpService.InitializeAsync();
+            await FlightsDataService.Initialize();
             if (!args.PrelaunchActivated)
             {
                 await ActivationService.ActivateAsync(args);
