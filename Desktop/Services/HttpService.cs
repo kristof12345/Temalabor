@@ -30,23 +30,19 @@ namespace Desktop.Services
             UriFlights = baseUri + "flight/";
             UriReservation = baseUri + "reservation/";
             UriUsers = baseUri + "users/";
-            UriTypes = baseUri + "types/"; //TODO: Gábor ezt légyszi rakd a webapiba
+            UriTypes = baseUri + "planetype/"; 
             UriSeats = baseUri + "seat/flightID/";
 
-            List<PlaneType> typesArray = new List<PlaneType>();
-            //typesArray = await ListPlaneTypesAsync();
             List<String> strArray = new List<string>();
-            foreach(PlaneType t in typesArray)
-            {
-                strArray.Add(t.PlaneTypeName);
-            }
-
+            strArray = await ListPlaneTypesAsync();
+            
+            /*
             strArray.Add("Boeing 777");
             strArray.Add("Airbus A380");
             strArray.Add("Boeing 747");
             strArray.Add("Boeing 222");
             strArray.Add("Antonov 124");
-
+            */
             PlaneType.Initialize(strArray.ToArray());
         }
 
@@ -137,12 +133,20 @@ namespace Desktop.Services
         /// </summary>
 
         //Repülőtípusok lekérdezése
-        internal static async Task<List<PlaneType>> ListPlaneTypesAsync()
+        internal static async Task<List<String>> ListPlaneTypesAsync()
         {
             client = new HttpClient(handler);
 
             HttpResponseMessage response = await client.GetAsync(UriTypes);
-            List<PlaneType> list = await response.Content.ReadAsAsync<List<PlaneType>>();
+            List<PlaneType> typesList = await response.Content.ReadAsAsync<List<PlaneType>>();
+
+            List<String> list = new List<String>();
+            for (int i = 1; i < 5; i++) //TODO: 5 helyett list.Count
+            {
+                HttpResponseMessage typesResponse = await client.GetAsync(UriTypes + i.ToString());
+                var t = await typesResponse.Content.ReadAsStringAsync();
+                list.Add(t);
+            }
 
             return list;
         }

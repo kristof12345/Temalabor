@@ -20,7 +20,7 @@ namespace Desktop.Models
         }
 
         //Konstruktor teljes paramétrlistával
-        public Flight(long id, DateTime date, string dep, string des, string type,long typeId, string stat)
+        public Flight(long id, DateTime date, string dep, string des, string type, long typeId, string stat)
         {
             FlightId = id;
             Date = date;

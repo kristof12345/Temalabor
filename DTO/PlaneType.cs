@@ -84,7 +84,6 @@ namespace DTO
         public static void Initialize(string[] strArray)
         {
             typesArray = strArray;
-
         }
 
         //Combo box feltöltése

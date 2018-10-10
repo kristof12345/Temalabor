@@ -89,14 +89,14 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("{id}", Name = "GetPlaneType")]
-        public ActionResult<PlaneType> GetById(long id)
+        public ActionResult<String> GetById(long id)
         {
             var temp = _context.PlaneTypes.Single(p => p.planeTypeID == id);
             PlaneType result = PlaneType_DAL_to_DTO(temp);
 
             if (temp == null)
                 return NotFound();
-            return result;
+            return result.PlaneTypeName;
         }
 
         [HttpPost]
