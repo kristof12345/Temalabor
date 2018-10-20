@@ -11,7 +11,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <Image x:Name="planeImg" Source="/Assets/Antonov124white.png" HorizontalAlignment="Right" Width="1000" Height="700"/>
+        <Image Source="/Assets/Antonov124white.png" HorizontalAlignment="Right" Width="1000" Height="700"/>
         <Canvas x:Name="canvas" HorizontalAlignment="Right" VerticalAlignment="Stretch" Width="1000" Background="Transparent" Height="700"/>
         <ListView SelectionMode="None" HorizontalAlignment="Left" Width="522">
             <ListView.ItemsPanel>
