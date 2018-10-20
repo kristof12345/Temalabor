@@ -11,37 +11,34 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Windows.UI.Xaml.Input;
 using Desktop.Dialogs;
-using Desktop.ViewModels;
 
 namespace Desktop.Views
 {
     public sealed partial class PlanePage : Page
     {
-        //private int totalPrice = 0;
-
-        private PlaneViewModel ViewModel
-        {
-            get { return DataContext as PlaneViewModel; }
-        }
+        private Flight f;
+        private int totalPrice = 0;
         public PlanePage()
         {
             this.InitializeComponent();
+            btPay.Visibility = Visibility.Collapsed; //Amíg nincs összeg, nem mutatjuk
         }
 
         //Fizetés gomb lenyomása
         private void Pay_Button_Click(object sender, RoutedEventArgs e)
         {
-            var reservation = new Reservation(ViewModel.Flight.FlightId);
-            foreach (SeatUserControl s in canvas.Children)
+            var reservation = new Reservation(f.FlightId);
+            foreach (SeatUserControl s in myList.Children)
             {
                 if (s.State == State.Selected)
                 {
                     reservation.AddSeatId(s.Seat.SeatId); //Összekészítjük a foglalást
                 }
             }
-            ViewModel.Reserve(reservation);
-            
-            this.Frame.Navigate(typeof(PlanePage), ViewModel.Flight); //Az oldal újratöltése
+
+            reservation.Cost = totalPrice;
+            ReservationsDataService.Reserve(reservation);
+            this.Frame.Navigate(typeof(PlanePage), f); //Az oldal újratöltése
         }
 
         //Amikor ide navigálnak, átveszi a paramétereket
@@ -51,19 +48,29 @@ namespace Desktop.Views
             if (e.Parameter != null)
             {
                 //Az átadott paraméterek értelmezése
-                ViewModel.Flight = (Flight)e.Parameter;
+                f = (Flight)e.Parameter;
+
+                txDetails.Text = f.ToString();
 
                 //User controlok felrakása
-                for (int i = 0; i < ViewModel.Flight.NumberOfSeats; i++)
+                for (int i = 0; i < f.NumberOfSeats; i++)
                 {
-                    Seat s = ViewModel.Flight.GetSeat(i);
+                    Seat s = f.GetSeat(i);
                     SeatUserControl newSeat = new SeatUserControl(s);
                     newSeat.Tapped += CalculatePrice; //Eseménykezelő regisztrálása
                     //Left=0, Top=X, Right=Y, Bottom=0
-                    newSeat.Margin = new Thickness(ViewModel.Flight.GetSeat(i).Coordinates.X, ViewModel.Flight.GetSeat(i).Coordinates.Y, 0, 0);
-                    canvas.Children.Add(newSeat);
+                    newSeat.Margin = new Thickness(f.GetSeat(i).Coordinates.X, f.GetSeat(i).Coordinates.Y, 0, 0);
+                    myList.Children.Add(newSeat);
 
                     CalculatePrice(null, null);
+                }
+
+                //A típus alapján választ képet a repülőről
+                switch (f.PlaneType.ToString())
+                {
+                    default:
+                        planeImg.Source = new BitmapImage(new Uri("ms-appx:///Assets/Antonov124white.png"));
+                        break;
                 }
             //Ha nincs bejelentkezve, vagy nem választott repülőt
             }
@@ -82,13 +89,24 @@ namespace Desktop.Views
         //Kiválasztott székek árának összegzése
         private void CalculatePrice(object sender, TappedRoutedEventArgs e)
         {
-            ViewModel.ResetTotalPrice();
-            foreach (SeatUserControl s in canvas.Children)
+            totalPrice = 0;
+            foreach (SeatUserControl s in myList.Children)
             {
                 if (s.State == State.Selected)
                 {
-                    ViewModel.AddToTotalPrice(s.Seat.Price);
+                    totalPrice += s.Seat.Price;
                 }
+            }
+            txPrice.Text = "Total price: " + totalPrice + " $";
+            btPay.Visibility = Visibility.Visible;
+            //Ha van összeg, akkor elérhető a gomb
+            if (totalPrice > 0)
+            {
+                btPay.IsEnabled = true;
+            }
+            else //Különben nem
+            {
+                btPay.IsEnabled = false;
             }
         }
     }

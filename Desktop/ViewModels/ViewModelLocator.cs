@@ -34,8 +34,6 @@ namespace Desktop.ViewModels
         //TODO: az új lapot itt is hozzá kell adni
         public FlightViewModel FlightViewModel => ServiceLocator.Current.GetInstance<FlightViewModel>();
 
-        public PlaneViewModel PlaneViewModel => ServiceLocator.Current.GetInstance<PlaneViewModel>();
-
         public ReservationViewModel ReservationViewModel => ServiceLocator.Current.GetInstance<ReservationViewModel>();
 
         public DesignerViewModel DesignerViewModel => ServiceLocator.Current.GetInstance<DesignerViewModel>();
