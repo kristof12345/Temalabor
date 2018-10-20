@@ -39,8 +39,17 @@ namespace Desktop.Services
         //Kapcsolat inicializálása
         public static async Task Initialize()
         {
-            //await HttpService.InitializeAsync();
-            //ReloadFlightListAsync();
+            List<String> strArray = new List<string>();
+            //strArray = await ListPlaneTypesAsync();
+
+            
+            strArray.Add("Boeing 777");
+            strArray.Add("Airbus A380");
+            strArray.Add("Boeing 747");
+            strArray.Add("Boeing 222");
+            strArray.Add("Antonov 124");
+            
+            PlaneType.Initialize(strArray.ToArray());
         }
 
         //A járatok letöltése a szerverről
