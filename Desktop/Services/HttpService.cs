@@ -33,16 +33,9 @@ namespace Desktop.Services
             UriTypes = baseUri + "planetype/"; 
             UriSeats = baseUri + "seat/flightID/";
 
+            //Lehetséges PlaneTypok betöltése
             List<String> strArray = new List<string>();
             strArray = await ListPlaneTypesAsync();
-            
-            /*
-            strArray.Add("Boeing 777");
-            strArray.Add("Airbus A380");
-            strArray.Add("Boeing 747");
-            strArray.Add("Boeing 222");
-            strArray.Add("Antonov 124");
-            */
             PlaneType.Initialize(strArray.ToArray());
         }
 
