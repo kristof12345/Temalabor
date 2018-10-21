@@ -1,14 +1,10 @@
-﻿using System;
-using Windows.UI.Xaml;
+﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using DTO;
-using Windows.UI.Xaml.Media.Imaging;
 using Desktop.Services;
 using Desktop.Models;
 using Desktop.UserControls;
-using System.Collections.Generic;
-using System.Diagnostics;
 using Windows.UI.Xaml.Input;
 using Desktop.Dialogs;
 using Desktop.ViewModels;

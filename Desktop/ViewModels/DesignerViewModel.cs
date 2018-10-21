@@ -3,10 +3,8 @@ using DTO;
 using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using Windows.UI.Xaml.Media.Imaging;
 
 namespace Desktop.ViewModels
 {
