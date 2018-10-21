@@ -12,13 +12,13 @@ namespace DAL
         {
             var planeType = _context.PlaneTypes.Single(i => i.planeTypeID == dalFlight.planeTypeID);
 
-            Flight_DTO temp = new Flight_DTO(planeType.planeType, dalFlight.flightID);
+            Flight_DTO temp = new Flight_DTO(planeType.planeType, planeType.planeTypeID);
+            temp.FlightId = dalFlight.flightID;
             temp.Departure = dalFlight.departure;
             temp.Date = dalFlight.date;
             temp.Destination = dalFlight.destination;
             temp.Status = dalFlight.status;
             temp.PlaneTypeName = planeType.planeType;
-            temp.PlaneTypeID = planeType.planeTypeID;
             //temp.NormalPrice = dalFlight.normalPrice;
             //temp.FirstClassPrice = dalFlight.firstClassPrice;
 
