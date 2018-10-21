@@ -76,10 +76,13 @@ namespace WebApi.Controllers
         public IActionResult Create(DTO.Seat item)
         {
             var ifDeleted = _context.Seats.Find(item.SeatId);
-            if (ifDeleted.isDeleted)
+            if (ifDeleted != null)
             {
-                ifDeleted.isDeleted = false;
-                _context.SaveChanges();
+                if (ifDeleted.isDeleted)
+                {
+                    ifDeleted.isDeleted = false;
+                    _context.SaveChanges();                   
+                }
                 return CreatedAtRoute("GetSeat", new { id = ifDeleted.seatID }, item);
             }
             else

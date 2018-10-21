@@ -57,10 +57,13 @@ namespace WebApi.Controllers
         public IActionResult Create(DTO.PlaneType item)
         {
             var ifDeleted = _context.PlaneTypes.Find(item.PlaneTypeID);
-            if (ifDeleted.isDeleted)
+            if (ifDeleted != null)
             {
-                ifDeleted.isDeleted = false;
-                _context.SaveChanges();
+                if (ifDeleted.isDeleted)
+                {
+                    ifDeleted.isDeleted = false;
+                    _context.SaveChanges();                   
+                }
                 return CreatedAtRoute("GetPlaneType", new { id = ifDeleted.planeTypeID }, item);
             }
             else
