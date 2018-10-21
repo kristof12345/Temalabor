@@ -34,5 +34,11 @@ namespace DTO
         {
             seatList.Add(id);
         }
+
+        //Székek lekérdezése
+        public List<long> Seats
+        {
+            get { return seatList; }
+        }
     }
 }

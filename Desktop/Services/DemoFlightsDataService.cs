@@ -19,8 +19,12 @@ namespace Desktop.Services
             {
                 if (flightList == null) {
                     flightList = new ObservableCollection<Flight>();
-                    flightList.Add(new Flight(1, new DateTime(2018,5,1), "London", "Budapest", "Airbus A380", 1, "Ok"));
-                    flightList.Add(new Flight(2, new DateTime(2019,1,2), "New York", "Budapest", "Airbus A270", 1, "Cancelled"));
+
+                    Flight f1 = new Flight(1, new DateTime(2018, 5, 1), "London", "Budapest", "Airbus A380", 1, "Ok");
+                    flightList.Add(f1);
+                    
+                    Flight f2 = new Flight(2, new DateTime(2019, 1, 2), "New York", "Budapest", "Airbus A270", 1, "Cancelled");
+                    flightList.Add(f2);
                 }
                 return flightList;
             }

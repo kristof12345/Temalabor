@@ -1,9 +1,5 @@
 ﻿using Desktop.Views;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 
 namespace Desktop.Dialogs
@@ -34,6 +30,19 @@ namespace Desktop.Dialogs
             };
             ContentDialogResult result = await noUser.ShowAsync();
             origin.Frame.Navigate(typeof(UserPage));
+        }
+
+        //Dialógusablak (Server not responding.)
+        public async void DisplayNoServerDialog(Page origin)
+        {
+            ContentDialog noUser = new ContentDialog
+            {
+                Title = "Unable to connect to server.",
+                Content = "Plese connect to server or compile the Demo classes.",
+                CloseButtonText = "Ok"
+            };
+            ContentDialogResult result = await noUser.ShowAsync();
+            //Esetleg egyéb akció
         }
     }
 }

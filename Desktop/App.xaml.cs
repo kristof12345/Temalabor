@@ -24,8 +24,8 @@ namespace Desktop
 
         protected override async void OnLaunched(LaunchActivatedEventArgs args)
         {
-            //await HttpService.InitializeAsync();
             await FlightsDataService.Initialize();
+
             if (!args.PrelaunchActivated)
             {
                 await ActivationService.ActivateAsync(args);

@@ -64,7 +64,7 @@ namespace Desktop.Services
         internal static async Task AddFlightAsync(Flight_DTO addRequest)
         {
             client = new HttpClient(handler);
-            
+            Debug.WriteLine("Adding:" + addRequest.PlaneTypeID);
             HttpResponseMessage response = await client.PostAsJsonAsync(UriFlights, addRequest);
             var contents = await response.Content.ReadAsStringAsync();
         }

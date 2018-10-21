@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Threading;
 using System.Threading.Tasks;
+using Desktop.Dialogs;
 using Desktop.Models;
 using DTO;
 
@@ -35,9 +34,17 @@ namespace Desktop.Services
         //Kapcsolat inicializálása
         public static async Task Initialize()
         {
-            await HttpService.InitializeAsync();
-            flightList = new ObservableCollection<Flight>();
-            ReloadFlightListAsync();
+            try
+            {
+                await HttpService.InitializeAsync();
+                flightList = new ObservableCollection<Flight>();
+                ReloadFlightListAsync();
+            }
+            catch (Exception e)
+            {
+            AlertDialog dialog = new AlertDialog();
+            dialog.DisplayNoServerDialog(null);
+            }
         }
 
         //A járatok letöltése a szerverről

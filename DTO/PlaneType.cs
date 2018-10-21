@@ -17,15 +17,13 @@ namespace DTO
             PlaneTypeName = name;
             PlaneTypeID = id;
             Seats = new List<Seat>();
-            
+
             //TODO: Ide majd az adatbázis alapján kell valami
-            if (name!=null)
+            for (int i = 0; i < 7; i++)
             {
-                for (int i = 0; i < 7; i++) Seats.Add(new Seat(i));
-            }
-            else
-            {
-                for (int i = 0; i < 5; i++) Seats.Add(new Seat(i));
+                Seat s = new Seat(i);
+                s.Coordinates = new Cord(640, 50+50*i);
+                Seats.Add(s);
             }
         }
 
