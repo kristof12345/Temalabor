@@ -120,20 +120,20 @@ namespace Desktop.Views
         {
             if (dataTable.SelectedItem != null)
             {
-                Flight f = (Flight)dataTable.SelectedItem;
-                Flight old = f.Copy();
+                Flight flight = (Flight)dataTable.SelectedItem;
+                Flight old = flight.Copy();
 
-                UpdateDialog dialog = new UpdateDialog(f);
+                UpdateDialog dialog = new UpdateDialog(flight);
                 ContentDialogResult result = await dialog.ShowAsync();
                 //Ha az Apply-re kattintott
                 if(result==ContentDialogResult.Secondary)
                 { 
-                    CommandBase cmd = new UpdateCommand(f, old);
+                    CommandBase cmd = new UpdateCommand(flight, old);
                     ViewModel.ExecuteCommand(cmd);
                 }
                 else //Különben CANCEL
                 {
-                    f = old;
+                    flight = old;
                 }
             }
         }

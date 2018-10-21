@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Threading.Tasks;
 using Desktop.Models;
 using Desktop.Services;
 
@@ -63,6 +60,8 @@ namespace Desktop.ViewModels
             commandStack.Push(cmd);
             undoStack.Clear();
 
+            IsFlightSelected = false;
+
             //Parancs után lehet undo, de nem lehet redo
             UndoEnabled = true;
             RedoEnabled = false;
@@ -80,6 +79,8 @@ namespace Desktop.ViewModels
                 UndoEnabled = false;
             }
             RedoEnabled = true;
+
+            IsFlightSelected = false;
         }
 
         internal void ReExecuteCommand()
@@ -93,6 +94,8 @@ namespace Desktop.ViewModels
             {
                 RedoEnabled = false;
             }
+
+            IsFlightSelected = false;
         }
     }
 }
