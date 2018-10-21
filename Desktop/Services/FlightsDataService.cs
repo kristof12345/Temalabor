@@ -108,5 +108,11 @@ namespace Desktop.Services
             //Táblázat frissítése
             ReloadFlightListAsync();
         }
+
+        //Repülő képek
+        internal static Uri LoadImageUri(long planeTypeID)
+        {
+            return HttpService.LoadImageUri(planeTypeID);
+        }
     }
 }

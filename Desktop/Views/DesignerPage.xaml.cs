@@ -67,5 +67,10 @@ namespace Desktop.Views
             canvas.Children.RemoveAt(ViewModel.Seats.Count-1); //Töröljük az utolsót a vászonról
             ViewModel.RemoveLastSeat(); //Töröljük a listából is
         }
+
+        private async void btFilePicker_Click(object sender, RoutedEventArgs e)
+        {
+            await ViewModel.PickImageAsync();
+        }
     }
 }

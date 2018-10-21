@@ -5,19 +5,19 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace Desktop.ViewModels
 {
-    public class DesignerViewModel : ViewModelBase, INotifyPropertyChanged
+    public class DesignerViewModel : ViewModelBase
     {
         private List<Seat> seats = new List<Seat>();
         private String name;
         private int price;
         private String[] seatTypes = { "Normal", "Premium" };
-        private int selectedSeatTypeIndex =0;
+        private int selectedSeatTypeIndex = 0;
+        private String imageScource = "/Assets/Antonov124white.png";
 
         public String Name { get { return name; } set { name = value; RaisePropertyChanged("Name"); } }
 
@@ -33,12 +33,18 @@ namespace Desktop.ViewModels
 
         public String NumberOfSeats
         {
-            get{ return seats.Count.ToString(); }
+            get { return seats.Count.ToString(); }
         }
 
         public bool Enabled
         {
-            get { return (seats.Count>0); }
+            get { return (seats.Count > 0); }
+        }
+
+        public String ImageScource
+        {
+            get { return imageScource; }
+            private set { imageScource = value; RaisePropertyChanged("ImageScource"); Debug.WriteLine("Picked photo: " + ImageScource); }
         }
 
         public List<Seat> Seats { get { return seats; } }
@@ -66,6 +72,23 @@ namespace Desktop.ViewModels
             seats.RemoveAt(seats.Count-1);
             RaisePropertyChanged("NumberOfSeats");
             RaisePropertyChanged("Enabled");
+        }
+
+        //Kép kiválasztása
+        internal async Task PickImageAsync()
+        {
+            var picker = new Windows.Storage.Pickers.FileOpenPicker();
+            picker.ViewMode = Windows.Storage.Pickers.PickerViewMode.Thumbnail;
+            picker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.PicturesLibrary;
+            picker.FileTypeFilter.Add(".jpg");
+            picker.FileTypeFilter.Add(".jpeg");
+            picker.FileTypeFilter.Add(".png");
+
+            Windows.Storage.StorageFile file = await picker.PickSingleFileAsync();
+            if (file != null)
+            {
+                ImageScource = "/Assets/" + file.Name ;
+            }
         }
     }
 }

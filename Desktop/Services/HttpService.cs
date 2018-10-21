@@ -20,6 +20,7 @@ namespace Desktop.Services
         private static string UriUsers;
         private static string UriTypes;
         private static string UriSeats;
+        private static string UriImages;
 
         internal static async Task InitializeAsync()
         {
@@ -32,6 +33,7 @@ namespace Desktop.Services
             UriUsers = baseUri + "users/";
             UriTypes = baseUri + "planetype/"; 
             UriSeats = baseUri + "seat/flightID/";
+            UriImages = baseUri + "image/";
 
             //Lehetséges PlaneTypok betöltése
             List<String> strArray = new List<string>();
@@ -152,6 +154,14 @@ namespace Desktop.Services
 
             HttpResponseMessage response = await client.PostAsJsonAsync(UriTypes, addRequest);
             //var contents = await response.Content.ReadAsStringAsync();
+        }
+
+        //Kép URL előállítása
+        internal static Uri LoadImageUri(long planeTypeID)
+        {
+            //TODO: a típus alapján
+            Uri uri = new Uri(UriImages + planeTypeID);
+            return new Uri("https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX18954345.jpg");
         }
 
         /// <summary>

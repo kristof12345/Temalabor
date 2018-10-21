@@ -40,6 +40,8 @@ namespace Desktop.ViewModels
 
         public ShellViewModel ShellViewModel => ServiceLocator.Current.GetInstance<ShellViewModel>();
 
+        public PlaneViewModel PlaneViewModel => ServiceLocator.Current.GetInstance<PlaneViewModel>();
+
         public NavigationServiceEx NavigationService => ServiceLocator.Current.GetInstance<NavigationServiceEx>();
 
         public void Register<VM, V>()

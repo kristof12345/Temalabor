@@ -1,4 +1,5 @@
-﻿using Desktop.Views;
+﻿using Desktop.Services;
+using Desktop.Views;
 using System;
 using Windows.UI.Xaml.Controls;
 
@@ -42,7 +43,7 @@ namespace Desktop.Dialogs
                 CloseButtonText = "Ok"
             };
             ContentDialogResult result = await noUser.ShowAsync();
-            //Esetleg egyéb akció
+            FlightsDataService.Initialize();
         }
     }
 }

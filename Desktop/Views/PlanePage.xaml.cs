@@ -11,34 +11,37 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Windows.UI.Xaml.Input;
 using Desktop.Dialogs;
+using Desktop.ViewModels;
 
 namespace Desktop.Views
 {
     public sealed partial class PlanePage : Page
     {
-        private Flight f;
-        private int totalPrice = 0;
+        //private int totalPrice = 0;
+
+        private PlaneViewModel ViewModel
+        {
+            get { return DataContext as PlaneViewModel; }
+        }
         public PlanePage()
         {
             this.InitializeComponent();
-            btPay.Visibility = Visibility.Collapsed; //Amíg nincs összeg, nem mutatjuk
         }
 
         //Fizetés gomb lenyomása
         private void Pay_Button_Click(object sender, RoutedEventArgs e)
         {
-            var reservation = new Reservation(f.FlightId);
-            foreach (SeatUserControl s in myList.Children)
+            var reservation = new Reservation(ViewModel.Flight.FlightId);
+            foreach (SeatUserControl s in canvas.Children)
             {
                 if (s.State == State.Selected)
                 {
                     reservation.AddSeatId(s.Seat.SeatId); //Összekészítjük a foglalást
                 }
             }
-
-            reservation.Cost = totalPrice;
-            ReservationsDataService.Reserve(reservation);
-            this.Frame.Navigate(typeof(PlanePage), f); //Az oldal újratöltése
+            ViewModel.Reserve(reservation);
+            
+            this.Frame.Navigate(typeof(PlanePage), ViewModel.Flight); //Az oldal újratöltése
         }
 
         //Amikor ide navigálnak, átveszi a paramétereket
@@ -48,31 +51,20 @@ namespace Desktop.Views
             if (e.Parameter != null)
             {
                 //Az átadott paraméterek értelmezése
-                f = (Flight)e.Parameter;
+                ViewModel.Flight = (Flight)e.Parameter;
 
-                txDetails.Text = f.ToString();
+                //Kép betöltése
+                ViewModel.LoadImage();
 
                 //User controlok felrakása
-                for (int i = 0; i < f.NumberOfSeats; i++)
-                {
-                    Seat s = f.GetSeat(i);
-                    SeatUserControl newSeat = new SeatUserControl(s);
-                    newSeat.Tapped += CalculatePrice; //Eseménykezelő regisztrálása
-                    //Left=0, Top=X, Right=Y, Bottom=0
-                    newSeat.Margin = new Thickness(f.GetSeat(i).Coordinates.X, f.GetSeat(i).Coordinates.Y, 0, 0);
-                    myList.Children.Add(newSeat);
+                AddUserControls();
 
-                    CalculatePrice(null, null);
-                }
-
-                //A típus alapján választ képet a repülőről
-                switch (f.PlaneType.ToString())
-                {
-                    default:
-                        planeImg.Source = new BitmapImage(new Uri("ms-appx:///Assets/Antonov124white.png"));
-                        break;
-                }
             //Ha nincs bejelentkezve, vagy nem választott repülőt
+            }
+            else if(ViewModel.Flight != null)
+            {
+                //User controlok felrakása
+                AddUserControls();
             }
             else if (SignInService.User == null)
             {
@@ -86,27 +78,31 @@ namespace Desktop.Views
             }
         }
 
+        private void AddUserControls()
+        {
+            for (int i = 0; i < ViewModel.Flight.NumberOfSeats; i++)
+            {
+                Seat s = ViewModel.Flight.GetSeat(i);
+                SeatUserControl newSeat = new SeatUserControl(s);
+                newSeat.Tapped += CalculatePrice; //Eseménykezelő regisztrálása
+                                                  //Left=0, Top=X, Right=Y, Bottom=0
+                newSeat.Margin = new Thickness(ViewModel.Flight.GetSeat(i).Coordinates.X, ViewModel.Flight.GetSeat(i).Coordinates.Y, 0, 0);
+                canvas.Children.Add(newSeat);
+
+                CalculatePrice(null, null);
+            }
+        }
+
         //Kiválasztott székek árának összegzése
         private void CalculatePrice(object sender, TappedRoutedEventArgs e)
         {
-            totalPrice = 0;
-            foreach (SeatUserControl s in myList.Children)
+            ViewModel.ResetTotalPrice();
+            foreach (SeatUserControl s in canvas.Children)
             {
                 if (s.State == State.Selected)
                 {
-                    totalPrice += s.Seat.Price;
+                    ViewModel.AddToTotalPrice(s.Seat.Price);
                 }
-            }
-            txPrice.Text = "Total price: " + totalPrice + " $";
-            btPay.Visibility = Visibility.Visible;
-            //Ha van összeg, akkor elérhető a gomb
-            if (totalPrice > 0)
-            {
-                btPay.IsEnabled = true;
-            }
-            else //Különben nem
-            {
-                btPay.IsEnabled = true; //TODO: Ez false kellene, hogy legyen
             }
         }
     }
