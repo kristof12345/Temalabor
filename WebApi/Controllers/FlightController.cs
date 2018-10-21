@@ -57,13 +57,12 @@ namespace WebApi
         public IActionResult Create(Flight_DTO item)
         {
             var ifDeleted = _context.Flights.Find(item.FlightId);
-            
-            if (ifDeleted.isDeleted)
+            if (ifDeleted != null && ifDeleted.isDeleted)
             {
                 ifDeleted.isDeleted = false;
                 _context.SaveChanges();
                 return CreatedAtRoute("GetFlight", new { id = ifDeleted.flightID }, item);
-            }                            
+            }
             else
             {
                 DAL.Flight tempfl = DataConversion.Flight_DTO_to_DAL(item, _context);

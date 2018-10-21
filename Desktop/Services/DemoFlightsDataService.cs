@@ -42,7 +42,6 @@ namespace Desktop.Services
             List<String> strArray = new List<string>();
             //strArray = await ListPlaneTypesAsync();
 
-            
             strArray.Add("Boeing 777");
             strArray.Add("Airbus A380");
             strArray.Add("Boeing 747");

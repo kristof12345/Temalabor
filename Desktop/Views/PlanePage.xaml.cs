@@ -106,7 +106,7 @@ namespace Desktop.Views
             }
             else //Különben nem
             {
-                btPay.IsEnabled = false;
+                btPay.IsEnabled = true; //TODO: Ez false kellene, hogy legyen
             }
         }
     }
