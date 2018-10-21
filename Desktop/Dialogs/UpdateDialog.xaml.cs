@@ -23,7 +23,7 @@ namespace Desktop.Views
         private void OnApplyClicked(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             Flight.Date = datePicker.Date.Date + timePicker.Time;
-            Flight.PlaneType = new PlaneType((string)comboBox.SelectedItem, comboBox.SelectedIndex);
+            Flight.PlaneType = new PlaneType((string)comboBox.SelectedItem, comboBox.SelectedIndex+1);
         }
     }
 }
