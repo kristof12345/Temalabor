@@ -56,7 +56,7 @@ namespace WebApi.Controllers
         [HttpPost]
         public IActionResult Create(DTO.PlaneType item)
         {
-            var ifDeleted = _context.PlaneTypes.Find(item.PlaneTypeID);
+            var ifDeleted = _context.PlaneTypes.Find(item.PlaneTypeID);            
             if (ifDeleted.isDeleted)
             {
                 ifDeleted.isDeleted = false;

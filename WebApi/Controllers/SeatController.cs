@@ -75,13 +75,13 @@ namespace WebApi.Controllers
         [HttpPost]
         public IActionResult Create(DTO.Seat item)
         {
-            var ifDeleted = _context.Seats.Find(item.SeatId);
+            var ifDeleted = _context.Seats.Find(item.SeatId);          
             if (ifDeleted.isDeleted)
             {
                 ifDeleted.isDeleted = false;
                 _context.SaveChanges();
                 return CreatedAtRoute("GetSeat", new { id = ifDeleted.seatID }, item);
-            }
+            }                      
             else
             {
                 DAL.Seat tempfl = DataConversion.Seat_DTO_to_DAL(item, _context);
