@@ -37,7 +37,7 @@ namespace DTO
         }
 
         //A repülő azonosítója
-        public long PlaneTypeID { get; private set; }
+        public long PlaneTypeID { get; set; }
 
         //A repülő típus neve (pl: "Airbus A380")
         public string PlaneTypeName { get; private set; }

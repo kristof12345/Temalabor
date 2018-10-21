@@ -7,12 +7,12 @@ using System.Text;
 namespace DAL
 {
     public class FlightContext : DbContext
-    {     
-        public DbSet<Flight> Flights { get; set; }
-        public DbSet<Seat> Seats { get; set; }
-        public DbSet<PlaneType> PlaneTypes { get; set; }
-        public DbSet<Reservation> Reservations { get; set; }
-        public DbSet<User> Users { get; set; }
+    {
+        public DbSet<DAL.Flight> Flights { get; set; }
+        public DbSet<DAL.Seat> Seats { get; set; }
+        public DbSet<DAL.PlaneType> PlaneTypes { get; set; }
+        public DbSet<DAL.Reservation> Reservations { get; set; }
+        public DbSet<DAL.User> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -21,122 +21,108 @@ namespace DAL
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<PlaneType>().HasData(
+            modelBuilder.Entity<DAL.PlaneType>().HasData(
                 new
                 {
-                    //flightID = (long)1,
                     planeTypeID = (long)1,
-                    planeType = "Airbus A380"
+                    planeType = "Airbus A380",
+                    isDeleted = false
                 });
 
-            modelBuilder.Entity<PlaneType>().HasData(
+            modelBuilder.Entity<DAL.PlaneType>().HasData(
                 new
                 {
-                    //flightID = (long)2,
                     planeTypeID = (long)2,
-                    planeType = "Boeing 777"
+                    planeType = "Boeing 777",
+                    isDeleted = false
                 });
 
-            modelBuilder.Entity<PlaneType>().HasData(
+            modelBuilder.Entity<DAL.PlaneType>().HasData(
                 new
                 {
-                    //flightID = (long)3,
                     planeTypeID = (long)3,
-                    planeType = "Boeing 747"
+                    planeType = "Boeing 747",
+                    isDeleted = false
                 });
-            modelBuilder.Entity<PlaneType>().HasData(
+            modelBuilder.Entity<DAL.PlaneType>().HasData(
                 new
                 {
-                    //flightID = (long)4,
                     planeTypeID = (long)4,
-                    planeType = "Antonov 124"
+                    planeType = "Antonov 124",
+                    isDeleted = false
                 });
 
 
-            Seat seat1 = new Seat
+            DAL.Seat seat1 = new DAL.Seat
             {
                 seatID = (long)1,
-                businessID = (long)1,
                 planeTypeID = (long)1,
-                flightID = (long)1,
                 IsReserved = false,
                 seatType = "fapados",
-                price = 15000,
                 Xcord = 1,
-                Ycord = 1
+                Ycord = 1,
+                isDeleted = false
             };
-            Seat seat2 = new Seat
+            DAL.Seat seat2 = new DAL.Seat
             {
                 seatID = (long)2,
-                businessID = (long)2,
                 planeTypeID = (long)1,
-                flightID = (long)1,
                 IsReserved = false,
                 seatType = "1. osztályú",
-                price = 200000,
                 Xcord = 20,
-                Ycord = 20
+                Ycord = 20,
+                isDeleted = false
             };
-            modelBuilder.Entity<Seat>().HasData(seat1, seat2);
+            modelBuilder.Entity<DAL.Seat>().HasData(seat1, seat2);
 
-            Seat seat3 = new Seat
+            DAL.Seat seat3 = new DAL.Seat
             {
                 seatID = (long)3,
-                businessID = (long)3,
                 planeTypeID = (long)2,
-                flightID = (long)2,
                 IsReserved = false,
                 seatType = "fapados",
-                price = 15000,
                 Xcord = 1,
-                Ycord = 1
+                Ycord = 1,
+                isDeleted = false
             };
-            Seat seat4 = new Seat
+            DAL.Seat seat4 = new DAL.Seat
             {
                 seatID = (long)4,
-                businessID = (long)4,
                 planeTypeID = (long)2,
-                flightID = (long)2,
                 IsReserved = false,
                 seatType = "1. osztályú",
-                price = 200000,
                 Xcord = 20,
-                Ycord = 20
+                Ycord = 20,
+                isDeleted = false
             };
-            modelBuilder.Entity<Seat>().HasData(seat3, seat4);
+            modelBuilder.Entity<DAL.Seat>().HasData(seat3, seat4);
 
-            List<Seat> seatsList = new List<Seat>();
-            seatsList.Add(seat1); seatsList.Add(seat2);
-
-            List<Seat> seatsList2 = new List<Seat>();
-            seatsList2.Add(seat3); seatsList2.Add(seat4);
-
-            modelBuilder.Entity<Flight>().HasData(
+            modelBuilder.Entity<DAL.Flight>().HasData(
                 new
                 {
                     flightID = (long)1,
-                    businessID = (long)1,
                     planeTypeID = (long)1,
                     date = new DateTime(2018, 10, 4),
                     departure = "Delhi",
                     destination = "Budapest",
-                    freeSeats = seatsList.Count,
-                    numberofSeats = seatsList.Count,
-                    status = "ok"
+                    status = "ok",
+                    normalPrice = 10000,
+                    firstClassPrice = 100000,
+                    isDeleted = false
                 });
 
-            modelBuilder.Entity<Flight>().HasData(
+            modelBuilder.Entity<DAL.Flight>().HasData(
                 new
                 {
                     flightID = (long)2,
-                    businessID = (long)2,
                     planeTypeID = (long)2,
                     date = new DateTime(2018, 10, 5),
                     departure = "Moscow",
                     destination = "London",
-                    freeSeats = seatsList2.Count,
-                    numberofSeats = seatsList2.Count,
-                    status = "ok"
+                    status = "ok",
+                    normalPrice = 20000,
+                    firstClassPrice = 200000,
+                    isDeleted = false
                 });
         }
     }
