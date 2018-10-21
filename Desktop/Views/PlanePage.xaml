@@ -11,7 +11,8 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Grid x:Name="grid">
         <Button x:Name="btPay" Content="Pay" HorizontalAlignment="Left" Margin="25,200,0,0" VerticalAlignment="Top" Click="Pay_Button_Click" Width="100"/>
-        <Image x:Name="planeImg" HorizontalAlignment="Right" Width="100" Height="100" VerticalAlignment="Top" />
+        <Image x:Name="planeImg" HorizontalAlignment="Right" Width="1000" Height="700"/>
+        <Canvas x:Name="myList" Width="1000" HorizontalAlignment="Right" Background="Transparent" Height="700"/>
         <TextBlock x:Name="txDetails"
                    Style="{StaticResource TitleTextBlockStyle}"
                    Margin="25,0,0,0"
@@ -24,7 +25,6 @@
                    VerticalAlignment="Top"
                    HorizontalAlignment="Left"
         />
-        <Canvas x:Name="myList" Width="100" HorizontalAlignment="Right" Height="100" VerticalAlignment="Top">
-        </Canvas>
+        
     </Grid>
 </Page>

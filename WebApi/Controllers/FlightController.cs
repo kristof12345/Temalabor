@@ -57,7 +57,7 @@ namespace WebApi
         public IActionResult Create(Flight_DTO item)
         {
             var ifDeleted = _context.Flights.Find(item.FlightId);
-            if (ifDeleted.isDeleted)
+            if (ifDeleted != null && ifDeleted.isDeleted)
             {
                 ifDeleted.isDeleted = false;
                 _context.SaveChanges();

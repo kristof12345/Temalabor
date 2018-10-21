@@ -134,11 +134,11 @@ namespace Desktop.Services
             List<PlaneType> typesList = await response.Content.ReadAsAsync<List<PlaneType>>();
 
             List<String> list = new List<String>();
-            for (int i = 1; i < 5; i++) //TODO: 5 helyett list.Count
+            for (int i = 1; i <= typesList.Count; i++) //TODO: 5 helyett list.Count
             {
                 HttpResponseMessage typesResponse = await client.GetAsync(UriTypes + i.ToString());
-                var t = await typesResponse.Content.ReadAsStringAsync();
-                list.Add(t);
+                var type = await typesResponse.Content.ReadAsStringAsync();
+                list.Add(type);
             }
 
             return list;
@@ -166,6 +166,7 @@ namespace Desktop.Services
             HttpResponseMessage response = await client.GetAsync(UriReservation);
             List<Reservation> list = await response.Content.ReadAsAsync<List<Reservation>>();
 
+            if (list == null) { Debug.WriteLine("NULL lista jött az adatbázistól!"); list = new List<Reservation>(); }
             return list;
         }
 

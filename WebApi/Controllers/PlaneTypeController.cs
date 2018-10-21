@@ -41,7 +41,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("{id}", Name = "GetPlaneType")]
-        public ActionResult<DTO.PlaneType> GetById(long id)
+        public ActionResult<String> GetById(long id)
         {
             DAL.PlaneType temp = _context.PlaneTypes.Find(id);
 
@@ -50,7 +50,7 @@ namespace WebApi.Controllers
 
             DTO.PlaneType result = DataConversion.PlaneType_DAL_to_DTO(temp, _context);
 
-            return result;
+            return result.PlaneTypeName;
         }
 
         [HttpPost]

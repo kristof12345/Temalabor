@@ -2,5 +2,3 @@ Migrations törlése
 Database törlése
 add-migration CreateFlightDB
 update-database –verbose
-
-SelectedItem="{x:Bind Flight.PlaneType, Mode=TwoWay}"
