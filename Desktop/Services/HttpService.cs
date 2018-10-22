@@ -161,7 +161,7 @@ namespace Desktop.Services
         {
             //TODO: a típus alapján
             Uri uri = new Uri(UriImages + planeTypeID);
-            return new Uri("https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX18954345.jpg");
+            return new Uri("https://image.ibb.co/gOHBVf/Antonov124white.png");
         }
 
         /// <summary>
