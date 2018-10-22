@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using WebApplication.Models;
 
 namespace WebApplication
 {
@@ -10,9 +9,6 @@ namespace WebApplication
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DAL.FlightContext>();
-            services.AddDbContext<ReserveContext>(opt =>
-                opt.UseInMemoryDatabase("TodoList"));
             services.AddMvc()
                     .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
