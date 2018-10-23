@@ -6,12 +6,10 @@ using DTO;
 
 namespace Desktop.Models
 {
-    public class Flight : INotifyPropertyChanged
+    public class Flight
     {
         //A járat repülőjének típusa
         internal PlaneType PlaneType { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         //Konstruktor
         public Flight(long id, String type, long typeId)

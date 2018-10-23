@@ -58,14 +58,9 @@ namespace Desktop.Services
         //A járatok letöltése a szerverről
         private static async void ReloadFlightListAsync()
         {
-            /*List<Flight_DTO> dtoList = await HttpService.ListFlightsAsync();
-            flightList.Clear();
-            foreach (Flight_DTO dto in dtoList)
-            {
-                Flight f = new Flight(dto.FlightId, dto.PlaneTypeName, dto.PlaneTypeID);
-                f.FromDTO(dto);
-                flightList.Add(f);
-            }*/
+            var last = flightList[flightList.Count - 1];
+            flightList.Remove(last);
+            flightList.Add(last);
         }
 
         //Járat hozzáadása
@@ -85,7 +80,7 @@ namespace Desktop.Services
             flightList.Add(f);
 
             //Táblázat frissítése
-            ReloadFlightListAsync();
+            //ReloadFlightListAsync();
         }
 
         //Járat hozzáadása 2
@@ -96,7 +91,7 @@ namespace Desktop.Services
             flightList.Add(f);
 
             //Táblázat frissítése
-            ReloadFlightListAsync();
+            //ReloadFlightListAsync();
         }
 
         //Járat törlése
@@ -107,7 +102,7 @@ namespace Desktop.Services
             flightList.Remove(f);
 
             //Táblázat frissítése
-            ReloadFlightListAsync();
+            //ReloadFlightListAsync();
         }
 
         //Járat módosítása
@@ -118,6 +113,12 @@ namespace Desktop.Services
             
             //Táblázat frissítése
             ReloadFlightListAsync();
+        }
+
+        //Repülő képek URI-je
+        internal static Uri LoadImageUri(long planeTypeID)
+        {
+        return new Uri("https://image.ibb.co/gOHBVf/Antonov124white.png");
         }
     }
 }
