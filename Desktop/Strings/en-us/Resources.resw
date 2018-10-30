@@ -161,4 +161,8 @@
     <value>Plane designer</value>
     <comment>Navigation view item name for DesignerPage</comment>
   </data>
+  <data name="Shell_ManagerPage.Content" xml:space="preserve">
+    <value>Plane Types</value>
+    <comment>Navigation view item name for DesignerPage</comment>
+  </data>
 </root>

@@ -36,8 +36,7 @@ namespace Desktop.Services
             UriImages = baseUri + "image/";
 
             //Lehetséges PlaneTypok betöltése
-            List<String> strArray = new List<string>();
-            strArray = await ListPlaneTypesAsync();
+            var strArray = await ListPlaneTypeNamesAsync();
             PlaneType.Initialize(strArray.ToArray());
         }
 
@@ -127,23 +126,41 @@ namespace Desktop.Services
         /// PlaneType műveletek
         /// </summary>
 
-        //Repülőtípusok lekérdezése
-        internal static async Task<List<String>> ListPlaneTypesAsync()
+        //Repülőtípusok nevének lekérdezése
+        internal static async Task<List<String>> ListPlaneTypeNamesAsync()
         {
             client = new HttpClient(handler);
 
             HttpResponseMessage response = await client.GetAsync(UriTypes);
             List<PlaneType> typesList = await response.Content.ReadAsAsync<List<PlaneType>>();
-
-            List<String> list = new List<String>();
-            for (int i = 1; i <= typesList.Count; i++) //TODO: 5 helyett list.Count
+            var strList = new List<String>();
+            
+            for (int i = 1; i <= typesList.Count; i++)
             {
                 HttpResponseMessage typesResponse = await client.GetAsync(UriTypes + i.ToString());
                 var type = await typesResponse.Content.ReadAsStringAsync();
-                list.Add(type);
-            }
+                strList.Add(type);
+            }           
+            return strList;
+        }
 
-            return list;
+        //Repülőtípusok lekérdezése
+        internal static async Task<List<PlaneType>> ListPlaneTypesAsync()
+        {
+            List<PlaneType> typesList = new List<PlaneType>();
+            try
+            {
+                client = new HttpClient(handler);
+
+                HttpResponseMessage response = await client.GetAsync(UriTypes);
+                typesList = await response.Content.ReadAsAsync<List<PlaneType>>();
+                foreach (PlaneType t in typesList)
+                {
+                    Debug.WriteLine("Kliens: " + t);
+                }
+            }catch (Exception e) { Debug.WriteLine("Hiba, a lista mérete: " + typesList.Count); }
+
+            return typesList;
         }
 
         //Repülőtípus hozzáadása

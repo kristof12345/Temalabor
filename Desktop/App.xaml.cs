@@ -24,6 +24,7 @@ namespace Desktop
 
         protected override async void OnLaunched(LaunchActivatedEventArgs args)
         {
+            System.Threading.Thread.Sleep(1000); //Várakozás a szerverre
             await FlightsDataService.Initialize();
 
             if (!args.PrelaunchActivated)

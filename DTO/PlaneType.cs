@@ -87,5 +87,10 @@ namespace DTO
         {
             return typesArray;
         }
+
+        public override string ToString()
+        {
+            return PlaneTypeID.ToString() + " " + PlaneTypeName.ToString() + " " + GetTotalSeatsCount() + " " + GetFreeSeatsCount();
+        }
     }
 }

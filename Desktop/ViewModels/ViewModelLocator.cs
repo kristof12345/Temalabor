@@ -29,6 +29,8 @@ namespace Desktop.ViewModels
             Register<ReservationViewModel, ReservationsPage>();
             //DesignerView regisztrálása
             Register<DesignerViewModel, DesignerPage>();
+            //PlaneTypeManagerView regisztrálása
+            Register<PlaneTypeManagerViewModel, PlaneTypeManagerPage>();
         }
 
         //TODO: az új lapot itt is hozzá kell adni
@@ -41,6 +43,8 @@ namespace Desktop.ViewModels
         public ShellViewModel ShellViewModel => ServiceLocator.Current.GetInstance<ShellViewModel>();
 
         public PlaneViewModel PlaneViewModel => ServiceLocator.Current.GetInstance<PlaneViewModel>();
+
+        public PlaneTypeManagerViewModel PlaneTypeManagerViewModel => ServiceLocator.Current.GetInstance<PlaneTypeManagerViewModel>();
 
         public NavigationServiceEx NavigationService => ServiceLocator.Current.GetInstance<NavigationServiceEx>();
 

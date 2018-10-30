@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Input;
 
@@ -8,7 +10,7 @@ using CommonServiceLocator;
 using Desktop.Helpers;
 using Desktop.Services;
 using Desktop.Views;
-
+using DTO;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 
@@ -18,12 +20,20 @@ using Windows.UI.Xaml.Navigation;
 
 namespace Desktop.ViewModels
 {
-    public class ShellViewModel : ViewModelBase
+    public class ShellViewModel : ViewModelBase, INotifyPropertyChanged
     {
         private NavigationView _navigationView;
         private NavigationViewItem _selected;
         private ICommand _itemInvokedCommand;
 
+        public bool IsAdministrator
+        {
+            get
+            {
+                if (SignInService.User == null) return false;
+                else return SignInService.User.UserType == UserType.Administrator ? true : false;
+            }
+        }
         public NavigationServiceEx NavigationService
         {
             get
@@ -42,6 +52,12 @@ namespace Desktop.ViewModels
 
         public ShellViewModel()
         {
+            SignInService.Instance.PropertyChanged += this.UserChanged;
+        }
+
+        private void UserChanged(object sender, PropertyChangedEventArgs e)
+        {
+            RaisePropertyChanged("IsAdministrator");
         }
 
         public void Initialize(Frame frame, NavigationView navigationView)

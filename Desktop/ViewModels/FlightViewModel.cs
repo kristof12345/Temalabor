@@ -8,7 +8,7 @@ using GalaSoft.MvvmLight;
 
 namespace Desktop.ViewModels
 {
-    public class FlightViewModel : ViewModelBase, INotifyPropertyChanged
+    public class FlightViewModel : ViewModelBase
     {
         private Stack<CommandBase> commandStack = new Stack<CommandBase>();
         private Stack<CommandBase> undoStack = new Stack<CommandBase>();

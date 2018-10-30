@@ -87,22 +87,6 @@ namespace Desktop.Views
                 AlertDialog dialog = new AlertDialog();
                 dialog.DisplayNoUserDialog(this);               
             }
-            else
-            {
-                //Ha customer, akkor nem mutatjuk az admin funkciókat
-                if (SignInService.User.UserType == UserType.Customer)
-                {
-                    inputArea.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-                    searchArea.Visibility = Windows.UI.Xaml.Visibility.Visible;
-                }
-
-                //Ha adminisztrátor, akkor adhat hozzá repülőt
-                if (SignInService.User.UserType == UserType.Administrator)
-                {
-                    inputArea.Visibility = Windows.UI.Xaml.Visibility.Visible;
-                    searchArea.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-                }
-            }
         }
 
         private void btDelete_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)

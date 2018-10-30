@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using DTO;
 using DAL;
+using System.Diagnostics;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -34,13 +35,15 @@ namespace WebApi.Controllers
                 {
                     DTO.PlaneType current = DataConversion.PlaneType_DAL_to_DTO(planeType, _context);
                     result.Add(current);
+  
+                    Debug.WriteLine("WebApi: " + current);
                 }
             }
 
             return result;
         }
 
-        [HttpGet("{id}", Name = "GetPlaneType")]
+        [HttpGet("{id}", Name = "GetPlaneTypeName")]
         public ActionResult<String> GetById(long id)
         {
             DAL.PlaneType temp = _context.PlaneTypes.Find(id);

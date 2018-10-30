@@ -22,7 +22,7 @@ namespace Desktop.ViewModels
 
         public void LoadImage()
         {
-            Image = FlightsDataService.LoadImageUri(Flight.PlaneType.PlaneTypeID);
+            Image = PlaneTypeDataService.LoadImageUri(Flight.PlaneType.PlaneTypeID);
         }
 
         //A fizetés engedélyezése
