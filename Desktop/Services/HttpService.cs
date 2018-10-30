@@ -158,7 +158,7 @@ namespace Desktop.Services
                 {
                     Debug.WriteLine("Kliens: " + t);
                 }
-            }catch (Exception e) { Debug.WriteLine("Hiba, a lista mérete: " + typesList.Count); }
+            }catch (Exception e) { Debug.WriteLine("Null elemek, a lista mérete: " + typesList.Count); }
 
             return typesList;
         }

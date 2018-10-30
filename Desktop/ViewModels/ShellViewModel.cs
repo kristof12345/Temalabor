@@ -34,6 +34,16 @@ namespace Desktop.ViewModels
                 else return SignInService.User.UserType == UserType.Administrator ? true : false;
             }
         }
+
+        public bool IsCustomer
+        {
+            get
+            {
+                if (SignInService.User == null) return false;
+                else return SignInService.User.UserType == UserType.Customer ? true : false;
+            }
+        }
+
         public NavigationServiceEx NavigationService
         {
             get
@@ -58,6 +68,7 @@ namespace Desktop.ViewModels
         private void UserChanged(object sender, PropertyChangedEventArgs e)
         {
             RaisePropertyChanged("IsAdministrator");
+            RaisePropertyChanged("IsCustomer");
         }
 
         public void Initialize(Frame frame, NavigationView navigationView)
