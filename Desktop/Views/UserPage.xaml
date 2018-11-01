@@ -6,6 +6,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
+     Style="{StaticResource PageStyle}"
+    DataContext="{Binding UserViewModel, Source={StaticResource Locator}}"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Grid>
         <Image x:Name="userImg" Source="/Assets/userwhite.png" Margin="0,-250,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="300"/>
@@ -16,9 +18,9 @@
                         <ItemsStackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
-                <TextBox x:Name="tbName" Text="Username" Width="200"/>
-                <TextBox x:Name="tbPass" Text="Password"  Width="200"/>
-                <CheckBox x:Name="cbAdmin" Content="Login as administrator"  Width="200"/>
+                <TextBox x:Name="tbName" Text="{x:Bind ViewModel.Name, Mode=TwoWay}" Width="200"/>
+                <TextBox x:Name="tbPass" Text="{x:Bind ViewModel.Pass, Mode=TwoWay}"  Width="200"/>
+                <CheckBox x:Name="cbAdmin" Content="Login as administrator"  Width="200" IsChecked="{x:Bind ViewModel.IsAdmin, Mode=TwoWay}"/>
                 <Button x:Name="btLogin" Content="Login" Click="btLogin_Click" Width="200"/>
                 <Button x:Name="btNew" Content="New User" Click="btNew_Click" Width="200"/>
             </ListView>

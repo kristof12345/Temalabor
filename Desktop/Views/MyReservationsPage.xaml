@@ -5,11 +5,14 @@
     xmlns:local="using:Desktop.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:my="using:Telerik.UI.Xaml.Controls.Data"
     mc:Ignorable="d"
-     DataContext="{Binding MyReservationsViewModel, Source={StaticResource Locator}}"
+    DataContext="{Binding MyReservationsViewModel, Source={StaticResource Locator}}"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-
+        <my:RadListView HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                        ItemsSource="{x:Bind ViewModel.Source}"
+                        SelectionMode="None"/>
     </Grid>
 </Page>

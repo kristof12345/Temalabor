@@ -5,11 +5,17 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using System;
+using Desktop.ViewModels;
 
 namespace Desktop.Views
 {
     public sealed partial class UserPage : Page
     {
+        private UserViewModel ViewModel
+        {
+            get { return DataContext as UserViewModel; }
+        }
+
         public UserPage()
         {
             this.InitializeComponent();
@@ -18,26 +24,22 @@ namespace Desktop.Views
         //Ha a gombra kattintunk
         private async void btLogin_Click(object sender, RoutedEventArgs e)
         {
-            User user = new User(tbName.Text, tbPass.Text);
+            await ViewModel.LoginAsync();
 
-            //Ha be van jelölve a checkbox, akkor admin belépés
-            if (cbAdmin.IsChecked == true)
+            if(SignInService.User.UserType == UserType.Customer)
             {
-                user.UserType = UserType.Administrator;
+                this.Frame.Navigate(typeof(MyReservationsPage));
             }
-
-            //User bejelentkezése
-            if (await SignInService.SignInAsync(user))
+            else if (SignInService.User.UserType == UserType.Administrator)
             {
                 this.Frame.Navigate(typeof(FlightsPage));
             }
-            else tbPass.Text = "Incorrect";
         }
 
         private void btLogout_Click(object sender, RoutedEventArgs e)
         {
             //Kijelentkezünk
-            SignInService.SignOut();
+            ViewModel.SignOut();
             //Újratöltjük az oldalt
             this.Frame.Navigate(typeof(UserPage));
         }

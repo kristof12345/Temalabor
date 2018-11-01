@@ -12,7 +12,6 @@
     <Grid>
         <my:RadListView HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                         ItemsSource="{x:Bind ViewModel.Source}"
-                        SelectionMode="None"
-                        />
+                        SelectionMode="None"/>
     </Grid>
 </Page>

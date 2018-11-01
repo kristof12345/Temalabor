@@ -20,6 +20,20 @@
         <NavigationView.MenuItems>
 
             <NavigationViewItem x:Uid="Shell_UserPage" helpers:NavHelper.NavigateTo="Desktop.ViewModels.UserViewModel" Icon="Contact" />
+
+            <NavigationViewItem x:Uid="Shell_MyReservationsPage" helpers:NavHelper.NavigateTo="Desktop.ViewModels.MyReservationsViewModel"
+                                Visibility="{x:Bind ViewModel.IsCustomer, Mode=OneWay}">
+                <NavigationViewItem.Icon>
+                    <FontIcon Glyph="&#xE71D;"/>
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+
+            <NavigationViewItem x:Uid="Shell_MyFlightsPage" helpers:NavHelper.NavigateTo="Desktop.ViewModels.MyFlightViewModel"
+                                 Visibility="{x:Bind ViewModel.IsCustomer, Mode=OneWay}">
+                <NavigationViewItem.Icon>
+                    <FontIcon Glyph="&#xE128;"/>
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
             
             <NavigationViewItem x:Uid="Shell_Flights" helpers:NavHelper.NavigateTo="Desktop.ViewModels.FlightViewModel"
                                  Visibility="{x:Bind ViewModel.IsAdministrator, Mode=OneWay}">
@@ -28,8 +42,7 @@
                 </NavigationViewItem.Icon>
             </NavigationViewItem>
 
-            <NavigationViewItem x:Uid="Shell_PlanePage" helpers:NavHelper.NavigateTo="Desktop.ViewModels.PlaneViewModel"
-                                Visibility="{x:Bind ViewModel.IsAdministrator, Mode=OneWay}">
+            <NavigationViewItem x:Uid="Shell_PlanePage" helpers:NavHelper.NavigateTo="Desktop.ViewModels.PlaneViewModel">
                 <NavigationViewItem.Icon>
                     <FontIcon Glyph="&#xE709;"/>
                 </NavigationViewItem.Icon>
@@ -42,13 +55,6 @@
                 </NavigationViewItem.Icon>
             </NavigationViewItem>
 
-            <NavigationViewItem x:Uid="Shell_DesignerPage" helpers:NavHelper.NavigateTo="Desktop.ViewModels.DesignerViewModel"
-                                Visibility="{x:Bind ViewModel.IsAdministrator, Mode=OneWay}">
-                <NavigationViewItem.Icon>
-                    <FontIcon Glyph="&#xE771;"/>
-                </NavigationViewItem.Icon>
-            </NavigationViewItem>
-
             <NavigationViewItem x:Uid="Shell_ManagerPage" helpers:NavHelper.NavigateTo="Desktop.ViewModels.PlaneTypeManagerViewModel"
                                 Visibility="{x:Bind ViewModel.IsAdministrator, Mode=OneWay}">
                 <NavigationViewItem.Icon>
@@ -56,13 +62,13 @@
                 </NavigationViewItem.Icon>
             </NavigationViewItem>
 
-            <NavigationViewItem x:Uid="Shell_MyReservationsPage" helpers:NavHelper.NavigateTo="Desktop.ViewModels.MyReservationsViewModel"
-                                Visibility="{x:Bind ViewModel.IsCustomer, Mode=OneWay}">
+            <NavigationViewItem x:Uid="Shell_DesignerPage" helpers:NavHelper.NavigateTo="Desktop.ViewModels.DesignerViewModel"
+                                Visibility="{x:Bind ViewModel.IsAdministrator, Mode=OneWay}">
                 <NavigationViewItem.Icon>
-                    <FontIcon Glyph="&#xE71D;"/>
+                    <FontIcon Glyph="&#xE771;"/>
                 </NavigationViewItem.Icon>
             </NavigationViewItem>
-            
+
         </NavigationView.MenuItems>
         <NavigationView.HeaderTemplate>
             <DataTemplate>

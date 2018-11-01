@@ -169,4 +169,8 @@
     <value>MyReservations</value>
     <comment>Navigation view item name for MyReservationsPage</comment>
   </data>
+  <data name="Shell_MyFlightsPage.Content" xml:space="preserve">
+    <value>Select a flight</value>
+    <comment>Navigation view item name for MyFlightsPage</comment>
+  </data>
 </root>
