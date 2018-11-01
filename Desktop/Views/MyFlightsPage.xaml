@@ -10,9 +10,11 @@
     xmlns:tg="using:Telerik.UI.Xaml.Controls.Grid"
     mc:Ignorable="d">
     <Grid x:Name="ContentArea">
+        <TextBox x:Name="textBox" Text="{x:Bind ViewModel.Dest}" HorizontalAlignment="Left" Margin="430,65,0,0" Text="Destination" VerticalAlignment="Top" Width="229"/>
+        <Button x:Name="button" Content="Search" HorizontalAlignment="Left" Margin="710,60,0,0" VerticalAlignment="Top" Click="button_Click"/>
         <Grid 
             Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}"
-            Margin="0,0,0,120"
+            Margin="0,100,0,120"
             Height="700">
             <tg:RadDataGrid
                 ColumnDataOperationsMode="Flyout"

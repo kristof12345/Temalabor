@@ -29,6 +29,9 @@ namespace DTO
         //A foglalás összege
         public int Cost { get; set; }
 
+        //A foglalás dátuma
+        public DateTime Date { get; set; }
+
         //Szék hozzáadása a foglaláshoz
         public void AddSeatId(long id)
         {

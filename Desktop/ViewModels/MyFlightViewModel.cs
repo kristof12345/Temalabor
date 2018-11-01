@@ -13,6 +13,9 @@ namespace Desktop.ViewModels
     public class MyFlightViewModel: ViewModelBase
     {
         private bool isFlightSelected = false;
+
+        private String dest;
+
         public bool IsFlightSelected
         {
             get { return isFlightSelected; }
@@ -24,8 +27,20 @@ namespace Desktop.ViewModels
         {
             get
             {
+                //return FlightsDataService.FlightList.Where(x => x.Destination.Contains(dest));
                 return FlightsDataService.FlightList;
             }
+        }
+
+        public String Dest
+        {
+            get { return dest; }
+            set { dest = value; RaisePropertyChanged("Dest"); RaisePropertyChanged("Source"); }
+        }
+
+        internal void Search()
+        {
+            
         }
     }
 }

@@ -1,20 +1,9 @@
 ﻿using Desktop.Models;
 using Desktop.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Telerik.UI.Xaml.Controls.Grid;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 namespace Desktop.Views
 {
@@ -55,6 +44,11 @@ namespace Desktop.Views
                 Flight param = (Flight)dataTable.SelectedItem;
                 this.Frame.Navigate(typeof(PlanePage), param);
             }
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.Search();
         }
     }
 }

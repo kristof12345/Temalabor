@@ -10,6 +10,15 @@ namespace Desktop.Services
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public static bool IsSignedIn
+        {
+            get
+            {
+                return User != null;
+            }
+        }
+
+        //Privát konstruktor
         private SignInService() { }
 
         private static SignInService instance;

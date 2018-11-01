@@ -18,20 +18,7 @@ namespace Desktop.ViewModels
             }
         }
 
-        public bool IsTypeSelected
-        {
-            get { return isTypeSelected; }
-            set { isTypeSelected = value; RaisePropertyChanged("IsTypeSelected"); }
-        }
-
-        internal void SelectedAt(int index)
-        {
-            Flight = PlaneTypeDataService.PlaneTypeList[index];
-            RaisePropertyChanged("Flight");
-            isTypeSelected = true;
-        }
-
-        public PlaneType Flight = new PlaneType("abc", 1);
+        public PlaneType Flight;
 
         private Uri image;
 
@@ -44,6 +31,19 @@ namespace Desktop.ViewModels
         public void LoadImage()
         {
             Image = PlaneTypeDataService.LoadImageUri(Flight.PlaneTypeID);
+        }
+
+        public bool IsTypeSelected
+        {
+            get { return isTypeSelected; }
+            set { isTypeSelected = value; RaisePropertyChanged("IsTypeSelected"); }
+        }
+
+        internal void SelectedAt(int index)
+        {
+            Flight = PlaneTypeDataService.PlaneTypeList[index];
+            RaisePropertyChanged("Flight");
+            IsTypeSelected = true;
         }
     }
 }

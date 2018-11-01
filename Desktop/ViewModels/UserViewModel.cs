@@ -3,12 +3,39 @@ using System;
 using System.Threading.Tasks;
 using DTO;
 using Desktop.Services;
-
+using System.ComponentModel;
 namespace Desktop.ViewModels
 {
     public class UserViewModel : ViewModelBase
     {
-        private String name;
+        public UserViewModel()
+        {
+            SignInService.Instance.PropertyChanged += this.UserChanged;
+        }
+
+        private void UserChanged(object sender, PropertyChangedEventArgs e)
+        {
+            RaisePropertyChanged("IsSignedIn");
+            RaisePropertyChanged("IsNotSignedIn");
+        }
+
+        public bool IsSignedIn
+        {
+            get
+            {
+                return SignInService.IsSignedIn;
+            }
+        }
+
+        public bool IsNotSignedIn
+        {
+            get
+            {
+                return !SignInService.IsSignedIn;
+            }
+        }
+
+        private String name ="Papp Kristóf";
         public String Name
         {
             get { return name; }
@@ -22,13 +49,14 @@ namespace Desktop.ViewModels
             set { pass = value; RaisePropertyChanged("Pass"); }
         }
 
-        private bool isAdmin;
+        private bool isAdmin=true;
         public bool IsAdmin
         {
             get { return isAdmin; }
             set { isAdmin = value; RaisePropertyChanged("IsAdmin"); }
         }
 
+        //Bejelentkezés
         internal async Task<bool> LoginAsync()
         {
             if(Name==null || Name=="")
@@ -53,6 +81,7 @@ namespace Desktop.ViewModels
             return false;
         }
 
+        //Kijelentkezés
         internal void SignOut()
         {
             SignInService.SignOut();

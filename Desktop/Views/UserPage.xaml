@@ -6,12 +6,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-     Style="{StaticResource PageStyle}"
+    Style="{StaticResource PageStyle}"
     DataContext="{Binding UserViewModel, Source={StaticResource Locator}}"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Grid>
         <Image x:Name="userImg" Source="/Assets/userwhite.png" Margin="0,-250,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="300"/>
-        <Grid x:Name="loginArea">
+        <Grid x:Name="loginArea" Visibility="{x:Bind ViewModel.IsNotSignedIn}">
             <ListView SelectionMode="None" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,300,0,0">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -25,15 +25,15 @@
                 <Button x:Name="btNew" Content="New User" Click="btNew_Click" Width="200"/>
             </ListView>
         </Grid>
-        <Grid x:Name="logoutArea" Visibility="Collapsed">
+        <Grid x:Name="logoutArea" Visibility="{x:Bind ViewModel.IsSignedIn}">
             <ListView SelectionMode="None" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,200,0,0">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <ItemsStackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
-                <TextBlock x:Name="tbUser1" Style="{StaticResource TitleTextBlockStyle}" TextWrapping="Wrap" Text="You're signed in as:" Width="200"/>
-                <TextBlock x:Name="tbUser2" Style="{StaticResource TitleTextBlockStyle}" TextWrapping="Wrap" Width="200"/>
+                <TextBlock Style="{StaticResource TitleTextBlockStyle}" TextWrapping="Wrap" Text="You're signed in as:" Width="200"/>
+                <TextBlock Text="{x:Bind ViewModel.Name, Mode=TwoWay}" Style="{StaticResource TitleTextBlockStyle}" TextWrapping="Wrap" Width="200"/>
                 <Button x:Name="btLogout" Content="Logout" Width="200" Click="btLogout_Click"/>
             </ListView>
         </Grid>

@@ -13,6 +13,11 @@ namespace Desktop.Views
 {
     public sealed partial class PlaneTypeManagerPage : Page
     {
+        private PlaneTypeManagerViewModel ViewModel
+        {
+            get { return DataContext as PlaneTypeManagerViewModel; }
+        }
+
         public PlaneTypeManagerPage()
         {
             this.InitializeComponent();
@@ -28,11 +33,6 @@ namespace Desktop.Views
             AddUserControls();
         }
 
-        private PlaneTypeManagerViewModel ViewModel
-        {
-            get { return DataContext as PlaneTypeManagerViewModel; }
-        }
-
         //Amikor erre a lapra érkezünk
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -46,6 +46,8 @@ namespace Desktop.Views
             }
             else
             {
+                //Az első listaelem
+                listView.SelectedIndex = 0;
                 //Kép betöltése
                 ViewModel.LoadImage();
                 //User controlok felrakása
@@ -74,12 +76,12 @@ namespace Desktop.Views
 
         private void btAdd_Click(object sender, RoutedEventArgs e)
         {
-
+            this.Frame.Navigate(typeof(DesignerPage), null);
         }
 
         private void btEdit_Click(object sender, RoutedEventArgs e)
         {
-
+            this.Frame.Navigate(typeof(DesignerPage), ViewModel.Flight);
         }
     }
 }

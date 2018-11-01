@@ -47,6 +47,11 @@ namespace Desktop.Views
             }
             else
             {
+                if (e.Parameter != null)
+                {
+                    //TODO: módosítás
+                    //ViewModel.
+                }
                 //A korábbi székeket visszarajzoljuk
                 foreach(Seat s in ViewModel.Seats)
                 {

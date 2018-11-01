@@ -3,7 +3,6 @@ using Desktop.Services;
 using DTO;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
 using System;
 using Desktop.ViewModels;
 
@@ -26,7 +25,7 @@ namespace Desktop.Views
         {
             if (await ViewModel.LoginAsync())
             {
-
+                //Ez a ViewModelben kellene
                 if (SignInService.User.UserType == UserType.Customer)
                 {
                     this.Frame.Navigate(typeof(MyReservationsPage));
@@ -44,17 +43,6 @@ namespace Desktop.Views
             ViewModel.SignOut();
             //Újratöltjük az oldalt
             this.Frame.Navigate(typeof(UserPage));
-        }
-
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            base.OnNavigatedTo(e);
-            if (SignInService.User != null)
-            {
-                loginArea.Visibility = Visibility.Collapsed;
-                logoutArea.Visibility = Visibility.Visible;
-                tbUser2.Text = SignInService.User.Name;
-            }
         }
 
         private async void btNew_Click(object sender, RoutedEventArgs e)
