@@ -23,18 +23,19 @@ namespace WebApi.Controllers
             _context2 = context2;
         }
 
+        //Ez direkt ad string listát!
         [HttpGet]
-        public ActionResult<List<DTO.PlaneType>> GetAll()
+        public ActionResult<List<String>> GetAll()
         {
             var DAL_list = _context.PlaneTypes.ToList();
-            List<DTO.PlaneType> result = new List<DTO.PlaneType>();
+            List<String> result = new List<String>();
 
             foreach (DAL.PlaneType planeType in DAL_list)
             {
                 if (!planeType.isDeleted)
                 {
                     DTO.PlaneType current = DataConversion.PlaneType_DAL_to_DTO(planeType, _context);
-                    result.Add(current);
+                    result.Add(current.PlaneTypeName);
   
                     Debug.WriteLine("WebApi: " + current);
                 }
@@ -44,7 +45,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("{id}", Name = "GetPlaneTypeName")]
-        public ActionResult<String> GetById(long id)
+        public ActionResult<DTO.PlaneType> GetById(long id)
         {
             DAL.PlaneType temp = _context.PlaneTypes.Find(id);
 
@@ -53,7 +54,7 @@ namespace WebApi.Controllers
 
             DTO.PlaneType result = DataConversion.PlaneType_DAL_to_DTO(temp, _context);
 
-            return result.PlaneTypeName;
+            return result;
         }
 
         [HttpPost]

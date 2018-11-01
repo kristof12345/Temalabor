@@ -132,33 +132,30 @@ namespace Desktop.Services
             client = new HttpClient(handler);
 
             HttpResponseMessage response = await client.GetAsync(UriTypes);
-            List<PlaneType> typesList = await response.Content.ReadAsAsync<List<PlaneType>>();
-            var strList = new List<String>();
-            
-            for (int i = 1; i <= typesList.Count; i++)
-            {
-                HttpResponseMessage typesResponse = await client.GetAsync(UriTypes + i.ToString());
-                var type = await typesResponse.Content.ReadAsStringAsync();
-                strList.Add(type);
-            }           
-            return strList;
+            List<String> typesList = await response.Content.ReadAsAsync<List<String>>();
+            return typesList;
         }
 
         //Repülőtípusok lekérdezése
         internal static async Task<List<PlaneType>> ListPlaneTypesAsync()
         {
+            List<String> strList = new List<String>();
             List<PlaneType> typesList = new List<PlaneType>();
             try
             {
                 client = new HttpClient(handler);
 
                 HttpResponseMessage response = await client.GetAsync(UriTypes);
-                typesList = await response.Content.ReadAsAsync<List<PlaneType>>();
-                foreach (PlaneType t in typesList)
+                strList = await response.Content.ReadAsAsync<List<String>>();
+
+                foreach (String s in strList)
                 {
+                    HttpResponseMessage response2 = await client.GetAsync(UriTypes);
+                    PlaneType t = await response2.Content.ReadAsAsync<PlaneType>();
                     Debug.WriteLine("Kliens: " + t);
+                    typesList.Add(t);
                 }
-            }catch (Exception e) { Debug.WriteLine("Null elemek, a lista mérete: " + typesList.Count); }
+            }catch (Exception e) { Debug.WriteLine("Null elemek, a lista mérete: " + strList.Count); }
 
             return typesList;
         }
