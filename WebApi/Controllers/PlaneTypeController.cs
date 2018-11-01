@@ -36,8 +36,6 @@ namespace WebApi.Controllers
                 {
                     DTO.PlaneType current = DataConversion.PlaneType_DAL_to_DTO(planeType, _context);
                     result.Add(current.PlaneTypeName);
-  
-                    Debug.WriteLine("WebApi: " + current);
                 }
             }
 

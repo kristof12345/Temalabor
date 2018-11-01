@@ -42,7 +42,8 @@
                 </NavigationViewItem.Icon>
             </NavigationViewItem>
 
-            <NavigationViewItem x:Uid="Shell_PlanePage" helpers:NavHelper.NavigateTo="Desktop.ViewModels.PlaneViewModel">
+            <NavigationViewItem x:Uid="Shell_PlanePage" helpers:NavHelper.NavigateTo="Desktop.ViewModels.PlaneViewModel"
+                                Visibility="{x:Bind ViewModel.IsAdministrator, Mode=OneWay}">
                 <NavigationViewItem.Icon>
                     <FontIcon Glyph="&#xE709;"/>
                 </NavigationViewItem.Icon>

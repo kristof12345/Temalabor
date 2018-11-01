@@ -24,9 +24,11 @@ namespace Desktop.Services
         }
         
         public static User User { get; private set; }
+
         public static async Task<bool> SignInAsync(User u)
-        {     
-            if (await HttpService.LoginAsync(u))
+        {
+            bool success = await HttpService.LoginAsync(u);
+            if (success)
             {
                 User = u;
                 Instance.PropertyChanged(Instance, new PropertyChangedEventArgs("Sign In"));

@@ -48,7 +48,7 @@ namespace DTO
             get
             {
                 if (PlaneType == null) return -1;
-                return PlaneType.GetTotalSeatsCount();
+                return PlaneType.TotalSeatsCount;
             }
         }
 
@@ -58,7 +58,7 @@ namespace DTO
             get
             {
                 if (PlaneType == null) return -1;
-                return PlaneType.GetFreeSeatsCount();
+                return PlaneType.FreeSeatsCount;
             }
         }
 

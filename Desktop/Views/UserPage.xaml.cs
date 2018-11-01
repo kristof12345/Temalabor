@@ -24,15 +24,17 @@ namespace Desktop.Views
         //Ha a gombra kattintunk
         private async void btLogin_Click(object sender, RoutedEventArgs e)
         {
-            await ViewModel.LoginAsync();
+            if (await ViewModel.LoginAsync())
+            {
 
-            if(SignInService.User.UserType == UserType.Customer)
-            {
-                this.Frame.Navigate(typeof(MyReservationsPage));
-            }
-            else if (SignInService.User.UserType == UserType.Administrator)
-            {
-                this.Frame.Navigate(typeof(FlightsPage));
+                if (SignInService.User.UserType == UserType.Customer)
+                {
+                    this.Frame.Navigate(typeof(MyReservationsPage));
+                }
+                else if (SignInService.User.UserType == UserType.Administrator)
+                {
+                    this.Frame.Navigate(typeof(FlightsPage));
+                }
             }
         }
 

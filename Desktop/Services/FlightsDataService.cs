@@ -16,7 +16,11 @@ namespace Desktop.Services
         {
             get
             {
-                if (flightList == null) { flightList = new ObservableCollection<Flight>(); ReloadFlightListAsync(); }
+                if (flightList == null)
+                {
+                    flightList = new ObservableCollection<Flight>();
+                    ReloadFlightListAsync();
+                }
                 return flightList;
             }
         }

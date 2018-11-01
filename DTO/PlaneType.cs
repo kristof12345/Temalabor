@@ -6,10 +6,7 @@ namespace DTO
 {
     public class PlaneType
     {
-        private static String[] typesArray;
-
         //Konstruktor
-        [JsonConstructor]
         public PlaneType(String name, long id)
         {
             PlaneTypeName = name;
@@ -17,48 +14,68 @@ namespace DTO
             Seats = new List<Seat>();
 
             //TODO: Ide majd az adatbázis alapján kell valami
-            for (int i = 0; i < 7; i++)
+            if (name != null && name.Contains("Airbus"))
             {
-                Seat s = new Seat(i);
-                s.Coordinates = new Cord(640, 50+50*i);
-                Seats.Add(s);
+                for (int i = 0; i < 7; i++)
+                {
+                    Seat s = new Seat(i);
+                    s.Coordinates = new Cord(640, 50 + 50 * i);
+                    Seats.Add(s);
+                }
             }
-        }
-
-        //Konstruktor új repülő típushoz
-        public PlaneType(String name, List<Seat> list)
-        {
-            PlaneTypeName = name;
-            Seats = list;
+            else
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    Seat s = new Seat(i);
+                    s.Coordinates = new Cord(640, 50 + 50 * i);
+                    Seats.Add(s);
+                }
+            }
         }
 
         //A repülő azonosítója
         public long PlaneTypeID { get; set; }
 
         //A repülő típus neve (pl: "Airbus A380")
-        public string PlaneTypeName { get; private set; }
+        public string PlaneTypeName { get; set; }
 
         //A székek tömbje
-        private List<Seat> Seats { get; set; }
+        public List<Seat> Seats { get; set; }
 
         //Az összes szék száma
-        public int GetTotalSeatsCount()
+        public int TotalSeatsCount
         {
-            if (Seats == null) return -1;
-            return Seats.Count;
+            get
+            {
+                if (Seats == null) return -1;
+                return Seats.Count;
+            }
+        }
+
+        public String SeatsCount
+        {
+            get
+            {
+                if (Seats == null) return -1 + " seats";
+                return Seats.Count + " seats";
+            }
         }
 
         //A szabad székek száma
-        public int GetFreeSeatsCount()
+        public int FreeSeatsCount
         {
-            if (Seats == null) return -1;
-
-            int ret = 0;
-            foreach(Seat s in Seats)
+            get
             {
-                if (!s.Reserved) ret++;
+                if (Seats == null) return -1;
+
+                int ret = 0;
+                foreach (Seat s in Seats)
+                {
+                    if (!s.Reserved) ret++;
+                }
+                return ret;
             }
-            return ret;
         }
 
         //Szék lefoglalása
@@ -76,6 +93,20 @@ namespace DTO
             return Seats[id];
         }
 
+        public override string ToString()
+        {
+            return PlaneTypeID.ToString() + " " + PlaneTypeName.ToString() + " " + TotalSeatsCount + " " + FreeSeatsCount;
+        }
+
+        //Statikus adatok
+        private static String[] typesArray;
+
+        //Repülőtípusok száma
+        public static int NumberOfTypes
+        {
+            get { return typesArray.Length; }
+        }
+
         //Repülőtípusok betöltése
         public static void Initialize(string[] strArray)
         {
@@ -86,11 +117,6 @@ namespace DTO
         public static object CreateComboBox()
         {
             return typesArray;
-        }
-
-        public override string ToString()
-        {
-            return PlaneTypeID.ToString() + " " + PlaneTypeName.ToString() + " " + GetTotalSeatsCount() + " " + GetFreeSeatsCount();
         }
     }
 }

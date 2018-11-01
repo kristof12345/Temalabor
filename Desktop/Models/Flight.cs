@@ -55,12 +55,12 @@ namespace Desktop.Models
         //A székek száma
         public int NumberOfSeats
         {
-            get { return PlaneType.GetTotalSeatsCount(); }
+            get { return PlaneType.TotalSeatsCount; }
         }
 
         public int FreeSeats
         {
-            get { return PlaneType.GetFreeSeatsCount(); }
+            get { return PlaneType.FreeSeatsCount; }
         }
 
         //A szabad székek száma

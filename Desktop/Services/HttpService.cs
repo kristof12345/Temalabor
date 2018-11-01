@@ -55,7 +55,8 @@ namespace Desktop.Services
             {
                 HttpResponseMessage seatResponse = await client.GetAsync(UriSeats + f.FlightId);
                 List<Seat> seatList = await seatResponse.Content.ReadAsAsync<List<Seat>>();
-                f.PlaneType = new PlaneType(f.PlaneTypeName, seatList);
+                f.PlaneType = new PlaneType(f.PlaneTypeName, f.PlaneTypeID);
+                f.PlaneType.Seats = seatList;
             }
 
             return list;
@@ -65,7 +66,6 @@ namespace Desktop.Services
         internal static async Task AddFlightAsync(Flight_DTO addRequest)
         {
             client = new HttpClient(handler);
-            Debug.WriteLine("Adding:" + addRequest.PlaneTypeID);
             HttpResponseMessage response = await client.PostAsJsonAsync(UriFlights, addRequest);
             var contents = await response.Content.ReadAsStringAsync();
         }
@@ -84,7 +84,6 @@ namespace Desktop.Services
         internal static async Task UpdateFlightAsync(Flight_DTO updateRequest)
         {
             client = new HttpClient(handler);
-            Debug.WriteLine("Added: " + updateRequest.PlaneTypeID);
             HttpResponseMessage response = await client.PutAsJsonAsync(UriFlights + updateRequest.FlightId, updateRequest);
             var contents = await response.Content.ReadAsStringAsync();
 
@@ -139,24 +138,14 @@ namespace Desktop.Services
         //Repülőtípusok lekérdezése
         internal static async Task<List<PlaneType>> ListPlaneTypesAsync()
         {
-            List<String> strList = new List<String>();
             List<PlaneType> typesList = new List<PlaneType>();
-            try
+            client = new HttpClient(handler);
+            for(int i=1; i<=4; i++) //TODO: size
             {
-                client = new HttpClient(handler);
-
-                HttpResponseMessage response = await client.GetAsync(UriTypes);
-                strList = await response.Content.ReadAsAsync<List<String>>();
-
-                foreach (String s in strList)
-                {
-                    HttpResponseMessage response2 = await client.GetAsync(UriTypes);
-                    PlaneType t = await response2.Content.ReadAsAsync<PlaneType>();
-                    Debug.WriteLine("Kliens: " + t);
-                    typesList.Add(t);
-                }
-            }catch (Exception e) { Debug.WriteLine("Null elemek, a lista mérete: " + strList.Count); }
-
+                HttpResponseMessage response = await client.GetAsync(UriTypes + i);
+                PlaneType t = await response.Content.ReadAsAsync<PlaneType>();
+                typesList.Add(t);
+            }
             return typesList;
         }
 

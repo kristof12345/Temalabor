@@ -29,8 +29,14 @@ namespace Desktop.ViewModels
             set { isAdmin = value; RaisePropertyChanged("IsAdmin"); }
         }
 
-        internal async Task LoginAsync()
+        internal async Task<bool> LoginAsync()
         {
+            if(Name==null || Name=="")
+            {
+                Name = "Nem lehet üres.";
+                return false;
+            }
+
             User user = new User(Name, Pass);
 
             //Ha be van jelölve a checkbox, akkor admin belépés
@@ -40,10 +46,11 @@ namespace Desktop.ViewModels
             }
 
             //User bejelentkezése
-            if (!await SignInService.SignInAsync(user))
+            if(await SignInService.SignInAsync(user))
             {
-                Pass = "Incorrect";
+                return true;
             }
+            return false;
         }
 
         internal void SignOut()

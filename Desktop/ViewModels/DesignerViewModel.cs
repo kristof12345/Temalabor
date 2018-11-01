@@ -42,7 +42,7 @@ namespace Desktop.ViewModels
         public String ImageScource
         {
             get { return imageScource; }
-            private set { imageScource = value; RaisePropertyChanged("ImageScource"); Debug.WriteLine("Picked photo: " + ImageScource); }
+            private set { imageScource = value; RaisePropertyChanged("ImageScource");}
         }
 
         public List<Seat> Seats { get { return seats; } }
@@ -61,7 +61,8 @@ namespace Desktop.ViewModels
 
         internal void Save()
         {
-            var request = new PlaneType(Name, seats);
+            var request = new PlaneType(Name, 0);
+            request.Seats = seats;
             HttpService.AddPlaneTypeAsync(request);
         }
 
