@@ -19,6 +19,8 @@ namespace DTO
             UserType = t;
         }
 
+        public long UserId { get; set; }
+
         public string Name { get; set; }
 
         public UserType UserType { get; set; }

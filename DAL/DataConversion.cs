@@ -127,8 +127,10 @@ namespace DAL
         }
 
         public static DTO.User User_DAL_to_DTO(DAL.User dalUser)
-        {                
-            return new DTO.User(dalUser.name, dalUser.password);
+        {
+            DTO.User temp = new DTO.User(dalUser.name, dalUser.password);
+            temp.UserType = dalUser.userType;
+            return temp;
         }
 
         public static DAL.User User_DTO_to_DAL(DTO.User dtoUser)
@@ -136,7 +138,7 @@ namespace DAL
             DAL.User temp = new DAL.User();
             temp.name = dtoUser.Name;
             temp.password = dtoUser.Password;
-            //temp.userType = dtoUser;
+            temp.userType = dtoUser.UserType;
             return temp;
         }
     }

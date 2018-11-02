@@ -48,48 +48,44 @@ namespace WebApi
             DAL.User temp = _context.Users.Find(id);
             if (temp == null || temp.isDeleted)
                 return NotFound();
-            DTO.User result = DataConversion.User_DAL_to_DTO(temp);
 
+            DTO.User result = DataConversion.User_DAL_to_DTO(temp);
             return result;
         }
 
         [HttpPost]
-        public IActionResult Create(Flight_DTO item)
+        public IActionResult Create(DTO.User item)
         {
-            var ifDeleted = _context.Flights.Find(item.FlightId);
+            var ifDeleted = _context.Users.Find(item.UserId);
             if (ifDeleted != null && ifDeleted.isDeleted)
             {
                 ifDeleted.isDeleted = false;
                 _context.SaveChanges();
-                return CreatedAtRoute("GetFlight", new { id = ifDeleted.flightID }, item);
+                return CreatedAtRoute("GetFlight", new { id = ifDeleted.userID }, item);
             }
             else
             {
-                DAL.Flight tempfl = DataConversion.Flight_DTO_to_DAL(item);
-                _context.Flights.Add(tempfl);
+                DAL.User tempfl = DataConversion.User_DTO_to_DAL(item);
+                _context.Users.Add(tempfl);
                 _context.SaveChanges();
-                return CreatedAtRoute("GetFlight", new { id = tempfl.flightID }, item);
+                return CreatedAtRoute("GetUser", new { id = tempfl.userID }, item);
             }
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(long id, Flight_DTO dtoFlight)
+        public IActionResult Update(long id, DTO.User dtoUser)
         {
-            var todo = _context.Flights.Find(id);
+            var todo = _context.Users.Find(id);
             if (todo == null || todo.isDeleted)
             {
                 return NotFound();
             }
 
-            todo.date = dtoFlight.Date;
-            todo.departure = dtoFlight.Departure;
-            todo.destination = dtoFlight.Destination;
-            todo.status = dtoFlight.Status;
-            //todo.firstClassPrice = dtoFlight.FirstClassPrice;
-            //todo.normalPrice = dtoFlight.NormalPrice;
-            todo.planeTypeID = dtoFlight.PlaneTypeID;
+            todo.name = dtoUser.Name;
+            todo.password = dtoUser.Password;
+            todo.userType = dtoUser.UserType;
 
-            _context.Flights.Update(todo);
+            _context.Users.Update(todo);
             _context.SaveChanges();
             return NoContent();
         }
@@ -97,14 +93,14 @@ namespace WebApi
         [HttpDelete("{id}")]
         public IActionResult Delete(long id)
         {
-            var todo = _context.Flights.Find(id);
+            var todo = _context.Users.Find(id);
             if (todo == null || todo.isDeleted)
             {
                 return NotFound();
             }
 
             todo.isDeleted = true;
-            //_context.Flights.Remove(todo);
+            //_context.Users.Remove(todo);
             _context.SaveChanges();
             return NoContent();
         }
