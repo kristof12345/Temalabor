@@ -18,7 +18,7 @@ namespace DTO
         }
 
         //A foglalás azonosítója
-        public long ReservationID { get; set; }
+        public long ReservationId { get; set; }
 
         //A felhasználó
         public String User { get; set; }

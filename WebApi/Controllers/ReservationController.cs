@@ -56,7 +56,7 @@ namespace WebApi
         [HttpPost]
         public IActionResult Create(DTO.Reservation item)
         {
-            var ifDeleted = _context.Reservations.Find(item.ReservationID);
+            var ifDeleted = _context.Reservations.Find(item.ReservationId);
 
             if (ifDeleted != null && ifDeleted.isDeleted)
             {             
@@ -68,7 +68,7 @@ namespace WebApi
                     var seat = _context.Seats.Find(seatID);
                     if (seat != null)
                     {
-                        seat.reservationID = item.ReservationID;
+                        seat.reservationID = item.ReservationId;
                         seat.IsReserved = true;
                         _context.Seats.Update(seat);
                         _context.SaveChanges();

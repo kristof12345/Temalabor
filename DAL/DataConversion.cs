@@ -103,7 +103,7 @@ namespace DAL
             }
             temp.SeatList = seatsIDs;
 
-            temp.ReservationID = dalReservation.reservationID;
+            temp.ReservationId = dalReservation.reservationID;
             temp.User = dalReservation.user;
             temp.UserID = dalReservation.userID;
             temp.FlightId = dalReservation.flightID;

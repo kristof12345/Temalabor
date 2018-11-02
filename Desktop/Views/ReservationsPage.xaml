@@ -22,12 +22,17 @@
                 x:Name="grid"
                 SelectionMode = "Single"
                 ItemsSource="{x:Bind ViewModel.Source}"
-                AutoGenerateColumns="True"
+                AutoGenerateColumns="False"
                 ScrollViewer.HorizontalScrollMode="Enabled"
                 VerticalAlignment="Top"
                 Height="700">
                 <tg:RadDataGrid.Columns>
-
+                    <tg:DataGridNumericalColumn PropertyName="ReservationId"/>
+                    <tg:DataGridTextColumn PropertyName="User"/>
+                    <tg:DataGridNumericalColumn PropertyName="FlightId"/>
+                    <tg:DataGridNumericalColumn PropertyName="SeatCount"/>
+                    <tg:DataGridDateColumn PropertyName="Date"/>
+                    <tg:DataGridNumericalColumn PropertyName="Cost"/>
                 </tg:RadDataGrid.Columns>
             </tg:RadDataGrid>
         </Grid>

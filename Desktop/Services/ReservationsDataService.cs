@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using DTO;
 
@@ -38,6 +39,11 @@ namespace Desktop.Services
             HttpService.ReservationAsync(reserveRequest);
 
             ReloadReservationListAsync();
+        }
+
+        internal static void DeleteReservation(Reservation selectedItem)
+        {
+            //TODO:töröljük a kijelölt foglalást
         }
     }
 }
