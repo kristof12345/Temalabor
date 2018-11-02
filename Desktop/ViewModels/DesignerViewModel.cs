@@ -51,7 +51,7 @@ namespace Desktop.ViewModels
         {
             Seat s = new Seat(seats.Count);
             s.Coordinates = new Cord((int)x, (int)y);
-            s.Price = price;
+            //s.Price = price;
             s.SeatType = SeatTypes[SelectedSeatType];
 
             seats.Add(s);

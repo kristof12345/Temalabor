@@ -16,5 +16,6 @@ namespace DAL
         public string name { get; set; }
         public UserType userType { get; set; }
         public String password { get; set; }
+        public bool isDeleted { get; set; }
     }
 }

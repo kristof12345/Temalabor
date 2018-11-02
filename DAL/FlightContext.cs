@@ -59,8 +59,8 @@ namespace DAL
                 planeTypeID = (long)1,
                 IsReserved = false,
                 seatType = "fapados",
-                Xcord = 1,
-                Ycord = 1,
+                Xcord = 640,
+                Ycord = 50,
                 isDeleted = false
             };
             DAL.Seat seat2 = new DAL.Seat
@@ -69,8 +69,8 @@ namespace DAL
                 planeTypeID = (long)1,
                 IsReserved = false,
                 seatType = "1. osztályú",
-                Xcord = 20,
-                Ycord = 20,
+                Xcord = 640,
+                Ycord = 100,
                 isDeleted = false
             };
             modelBuilder.Entity<DAL.Seat>().HasData(seat1, seat2);
@@ -81,8 +81,8 @@ namespace DAL
                 planeTypeID = (long)2,
                 IsReserved = false,
                 seatType = "fapados",
-                Xcord = 1,
-                Ycord = 1,
+                Xcord = 625,
+                Ycord = 200,
                 isDeleted = false
             };
             DAL.Seat seat4 = new DAL.Seat
@@ -91,8 +91,8 @@ namespace DAL
                 planeTypeID = (long)2,
                 IsReserved = false,
                 seatType = "1. osztályú",
-                Xcord = 20,
-                Ycord = 20,
+                Xcord = 655,
+                Ycord = 200,
                 isDeleted = false
             };
             modelBuilder.Entity<DAL.Seat>().HasData(seat3, seat4);

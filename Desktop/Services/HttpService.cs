@@ -27,7 +27,8 @@ namespace Desktop.Services
             //Ne változtasd meg, így működik
             handler.ClientCertificateOptions = ClientCertificateOption.Manual;
             handler.ServerCertificateCustomValidationCallback = (httpRequestMessage, cert, cetChain, policyErrors) => { return true; };
-            baseUri = System.IO.File.ReadAllText(@"ConfigUri.txt"); //C:\Users\pappkristof\source\repos\Temalabor\Desktop\bin\x86\Debug
+            //baseUri = System.IO.File.ReadAllText(@"ConfigUri.txt"); //C:\Users\pappkristof\source\repos\Temalabor\Desktop\bin\x86\Debug
+            baseUri = "https://localhost:5001/API/";
             UriFlights = baseUri + "flight/";
             UriReservation = baseUri + "reservation/";
             UriUsers = baseUri + "users/";

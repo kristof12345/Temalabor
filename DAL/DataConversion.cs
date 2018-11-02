@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using DTO;
+using System.Diagnostics;
 
 namespace DAL
 {
@@ -19,8 +20,8 @@ namespace DAL
             temp.Destination = dalFlight.destination;
             temp.Status = dalFlight.status;
             temp.PlaneTypeName = planeType.planeType;
-            //temp.NormalPrice = dalFlight.normalPrice;
-            //temp.FirstClassPrice = dalFlight.firstClassPrice;
+            temp.NormalPrice = dalFlight.normalPrice;
+            temp.FirstClassPrice = dalFlight.firstClassPrice;
 
             return temp;
         }
@@ -33,8 +34,8 @@ namespace DAL
             temp.destination = dtoFlight.Destination;
             temp.status = dtoFlight.Status;
             temp.planeTypeID = dtoFlight.PlaneTypeID;
-            //temp.normalPrice = dtoFlight.NormalPrice;
-            //temp.firstClassPrice = dtoFlight.FirstClassPrice;
+            temp.normalPrice = dtoFlight.NormalPrice;
+            temp.firstClassPrice = dtoFlight.FirstClassPrice;
             temp.isDeleted = false;
 
             return temp;
@@ -76,8 +77,7 @@ namespace DAL
             List<DTO.Seat> dtoSeats = new List<DTO.Seat>();
             foreach (DAL.Seat seat in queriedSeats)
             {
-                DTO.Seat current = DataConversion.Seat_DAL_to_DTO(seat);
-                dtoSeats.Add(current);
+                dtoSeats.Add(DataConversion.Seat_DAL_to_DTO(seat));
             }
             temp.Seats = dtoSeats;
 
@@ -108,6 +108,7 @@ namespace DAL
             temp.UserID = dalReservation.userID;
             temp.FlightId = dalReservation.flightID;
             temp.Date = dalReservation.date;
+            temp.Cost = dalReservation.cost;
 
             return temp;
         }
@@ -120,7 +121,22 @@ namespace DAL
             temp.userID = dtoReservation.UserID;
             temp.flightID = dtoReservation.FlightId;
             temp.date = dtoReservation.Date;
+            temp.cost = dtoReservation.Cost;
 
+            return temp;
+        }
+
+        public static DTO.User User_DAL_to_DTO(DAL.User dalUser)
+        {                
+            return new DTO.User(dalUser.name, dalUser.password);
+        }
+
+        public static DAL.User User_DTO_to_DAL(DTO.User dtoUser)
+        {
+            DAL.User temp = new DAL.User();
+            temp.name = dtoUser.Name;
+            temp.password = dtoUser.Password;
+            //temp.userType = dtoUser;
             return temp;
         }
     }

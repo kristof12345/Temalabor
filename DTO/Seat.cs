@@ -27,9 +27,9 @@ namespace DTO
 
         public long SeatId { get; set; }
         public long PlaneTypeId { get; set; }
-        public String SeatType { get; set; }
-        public int Price { get; set; }
+        public String SeatType { get; set; }       
         public bool Reserved { get; set; }
         public Cord Coordinates { get { return c; } set { c = value; } }
+        //public int Price { get; set; }
     }
 }

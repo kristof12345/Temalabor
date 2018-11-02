@@ -14,7 +14,7 @@ namespace DTO
         public Reservation(long fid)
         {
             FlightId = fid;
-            seatList = new List<long>();
+            seatList = new List<long>();         
         }
 
         //A foglalás azonosítója
