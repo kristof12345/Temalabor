@@ -9,6 +9,7 @@ namespace Desktop.ViewModels
     public class PlaneViewModel : ViewModelBase
     {
         private int totalPrice = 0;
+        private bool isPayEnabled = false;
 
         public Flight Flight;
 
@@ -26,7 +27,11 @@ namespace Desktop.ViewModels
         }
 
         //A fizetés engedélyezése
-        public bool IsPayEnabled { get; set; }
+        public bool IsPayEnabled
+        {
+            get { return isPayEnabled; }
+            set { isPayEnabled = value; RaisePropertyChanged("IsPayEnabled"); }
+        }
 
         public String Details
         {
@@ -47,11 +52,21 @@ namespace Desktop.ViewModels
         {
             totalPrice += value;
             RaisePropertyChanged("TotalPrice");
+            if (totalPrice > 0)
+            {
+                IsPayEnabled = true;
+            }
+            else
+            {
+                IsPayEnabled = false;
+            }
         }
 
         public void ResetTotalPrice()
         {
             totalPrice = 0;
+            RaisePropertyChanged("TotalPrice");
+            IsPayEnabled = false;
         }
 
         internal void Reserve(Reservation reservation)

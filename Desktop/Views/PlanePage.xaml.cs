@@ -97,7 +97,7 @@ namespace Desktop.Views
             {
                 if (s.State == State.Selected)
                 {
-                    ViewModel.AddToTotalPrice(s.Seat.Price);
+                    ViewModel.AddToTotalPrice(1); //TODO: ne 1
                 }
             }
         }
