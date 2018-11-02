@@ -84,7 +84,7 @@ namespace WebApi.Controllers
             }                      
             else
             {
-                DAL.Seat tempfl = DataConversion.Seat_DTO_to_DAL(item, _context);
+                DAL.Seat tempfl = DataConversion.Seat_DTO_to_DAL(item);
 
                 _context.Seats.Add(tempfl);
                 _context.SaveChanges();

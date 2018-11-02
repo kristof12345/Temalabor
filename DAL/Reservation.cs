@@ -8,7 +8,11 @@ namespace DAL
     {
         public long reservationID { get; set; }
         public String user { get; set; }
+        public long userID { get; set; }
         public Flight flight { get; set; }
-        public Seat seat { get; set; }
+        public long flightID { get; set; }
+        public DateTime date { get; set; }
+        public int cost { get; set; }
+        public bool isDeleted { get; set; }
     }
 }

@@ -8,7 +8,7 @@ namespace DTO
     public class Reservation
     {
         //A foglaláshoz tartozó székek listája (azonosítók)
-        private List<long> seatList;
+        public List<long> seatList { get; set; }
 
         //Konstruktor
         public Reservation(long fid)
@@ -17,8 +17,13 @@ namespace DTO
             seatList = new List<long>();
         }
 
+        //A foglalás azonosítója
+        public long ReservationID { get; set; }
+
         //A felhasználó
         public String User { get; set; }
+
+        public long UserID { get; set; }
 
         //A járat azonosítója
         public long FlightId { get; set; }

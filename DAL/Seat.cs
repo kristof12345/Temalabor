@@ -9,6 +9,7 @@ namespace DAL
     {
         public long seatID { get; set; }
         public long planeTypeID { get; set; }
+        public long reservationID { get; set; }
         public PlaneType planeType { get; set; }
         public bool IsReserved { get; set; }
         public String seatType { get; set; }
