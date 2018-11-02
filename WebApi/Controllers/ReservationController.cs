@@ -57,10 +57,24 @@ namespace WebApi
         public IActionResult Create(DTO.Reservation item)
         {
             var ifDeleted = _context.Reservations.Find(item.ReservationID);
+
             if (ifDeleted != null && ifDeleted.isDeleted)
-            {
-                ifDeleted.isDeleted = false;
+            {             
+                ifDeleted.isDeleted = false;               
                 _context.SaveChanges();
+
+                foreach (long seatID in item.seatList)
+                {
+                    var seat = _context.Seats.Find(seatID);
+                    if (seat != null)
+                    {
+                        seat.reservationID = item.ReservationID;
+                        seat.IsReserved = true;
+                        _context.Seats.Update(seat);
+                        _context.SaveChanges();
+                    }
+                }
+
                 return CreatedAtRoute("GetReservation", new { id = ifDeleted.reservationID }, item);
             }
             else
@@ -68,6 +82,18 @@ namespace WebApi
                 DAL.Reservation tempfl = DataConversion.Reservation_DTO_to_DAL(item);
                 _context.Reservations.Add(tempfl);
                 _context.SaveChanges();
+
+                foreach (long seatID in item.seatList)
+                {
+                    var seat = _context.Seats.Find(seatID);
+                    if (seat != null)
+                    {
+                        seat.reservationID = tempfl.reservationID;
+                        seat.IsReserved = true;
+                        _context.Seats.Update(seat);
+                        _context.SaveChanges();
+                    }
+                }                       
                 return CreatedAtRoute("GetReservation", new { id = tempfl.reservationID }, item);
             }
         }
@@ -100,6 +126,13 @@ namespace WebApi
                 return NotFound();
             }
 
+            var seats = Queries.findSeatsForReservation(todo, _context);
+            foreach (DAL.Seat seat in seats)
+            {
+                seat.reservationID = 0;
+                seat.IsReserved = false;
+            }
+          
             todo.isDeleted = true;
             //_context.Reservations.Remove(todo);
             _context.SaveChanges();

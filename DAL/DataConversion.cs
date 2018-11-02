@@ -99,7 +99,7 @@ namespace DAL
             List<long> seatsIDs = new List<long>();
             foreach (DAL.Seat seat in queriedSeats)
             {                
-                seatsIDs.Add(seat.seatID);
+                seatsIDs.Add(seat.seatID);               
             }
             temp.seatList = seatsIDs;
 
