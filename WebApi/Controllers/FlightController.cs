@@ -65,7 +65,7 @@ namespace WebApi
             }
             else
             {
-                DAL.Flight tempfl = DataConversion.Flight_DTO_to_DAL(item, _context);
+                DAL.Flight tempfl = DataConversion.Flight_DTO_to_DAL(item);
                 _context.Flights.Add(tempfl);
                 _context.SaveChanges();
                 return CreatedAtRoute("GetFlight", new { id = tempfl.flightID }, item);

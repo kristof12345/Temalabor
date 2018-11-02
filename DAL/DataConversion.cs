@@ -25,7 +25,7 @@ namespace DAL
             return temp;
         }
 
-        public static DAL.Flight Flight_DTO_to_DAL(DTO.Flight_DTO dtoFlight, FlightContext _context)
+        public static DAL.Flight Flight_DTO_to_DAL(DTO.Flight_DTO dtoFlight)
         {
             DAL.Flight temp = new DAL.Flight();
             temp.departure = dtoFlight.Departure;
@@ -55,7 +55,7 @@ namespace DAL
             return temp;
         }
 
-        public static DAL.Seat Seat_DTO_to_DAL(DTO.Seat dtoSeat, FlightContext _context)
+        public static DAL.Seat Seat_DTO_to_DAL(DTO.Seat dtoSeat)
         {
             DAL.Seat temp = new DAL.Seat();
 
@@ -73,13 +73,13 @@ namespace DAL
             DTO.PlaneType temp = new DTO.PlaneType(dalPlaneType.planeType, dalPlaneType.planeTypeID);
 
             var queriedSeats = _context.Seats.Where(s => s.planeTypeID == dalPlaneType.planeTypeID);
-
             List<DTO.Seat> dtoSeats = new List<DTO.Seat>();
             foreach (DAL.Seat seat in queriedSeats)
             {
                 DTO.Seat current = DataConversion.Seat_DAL_to_DTO(seat);
                 dtoSeats.Add(current);
             }
+            temp.Seats = dtoSeats;
 
             return temp;
         }
@@ -88,6 +88,39 @@ namespace DAL
         {
             DAL.PlaneType temp = new DAL.PlaneType();
             temp.planeType = dtoPlaneType.PlaneTypeName;
+            return temp;
+        }
+
+        public static DTO.Reservation Reservation_DAL_to_DTO(DAL.Reservation dalReservation, FlightContext _context)
+        {
+            DTO.Reservation temp = new DTO.Reservation(dalReservation.flightID);
+
+            var queriedSeats = _context.Seats.Where(s => s.reservationID == dalReservation.reservationID);
+            List<long> seatsIDs = new List<long>();
+            foreach (DAL.Seat seat in queriedSeats)
+            {                
+                seatsIDs.Add(seat.seatID);
+            }
+            temp.seatList = seatsIDs;
+
+            temp.ReservationID = dalReservation.reservationID;
+            temp.User = dalReservation.user;
+            temp.UserID = dalReservation.userID;
+            temp.FlightId = dalReservation.flightID;
+            temp.Date = dalReservation.date;
+
+            return temp;
+        }
+
+        public static DAL.Reservation Reservation_DTO_to_DAL(DTO.Reservation dtoReservation)
+        {
+            DAL.Reservation temp = new DAL.Reservation();
+          
+            temp.user = dtoReservation.User;
+            temp.userID = dtoReservation.UserID;
+            temp.flightID = dtoReservation.FlightId;
+            temp.date = dtoReservation.Date;
+
             return temp;
         }
     }
