@@ -101,7 +101,7 @@ namespace DAL
             {                
                 seatsIDs.Add(seat.seatID);               
             }
-            temp.seatList = seatsIDs;
+            temp.SeatList = seatsIDs;
 
             temp.ReservationID = dalReservation.reservationID;
             temp.User = dalReservation.user;

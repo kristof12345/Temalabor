@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using DTO;
 
 namespace Desktop.Services
@@ -38,13 +39,15 @@ namespace Desktop.Services
             reserveRequest.User = SignInService.User.Name;
             //Http kérés kiadása
             //HttpService.ReservationAsync(reserveRequest);
+            /*
             int flightId = (int) reserveRequest.FlightId;
-            foreach (long s in reserveRequest.Seats)
+            foreach (long s in reserveRequest.SeatList)
             {
+                Debug.WriteLine("//////" + s);
                 FlightsDataService.FlightList[flightId].PlaneType.ReserveSeat((int)s);
             }
             //TODO: A nézet frissítése
-
+            */
             reservationList.Add(reserveRequest);
             //ReloadReservationListAsync();
         }

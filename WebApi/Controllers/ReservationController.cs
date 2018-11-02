@@ -63,7 +63,7 @@ namespace WebApi
                 ifDeleted.isDeleted = false;               
                 _context.SaveChanges();
 
-                foreach (long seatID in item.seatList)
+                foreach (long seatID in item.SeatList)
                 {
                     var seat = _context.Seats.Find(seatID);
                     if (seat != null)
@@ -83,7 +83,7 @@ namespace WebApi
                 _context.Reservations.Add(tempfl);
                 _context.SaveChanges();
 
-                foreach (long seatID in item.seatList)
+                foreach (long seatID in item.SeatList)
                 {
                     var seat = _context.Seats.Find(seatID);
                     if (seat != null)

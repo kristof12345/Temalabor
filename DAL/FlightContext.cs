@@ -58,7 +58,7 @@ namespace DAL
                 seatID = (long)1,
                 planeTypeID = (long)1,
                 IsReserved = false,
-                seatType = "fapados",
+                seatType = DTO.SeatType.Normal,
                 Xcord = 640,
                 Ycord = 50,
                 isDeleted = false
@@ -68,7 +68,7 @@ namespace DAL
                 seatID = (long)2,
                 planeTypeID = (long)1,
                 IsReserved = false,
-                seatType = "1. osztályú",
+                seatType = DTO.SeatType.Normal,
                 Xcord = 640,
                 Ycord = 100,
                 isDeleted = false
@@ -80,7 +80,7 @@ namespace DAL
                 seatID = (long)3,
                 planeTypeID = (long)2,
                 IsReserved = false,
-                seatType = "fapados",
+                seatType = DTO.SeatType.Normal,
                 Xcord = 625,
                 Ycord = 200,
                 isDeleted = false
@@ -90,7 +90,7 @@ namespace DAL
                 seatID = (long)4,
                 planeTypeID = (long)2,
                 IsReserved = false,
-                seatType = "1. osztályú",
+                seatType = DTO.SeatType.Normal,
                 Xcord = 655,
                 Ycord = 200,
                 isDeleted = false

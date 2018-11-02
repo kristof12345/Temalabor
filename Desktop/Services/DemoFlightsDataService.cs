@@ -21,9 +21,13 @@ namespace Desktop.Services
                     flightList = new ObservableCollection<Flight>();
 
                     Flight f1 = new Flight(1, new DateTime(2018, 5, 1), "London", "Budapest", "Airbus A380", 1, "Ok");
+                    f1.NormalPrice = 100;
+                    f1.FirstClassPrice = 1000;
                     flightList.Add(f1);
                     
                     Flight f2 = new Flight(2, new DateTime(2019, 1, 2), "New York", "Budapest", "Airbus A270", 1, "Cancelled");
+                    f2.NormalPrice = 200;
+                    f2.FirstClassPrice = 2000;
                     flightList.Add(f2);
                 }
                 return flightList;
@@ -48,9 +52,6 @@ namespace Desktop.Services
 
             strArray.Add("Boeing 777");
             strArray.Add("Airbus A380");
-            strArray.Add("Boeing 747");
-            strArray.Add("Boeing 222");
-            strArray.Add("Antonov 124");
             
             PlaneType.Initialize(strArray.ToArray());
         }

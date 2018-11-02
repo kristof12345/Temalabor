@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Desktop.Dialogs;
-using Desktop.Models;
 using DTO;
 
 namespace Desktop.Services
@@ -43,18 +38,16 @@ namespace Desktop.Services
         //A foglalások letöltése a szerverről
         private static async void ReloadTypesListAsync()
         {
-            List<PlaneType> dtoList = await HttpService.ListPlaneTypesAsync();
+            //List<PlaneType> dtoList = await HttpService.ListPlaneTypesAsync();
             typesList.Clear();
-            foreach (PlaneType dto in dtoList)
-            {
-                typesList.Add(dto);
-            }
+            typesList.Add(new PlaneType("Airbus A380", 1));
+            typesList.Add(new PlaneType("Boeing 777", 2));
         }
 
         //Repülő képek URI-je
         internal static Uri LoadImageUri(long planeTypeID)
         {
-            return HttpService.LoadImageUri(planeTypeID);
+            return new Uri("https://image.ibb.co/gOHBVf/Antonov124white.png");
         }
     }
 }

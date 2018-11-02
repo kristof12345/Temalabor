@@ -41,8 +41,10 @@ namespace DTO
         //A járat státusza (pl: Cancelled, Sceduled, Delayed)
         public string Status { get; set; }
 
+        //A normál jegyek ára
         public int NormalPrice { get; set; }
 
+        //az első osztályú jegyek ára
         public int FirstClassPrice { get; set; }
 
         //A székek száma

@@ -17,7 +17,10 @@ namespace Desktop.Dialogs
                 CloseButtonText = "Ok"
             };
             ContentDialogResult result = await noPlane.ShowAsync();
-            origin.Frame.Navigate(typeof(FlightsPage));
+            if(SignInService.IsSignedIn && SignInService.User.UserType == DTO.UserType.Administrator)
+                origin.Frame.Navigate(typeof(FlightsPage));
+            else
+                origin.Frame.Navigate(typeof(MyFlightsPage));
         }
 
         //Dialógusablak (No user selected.)

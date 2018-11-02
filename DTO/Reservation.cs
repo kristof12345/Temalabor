@@ -8,13 +8,13 @@ namespace DTO
     public class Reservation
     {
         //A foglaláshoz tartozó székek listája (azonosítók)
-        public List<long> seatList { get; set; }
+        public List<long> SeatList { get; set; }
 
         //Konstruktor
         public Reservation(long fid)
         {
             FlightId = fid;
-            seatList = new List<long>();         
+            SeatList = new List<long>();         
         }
 
         //A foglalás azonosítója
@@ -29,7 +29,7 @@ namespace DTO
         public long FlightId { get; set; }
 
         //A lefoglalt székek száma
-        public int SeatCount { get { return seatList.Count; } }
+        public int SeatCount { get { return SeatList.Count; } }
 
         //A foglalás összege
         public int Cost { get; set; }
@@ -40,7 +40,7 @@ namespace DTO
         //Szék hozzáadása a foglaláshoz
         public void AddSeatId(long id)
         {
-            seatList.Add(id);
+            SeatList.Add(id);
         }
     }
 }

@@ -138,6 +138,7 @@
     <Compile Include="Activation\DefaultLaunchActivationHandler.cs" />
     <Compile Include="Services\FlightsDataService.cs" />
     <None Include="Services\DemoFlightsDataService.cs" />
+    <None Include="Services\DemoPlaneTypeDataService.cs" />
     <None Include="Services\DemoReservationDataService.cs" />
     <Compile Include="Services\HttpService.cs" />
     <Compile Include="Services\NavigationServiceEx.cs" />

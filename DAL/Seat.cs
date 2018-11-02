@@ -12,7 +12,7 @@ namespace DAL
         public long reservationID { get; set; }
         public PlaneType planeType { get; set; }
         public bool IsReserved { get; set; }
-        public String seatType { get; set; }
+        public DTO.SeatType seatType { get; set; }
         public int Xcord { get; set; }
         public int Ycord { get; set; }
         public bool isDeleted { get; set; }

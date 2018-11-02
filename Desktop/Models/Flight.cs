@@ -75,6 +75,10 @@ namespace Desktop.Models
             return PlaneType.GetSeat(id);
         }
 
+        public int NormalPrice { get; set; }
+
+        public int FirstClassPrice { get; set; }
+
         //Átalakítás DTO-ba
         internal Flight_DTO ToDTO()
         {
@@ -87,6 +91,8 @@ namespace Desktop.Models
             ret.PlaneTypeName = this.PlaneTypeName;
             ret.PlaneType = this.PlaneType;
             ret.Status = this.Status;
+            ret.FirstClassPrice = this.FirstClassPrice;
+            ret.NormalPrice = this.NormalPrice;
 
             return ret;
         }
@@ -100,6 +106,8 @@ namespace Desktop.Models
             this.Destination = dto.Destination;
             this.PlaneType = dto.PlaneType;
             this.Status = dto.Status;
+            this.NormalPrice = dto.NormalPrice;
+            this.FirstClassPrice = dto.FirstClassPrice;
         }
 
         //Flight másolása (kb. copy construktor)
@@ -112,6 +120,8 @@ namespace Desktop.Models
             copied.Destination = Destination;
             copied.PlaneType = PlaneType;
             copied.Status = Status;
+            copied.NormalPrice = NormalPrice;
+            copied.FirstClassPrice = FirstClassPrice;
             
             return copied;
         }

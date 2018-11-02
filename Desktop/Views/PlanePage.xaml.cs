@@ -97,7 +97,10 @@ namespace Desktop.Views
             {
                 if (s.State == State.Selected)
                 {
-                    ViewModel.AddToTotalPrice(1); //TODO: ne 1
+                    if(s.Seat.SeatType==SeatType.Normal)
+                        ViewModel.AddToTotalPrice(ViewModel.Flight.NormalPrice);
+                    else if (s.Seat.SeatType == SeatType.FirstClass)
+                        ViewModel.AddToTotalPrice(ViewModel.Flight.FirstClassPrice);
                 }
             }
         }

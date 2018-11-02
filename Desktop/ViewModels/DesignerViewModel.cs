@@ -13,7 +13,6 @@ namespace Desktop.ViewModels
         private List<Seat> seats = new List<Seat>();
         private String name;
         private int price;
-        private String[] seatTypes = { "Normal", "Premium" };
         private int selectedSeatTypeIndex = 0;
         private String imageScource = "/Assets/Antonov124white.png";
 
@@ -21,7 +20,7 @@ namespace Desktop.ViewModels
 
         public String Price { get { return price.ToString(); } set { Int32.TryParse(value, out price); RaisePropertyChanged("Price"); } }
 
-        public String[] SeatTypes { get { return seatTypes; } }
+        public String[] SeatTypes { get { return Enum.GetNames(typeof(SeatType)); } }
 
         public int SelectedSeatType
         {
@@ -51,8 +50,7 @@ namespace Desktop.ViewModels
         {
             Seat s = new Seat(seats.Count);
             s.Coordinates = new Cord((int)x, (int)y);
-            //s.Price = price;
-            s.SeatType = SeatTypes[SelectedSeatType];
+            s.SeatType = (SeatType) Enum.GetValues(typeof(SeatType)).GetValue(selectedSeatTypeIndex);
 
             seats.Add(s);
             RaisePropertyChanged("NumberOfSeats");
