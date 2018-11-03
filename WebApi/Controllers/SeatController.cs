@@ -30,7 +30,7 @@ namespace WebApi.Controllers
 
             foreach (DAL.Seat seat in DAL_list)
             {
-                if (!seat.isDeleted && !seat.IsReserved)
+                if (!seat.isDeleted)
                 {
                     DTO.Seat current = DataConversion.Seat_DAL_to_DTO(seat);
                     result.Add(current);
@@ -50,7 +50,7 @@ namespace WebApi.Controllers
 
             foreach (DAL.Seat seat in queriedSeats)
             {
-                if (!seat.isDeleted && !seat.IsReserved)
+                if (!seat.isDeleted)
                 {
                     DTO.Seat current = DataConversion.Seat_DAL_to_DTO(seat);
                     result.Add(current);
