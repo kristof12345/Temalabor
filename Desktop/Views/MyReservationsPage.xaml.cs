@@ -27,5 +27,11 @@ namespace Desktop.Views
         {
             get { return DataContext as MyReservationsViewModel; }
         }
+
+        private void listView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int index = listView.SelectedIndex;
+            ViewModel.SelectedAt(index);
+        }
     }
 }

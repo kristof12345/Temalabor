@@ -4,6 +4,24 @@ using System.Text;
 
 namespace DTO
 {
+    //A foglalás részletei
+    public class ReservationDetails
+    {
+        //Ezeket az adatbázisban ki kellene tölteni...
+        public String Departure="";
+
+        public String Destination="";
+
+        //Stb...
+
+        //Egyéb: pl.: a jegy, a beszállókapu sorszáma...
+
+        public override String ToString()
+        {
+            return "Fligth from " + Departure + " to " + Destination;
+        }
+    }
+
     //Egy foglalást reprezentáló osztály.
     public class Reservation
     {
@@ -31,11 +49,16 @@ namespace DTO
         //A lefoglalt székek száma
         public int SeatCount { get { return SeatList.Count; } }
 
+        public String SeatCountString { get { return SeatCount + " seats"; } }
+
         //A foglalás összege
         public int Cost { get; set; }
 
         //A foglalás dátuma
         public DateTime Date { get; set; }
+
+        //A foglalás részletei
+        public ReservationDetails Details { get; set; } = new ReservationDetails();
 
         //Szék hozzáadása a foglaláshoz
         public void AddSeatId(long id)
