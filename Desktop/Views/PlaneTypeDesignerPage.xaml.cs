@@ -3,7 +3,6 @@ using Desktop.Services;
 using Desktop.UserControls;
 using Desktop.ViewModels;
 using DTO;
-using System.Diagnostics;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -49,7 +48,7 @@ namespace Desktop.Views
             {
                 if (e.Parameter != null)
                 {
-                    //TODO: módosítás
+                    //Módosítás
                     ViewModel.SetPlaneType((PlaneType)e.Parameter);
                 }
                 //A korábbi székeket visszarajzoljuk
@@ -66,7 +65,6 @@ namespace Desktop.Views
         {
             await ViewModel.SaveAsync();
             //this.Frame.Navigate(typeof(PlaneTypeManagerPage));
-            Debug.WriteLine("///////////////////////// Save");
         }
 
         private void btundo_Click(object sender, RoutedEventArgs e)
