@@ -103,7 +103,6 @@ namespace WebApi.Controllers
             }
 
             todo.seatType = item.SeatType;
-            todo.IsReserved = item.Reserved;
             todo.Xcord = item.Coordinates.X;
             todo.Ycord = item.Coordinates.Y;
 

@@ -13,6 +13,7 @@ namespace DAL
         public DbSet<DAL.PlaneType> PlaneTypes { get; set; }
         public DbSet<DAL.Reservation> Reservations { get; set; }
         public DbSet<DAL.User> Users { get; set; }
+        public DbSet<DAL.SeatsOnFlight> SeatsOnFlights { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -21,6 +22,8 @@ namespace DAL
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //modelBuilder.Entity<SeatsOnFlight>().HasKey(sc => new { sc.flightID, sc.seatID });
+
             modelBuilder.Entity<DAL.PlaneType>().HasData(
                 new
                 {
@@ -57,7 +60,6 @@ namespace DAL
             {
                 seatID = (long)1,
                 planeTypeID = (long)1,
-                IsReserved = false,
                 seatType = DTO.SeatType.Normal,
                 Xcord = 640,
                 Ycord = 50,
@@ -67,7 +69,6 @@ namespace DAL
             {
                 seatID = (long)2,
                 planeTypeID = (long)1,
-                IsReserved = false,
                 seatType = DTO.SeatType.Normal,
                 Xcord = 640,
                 Ycord = 100,
@@ -79,7 +80,6 @@ namespace DAL
             {
                 seatID = (long)3,
                 planeTypeID = (long)2,
-                IsReserved = false,
                 seatType = DTO.SeatType.Normal,
                 Xcord = 625,
                 Ycord = 200,
@@ -89,7 +89,6 @@ namespace DAL
             {
                 seatID = (long)4,
                 planeTypeID = (long)2,
-                IsReserved = false,
                 seatType = DTO.SeatType.Normal,
                 Xcord = 655,
                 Ycord = 200,
@@ -123,6 +122,42 @@ namespace DAL
                     normalPrice = 20000,
                     firstClassPrice = 200000,
                     isDeleted = false
+                });
+
+            modelBuilder.Entity<DAL.SeatsOnFlight>().HasData(
+                new
+                {
+                    seatsOnFlightID = (long)1,
+                    flightID = (long)1,
+                    seatID = (long)1,
+                    isReserved = false
+                });
+
+            modelBuilder.Entity<DAL.SeatsOnFlight>().HasData(
+                new
+                {
+                    seatsOnFlightID = (long)2,
+                    flightID = (long)1,
+                    seatID = (long)2,
+                    isReserved = false
+                });
+
+            modelBuilder.Entity<DAL.SeatsOnFlight>().HasData(
+                new
+                {
+                    seatsOnFlightID = (long)3,
+                    flightID = (long)2,
+                    seatID = (long)3,
+                    isReserved = false
+                });
+
+            modelBuilder.Entity<DAL.SeatsOnFlight>().HasData(
+                new
+                {
+                    seatsOnFlightID = (long)4,
+                    flightID = (long)2,
+                    seatID = (long)4,
+                    isReserved = false
                 });
         }
     }
