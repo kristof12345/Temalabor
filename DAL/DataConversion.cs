@@ -41,14 +41,19 @@ namespace DAL
             return temp;
         }
 
-        public static DTO.Seat Seat_DAL_to_DTO(DAL.Seat dalSeat)
+        public static DTO.Seat Seat_DAL_to_DTO(DAL.Seat dalSeat, FlightContext context)
         {
             DTO.Seat temp = new DTO.Seat(dalSeat.seatID);
 
             temp.SeatId = dalSeat.seatID;
             temp.SeatType = dalSeat.seatType;
             temp.PlaneTypeId = dalSeat.planeTypeID;
-
+            temp.Reserved = false;
+            foreach(var seat in context.SeatsOnFlights)
+            {
+                if (seat.isReserved && seat.seatID == dalSeat.seatID)
+                    temp.Reserved = true;
+            }
             Cord coord = new Cord(dalSeat.Xcord, dalSeat.Ycord);
             temp.Coordinates = coord;
 
@@ -76,7 +81,7 @@ namespace DAL
             List<DTO.Seat> dtoSeats = new List<DTO.Seat>();
             foreach (DAL.Seat seat in queriedSeats)
             {
-                dtoSeats.Add(DataConversion.Seat_DAL_to_DTO(seat));
+                dtoSeats.Add(DataConversion.Seat_DAL_to_DTO(seat, _context));
             }
             temp.Seats = dtoSeats;
 
