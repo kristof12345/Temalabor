@@ -18,7 +18,7 @@ namespace Desktop.ViewModels
             }
         }
 
-        public PlaneType Flight;
+        public PlaneType PlaneType;
 
         private Uri image;
 
@@ -30,7 +30,7 @@ namespace Desktop.ViewModels
 
         public void LoadImage()
         {
-            Image = PlaneTypeDataService.LoadImageUri(Flight.PlaneTypeID);
+            Image = PlaneTypeDataService.LoadImageUri(PlaneType.PlaneTypeID);
         }
 
         public bool IsTypeSelected
@@ -41,7 +41,7 @@ namespace Desktop.ViewModels
 
         internal void SelectedAt(int index)
         {
-            Flight = PlaneTypeDataService.PlaneTypeList[index];
+            PlaneType = PlaneTypeDataService.PlaneTypeList[index];
             RaisePropertyChanged("Flight");
             IsTypeSelected = true;
         }

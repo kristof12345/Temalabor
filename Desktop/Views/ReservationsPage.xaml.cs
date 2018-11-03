@@ -48,9 +48,9 @@ namespace Desktop.Views
             }
         }
 
-        private void btDelete_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private async void btDelete_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            ReservationsDataService.DeleteReservation((Reservation) grid.SelectedItem);
+            await ReservationsDataService.DeleteReservationAsync((Reservation) grid.SelectedItem);
             ViewModel.IsReservationSelected = false;
         }
     }

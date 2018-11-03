@@ -30,7 +30,6 @@ namespace Desktop.Services
         {
             try
             {
-                typesList = new ObservableCollection<PlaneType>();
                 ReloadTypesListAsync();
             }
             catch (Exception e)
