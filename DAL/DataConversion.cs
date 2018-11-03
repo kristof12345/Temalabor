@@ -120,7 +120,7 @@ namespace DAL
             temp.user = dtoReservation.User;
             temp.userID = dtoReservation.UserID;
             temp.flightID = dtoReservation.FlightId;
-            temp.date = dtoReservation.Date;
+            temp.date = DateTime.Now;
             temp.cost = dtoReservation.Cost;
 
             return temp;
