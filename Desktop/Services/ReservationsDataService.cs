@@ -7,7 +7,7 @@ namespace Desktop.Services
 {
     public static class ReservationsDataService
     {
-        private static ObservableCollection<Reservation> reservationList = new ObservableCollection<Reservation>();
+        private static ObservableCollection<Reservation> reservationList;
 
         //Foglalás adatbázis
         public static ObservableCollection<Reservation> ReservationList
@@ -31,14 +31,16 @@ namespace Desktop.Services
         }
 
         //Foglalás hozzáadása
-        public static void Reserve(Reservation reserveRequest)
+        public static async System.Threading.Tasks.Task ReserveAsync(Reservation reserveRequest)
         {
             //Felhasználó beállítása
             reserveRequest.User = SignInService.User.Name;
             //Http kérés kiadása
-            HttpService.ReservationAsync(reserveRequest);
+            await HttpService.ReservationAsync(reserveRequest);
 
             ReloadReservationListAsync();
+            //Változtak a lefoglalt helyek, így a járatokat is újra kell tölteni
+            FlightsDataService.ReloadFlightListAsync();
         }
 
         internal static void DeleteReservation(Reservation selectedItem)

@@ -41,8 +41,6 @@
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
-
-
         </ListView>
 
         <Grid x:Name="inputArea">

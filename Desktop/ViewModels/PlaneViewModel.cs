@@ -69,10 +69,10 @@ namespace Desktop.ViewModels
             IsPayEnabled = false;
         }
 
-        internal void Reserve(Reservation reservation)
+        internal async System.Threading.Tasks.Task ReserveAsync(Reservation reservation)
         {
             reservation.Cost = totalPrice;
-            ReservationsDataService.Reserve(reservation);
+            await ReservationsDataService.ReserveAsync(reservation);
         }
     }
 }

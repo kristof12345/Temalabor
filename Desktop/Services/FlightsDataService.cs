@@ -52,7 +52,7 @@ namespace Desktop.Services
         }
 
         //A járatok letöltése a szerverről
-        private static async void ReloadFlightListAsync()
+        public static async void ReloadFlightListAsync()
         {
             List<Flight_DTO> dtoList = await HttpService.ListFlightsAsync();
             flightList.Clear();

@@ -25,7 +25,7 @@ namespace Desktop.Views
         }
 
         //Fizetés gomb lenyomása
-        private void Pay_Button_Click(object sender, RoutedEventArgs e)
+        private async void Pay_Button_Click(object sender, RoutedEventArgs e)
         {
             var reservation = new Reservation(ViewModel.Flight.FlightId);
             foreach (SeatUserControl s in canvas.Children)
@@ -35,9 +35,9 @@ namespace Desktop.Views
                     reservation.AddSeatId(s.Seat.SeatId); //Összekészítjük a foglalást
                 }
             }
-            ViewModel.Reserve(reservation);
+            await ViewModel.ReserveAsync(reservation);
             
-            this.Frame.Navigate(typeof(PlanePage), ViewModel.Flight); //Az oldal újratöltése
+            this.Frame.Navigate(typeof(MyReservationsPage));
         }
 
         //Amikor ide navigálnak, átveszi a paramétereket
