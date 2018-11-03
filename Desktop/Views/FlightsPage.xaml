@@ -6,14 +6,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Style="{StaticResource PageStyle}"
     DataContext="{Binding FlightViewModel, Source={StaticResource Locator}}"
-    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:tg="using:Telerik.UI.Xaml.Controls.Grid"
     mc:Ignorable="d">
-    <Grid x:Name="ContentArea">
-        <Grid 
-            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}"
-            Margin="0,0,0,120"
-            Height="700">
+    <Grid>
+        <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}" Margin="0,0,0,120" Height="700">
             <tg:RadDataGrid
                 ColumnDataOperationsMode="Flyout"
                 x:Name="dataTable"
@@ -36,8 +32,8 @@
                 </tg:RadDataGrid>
             </Grid>
 
-        <Grid x:Name="inputArea">
-            <ListView Visibility="Visible" VerticalAlignment="Bottom" Margin="50,0,0,55" SelectionMode="None">
+        <Grid>
+            <ListView VerticalAlignment="Bottom" Margin="50,0,0,55" SelectionMode="None">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <ItemsStackPanel Orientation="Horizontal"/>
@@ -57,7 +53,7 @@
                 <Button x:Name="btDelete" Content="Delete flight" IsEnabled="{x:Bind ViewModel.IsFlightSelected, Mode=OneWay}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="120" Click="btDelete_Click"/>
                 <Button x:Name="btUpdate" Content="Update flight" IsEnabled="{x:Bind ViewModel.IsFlightSelected, Mode=OneWay}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="120" Click="btUpdate_Click"/>
             </ListView>
-            <ListView Visibility="Visible" VerticalAlignment="Bottom" Margin="1046,0,0,5" SelectionMode="None">
+            <ListView VerticalAlignment="Bottom" Margin="1046,0,0,5" SelectionMode="None">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <ItemsStackPanel Orientation="Horizontal"/>

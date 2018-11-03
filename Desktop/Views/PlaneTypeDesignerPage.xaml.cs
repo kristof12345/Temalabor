@@ -3,6 +3,7 @@ using Desktop.Services;
 using Desktop.UserControls;
 using Desktop.ViewModels;
 using DTO;
+using System.Diagnostics;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -11,18 +12,17 @@ using Windows.UI.Xaml.Navigation;
 
 namespace Desktop.Views
 {
-    public sealed partial class DesignerPage : Page
+    public sealed partial class PlaneTypeDesignerPage : Page
     {
-        private DesignerViewModel ViewModel
+        private PlaneTypeDesignerViewModel ViewModel
         {
-            get { return DataContext as DesignerViewModel; }
+            get { return DataContext as PlaneTypeDesignerViewModel; }
         }
 
-        public DesignerPage()
+        public PlaneTypeDesignerPage()
         {
             InitializeComponent();
             canvas.PointerPressed += clicked;
-            tbNum.Text = ViewModel.NumberOfSeats;
         }
 
         private void clicked(object sender, PointerRoutedEventArgs e)
@@ -50,7 +50,7 @@ namespace Desktop.Views
                 if (e.Parameter != null)
                 {
                     //TODO: módosítás
-                    //ViewModel.
+                    ViewModel.SetPlaneType((PlaneType)e.Parameter);
                 }
                 //A korábbi székeket visszarajzoljuk
                 foreach(Seat s in ViewModel.Seats)
@@ -62,9 +62,11 @@ namespace Desktop.Views
             }
         }
 
-        private void btSave_Click(object sender, RoutedEventArgs e)
+        private async void btSave_Click(object sender, RoutedEventArgs e)
         {
-            ViewModel.Save();
+            await ViewModel.SaveAsync();
+            //this.Frame.Navigate(typeof(PlaneTypeManagerPage));
+            Debug.WriteLine("///////////////////////// Save");
         }
 
         private void btundo_Click(object sender, RoutedEventArgs e)

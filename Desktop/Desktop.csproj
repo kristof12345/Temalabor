@@ -149,7 +149,7 @@
       <DependentUpon>SeatUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\Commands.cs" />
-    <Compile Include="ViewModels\DesignerViewModel.cs" />
+    <Compile Include="ViewModels\PlaneTypeDesignerViewModel.cs" />
     <Compile Include="ViewModels\FlightViewModel.cs" />
     <Compile Include="ViewModels\MyFlightViewModel.cs" />
     <Compile Include="ViewModels\MyReservationsViewModel.cs" />
@@ -159,8 +159,8 @@
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
-    <Compile Include="Views\DesignerPage.xaml.cs">
-      <DependentUpon>DesignerPage.xaml</DependentUpon>
+    <Compile Include="Views\PlaneTypeDesignerPage.xaml.cs">
+      <DependentUpon>PlaneTypeDesignerPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\FlightsPage.xaml.cs">
       <DependentUpon>FlightsPage.xaml</DependentUpon>
@@ -225,7 +225,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\DesignerPage.xaml">
+    <Page Include="Views\PlaneTypeDesignerPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

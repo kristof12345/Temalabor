@@ -63,7 +63,7 @@
                 </NavigationViewItem.Icon>
             </NavigationViewItem>
 
-            <NavigationViewItem x:Uid="Shell_DesignerPage" helpers:NavHelper.NavigateTo="Desktop.ViewModels.DesignerViewModel"
+            <NavigationViewItem x:Uid="Shell_DesignerPage" helpers:NavHelper.NavigateTo="Desktop.ViewModels.PlaneTypeDesignerViewModel"
                                 Visibility="{x:Bind ViewModel.IsAdministrator, Mode=OneWay}">
                 <NavigationViewItem.Icon>
                     <FontIcon Glyph="&#xE771;"/>

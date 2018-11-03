@@ -8,17 +8,15 @@ using System.Threading.Tasks;
 
 namespace Desktop.ViewModels
 {
-    public class DesignerViewModel : ViewModelBase
+    public class PlaneTypeDesignerViewModel : ViewModelBase
     {
         private List<Seat> seats = new List<Seat>();
+        private PlaneType planeType;
         private String name;
-        private int price;
         private int selectedSeatTypeIndex = 0;
         private String imageScource = "/Assets/Antonov124white.png";
 
         public String Name { get { return name; } set { name = value; RaisePropertyChanged("Name"); } }
-
-        public String Price { get { return price.ToString(); } set { Int32.TryParse(value, out price); RaisePropertyChanged("Price"); } }
 
         public String[] SeatTypes { get { return Enum.GetNames(typeof(SeatType)); } }
 
@@ -57,11 +55,12 @@ namespace Desktop.ViewModels
             RaisePropertyChanged("Enabled");
         }
 
-        internal void Save()
+        internal async Task SaveAsync()
         {
             var request = new PlaneType(Name, 0);
             request.Seats = seats;
-            HttpService.AddPlaneTypeAsync(request);
+            await PlaneTypeDataService.AddPlaneTypeAsync(request);
+            PlaneTypeDataService.ReloadTypesListAsync();
         }
 
         internal void RemoveLastSeat()
@@ -86,6 +85,13 @@ namespace Desktop.ViewModels
             {
                 ImageScource = "/Assets/" + file.Name ;
             }
+        }
+
+        public void SetPlaneType(PlaneType t)
+        {
+            planeType = t;
+            Name = t.PlaneTypeName;
+            seats = t.Seats;
         }
     }
 }

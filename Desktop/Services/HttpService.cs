@@ -156,7 +156,7 @@ namespace Desktop.Services
         }
 
         //Repülőtípus hozzáadása
-        internal static async void AddPlaneTypeAsync(PlaneType addRequest)
+        internal static async Task AddPlaneTypeAsync(PlaneType addRequest)
         {
             client = new HttpClient(handler);
             Debug.WriteLine("A hozzáadott design neve: " + addRequest.PlaneTypeName);

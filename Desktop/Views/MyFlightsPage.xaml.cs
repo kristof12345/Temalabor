@@ -17,23 +17,8 @@ namespace Desktop.Views
         public MyFlightsPage()
         {
             InitializeComponent();
-            //A kijelölt sor változását jelző event
-            dataTable.SelectionChanged += selected;
             //A dupla kattintást jelző event
             dataTable.DoubleTapped += doubleTapped;
-        }
-
-        //Ha változott a kijelölt sor
-        private void selected(object sender, DataGridSelectionChangedEventArgs e)
-        {
-            if (dataTable.SelectedItem != null)
-            {
-                ViewModel.IsFlightSelected = true;
-            }
-            else
-            {
-                ViewModel.IsFlightSelected = false;
-            }
         }
 
         //Dupla kattintásnál átváltunk a kiválasztott repülő nézetére
@@ -46,9 +31,10 @@ namespace Desktop.Views
             }
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)
+        //Ha a keresés gombra kattintunk, újratöltjük az oldalt
+        private void saveButton_Click(object sender, RoutedEventArgs e)
         {
-            ViewModel.Search();
+            this.Frame.Navigate(typeof(MyFlightsPage));
         }
     }
 }

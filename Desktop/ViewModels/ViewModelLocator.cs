@@ -29,7 +29,7 @@ namespace Desktop.ViewModels
             //ReservationView regisztrálása
             Register<ReservationViewModel, ReservationsPage>();
             //DesignerView regisztrálása
-            Register<DesignerViewModel, DesignerPage>();
+            Register<PlaneTypeDesignerViewModel, PlaneTypeDesignerPage>();
             //PlaneTypeManagerView regisztrálása
             Register<PlaneTypeManagerViewModel, PlaneTypeManagerPage>();
             //MyReservationsView regisztrálása
@@ -45,7 +45,7 @@ namespace Desktop.ViewModels
 
         public ReservationViewModel ReservationViewModel => ServiceLocator.Current.GetInstance<ReservationViewModel>();
 
-        public DesignerViewModel DesignerViewModel => ServiceLocator.Current.GetInstance<DesignerViewModel>();
+        public PlaneTypeDesignerViewModel DesignerViewModel => ServiceLocator.Current.GetInstance<PlaneTypeDesignerViewModel>();
 
         public ShellViewModel ShellViewModel => ServiceLocator.Current.GetInstance<ShellViewModel>();
 

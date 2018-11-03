@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using DTO;
 
 namespace Desktop.Services
@@ -20,7 +21,7 @@ namespace Desktop.Services
         }
 
         //A foglalások letöltése a szerverről
-        private static async void ReloadReservationListAsync()
+        public static async void ReloadReservationListAsync()
         {
             List<Reservation> dtoList = await HttpService.ListReservationsAsync();
             reservationList.Clear();
@@ -31,7 +32,7 @@ namespace Desktop.Services
         }
 
         //Foglalás hozzáadása
-        public static async System.Threading.Tasks.Task ReserveAsync(Reservation reserveRequest)
+        public static async Task ReserveAsync(Reservation reserveRequest)
         {
             //Felhasználó beállítása
             reserveRequest.User = SignInService.User.Name;
@@ -43,7 +44,7 @@ namespace Desktop.Services
             FlightsDataService.ReloadFlightListAsync();
         }
 
-        internal static async System.Threading.Tasks.Task DeleteReservationAsync(Reservation selectedItem)
+        internal static async Task DeleteReservationAsync(Reservation selectedItem)
         {
             await HttpService.DeleteReservationAsync(selectedItem);
 

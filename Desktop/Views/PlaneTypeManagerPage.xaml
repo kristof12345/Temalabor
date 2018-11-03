@@ -3,16 +3,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:tg="using:Telerik.UI.Xaml.Controls.Grid"
-    xmlns:Custom="using:Telerik.UI.Xaml.Controls.Data"
     xmlns:local="using:DTO"
     x:Class="Desktop.Views.PlaneTypeManagerPage"
     Style="{StaticResource PageStyle}"
     DataContext="{Binding PlaneTypeManagerViewModel, Source={StaticResource Locator}}"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-    <Grid x:Name="ContentArea">
-
+    <Grid>
         <Image HorizontalAlignment="Right" Width="1000" Height="700">
             <Image.Source>
                 <BitmapImage UriSource="{Binding Image}" />
@@ -42,9 +39,8 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-
-        <Grid x:Name="inputArea">
-            <ListView Visibility="Visible" VerticalAlignment="Bottom" Margin="50,0,0,50" SelectionMode="None">
+        <Grid>
+            <ListView VerticalAlignment="Bottom" Margin="50,0,0,50" SelectionMode="None">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <ItemsStackPanel Orientation="Horizontal"/>
@@ -55,12 +51,10 @@
                         <Setter Property="Padding" Value="6"/>
                     </Style>
                 </ListView.ItemContainerStyle>
-                <Button x:Name="btAdd" Content="Add plane type" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="150" Click="btAdd_Click"/>
-                <Button x:Name="btDelete" Content="Delete plane type" IsEnabled="{x:Bind Mode=OneWay, Path=ViewModel.IsTypeSelected}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="150" Click="btDelete_Click"/>
-                <Button x:Name="btEdit" Content="Edit plane type" IsEnabled="{x:Bind Mode=OneWay, Path=ViewModel.IsTypeSelected}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="150" Click="btEdit_Click"/>
+                <Button Content="Add plane type" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="150" Click="btAdd_Click"/>
+                <Button Content="Delete plane type" IsEnabled="{x:Bind Mode=OneWay, Path=ViewModel.IsTypeSelected}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="150" Click="btDelete_Click"/>
+                <Button Content="Edit plane type" IsEnabled="{x:Bind Mode=OneWay, Path=ViewModel.IsTypeSelected}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="150" Click="btEdit_Click"/>
             </ListView>
-
         </Grid>
-
     </Grid>
 </Page>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Desktop.Dialogs;
 using Desktop.Services;
 using Desktop.UserControls;
@@ -26,11 +27,14 @@ namespace Desktop.Views
         private void listView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             int index = listView.SelectedIndex;
-            ViewModel.SelectedAt(index);
-            //Kép betöltése
-            ViewModel.LoadImage();
-            //User controlok felrakása
-            AddUserControls();
+            if (index >= 0)
+            {
+                ViewModel.SelectedAt(index);
+                //Kép betöltése
+                ViewModel.LoadImage();
+                //User controlok felrakása
+                AddUserControls();
+            }
         }
 
         //Amikor erre a lapra érkezünk
@@ -57,7 +61,7 @@ namespace Desktop.Views
 
         private void btDelete_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            //TODO:töröljük a kijelölt foglalást
+            //TODO:töröljük a kijelölt típust
         }
 
         private void AddUserControls()
@@ -76,12 +80,12 @@ namespace Desktop.Views
 
         private void btAdd_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(DesignerPage), null);
+            this.Frame.Navigate(typeof(PlaneTypeDesignerPage), null);
         }
 
         private void btEdit_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(DesignerPage), ViewModel.PlaneType);
+            this.Frame.Navigate(typeof(PlaneTypeDesignerPage), ViewModel.PlaneType);
         }
     }
 }
