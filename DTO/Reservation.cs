@@ -7,11 +7,14 @@ namespace DTO
     //A foglalás részletei
     public class ReservationDetails
     {
+        //Ezeket az adatbázisban ki kellene tölteni...
         public String Departure="";
 
         public String Destination="";
 
         //Stb...
+
+        //Egyéb: pl.: a jegy, a beszállókapu sorszáma...
 
         public override String ToString()
         {
@@ -22,9 +25,6 @@ namespace DTO
     //Egy foglalást reprezentáló osztály.
     public class Reservation
     {
-        //A foglalás részletei
-        private ReservationDetails details = new ReservationDetails();
-
         //A foglaláshoz tartozó székek listája (azonosítók)
         public List<long> SeatList { get; set; }
 
@@ -58,7 +58,7 @@ namespace DTO
         public DateTime Date { get; set; }
 
         //A foglalás részletei
-        public String Details { get { return details.ToString(); } }
+        public ReservationDetails Details { get; set; } = new ReservationDetails();
 
         //Szék hozzáadása a foglaláshoz
         public void AddSeatId(long id)
