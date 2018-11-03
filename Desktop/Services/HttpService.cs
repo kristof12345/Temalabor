@@ -68,7 +68,7 @@ namespace Desktop.Services
         {
             client = new HttpClient(handler);
             HttpResponseMessage response = await client.PostAsJsonAsync(UriFlights, addRequest);
-            var contents = await response.Content.ReadAsStringAsync();
+            //var contents = await response.Content.ReadAsStringAsync();
         }
 
         //Járat törlése
@@ -77,7 +77,7 @@ namespace Desktop.Services
             client = new HttpClient(handler);
 
             HttpResponseMessage response = await client.DeleteAsync(UriFlights + deleteRequest.FlightId);
-            var contents = await response.Content.ReadAsStringAsync();
+            //var contents = await response.Content.ReadAsStringAsync();
 
         }
 
@@ -86,7 +86,7 @@ namespace Desktop.Services
         {
             client = new HttpClient(handler);
             HttpResponseMessage response = await client.PutAsJsonAsync(UriFlights + updateRequest.FlightId, updateRequest);
-            var contents = await response.Content.ReadAsStringAsync();
+            //var contents = await response.Content.ReadAsStringAsync();
 
         }
 
@@ -141,7 +141,12 @@ namespace Desktop.Services
         {
             List<PlaneType> typesList = new List<PlaneType>();
             client = new HttpClient(handler);
-            for(int i=1; i<=4; i++) //TODO: size
+
+            //Lehetséges PlaneTypok betöltése
+            var strArray = await ListPlaneTypeNamesAsync();
+            PlaneType.Initialize(strArray.ToArray());
+
+            for (int i=1; i<=strArray.Count; i++) //TODO: size
             {
                 HttpResponseMessage response = await client.GetAsync(UriTypes + i);
                 PlaneType t = await response.Content.ReadAsAsync<PlaneType>();
@@ -190,7 +195,16 @@ namespace Desktop.Services
             client = new HttpClient(handler);
 
             HttpResponseMessage response = await client.PostAsJsonAsync(UriReservation, reserveRequest);
-            var contents = await response.Content.ReadAsStringAsync();
+            //var contents = await response.Content.ReadAsStringAsync();
+        }
+
+        //Foglalás törlése
+        internal static async Task DeleteReservationAsync(Reservation selectedItem)
+        {
+            client = new HttpClient(handler);
+
+            HttpResponseMessage response = await client.DeleteAsync(UriReservation + selectedItem.ReservationId);
+            //var contents = await response.Content.ReadAsStringAsync();
         }
     }
 }

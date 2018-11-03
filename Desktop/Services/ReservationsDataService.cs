@@ -43,9 +43,13 @@ namespace Desktop.Services
             FlightsDataService.ReloadFlightListAsync();
         }
 
-        internal static void DeleteReservation(Reservation selectedItem)
+        internal static async System.Threading.Tasks.Task DeleteReservationAsync(Reservation selectedItem)
         {
-            //TODO:töröljük a kijelölt foglalást
+            await HttpService.DeleteReservationAsync(selectedItem);
+
+            ReloadReservationListAsync();
+            //Változtak a lefoglalt helyek, így a járatokat is újra kell tölteni
+            FlightsDataService.ReloadFlightListAsync();
         }
     }
 }

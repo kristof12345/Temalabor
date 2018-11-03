@@ -64,12 +64,12 @@ namespace Desktop.Views
         {
             canvas.Children.Clear();
 
-            for (int i = 0; i < ViewModel.Flight.TotalSeatsCount; i++)
+            for (int i = 0; i < ViewModel.PlaneType.TotalSeatsCount; i++)
             {
-                Seat s = ViewModel.Flight.GetSeat(i);
+                Seat s = ViewModel.PlaneType.GetSeat(i);
                 SeatUserControl newSeat = new SeatUserControl(s);
                                                   //Left=0, Top=X, Right=Y, Bottom=0
-                newSeat.Margin = new Thickness(ViewModel.Flight.GetSeat(i).Coordinates.X, ViewModel.Flight.GetSeat(i).Coordinates.Y, 0, 0);
+                newSeat.Margin = new Thickness(ViewModel.PlaneType.GetSeat(i).Coordinates.X, ViewModel.PlaneType.GetSeat(i).Coordinates.Y, 0, 0);
                 canvas.Children.Add(newSeat);
             }
         }
@@ -81,7 +81,7 @@ namespace Desktop.Views
 
         private void btEdit_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(DesignerPage), ViewModel.Flight);
+            this.Frame.Navigate(typeof(DesignerPage), ViewModel.PlaneType);
         }
     }
 }
