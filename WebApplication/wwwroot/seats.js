@@ -27,11 +27,14 @@ function getSeats(flightId) {
                 if (d[i].reserved)
                     color = "red";
 
-                r.rect(d[i].coordinates.x, d[i].coordinates.y, 30, 30)
-                    .attr({ fill: color })
-                    .click(function () {
-                        alert('rectangle clicked');
-                    });
+                var seat = r.rect(d[i].coordinates.x, d[i].coordinates.y, 30, 30)
+                seat.attr({ fill: color })
+                seat.data("seatId", d[i].seatId);
+                seat.data("flightId", flightId);
+                seat.click(function () {
+                    alert(this.data("flightId") + " : " + this.data("seatId"));
+                });
+                
             }
         }
     });
