@@ -145,8 +145,12 @@
     <Compile Include="Services\PlaneTypeDataService.cs" />
     <Compile Include="Services\ReservationsDataService.cs" />
     <Compile Include="Services\SignInService.cs" />
-    <Compile Include="UserControls\SeatUserControl.xaml.cs">
-      <DependentUpon>SeatUserControl.xaml</DependentUpon>
+    <Compile Include="UserControls\FirstClassSeatUserControl.xaml.cs">
+      <DependentUpon>FirstClassSeatUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ISeatUserControl.cs" />
+    <Compile Include="UserControls\NormalSeatUserControl.xaml.cs">
+      <DependentUpon>NormalSeatUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\Commands.cs" />
     <Compile Include="ViewModels\PlaneTypeDesignerViewModel.cs" />
@@ -221,7 +225,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\SeatUserControl.xaml">
+    <Page Include="UserControls\FirstClassSeatUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\NormalSeatUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

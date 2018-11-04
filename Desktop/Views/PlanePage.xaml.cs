@@ -2,18 +2,17 @@
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using DTO;
-using Desktop.Services;
 using Desktop.Models;
 using Desktop.UserControls;
 using Windows.UI.Xaml.Input;
 using Desktop.Dialogs;
 using Desktop.ViewModels;
+using System.Diagnostics;
 
 namespace Desktop.Views
 {
     public sealed partial class PlanePage : Page
     {
-        //private int totalPrice = 0;
 
         private PlaneViewModel ViewModel
         {
@@ -28,7 +27,7 @@ namespace Desktop.Views
         private async void Pay_Button_Click(object sender, RoutedEventArgs e)
         {
             var reservation = new Reservation(ViewModel.Flight.FlightId);
-            foreach (SeatUserControl s in canvas.Children)
+            foreach (NormalSeatUserControl s in canvas.Children)
             {
                 if (s.State == State.Selected)
                 {
@@ -48,10 +47,8 @@ namespace Desktop.Views
             {
                 //Az átadott paraméterek értelmezése
                 ViewModel.Flight = (Flight)e.Parameter;
-
                 //Kép betöltése
                 ViewModel.LoadImage();
-
                 //User controlok felrakása
                 AddUserControls();
 
@@ -61,11 +58,6 @@ namespace Desktop.Views
             {
                 //User controlok felrakása
                 AddUserControls();
-            }
-            else if (SignInService.User == null)
-            {
-                AlertDialog dialog = new AlertDialog();
-                dialog.DisplayNoUserDialog(this);                
             }
             else
             {
@@ -79,12 +71,19 @@ namespace Desktop.Views
             for (int i = 0; i < ViewModel.Flight.NumberOfSeats; i++)
             {
                 Seat s = ViewModel.Flight.GetSeat(i);
-                SeatUserControl newSeat = new SeatUserControl(s);
-                newSeat.Tapped += CalculatePrice; //Eseménykezelő regisztrálása
-                                                  //Left=0, Top=X, Right=Y, Bottom=0
+                UserControl newSeat;
+                if (s.SeatType == SeatType.Normal)
+                {
+                    newSeat = new NormalSeatUserControl(s);
+                }
+                else
+                {
+                    newSeat = new FirstClassSeatUserControl(s);
+                }
+
+                newSeat.Tapped += CalculatePrice; //Eseménykezelő regisztrálása //Left=0, Top=X, Right=Y, Bottom=0
                 newSeat.Margin = new Thickness(ViewModel.Flight.GetSeat(i).Coordinates.X, ViewModel.Flight.GetSeat(i).Coordinates.Y, 0, 0);
                 canvas.Children.Add(newSeat);
-
                 CalculatePrice(null, null);
             }
         }
@@ -93,7 +92,7 @@ namespace Desktop.Views
         private void CalculatePrice(object sender, TappedRoutedEventArgs e)
         {
             ViewModel.ResetTotalPrice();
-            foreach (SeatUserControl s in canvas.Children)
+            foreach (ISeatUserControl s in canvas.Children)
             {
                 if (s.State == State.Selected)
                 {
