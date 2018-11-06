@@ -3,6 +3,7 @@ using Desktop.Services;
 using Desktop.UserControls;
 using Desktop.ViewModels;
 using DTO;
+using System.Diagnostics;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -29,9 +30,9 @@ namespace Desktop.Views
             {
                 ViewModel.SelectedAt(index);
                 //Kép betöltése
-                ViewModel.LoadImage();
+                //ViewModel.LoadImage();
                 //User controlok felrakása
-                AddUserControls();
+                //AddUserControls();
             }
         }
 
@@ -57,9 +58,11 @@ namespace Desktop.Views
             }
         }
 
-        private void btDelete_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private async void btDelete_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             //TODO:töröljük a kijelölt típust
+            await PlaneTypeDataService.DeletePlaneTypeAsync((PlaneType)listView.SelectedItem);
+            Debug.WriteLine("List: "+ listView.Items.Count);
         }
 
         private void AddUserControls()

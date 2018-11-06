@@ -43,10 +43,8 @@ namespace Desktop.Services
             int flightId = (int) reserveRequest.FlightId;
             foreach (long s in reserveRequest.SeatList)
             {
-                Debug.WriteLine("//////" + s);
                 FlightsDataService.FlightList[flightId].PlaneType.ReserveSeat((int)s);
             }
-            //TODO: A nézet frissítése
             */
             reservationList.Add(reserveRequest);
             //ReloadReservationListAsync();
