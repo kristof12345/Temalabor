@@ -8,17 +8,15 @@ using System.Threading.Tasks;
 
 namespace Desktop.ViewModels
 {
-    public class DesignerViewModel : ViewModelBase
+    public class PlaneTypeDesignerViewModel : ViewModelBase
     {
-        private List<Seat> seats = new List<Seat>();
-        private String name;
-        private int price;
+        private PlaneType planeType = new PlaneType();
         private int selectedSeatTypeIndex = 0;
         private String imageScource = "/Assets/Antonov124white.png";
 
-        public String Name { get { return name; } set { name = value; RaisePropertyChanged("Name"); } }
+        public String Name { get { return planeType.PlaneTypeName; } set { planeType.PlaneTypeName = value;  } }
 
-        public String Price { get { return price.ToString(); } set { Int32.TryParse(value, out price); RaisePropertyChanged("Price"); } }
+        public String Id { get { return "Plane Type Id: " + planeType.PlaneTypeID.ToString(); } }
 
         public String[] SeatTypes { get { return Enum.GetNames(typeof(SeatType)); } }
 
@@ -30,12 +28,12 @@ namespace Desktop.ViewModels
 
         public String NumberOfSeats
         {
-            get { return seats.Count.ToString(); }
+            get { return planeType.Seats.Count.ToString(); }
         }
 
         public bool Enabled
         {
-            get { return (seats.Count > 0); }
+            get { return (planeType.Seats.Count > 0); }
         }
 
         public String ImageScource
@@ -44,29 +42,29 @@ namespace Desktop.ViewModels
             private set { imageScource = value; RaisePropertyChanged("ImageScource");}
         }
 
-        public List<Seat> Seats { get { return seats; } }
+        public List<Seat> Seats { get { return planeType.Seats; } }
 
         public void AddSeat(double x, double y, int seatType=1)
         {
-            Seat s = new Seat(seats.Count);
+            Seat s = new Seat(planeType.Seats.Count);
             s.Coordinates = new Cord((int)x, (int)y);
             s.SeatType = (SeatType) Enum.GetValues(typeof(SeatType)).GetValue(selectedSeatTypeIndex);
 
-            seats.Add(s);
+            planeType.Seats.Add(s);
             RaisePropertyChanged("NumberOfSeats");
             RaisePropertyChanged("Enabled");
         }
 
-        internal void Save()
+        internal async Task SaveAsync()
         {
-            var request = new PlaneType(Name, 0);
-            request.Seats = seats;
-            HttpService.AddPlaneTypeAsync(request);
+            var request = planeType;
+            await PlaneTypeDataService.AddPlaneTypeAsync(request);
+            PlaneTypeDataService.ReloadTypesListAsync();
         }
 
         internal void RemoveLastSeat()
         {
-            seats.RemoveAt(seats.Count-1);
+            planeType.Seats.RemoveAt(planeType.Seats.Count-1);
             RaisePropertyChanged("NumberOfSeats");
             RaisePropertyChanged("Enabled");
         }
@@ -86,6 +84,13 @@ namespace Desktop.ViewModels
             {
                 ImageScource = "/Assets/" + file.Name ;
             }
+        }
+
+        public void SetPlaneType(PlaneType t)
+        {
+            planeType = t;
+            RaisePropertyChanged("Name");
+            RaisePropertyChanged("Id");
         }
     }
 }

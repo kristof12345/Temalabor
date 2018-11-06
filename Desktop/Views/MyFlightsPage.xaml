@@ -9,22 +9,32 @@
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:tg="using:Telerik.UI.Xaml.Controls.Grid"
     mc:Ignorable="d">
-    <Grid x:Name="ContentArea">
-        <TextBox x:Name="textBox" Text="{x:Bind ViewModel.Dest}" HorizontalAlignment="Left" Margin="430,65,0,0" VerticalAlignment="Top" Width="229"/>
-        <Button x:Name="button" Content="Search" HorizontalAlignment="Left" Margin="710,60,0,0" VerticalAlignment="Top" Click="button_Click"/>
-        <Grid 
-            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}"
-            Margin="0,100,0,120"
-            Height="700">
+    <Grid>
+        <ListView VerticalAlignment="Top" Margin="0,20,0,0" SelectionMode="None">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <ItemsStackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Padding" Value="6"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <TextBox Text="{x:Bind ViewModel.Departure, Mode=TwoWay}" PlaceholderText="Departure" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="330"/>
+            <TextBox Text="{x:Bind ViewModel.Destination, Mode=TwoWay}" PlaceholderText="Destination" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="330"/>
+            <Button Content="Search" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="120" Click="saveButton_Click"/>
+
+        </ListView>
+
+        <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}" Margin="0,0,0,0" Height="800">
             <tg:RadDataGrid
                 ColumnDataOperationsMode="Flyout"
                 x:Name="dataTable"
                 SelectionMode = "Single"
                 ItemsSource="{x:Bind ViewModel.Source}"
                 AutoGenerateColumns="false"
-                ScrollViewer.HorizontalScrollMode="Enabled"
-                VerticalAlignment="Stretch"
-                Height="700">
+                ScrollViewer.HorizontalScrollMode="Enabled" HorizontalAlignment="Stretch" Height="800">
                 <tg:RadDataGrid.Columns>
                     <tg:DataGridNumericalColumn PropertyName="FlightId"/>
                     <tg:DataGridDateColumn PropertyName="Date"/>

@@ -156,12 +156,22 @@ namespace Desktop.Services
         }
 
         //Repülőtípus hozzáadása
-        internal static async void AddPlaneTypeAsync(PlaneType addRequest)
+        internal static async Task AddPlaneTypeAsync(PlaneType addRequest)
         {
             client = new HttpClient(handler);
             Debug.WriteLine("A hozzáadott design neve: " + addRequest.PlaneTypeName);
 
             HttpResponseMessage response = await client.PostAsJsonAsync(UriTypes, addRequest);
+            //var contents = await response.Content.ReadAsStringAsync();
+        }
+
+        //Repülőtípus törlése
+        internal static async Task DeletePlaneTypeAsync(PlaneType deleteRequest)
+        {
+            client = new HttpClient(handler);
+            Debug.WriteLine("A törölt design id-ja: " + deleteRequest.PlaneTypeID);
+
+            HttpResponseMessage response = await client.DeleteAsync(UriTypes + deleteRequest.PlaneTypeID);
             //var contents = await response.Content.ReadAsStringAsync();
         }
 
