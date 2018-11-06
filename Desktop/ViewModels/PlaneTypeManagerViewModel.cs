@@ -8,8 +8,6 @@ namespace Desktop.ViewModels
 {
     public class PlaneTypeManagerViewModel : ViewModelBase
     {
-        private bool isTypeSelected = false;
-
         public ObservableCollection<PlaneType> Source
         {
             get
@@ -30,20 +28,22 @@ namespace Desktop.ViewModels
 
         public void LoadImage()
         {
-            Image = PlaneTypeDataService.LoadImageUri(PlaneType.PlaneTypeID);
+            if (PlaneType != null)
+            {
+                Image = PlaneTypeDataService.LoadImageUri(PlaneType.PlaneTypeID);
+            }
         }
 
         public bool IsTypeSelected
         {
-            get { return isTypeSelected; }
-            set { isTypeSelected = value; RaisePropertyChanged("IsTypeSelected"); }
+            get { return PlaneType!=null; }
         }
 
         internal void SelectedAt(int index)
         {
             PlaneType = PlaneTypeDataService.PlaneTypeList[index];
             RaisePropertyChanged("Flight");
-            IsTypeSelected = true;
+            RaisePropertyChanged("IsTypeSelected");
         }
     }
 }

@@ -46,8 +46,10 @@ namespace Desktop.Services
             typesList.Clear();
             foreach (PlaneType dto in dtoList)
             {
-                typesList.Add(dto);
-                Debug.WriteLine("Count: " + dtoList.Count);
+                if (dto != null)
+                    typesList.Add(dto);
+                if(dto==null)
+                    Debug.WriteLine("NULL!!!!!!!!!!!!!!!!!!!!!");
             }
         }
 

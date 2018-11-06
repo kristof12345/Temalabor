@@ -26,14 +26,12 @@ namespace Desktop.Views
         private void listView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             int index = listView.SelectedIndex;
-            if (index >= 0)
-            {
-                ViewModel.SelectedAt(index);
-                //Kép betöltése
-                //ViewModel.LoadImage();
-                //User controlok felrakása
-                //AddUserControls();
-            }
+            ViewModel.SelectedAt(index);
+            //Kép betöltése
+            ViewModel.LoadImage();
+            //User controlok felrakása
+            AddUserControls();
+
         }
 
         //Amikor erre a lapra érkezünk
@@ -50,39 +48,41 @@ namespace Desktop.Views
             else
             {
                 //Az első listaelem
-                listView.SelectedIndex = 0;
+                //listView.SelectedIndex = 0;
                 //Kép betöltése
-                //ViewModel.LoadImage();
+                ViewModel.LoadImage();
                 //User controlok felrakása
-                //AddUserControls();
+                AddUserControls();
             }
         }
 
         private async void btDelete_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             //TODO:töröljük a kijelölt típust
-            await PlaneTypeDataService.DeletePlaneTypeAsync((PlaneType)listView.SelectedItem);
-            Debug.WriteLine("List: "+ listView.Items.Count);
+            var deleteRequest = (PlaneType)listView.SelectedItem;
+            await PlaneTypeDataService.DeletePlaneTypeAsync(deleteRequest);
         }
 
         private void AddUserControls()
         {
             canvas.Children.Clear();
-
-            for (int i = 0; i < ViewModel.PlaneType.TotalSeatsCount; i++)
+            if (ViewModel.PlaneType != null)
             {
-                Seat s = ViewModel.PlaneType.GetSeat(i);
-                UserControl newSeat;
-                if (s.SeatType == SeatType.Normal)
+                for (int i = 0; i < ViewModel.PlaneType.TotalSeatsCount; i++)
                 {
-                    newSeat = new NormalSeatUserControl(s);
+                    Seat s = ViewModel.PlaneType.GetSeat(i);
+                    UserControl newSeat;
+                    if (s.SeatType == SeatType.Normal)
+                    {
+                        newSeat = new NormalSeatUserControl(s);
+                    }
+                    else
+                    {
+                        newSeat = new FirstClassSeatUserControl(s);
+                    }
+                    newSeat.Margin = new Thickness(ViewModel.PlaneType.GetSeat(i).Coordinates.X, ViewModel.PlaneType.GetSeat(i).Coordinates.Y, 0, 0);
+                    canvas.Children.Add(newSeat);
                 }
-                else
-                {
-                    newSeat = new FirstClassSeatUserControl(s);
-                }
-                newSeat.Margin = new Thickness(ViewModel.PlaneType.GetSeat(i).Coordinates.X, ViewModel.PlaneType.GetSeat(i).Coordinates.Y, 0, 0);
-                canvas.Children.Add(newSeat);
             }
         }
 
