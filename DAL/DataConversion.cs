@@ -84,7 +84,7 @@ namespace DAL
                 dtoSeats.Add(DataConversion.Seat_DAL_to_DTO(seat, _context));
             }
             temp.Seats = dtoSeats;
-
+            
             return temp;
         }
 

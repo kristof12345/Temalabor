@@ -11,7 +11,8 @@ using System.Diagnostics;
 
 namespace WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/planetype")]
+    [ApiController]
     public class PlaneTypeController : Controller
     {
         private readonly DAL.FlightContext _context;
@@ -59,7 +60,7 @@ namespace WebApi.Controllers
         public IActionResult Create(DTO.PlaneType item)
         {
             var ifDeleted = _context.PlaneTypes.Find(item.PlaneTypeID);            
-            if (ifDeleted.isDeleted)
+            if (ifDeleted != null && ifDeleted.isDeleted)
             {
                 ifDeleted.isDeleted = false;
                 _context.SaveChanges();

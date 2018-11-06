@@ -76,7 +76,7 @@ namespace WebApi.Controllers
         public IActionResult Create(DTO.Seat item)
         {
             var ifDeleted = _context.Seats.Find(item.SeatId);          
-            if (ifDeleted.isDeleted)
+            if (ifDeleted != null && ifDeleted.isDeleted)
             {
                 ifDeleted.isDeleted = false;
                 _context.SaveChanges();

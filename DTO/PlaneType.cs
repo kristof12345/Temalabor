@@ -9,8 +9,14 @@ namespace DTO
         //Konstruktor
         public PlaneType(String name, long id)
         {
-            PlaneTypeName = name;
-            PlaneTypeID = id;
+            if (name != null)
+                PlaneTypeName = name;
+            else
+                PlaneTypeName = "";
+            if (id != null)
+                PlaneTypeID = id;
+            else
+                PlaneTypeID = -1;
             Seats = new List<Seat>();
 
             //TODO: Ide majd az adatbázis alapján kell valami
