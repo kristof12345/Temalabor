@@ -15,8 +15,8 @@ namespace WebApi
     [ApiController]
     public class ReservationController : ControllerBase
     {
-        private readonly DAL.FlightContext _context;
-        private readonly ReserveContext _context2;
+        private DAL.FlightContext _context;
+        private ReserveContext _context2;
 
         public ReservationController(DAL.FlightContext context, ReserveContext context2)
         {
@@ -62,18 +62,8 @@ namespace WebApi
             {             
                 ifDeleted.isDeleted = false;               
                 _context.SaveChanges();
-
-                foreach (long seatID in item.SeatList)
-                {
-                    var seat = _context.Seats.Find(seatID);
-                    if (seat != null)
-                    {
-                        seat.reservationID = item.ReservationId;
-                        seat.IsReserved = true;
-                        _context.Seats.Update(seat);
-                        _context.SaveChanges();
-                    }
-                }
+                _context = Queries.reserveSeatsOnFlight(ifDeleted, _context);
+                
 
                 return CreatedAtRoute("GetReservation", new { id = ifDeleted.reservationID }, item);
             }
@@ -81,19 +71,10 @@ namespace WebApi
             {
                 DAL.Reservation tempfl = DataConversion.Reservation_DTO_to_DAL(item);
                 _context.Reservations.Add(tempfl);
+                _context = Queries.reserveSeatsOnFlight(tempfl, _context);
                 _context.SaveChanges();
+                
 
-                foreach (long seatID in item.SeatList)
-                {
-                    var seat = _context.Seats.Find(seatID);
-                    if (seat != null)
-                    {
-                        seat.reservationID = tempfl.reservationID;
-                        seat.IsReserved = true;
-                        _context.Seats.Update(seat);
-                        _context.SaveChanges();
-                    }
-                }                       
                 return CreatedAtRoute("GetReservation", new { id = tempfl.reservationID }, item);
             }
         }
@@ -107,10 +88,14 @@ namespace WebApi
                 return NotFound();
             }
 
+            _context = Queries.unReserveSeatsOnFlight(todo, _context);
+
             todo.user = dtoReservation.User;
             todo.userID = dtoReservation.UserID;
             todo.flightID = dtoReservation.FlightId;
             todo.date = dtoReservation.Date;
+
+            _context = Queries.reserveSeatsOnFlight(todo, _context);
 
             _context.Reservations.Update(todo);
             _context.SaveChanges();
@@ -126,12 +111,7 @@ namespace WebApi
                 return NotFound();
             }
 
-            var seats = Queries.findSeatsForReservation(todo, _context);
-            foreach (DAL.Seat seat in seats)
-            {
-                seat.reservationID = 0;
-                seat.IsReserved = false;
-            }
+            _context = Queries.unReserveSeatsOnFlight(todo, _context);
           
             todo.isDeleted = true;
             //_context.Reservations.Remove(todo);

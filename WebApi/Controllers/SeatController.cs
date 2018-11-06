@@ -32,7 +32,7 @@ namespace WebApi.Controllers
             {
                 if (!seat.isDeleted)
                 {
-                    DTO.Seat current = DataConversion.Seat_DAL_to_DTO(seat);
+                    DTO.Seat current = DataConversion.Seat_DAL_to_DTO(seat, _context);
                     result.Add(current);
                 }
             }
@@ -52,7 +52,7 @@ namespace WebApi.Controllers
             {
                 if (!seat.isDeleted)
                 {
-                    DTO.Seat current = DataConversion.Seat_DAL_to_DTO(seat);
+                    DTO.Seat current = DataConversion.Seat_DAL_to_DTO(seat, _context);
                     result.Add(current);
                 }
             }
@@ -68,7 +68,7 @@ namespace WebApi.Controllers
             if (temp == null || temp.isDeleted)
                 return NotFound();
 
-            DTO.Seat result = DataConversion.Seat_DAL_to_DTO(temp);
+            DTO.Seat result = DataConversion.Seat_DAL_to_DTO(temp, _context);
             return result;
         }
 
@@ -103,7 +103,6 @@ namespace WebApi.Controllers
             }
 
             todo.seatType = item.SeatType;
-            todo.IsReserved = item.Reserved;
             todo.Xcord = item.Coordinates.X;
             todo.Ycord = item.Coordinates.Y;
 

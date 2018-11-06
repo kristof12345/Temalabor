@@ -15,8 +15,8 @@ namespace WebApi
     [ApiController]
     public class FlightController : ControllerBase
     {
-        private readonly DAL.FlightContext _context;
-        private readonly ReserveContext _context2;
+        private DAL.FlightContext _context;
+        private ReserveContext _context2;
 
         public FlightController(DAL.FlightContext context, ReserveContext context2)
         {
@@ -60,6 +60,7 @@ namespace WebApi
             if (ifDeleted != null && ifDeleted.isDeleted)
             {
                 ifDeleted.isDeleted = false;
+                _context = Queries.fillSeatsOnFlight(ifDeleted, _context);
                 _context.SaveChanges();
                 return CreatedAtRoute("GetFlight", new { id = ifDeleted.flightID }, item);
             }
@@ -67,6 +68,8 @@ namespace WebApi
             {
                 DAL.Flight tempfl = DataConversion.Flight_DTO_to_DAL(item);
                 _context.Flights.Add(tempfl);
+
+                _context = Queries.fillSeatsOnFlight(tempfl, _context);
                 _context.SaveChanges();
                 return CreatedAtRoute("GetFlight", new { id = tempfl.flightID }, item);
             }
@@ -81,13 +84,18 @@ namespace WebApi
                 return NotFound();
             }
 
+            _context = Queries.deleteSeatsOnFlight(todo, _context);
+
             todo.date = dtoFlight.Date;
             todo.departure = dtoFlight.Departure;
             todo.destination = dtoFlight.Destination;
             todo.status = dtoFlight.Status;
-            //todo.firstClassPrice = dtoFlight.FirstClassPrice;
-            //todo.normalPrice = dtoFlight.NormalPrice;
+            todo.firstClassPrice = dtoFlight.FirstClassPrice;
+            todo.normalPrice = dtoFlight.NormalPrice;
             todo.planeTypeID = dtoFlight.PlaneTypeID;
+
+            
+            _context = Queries.fillSeatsOnFlight(todo, _context);
 
             _context.Flights.Update(todo);
             _context.SaveChanges();
@@ -103,6 +111,7 @@ namespace WebApi
                 return NotFound();
             }
 
+            _context = Queries.deleteSeatsOnFlight(todo, _context);
             todo.isDeleted = true;
             //_context.Flights.Remove(todo);
             _context.SaveChanges();

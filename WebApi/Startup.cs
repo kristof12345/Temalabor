@@ -17,7 +17,8 @@ namespace WebApi
     public class Startup
     {
         public void ConfigureServices(IServiceCollection services)
-        {          
+        {
+            services.AddCors();
             services.AddDbContext<DAL.FlightContext>();
             services.AddDbContext<ReserveContext>(opt =>
                 opt.UseInMemoryDatabase("TodoList"));
@@ -27,6 +28,9 @@ namespace WebApi
 
         public void Configure(IApplicationBuilder app)
         {
+            app.UseCors(builder =>
+                            builder.WithOrigins("https://localhost:44346")
+                                   .AllowAnyHeader());
             app.UseMvc();
         }       
     }
