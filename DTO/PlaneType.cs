@@ -34,6 +34,12 @@ namespace DTO
             }
         }
 
+        public PlaneType()
+        {
+            PlaneTypeName = "";
+            PlaneTypeID = 0;
+            Seats = new List<Seat>();
+        }
         //A repülő azonosítója
         public long PlaneTypeID { get; set; }
 

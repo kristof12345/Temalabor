@@ -40,14 +40,21 @@ namespace Desktop.Services
         }
 
         //A foglalások letöltése a szerverről
-        public static async void ReloadTypesListAsync()
+        public static async Task ReloadTypesListAsync()
         {
             List<PlaneType> dtoList = await HttpService.ListPlaneTypesAsync();
             typesList.Clear();
             foreach (PlaneType dto in dtoList)
             {
                 typesList.Add(dto);
+                Debug.WriteLine(dtoList.Count);
             }
+        }
+
+        internal static async Task DeletePlaneTypeAsync(PlaneType planeType)
+        {
+            await HttpService.DeletePlaneTypeAsync(planeType);
+            await ReloadTypesListAsync();
         }
 
         //Repülő képek URI-je

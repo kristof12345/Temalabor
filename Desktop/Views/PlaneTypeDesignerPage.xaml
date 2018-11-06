@@ -18,6 +18,8 @@
                     <ItemsStackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
+            <TextBlock x:Name="tbTitle" TextWrapping="Wrap" Style="{StaticResource TitleTextBlockStyle}"/>
+            <TextBlock Text="{x:Bind ViewModel.Id}" TextWrapping="Wrap"/>
             <TextBlock Text="Plane type name" TextWrapping="Wrap"/>
             <TextBox Text="{x:Bind ViewModel.Name, Mode=TwoWay}" Width="300" Height="33"/>
             <TextBlock Text="Plane image" TextWrapping="Wrap"/>

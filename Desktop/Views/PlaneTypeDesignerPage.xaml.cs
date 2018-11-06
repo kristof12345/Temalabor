@@ -3,6 +3,7 @@ using Desktop.Services;
 using Desktop.UserControls;
 using Desktop.ViewModels;
 using DTO;
+using System.Diagnostics;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -39,33 +40,33 @@ namespace Desktop.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            if(SignInService.User == null)
+            if (e.Parameter != null)
             {
-                AlertDialog dialog = new AlertDialog();
-                dialog.DisplayNoUserDialog(this);
+                //Módosítás
+                var type = (PlaneType)e.Parameter;
+                ViewModel.SetPlaneType(type);
+                tbTitle.Text = "Modify " + type.PlaneTypeName;
             }
             else
             {
-                if (e.Parameter != null)
+                //Új hozzáadása
+                ViewModel.SetPlaneType(new PlaneType());
+                tbTitle.Text = "New plane type";
+            }
+            //A korábbi székeket visszarajzoljuk
+            foreach (Seat s in ViewModel.Seats)
+            {
+                UserControl newSeat;
+                if (s.SeatType == SeatType.Normal)
                 {
-                    //Módosítás
-                    ViewModel.SetPlaneType((PlaneType)e.Parameter);
+                    newSeat = new NormalSeatUserControl(s);
                 }
-                //A korábbi székeket visszarajzoljuk
-                foreach(Seat s in ViewModel.Seats)
+                else
                 {
-                    UserControl newSeat;
-                    if (s.SeatType == SeatType.Normal)
-                    {
-                        newSeat = new NormalSeatUserControl(s);
-                    }
-                    else
-                    {
-                        newSeat = new FirstClassSeatUserControl(s);
-                    }
-                    newSeat.Margin = new Thickness(s.Coordinates.X, s.Coordinates.Y, 0, 0);
-                    canvas.Children.Add(newSeat);
+                    newSeat = new FirstClassSeatUserControl(s);
                 }
+                newSeat.Margin = new Thickness(s.Coordinates.X, s.Coordinates.Y, 0, 0);
+                canvas.Children.Add(newSeat);
             }
         }
 

@@ -59,7 +59,7 @@ namespace WebApi.Controllers
         public IActionResult Create(DTO.PlaneType item)
         {
             var ifDeleted = _context.PlaneTypes.Find(item.PlaneTypeID);            
-            if (ifDeleted.isDeleted)
+            if (ifDeleted!=null && ifDeleted.isDeleted) //Beleírtan hogy nem null
             {
                 ifDeleted.isDeleted = false;
                 _context.SaveChanges();

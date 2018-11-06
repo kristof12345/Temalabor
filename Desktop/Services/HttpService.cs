@@ -165,6 +165,16 @@ namespace Desktop.Services
             //var contents = await response.Content.ReadAsStringAsync();
         }
 
+        //Repülőtípus törlése
+        internal static async Task DeletePlaneTypeAsync(PlaneType deleteRequest)
+        {
+            client = new HttpClient(handler);
+            Debug.WriteLine("A törölt design id-ja: " + deleteRequest.PlaneTypeID);
+
+            HttpResponseMessage response = await client.DeleteAsync(UriTypes + deleteRequest.PlaneTypeID);
+            //var contents = await response.Content.ReadAsStringAsync();
+        }
+
         //Kép URL előállítása
         internal static Uri LoadImageUri(long planeTypeID)
         {

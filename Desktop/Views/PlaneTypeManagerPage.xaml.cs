@@ -51,9 +51,9 @@ namespace Desktop.Views
                 //Az első listaelem
                 listView.SelectedIndex = 0;
                 //Kép betöltése
-                ViewModel.LoadImage();
+                //ViewModel.LoadImage();
                 //User controlok felrakása
-                AddUserControls();
+                //AddUserControls();
             }
         }
 
