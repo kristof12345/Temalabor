@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using DTO;
 
 namespace Desktop.Services
@@ -8,6 +10,7 @@ namespace Desktop.Services
     public static class ReservationsDataService
     {
         private static ObservableCollection<Reservation> reservationList = new ObservableCollection<Reservation>();
+        private static ObservableCollection<Reservation> myReservationList;
 
         //Foglalás adatbázis
         public static ObservableCollection<Reservation> ReservationList
@@ -16,6 +19,15 @@ namespace Desktop.Services
             {
                 if (reservationList == null) { reservationList = new ObservableCollection<Reservation>(); }
                 return reservationList;
+            }
+        }
+
+        internal static ObservableCollection<Reservation> MyReservationList
+        {
+            get
+            {
+                if (myReservationList == null) { myReservationList = new ObservableCollection<Reservation>(); }
+                return myReservationList;
             }
         }
 
@@ -48,6 +60,16 @@ namespace Desktop.Services
             */
             reservationList.Add(reserveRequest);
             //ReloadReservationListAsync();
+        }
+
+        internal static async Task ReserveAsync(Reservation reservation)
+        {
+            reservationList.Add(reservation);
+        }
+
+        internal static async Task DeleteReservationAsync(Reservation selectedItem)
+        {
+            reservationList.Remove(selectedItem);
         }
     }
 }

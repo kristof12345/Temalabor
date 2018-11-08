@@ -36,7 +36,7 @@ namespace Desktop.Services
         }
 
         //A foglalások letöltése a szerverről
-        private static async void ReloadTypesListAsync()
+        public static async void ReloadTypesListAsync()
         {
             //List<PlaneType> dtoList = await HttpService.ListPlaneTypesAsync();
             typesList.Clear();
@@ -48,6 +48,16 @@ namespace Desktop.Services
         internal static Uri LoadImageUri(long planeTypeID)
         {
             return new Uri("https://image.ibb.co/gOHBVf/Antonov124white.png");
+        }
+
+        internal static async Task DeletePlaneTypeAsync(PlaneType deleteRequest)
+        {
+
+        }
+
+        internal static async Task AddPlaneTypeAsync(PlaneType request)
+        {
+
         }
     }
 }

@@ -136,14 +136,14 @@
     <Compile Include="Models\Flight.cs" />
     <Compile Include="Services\ActivationService.cs" />
     <Compile Include="Activation\DefaultLaunchActivationHandler.cs" />
-    <Compile Include="Services\FlightsDataService.cs" />
-    <None Include="Services\DemoFlightsDataService.cs" />
-    <None Include="Services\DemoPlaneTypeDataService.cs" />
-    <None Include="Services\DemoReservationDataService.cs" />
+    <None Include="Services\FlightsDataService.cs" />
+    <Compile Include="Services\DemoFlightsDataService.cs" />
+    <Compile Include="Services\DemoPlaneTypeDataService.cs" />
+    <Compile Include="Services\DemoReservationDataService.cs" />
     <Compile Include="Services\HttpService.cs" />
     <Compile Include="Services\NavigationServiceEx.cs" />
-    <Compile Include="Services\PlaneTypeDataService.cs" />
-    <Compile Include="Services\ReservationsDataService.cs" />
+    <None Include="Services\PlaneTypeDataService.cs" />
+    <None Include="Services\ReservationsDataService.cs" />
     <Compile Include="Services\SignInService.cs" />
     <Compile Include="UserControls\FirstClassSeatUserControl.xaml.cs">
       <DependentUpon>FirstClassSeatUserControl.xaml</DependentUpon>

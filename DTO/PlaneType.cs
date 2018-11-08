@@ -18,7 +18,6 @@ namespace DTO
             Seats = new List<Seat>();
 
             //TODO: Ide majd az adatbázis alapján kell valami
-            /*
             if (name != null && name.Contains("Airbus"))
             {
                 for (int i = 0; i < 7; i++)
@@ -37,7 +36,6 @@ namespace DTO
                     Seats.Add(s);
                 }
             }
-            */
         }
 
         //A repülő típus azonosítója
