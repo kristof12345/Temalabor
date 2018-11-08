@@ -92,7 +92,6 @@ namespace DAL
         {           
             DAL.PlaneType temp = new DAL.PlaneType();
             temp.planeType = dtoPlaneType.PlaneTypeName;
-            temp.isDeleted = false;
             return temp;
         }
 
