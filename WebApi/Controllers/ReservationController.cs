@@ -32,11 +32,8 @@ namespace WebApi
 
             foreach (DAL.Reservation reservation in DAL_list)
             {
-                if (!reservation.isDeleted)
-                {
-                    DTO.Reservation current = DataConversion.Reservation_DAL_to_DTO(reservation, _context);
-                    result.Add(current);
-                }
+                DTO.Reservation current = DataConversion.Reservation_DAL_to_DTO(reservation, _context);
+                result.Add(current);    
             }
 
             return result;
@@ -46,9 +43,27 @@ namespace WebApi
         public ActionResult<DTO.Reservation> GetById(long id)
         {
             DAL.Reservation temp = _context.Reservations.Find(id);
-            if (temp == null || temp.isDeleted)
+            if (temp == null)
                 return NotFound();
             DTO.Reservation result = DataConversion.Reservation_DAL_to_DTO(temp, _context);
+
+            return result;
+        }
+
+        [HttpGet("userID/{userID}", Name = "GetAllReservationsForUser")]
+        public ActionResult<List<DTO.Reservation>> GetAllSeatsForFlight(long userID)
+        {
+            List<DTO.Reservation> result = new List<DTO.Reservation>();
+
+            DAL.User tempUser = _context.Users.Find(userID);
+
+            List<DAL.Reservation> queriedReservations = Queries.findReservationsForUser(tempUser, _context);
+
+            foreach (DAL.Reservation reservation in queriedReservations)
+            {               
+                DTO.Reservation current = DataConversion.Reservation_DAL_to_DTO(reservation, _context);
+                result.Add(current);
+            }
 
             return result;
         }
@@ -56,46 +71,29 @@ namespace WebApi
         [HttpPost]
         public IActionResult Create(DTO.Reservation item)
         {
-            var ifDeleted = _context.Reservations.Find(item.ReservationId);
+            DAL.Reservation tempfl = DataConversion.Reservation_DTO_to_DAL(item);
+            _context.Reservations.Add(tempfl);               
+            _context.SaveChanges();
 
-            if (ifDeleted != null && ifDeleted.isDeleted)
-            {             
-                ifDeleted.isDeleted = false;               
-                _context.SaveChanges();
-                _context = Queries.reserveSeatsOnFlight(ifDeleted, _context);
-                
+            _context = Queries.AddRecordsToReservationSeat(item, _context, tempfl.reservationID);
+            _context.SaveChanges();
 
-                return CreatedAtRoute("GetReservation", new { id = ifDeleted.reservationID }, item);
-            }
-            else
-            {
-                DAL.Reservation tempfl = DataConversion.Reservation_DTO_to_DAL(item);
-                _context.Reservations.Add(tempfl);
-                _context = Queries.reserveSeatsOnFlight(tempfl, _context);
-                _context.SaveChanges();
-                
-
-                return CreatedAtRoute("GetReservation", new { id = tempfl.reservationID }, item);
-            }
+            return CreatedAtRoute("GetReservation", new { id = tempfl.reservationID }, item);
         }
 
         [HttpPut("{id}")]
         public IActionResult Update(long id, DTO.Reservation dtoReservation)
         {
             var todo = _context.Reservations.Find(id);
-            if (todo == null || todo.isDeleted)
+            if (todo == null)
             {
                 return NotFound();
             }
-
-            _context = Queries.unReserveSeatsOnFlight(todo, _context);
 
             todo.user = dtoReservation.User;
             todo.userID = dtoReservation.UserID;
             todo.flightID = dtoReservation.FlightId;
             todo.date = dtoReservation.Date;
-
-            _context = Queries.reserveSeatsOnFlight(todo, _context);
 
             _context.Reservations.Update(todo);
             _context.SaveChanges();
@@ -106,15 +104,12 @@ namespace WebApi
         public IActionResult Delete(long id)
         {
             var todo = _context.Reservations.Find(id);
-            if (todo == null || todo.isDeleted)
+            if (todo == null)
             {
                 return NotFound();
             }
-
-            _context = Queries.unReserveSeatsOnFlight(todo, _context);
-          
-            todo.isDeleted = true;
-            //_context.Reservations.Remove(todo);
+            _context = Queries.DeleteRecordsOfReservationSeat(_context, id);
+            _context.Reservations.Remove(todo);
             _context.SaveChanges();
             return NoContent();
         }

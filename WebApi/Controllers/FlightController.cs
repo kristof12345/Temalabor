@@ -59,17 +59,14 @@ namespace WebApi
             var ifDeleted = _context.Flights.Find(item.FlightId);
             if (ifDeleted != null && ifDeleted.isDeleted)
             {
-                ifDeleted.isDeleted = false;
-                _context = Queries.fillSeatsOnFlight(ifDeleted, _context);
+                ifDeleted.isDeleted = false;               
                 _context.SaveChanges();
                 return CreatedAtRoute("GetFlight", new { id = ifDeleted.flightID }, item);
             }
             else
             {
                 DAL.Flight tempfl = DataConversion.Flight_DTO_to_DAL(item);
-                _context.Flights.Add(tempfl);
-
-                _context = Queries.fillSeatsOnFlight(tempfl, _context);
+                _context.Flights.Add(tempfl);              
                 _context.SaveChanges();
                 return CreatedAtRoute("GetFlight", new { id = tempfl.flightID }, item);
             }
@@ -83,9 +80,7 @@ namespace WebApi
             {
                 return NotFound();
             }
-
-            _context = Queries.deleteSeatsOnFlight(todo, _context);
-
+           
             todo.date = dtoFlight.Date;
             todo.departure = dtoFlight.Departure;
             todo.destination = dtoFlight.Destination;
@@ -93,9 +88,6 @@ namespace WebApi
             todo.firstClassPrice = dtoFlight.FirstClassPrice;
             todo.normalPrice = dtoFlight.NormalPrice;
             todo.planeTypeID = dtoFlight.PlaneTypeID;
-
-            
-            _context = Queries.fillSeatsOnFlight(todo, _context);
 
             _context.Flights.Update(todo);
             _context.SaveChanges();
@@ -110,8 +102,7 @@ namespace WebApi
             {
                 return NotFound();
             }
-
-            _context = Queries.deleteSeatsOnFlight(todo, _context);
+         
             todo.isDeleted = true;
             //_context.Flights.Remove(todo);
             _context.SaveChanges();

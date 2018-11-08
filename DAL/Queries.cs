@@ -3,69 +3,53 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using DTO;
+using System.Diagnostics;
 
 namespace DAL
 {
     public static class Queries
     {
-        public static List<DAL.Seat> findSeatsForFlight(DAL.Flight flight, FlightContext _context)
+        public static List<DAL.Seat> findSeatsForFlight(DAL.Flight flight, FlightContext context)
         {
-            return _context.Seats.Where(s => s.planeTypeID == flight.planeTypeID).ToList();
+            return context.Seats.Where(s => s.planeTypeID == flight.planeTypeID).ToList();
         }
 
-        public static List<DAL.SeatsOnFlight> findSeatsForReservation(DAL.Reservation reservation, FlightContext _context)
+        public static List<DAL.ReservationSeat> findSeatsForReservation(DAL.Reservation reservation, FlightContext context)
         {
-            return _context.SeatsOnFlights.Where(s => s.flightID == reservation.flightID).ToList();
+            return context.ReservationSeats.Where(s => s.reservationID == reservation.reservationID).ToList();
         }
 
-        public static FlightContext fillSeatsOnFlight(DAL.Flight flight, FlightContext context)
+        public static List<DAL.Reservation> findReservationsForUser(DAL.User user, FlightContext context)
         {
-            var seats = context.Seats.Where(s => s.planeTypeID == flight.planeTypeID);
-            foreach(DAL.Seat seat in seats)
+            return context.Reservations.Where(s => s.userID == user.userID).ToList();
+        }
+
+        public static FlightContext AddRecordsToReservationSeat(DTO.Reservation reservation, FlightContext context, long reservationID)
+        {
+            foreach (long seatID in reservation.SeatList)
             {
-                SeatsOnFlight temp = new SeatsOnFlight();
-                temp.flightID = flight.flightID;
-                temp.seatID = seat.seatID;
-                temp.isReserved = false;
-                context.SeatsOnFlights.Add(temp);
+                ReservationSeat reservSeat = new ReservationSeat();
+                reservSeat.reservationID = reservationID;
+
+                var querySeat = context.Seats.Single(s => s.seatID == seatID);
+                reservSeat.seatID = querySeat.seatID;
+                context.ReservationSeats.Add(reservSeat);
             }
 
             context.SaveChanges();
             return context;
         }
 
-        public static FlightContext deleteSeatsOnFlight(DAL.Flight flight, FlightContext context)
+        public static FlightContext DeleteRecordsOfReservationSeat(FlightContext context, long reservationID)
         {
-            var seats = context.SeatsOnFlights.Where(s => s.flightID == flight.flightID);
-            foreach (DAL.SeatsOnFlight seat in seats)
+            foreach (var reserveSeat in context.ReservationSeats)
             {
-                context.Remove(seat);
+                if (reserveSeat.reservationID == reservationID)
+                    context.ReservationSeats.Remove(reserveSeat);
             }
+
             context.SaveChanges();
             return context;
         }
-
-        public static FlightContext reserveSeatsOnFlight(DAL.Reservation reservation, FlightContext context)
-        {
-            var seats = context.SeatsOnFlights.Where(s => s.flightID == reservation.flightID);
-            foreach (DAL.SeatsOnFlight seat in seats)
-            {                
-                seat.isReserved = true;
-            }
-            context.SaveChanges();
-            return context;
-        }
-
-        public static FlightContext unReserveSeatsOnFlight(DAL.Reservation reservation, FlightContext context)
-        {
-            var seats = context.SeatsOnFlights.Where(s => s.flightID == reservation.flightID);
-            foreach (DAL.SeatsOnFlight seat in seats)
-            {               
-                seat.isReserved = false;
-            }
-            context.SaveChanges();
-            return context;
-        }
-
     }
 }

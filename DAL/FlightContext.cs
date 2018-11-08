@@ -13,7 +13,7 @@ namespace DAL
         public DbSet<DAL.PlaneType> PlaneTypes { get; set; }
         public DbSet<DAL.Reservation> Reservations { get; set; }
         public DbSet<DAL.User> Users { get; set; }
-        public DbSet<DAL.SeatsOnFlight> SeatsOnFlights { get; set; }
+        public DbSet<DAL.ReservationSeat> ReservationSeats { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -122,43 +122,7 @@ namespace DAL
                     normalPrice = 20000,
                     firstClassPrice = 200000,
                     isDeleted = false
-                });
-
-            modelBuilder.Entity<DAL.SeatsOnFlight>().HasData(
-                new
-                {
-                    seatsOnFlightID = (long)1,
-                    flightID = (long)1,
-                    seatID = (long)1,
-                    isReserved = false
-                });
-
-            modelBuilder.Entity<DAL.SeatsOnFlight>().HasData(
-                new
-                {
-                    seatsOnFlightID = (long)2,
-                    flightID = (long)1,
-                    seatID = (long)2,
-                    isReserved = false
-                });
-
-            modelBuilder.Entity<DAL.SeatsOnFlight>().HasData(
-                new
-                {
-                    seatsOnFlightID = (long)3,
-                    flightID = (long)2,
-                    seatID = (long)3,
-                    isReserved = false
-                });
-
-            modelBuilder.Entity<DAL.SeatsOnFlight>().HasData(
-                new
-                {
-                    seatsOnFlightID = (long)4,
-                    flightID = (long)2,
-                    seatID = (long)4,
-                    isReserved = false
-                });
+                });          
         }
     }
 }

@@ -13,6 +13,5 @@ namespace DAL
         public long flightID { get; set; }
         public DateTime date { get; set; }
         public int cost { get; set; }
-        public bool isDeleted { get; set; }
     }
 }

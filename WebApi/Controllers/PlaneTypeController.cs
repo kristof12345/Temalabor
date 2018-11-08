@@ -32,12 +32,9 @@ namespace WebApi.Controllers
             List<String> result = new List<String>();
 
             foreach (DAL.PlaneType planeType in DAL_list)
-            {
-                if (!planeType.isDeleted)
-                {
-                    DTO.PlaneType current = DataConversion.PlaneType_DAL_to_DTO(planeType, _context);
-                    result.Add(current.PlaneTypeName);
-                }
+            {               
+                DTO.PlaneType current = DataConversion.PlaneType_DAL_to_DTO(planeType, _context);
+                result.Add(current.PlaneTypeName);
             }
 
             return result;
@@ -48,7 +45,7 @@ namespace WebApi.Controllers
         {
             DAL.PlaneType temp = _context.PlaneTypes.Find(id);
 
-            if (temp == null || temp.isDeleted)
+            if (temp == null)
                 return NotFound();
 
             DTO.PlaneType result = DataConversion.PlaneType_DAL_to_DTO(temp, _context);
@@ -58,28 +55,18 @@ namespace WebApi.Controllers
 
         [HttpPost]
         public IActionResult Create(DTO.PlaneType item)
-        {
-            var ifDeleted = _context.PlaneTypes.Find(item.PlaneTypeID);            
-            if (ifDeleted != null && ifDeleted.isDeleted)
-            {
-                ifDeleted.isDeleted = false;
-                _context.SaveChanges();
-                return CreatedAtRoute("GetPlaneType", new { id = ifDeleted.planeTypeID }, item);
-            }
-            else
-            {
-                DAL.PlaneType tempfl = DataConversion.PlaneType_DTO_to_DAL(item);
-                _context.PlaneTypes.Add(tempfl);
-                _context.SaveChanges();
-                return CreatedAtRoute("GetPlaneType", new { id = tempfl.planeTypeID }, item);
-            }
+        {          
+            DAL.PlaneType tempfl = DataConversion.PlaneType_DTO_to_DAL(item);
+            _context.PlaneTypes.Add(tempfl);
+            _context.SaveChanges();
+            return CreatedAtRoute("GetPlaneType", new { id = tempfl.planeTypeID }, item);
         }
 
         [HttpPut("{id}")]
         public IActionResult Update(long id, DTO.PlaneType item)
         {
             var todo = _context.PlaneTypes.Find(id);
-            if (todo == null || todo.isDeleted)
+            if (todo == null)
             {
                 return NotFound();
             }
@@ -95,13 +82,11 @@ namespace WebApi.Controllers
         public IActionResult Delete(long id)
         {
             var todo = _context.PlaneTypes.Find(id);
-            if (todo == null || todo.isDeleted)
+            if (todo == null)
             {
                 return NotFound();
             }
-
-            todo.isDeleted = true;
-            //_context.PlaneTypes.Remove(todo);
+            _context.PlaneTypes.Remove(todo);
             _context.SaveChanges();
             return NoContent();
         }
