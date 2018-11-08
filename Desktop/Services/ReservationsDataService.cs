@@ -9,6 +9,7 @@ namespace Desktop.Services
     public static class ReservationsDataService
     {
         private static ObservableCollection<Reservation> reservationList;
+        private static ObservableCollection<Reservation> myReservationList;
 
         //Foglalás adatbázis
         public static ObservableCollection<Reservation> ReservationList
@@ -20,11 +21,30 @@ namespace Desktop.Services
             }
         }
 
+        internal static ObservableCollection<Reservation> MyReservationList
+        {
+            get
+            {
+                if (myReservationList == null) { myReservationList = new ObservableCollection<Reservation>(); ReloadMyReservationListAsync(); }
+                return myReservationList;
+            }
+        }
+
         //A foglalások letöltése a szerverről
         public static async void ReloadReservationListAsync()
         {
             List<Reservation> dtoList = await HttpService.ListReservationsAsync();
             reservationList.Clear();
+            foreach (Reservation dto in dtoList)
+            {
+                reservationList.Add(dto);
+            }
+        }
+
+        public static async void ReloadMyReservationListAsync()
+        {
+            List<Reservation> dtoList = await HttpService.ListMyReservationsAsync();
+            myReservationList.Clear();
             foreach (Reservation dto in dtoList)
             {
                 reservationList.Add(dto);

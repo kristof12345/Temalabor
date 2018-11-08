@@ -16,6 +16,8 @@ namespace DTO
 
     public class Seat
     {
+        public Seat() { }
+
         public Seat(long id) { SeatId = id; }
 
         public long SeatId { get; set; }

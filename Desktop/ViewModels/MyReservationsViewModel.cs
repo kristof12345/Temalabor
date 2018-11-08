@@ -12,8 +12,7 @@ namespace Desktop.ViewModels
         {
             get
             {
-                //return ReservationsDataService.ReservationList.Where(x => x.User == SignInService.User.Name);
-                return ReservationsDataService.ReservationList;
+                return ReservationsDataService.MyReservationList;
             }
         }
 

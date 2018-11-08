@@ -199,6 +199,19 @@ namespace Desktop.Services
             return list;
         }
 
+        //Egy felhasználóhoz tartozó foglalások listázása
+        internal static async Task<List<Reservation>> ListMyReservationsAsync()
+        {
+            client = new HttpClient(handler);
+            var userId = SignInService.User.UserId;
+            Debug.WriteLine("UserId: " + userId);
+            HttpResponseMessage response = await client.GetAsync(UriReservation + "UserID/" + userId);
+            List<Reservation> list = await response.Content.ReadAsAsync<List<Reservation>>();
+
+            if (list == null) { Debug.WriteLine("NULL lista jött az adatbázistól!"); list = new List<Reservation>(); }
+            return list;
+        }
+
         //Foglalás hozzáadása
         internal static async Task ReservationAsync(Reservation reserveRequest)
         {
