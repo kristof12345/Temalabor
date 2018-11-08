@@ -145,11 +145,12 @@ namespace Desktop.Services
             //Lehetséges PlaneTypok betöltése
             var strArray = await ListPlaneTypeNamesAsync();
             PlaneType.Initialize(strArray.ToArray());
-
-            for (int i=1; i<=strArray.Count; i++)
+            int max = strArray.Count;
+            for (int i=1; i<=max; i++)
             {
                 HttpResponseMessage response = await client.GetAsync(UriTypes + i);
                 PlaneType t = await response.Content.ReadAsAsync<PlaneType>();
+                if (t == null) { max++; continue; }
                 typesList.Add(t);
             }
             return typesList;

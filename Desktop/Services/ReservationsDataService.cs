@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using DTO;
@@ -34,6 +33,7 @@ namespace Desktop.Services
         public static async void ReloadReservationListAsync()
         {
             List<Reservation> dtoList = await HttpService.ListReservationsAsync();
+            reservationList = new ObservableCollection<Reservation>();
             reservationList.Clear();
             foreach (Reservation dto in dtoList)
             {
@@ -44,6 +44,7 @@ namespace Desktop.Services
         public static async void ReloadMyReservationListAsync()
         {
             List<Reservation> dtoList = await HttpService.ListMyReservationsAsync();
+            myReservationList = new ObservableCollection<Reservation>();
             myReservationList.Clear();
             foreach (Reservation dto in dtoList)
             {
