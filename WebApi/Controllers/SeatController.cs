@@ -75,6 +75,7 @@ namespace WebApi.Controllers
         [HttpPost]
         public IActionResult Create(DTO.Seat item)
         {
+            //Debug.WriteLine("MEGHIVODIK");
             var ifDeleted = _context.Seats.Find(item.SeatId);          
             if (ifDeleted != null && ifDeleted.isDeleted)
             {

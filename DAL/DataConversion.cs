@@ -47,15 +47,15 @@ namespace DAL
 
             temp.SeatId = dalSeat.seatID;
             temp.SeatType = dalSeat.seatType;
-            temp.PlaneTypeId = dalSeat.planeTypeID;
-            temp.Reserved = false;
-            foreach(var seat in context.SeatsOnFlights)
-            {
-                if (seat.isReserved && seat.seatID == dalSeat.seatID)
-                    temp.Reserved = true;
-            }
+            temp.PlaneTypeId = dalSeat.planeTypeID;     
             Cord coord = new Cord(dalSeat.Xcord, dalSeat.Ycord);
             temp.Coordinates = coord;
+
+            var seat = context.ReservationSeats.Find(dalSeat.seatID);
+            if (seat != null)
+                temp.Reserved = true;
+            else
+                temp.Reserved = false;
 
             return temp;
         }
@@ -89,7 +89,7 @@ namespace DAL
         }
 
         public static DAL.PlaneType PlaneType_DTO_to_DAL(DTO.PlaneType dtoPlaneType)
-        {
+        {           
             DAL.PlaneType temp = new DAL.PlaneType();
             temp.planeType = dtoPlaneType.PlaneTypeName;
             temp.isDeleted = false;
@@ -102,9 +102,9 @@ namespace DAL
 
             var queriedSeats = Queries.findSeatsForReservation(dalReservation, _context);
             List<long> seatsIDs = new List<long>();
-            foreach (DAL.SeatsOnFlight seat in queriedSeats)
+            foreach (DAL.ReservationSeat reservationSeat in queriedSeats)
             {                
-                seatsIDs.Add(seat.seatID);               
+                seatsIDs.Add(reservationSeat.seatID);               
             }
             temp.SeatList = seatsIDs;
 
@@ -127,7 +127,6 @@ namespace DAL
             temp.flightID = dtoReservation.FlightId;
             temp.date = DateTime.Now;
             temp.cost = dtoReservation.Cost;
-            temp.isDeleted = false;
 
             return temp;
         }
