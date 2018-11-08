@@ -13,13 +13,12 @@ namespace DTO
                 PlaneTypeName = name;
             else
                 PlaneTypeName = "";
-            if (id != null)
-                PlaneTypeID = id;
-            else
-                PlaneTypeID = -1;
+
+            PlaneTypeID = id;
             Seats = new List<Seat>();
 
             //TODO: Ide majd az adatbázis alapján kell valami
+            /*
             if (name != null && name.Contains("Airbus"))
             {
                 for (int i = 0; i < 7; i++)
@@ -38,15 +37,10 @@ namespace DTO
                     Seats.Add(s);
                 }
             }
+            */
         }
 
-        public PlaneType()
-        {
-            PlaneTypeName = "";
-            PlaneTypeID = 0;
-            Seats = new List<Seat>();
-        }
-        //A repülő azonosítója
+        //A repülő típus azonosítója
         public long PlaneTypeID { get; set; }
 
         //A repülő típus neve (pl: "Airbus A380")
@@ -56,31 +50,15 @@ namespace DTO
         public List<Seat> Seats { get; set; }
 
         //Az összes szék száma
-        public int TotalSeatsCount
-        {
-            get
-            {
-                if (Seats == null) return -1;
-                return Seats.Count;
-            }
-        }
+        public int TotalSeatsCount { get { return Seats.Count; } }
 
-        public String SeatsCount
-        {
-            get
-            {
-                if (Seats == null) return -1 + " seats";
-                return Seats.Count + " seats";
-            }
-        }
+        public String SeatsCount { get { return Seats.Count + " seats"; } }
 
         //A szabad székek száma
         public int FreeSeatsCount
         {
             get
             {
-                if (Seats == null) return -1;
-
                 int ret = 0;
                 foreach (Seat s in Seats)
                 {
@@ -88,15 +66,6 @@ namespace DTO
                 }
                 return ret;
             }
-        }
-
-        //Szék lefoglalása
-        public bool ReserveSeat(int id)
-        {
-            if (Seats[id].Reserved == true) return false; //Ha már foglalt, akkor nem sikerül
-
-            Seats[id].Reserved = true;
-            return true;
         }
 
         //Szék elkérése ID alapján

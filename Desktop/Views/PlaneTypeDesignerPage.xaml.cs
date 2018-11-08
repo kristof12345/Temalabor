@@ -1,6 +1,4 @@
-﻿using Desktop.Dialogs;
-using Desktop.Services;
-using Desktop.UserControls;
+﻿using Desktop.UserControls;
 using Desktop.ViewModels;
 using DTO;
 using System.Diagnostics;
@@ -50,7 +48,7 @@ namespace Desktop.Views
             else
             {
                 //Új hozzáadása
-                ViewModel.SetPlaneType(new PlaneType());
+                ViewModel.SetPlaneType(new PlaneType("",0));
                 tbTitle.Text = "New plane type";
             }
             //A korábbi székeket visszarajzoljuk
@@ -73,7 +71,7 @@ namespace Desktop.Views
         private async void btSave_Click(object sender, RoutedEventArgs e)
         {
             await ViewModel.SaveAsync();
-            //this.Frame.Navigate(typeof(PlaneTypeManagerPage));
+            this.Frame.Navigate(typeof(PlaneTypeManagerPage));
         }
 
         private void btundo_Click(object sender, RoutedEventArgs e)

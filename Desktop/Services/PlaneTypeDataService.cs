@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Desktop.Dialogs;
-using Desktop.Models;
 using DTO;
 
 namespace Desktop.Services
@@ -46,7 +43,7 @@ namespace Desktop.Services
             typesList.Clear();
             foreach (PlaneType dto in dtoList)
             {
-                if (dto != null)
+                if(dto != null)
                     typesList.Add(dto);
                 if(dto==null)
                     Debug.WriteLine("NULL!!!!!!!!!!!!!!!!!!!!!");

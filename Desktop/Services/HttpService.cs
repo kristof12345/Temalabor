@@ -146,7 +146,7 @@ namespace Desktop.Services
             var strArray = await ListPlaneTypeNamesAsync();
             PlaneType.Initialize(strArray.ToArray());
 
-            for (int i=1; i<=strArray.Count; i++) //TODO: size
+            for (int i=1; i<=strArray.Count; i++)
             {
                 HttpResponseMessage response = await client.GetAsync(UriTypes + i);
                 PlaneType t = await response.Content.ReadAsAsync<PlaneType>();

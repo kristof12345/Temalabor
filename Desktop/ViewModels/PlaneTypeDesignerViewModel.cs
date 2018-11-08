@@ -10,7 +10,7 @@ namespace Desktop.ViewModels
 {
     public class PlaneTypeDesignerViewModel : ViewModelBase
     {
-        private PlaneType planeType = new PlaneType();
+        private PlaneType planeType = new PlaneType("",0);
         private int selectedSeatTypeIndex = 0;
         private String imageScource = "/Assets/Antonov124white.png";
 

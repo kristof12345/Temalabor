@@ -20,10 +20,7 @@ namespace DTO
         //PlaneType ID-ja
         public long PlaneTypeID { get; set; }
 
-        //Elsődleges kulcs az adatbázisban
-        public long DatabaseId { get; set; }
-
-        //Egyedi azonosító a kliensben (ez alapján lehet törölni és módosítani)
+        //Egyedi azonosító
         public long FlightId { get; set; }
 
         //Dátum
@@ -70,7 +67,6 @@ namespace DTO
         //Kiíráshoz ToStirng
         public override string ToString()
         {
-            //if( PlaneType==null ) return "id: " + FlightId.ToString() + " from: " + Departure + " to: " + Destination + " type: null";
             return "id: " + FlightId.ToString() + " from: " + Departure + " to: " + Destination + " type: " + PlaneType.PlaneTypeName;
         }
     }

@@ -1,5 +1,4 @@
-﻿using System;
-
+﻿
 namespace DTO
 {
     public class Cord
@@ -17,23 +16,16 @@ namespace DTO
 
     public class Seat
     {
-        private Cord c;
-
-        public Seat()
-        {
-            SeatType = SeatType.Normal;
-        }
-
         public Seat(long id) { SeatId = id; }
 
         public long SeatId { get; set; }
 
-        public long PlaneTypeId { get; set; }
+        public long PlaneTypeId { get; set; } //Ez kell?
 
-        public SeatType SeatType { get; set; }   
-        
+        public SeatType SeatType { get; set; } = SeatType.Normal;
+
         public bool Reserved { get; set; }
 
-        public Cord Coordinates { get { return c; } set { c = value; } }
+        public Cord Coordinates { get; set; }
     }
 }

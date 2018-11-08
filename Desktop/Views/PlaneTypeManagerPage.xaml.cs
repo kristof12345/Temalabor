@@ -61,6 +61,7 @@ namespace Desktop.Views
             //TODO:töröljük a kijelölt típust
             var deleteRequest = (PlaneType)listView.SelectedItem;
             await PlaneTypeDataService.DeletePlaneTypeAsync(deleteRequest);
+            listView.SelectedIndex = 0;
         }
 
         private void AddUserControls()

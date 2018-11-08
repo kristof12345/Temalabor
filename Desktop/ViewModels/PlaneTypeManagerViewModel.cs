@@ -41,7 +41,11 @@ namespace Desktop.ViewModels
 
         internal void SelectedAt(int index)
         {
-            PlaneType = PlaneTypeDataService.PlaneTypeList[index];
+            if (index >= 0)
+            {
+                PlaneType = PlaneTypeDataService.PlaneTypeList[index];
+            }
+            else PlaneType = null;
             RaisePropertyChanged("Flight");
             RaisePropertyChanged("IsTypeSelected");
         }
