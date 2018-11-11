@@ -3,21 +3,35 @@ var selectedSeats = new Array();
 
 $(document).ready(function () {
     $('#listFlights').click( function() {
-        alert("Még nincs implementálva");
+        listFlights();
     });
     $('#mySelectedSeats').click( function() {
         alert("Még nincs implementálva");
     });
-    getFlights();
 });
+
+function createFlightsTable() {
+    var table = $('<table>');
+    table.attr('id','flightsTable');
+    var row = $('<tr>');
+    var tableHeaders = ["Plane Type", "From", "To", "Date", "Status", "Free seats", "Number of seats", "Book"];
+    for (i=0; i<tableHeaders.length; ++i) {
+        var tableHeader = $('<th>').text(tableHeaders[i]);
+        row.append(tableHeader);
+    }
+    table.append(row);
+    $('#placeForTable').append(table);
+    return table;
+}
 
 function getSeats(flightId) {
     if (r == undefined) {
-        r = Raphael(0, 100, 1000, 700);
+        $('#placeForCanvas').css('border','1px solid #aaa');
+        r = Raphael('placeForCanvas', 1000, 700);
     } else {
         r.clear();
     }
-    r.image("img/Antonov125.png", 0, 0, 700, 700);
+    r.image("img/Antonov125.png", 0, 0, 1000, 700);
     $.ajax({
         type: 'GET',
         url: 'https://localhost:5001/api/seat/flightID/' + flightId,
@@ -29,7 +43,7 @@ function getSeats(flightId) {
                 if (d[i].reserved)
                     color = "red";
 
-                var seat = r.rect(d[i].coordinates.x-300, d[i].coordinates.y, 30, 30)
+                var seat = r.rect(d[i].coordinates.x-150, d[i].coordinates.y, 30, 30)
                 seat.attr({ fill: color })
                 seat.data("seatId", d[i].seatId);
                 seat.data("flightId", flightId);
@@ -61,13 +75,14 @@ function getSeats(flightId) {
 
 }
 
-function getFlights() {
+function listFlights() {
     $.ajax({
         //url: 'mock/flight.json',
         type: 'GET',
         url: 'https://localhost:5001/api/flight',
         success: function (d) {
             //var t = $("#flightsTable");
+            var table = createFlightsTable();
             for (var i = 0; i < d.length; ++i) {
                 var element = d[i];
                 var tr = $("<tr/>")
@@ -79,7 +94,8 @@ function getFlights() {
                     .append($('<td/>', { text: element.freeSeats }))
                     .append($('<td/>', { text: element.numberOfSeats }))
                     .append('<td><input id=' + element.flightId + ' type="button" value="Book" onclick="getSeats(this.id)"> </td>');
-                $('#flightsTable > tbody:last-child').append(tr);
+                //$('#flightsTable > tbody:last-child')
+                table.append(tr);
             }
         },
         error: function (request, status, error) {
