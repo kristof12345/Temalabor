@@ -5,7 +5,8 @@ $(document).ready(function () {
     $('#listFlights').click( function() {
         listFlights();
     });
-    $('#mySelectedSeats').click( function() {
+    $('#mySelectedSeats').click(function () {
+        console.log(selectedSeats);
         alert("Még nincs implementálva");
     });
 });
