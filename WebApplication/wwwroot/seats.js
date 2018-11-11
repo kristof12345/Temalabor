@@ -2,6 +2,12 @@ var r = undefined;
 var selectedSeats = new Array();
 
 $(document).ready(function () {
+    $('#listFlights').click( function() {
+        alert("Még nincs implementálva");
+    });
+    $('#mySelectedSeats').click( function() {
+        alert("Még nincs implementálva");
+    });
     getFlights();
 });
 
@@ -42,7 +48,7 @@ function getSeats(flightId) {
                         }
                         console.log(selectedSeats);
                     } else {
-                        alert("Ez a hely m�r foglalt!");
+                        alert("Ez a hely m�r foglalt!");
                     }
                 });
                 
