@@ -1,8 +1,5 @@
-/*$(function(){
-    
-});*/
-
 var r = undefined;
+var selectedSeats = new Array();
 
 $(document).ready(function () {
     getFlights();
@@ -14,28 +11,45 @@ function getSeats(flightId) {
     } else {
         r.clear();
     }
-    r.image("img/Antonov125.png", 0, 0, 1000, 700);
+    r.image("img/Antonov125.png", 0, 0, 700, 700);
     $.ajax({
         type: 'GET',
         url: 'https://localhost:5001/api/seat/flightID/' + flightId,
         success: function (d) {
             
             for (var i = 0; i < d.length; ++i) {
-                console.log(d[i]);
                 var color = "green";
 
                 if (d[i].reserved)
                     color = "red";
 
-                var seat = r.rect(d[i].coordinates.x, d[i].coordinates.y, 30, 30)
+                var seat = r.rect(d[i].coordinates.x-300, d[i].coordinates.y, 30, 30)
                 seat.attr({ fill: color })
                 seat.data("seatId", d[i].seatId);
                 seat.data("flightId", flightId);
                 seat.click(function () {
-                    alert(this.data("flightId") + " : " + this.data("seatId"));
+                    if (!this.reserved) {
+                        console.log("flightId: " + this.data("flightId") + "eatId: " + this.data("seatId"));
+                        var clickedSeat = { flightId: this.data("flightId"), seatId: this.data("seatId") };
+                        var inSelectedSeats = selectedSeats.filter(row => row.flightId === clickedSeat.flightId && row.seatId === clickedSeat.seatId);
+                        if (inSelectedSeats.length > 0) {
+                            var index = selectedSeats.indexOf(inSelectedSeats[0]);
+                            selectedSeats.splice(index, 1);
+                            this.attr({ fill: "green" })
+                        } else {
+                            selectedSeats.push(clickedSeat);
+                            this.attr({ fill: "yellow" })
+                        }
+                        console.log(selectedSeats);
+                    } else {
+                        alert("Ez a hely már foglalt!");
+                    }
                 });
                 
             }
+        },
+        error: function (request, status, error) {
+            alert(request.responseText);
         }
     });
 
@@ -61,6 +75,9 @@ function getFlights() {
                     .append('<td><input id=' + element.flightId + ' type="button" value="Book" onclick="getSeats(this.id)"> </td>');
                 $('#flightsTable > tbody:last-child').append(tr);
             }
+        },
+        error: function (request, status, error) {
+            alert(request.responseText);
         }
     })
 }
