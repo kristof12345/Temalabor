@@ -64,6 +64,7 @@ namespace Desktop.Services
         //Járat hozzáadása
         internal static async Task AddFlightAsync(Flight_DTO addRequest)
         {
+            Debug.WriteLine(addRequest.Departure);
             HttpResponseMessage response = await client.PostAsJsonAsync(UriFlights, addRequest);
         }
 

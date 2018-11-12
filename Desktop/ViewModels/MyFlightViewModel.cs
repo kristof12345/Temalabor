@@ -2,17 +2,15 @@
 using Desktop.Services;
 using GalaSoft.MvvmLight;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace Desktop.ViewModels
 {
-    public class MyFlightViewModel: ViewModelBase
+    public class MyFlightViewModel : ViewModelBase
     {
         private bool isFlightSelected = false;
-
-        private String dest = "";
-        private String dep = "";
 
         public bool IsFlightSelected
         {
@@ -20,29 +18,46 @@ namespace Desktop.ViewModels
             set { isFlightSelected = value; RaisePropertyChanged("IsFlightSelected"); }
         }
 
+        private static ObservableCollection<Flight> flightList = new ObservableCollection<Flight>();
+
         //Adatforrás
         public ObservableCollection<Flight> Source
         {
             get
             {
-                var list = new ObservableCollection<Flight>();
-                var data = FlightsDataService.FlightList.Where(x => x.Destination.Contains(dest) && x.Departure.Contains(dep));
-                foreach(Flight f in data) { list.Add(f); }
-                return list;
+                Reload();
+                return flightList;
             }
         }
 
-        public String Destination
+        internal void Reload()
         {
-            get { return dest; }
-            set { dest = value; RaisePropertyChanged("Destination"); }
+            flightList.Clear();
+            IEnumerable<Flight> data;
+            if (ShowDate)
+            {
+                data = FlightsDataService.FlightList.Where(x => x.Destination.Contains(Destination) && x.Departure.Contains(Departure) && x.Date.Date == DayDate.Date);
+            }
+            else if (ShowInterval)
+            {
+                data = FlightsDataService.FlightList.Where(x => x.Destination.Contains(Destination) && x.Departure.Contains(Departure) && x.Date.Date >= IntervalStart.Date && x.Date.Date <= IntervalEnd.Date);
+            }
+            else
+            {
+                data = FlightsDataService.FlightList.Where(x => x.Destination.Contains(Destination) && x.Departure.Contains(Departure));
+            }
+            foreach (Flight f in data) { flightList.Add(f); }
         }
 
-        public String Departure
-        {
-            get { return dep; }
-            set { dep = value; RaisePropertyChanged("Departure"); }
-        }
+        public String Destination { get; set; } = "";
+
+        public String Departure { get; set; } = "";
+
+        public DateTimeOffset DayDate { get; set; } = DateTime.Today;
+
+        public DateTimeOffset IntervalStart { get; set; } = DateTime.Today;
+
+        public DateTimeOffset IntervalEnd { get; set; } = DateTime.Today;
 
         public bool ShowDate { get; set; } = false;
 
@@ -58,12 +73,18 @@ namespace Desktop.ViewModels
 
         internal void DisplayDay()
         {
-            throw new NotImplementedException();
+            ShowDate = true;
+            RaisePropertyChanged("ShowDate");
+            ShowInterval = false;
+            RaisePropertyChanged("ShowInterval");
         }
 
         internal void DisplayInterval()
         {
-            throw new NotImplementedException();
+            ShowDate = false;
+            RaisePropertyChanged("ShowDate");
+            ShowInterval = true;
+            RaisePropertyChanged("ShowInterval");
         }
     }
 }
