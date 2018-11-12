@@ -15,7 +15,7 @@ namespace DAL
                             join r in context.Reservations on rs.reservationID equals r.reservationID
                             where r.flightID == flightID
                             select r.flightID;
-            if (flight != null)
+            if (flight.Any())
                 return true;
             return false;
         }
@@ -27,7 +27,7 @@ namespace DAL
                          join f in context.Flights on r.flightID equals f.flightID
                          where f.planeTypeID == planeTypeID
                          select f.planeTypeID;
-            if (planeType != null)
+            if (planeType.Any())
                 return true;
             return false;
         }
