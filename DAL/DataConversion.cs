@@ -41,7 +41,7 @@ namespace DAL
             return temp;
         }
 
-        public static DTO.Seat Seat_DAL_to_DTO(DAL.Seat dalSeat, FlightContext context)
+        public static DTO.Seat Seat_DAL_to_DTO(DAL.Seat dalSeat, FlightContext context, long flightID = -1)
         {
             DTO.Seat temp = new DTO.Seat(dalSeat.seatID);
 
@@ -51,7 +51,17 @@ namespace DAL
             Cord coord = new Cord(dalSeat.Xcord, dalSeat.Ycord);
             temp.Coordinates = coord;
 
-            var seat = context.ReservationSeats.Find(dalSeat.seatID);
+            var seat = from rs in context.ReservationSeats
+                       join r in context.Reservations on rs.reservationID equals r.reservationID
+                       where rs.seatID == dalSeat.seatID &&
+                            r.flightID == flightID
+                       select rs.seatID;
+
+            foreach (var s in seat)
+            {
+                Debug.WriteLine(s);
+            }
+            
             if (seat != null)
                 temp.Reserved = true;
             else
@@ -134,6 +144,7 @@ namespace DAL
         {
             DTO.User temp = new DTO.User(dalUser.name, dalUser.password);
             temp.UserType = dalUser.userType;
+            temp.UserId = dalUser.userID;
             return temp;
         }
 
