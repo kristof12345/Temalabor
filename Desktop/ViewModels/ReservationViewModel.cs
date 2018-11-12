@@ -8,7 +8,8 @@ namespace Desktop.ViewModels
 {
     public class ReservationViewModel : ViewModelBase
     {
-        private bool isReservationSelected=false;
+        private bool isReservationSelected = false;
+        private int selectedSort = 0;
 
         public ObservableCollection<Reservation> Source
         {
@@ -28,6 +29,21 @@ namespace Desktop.ViewModels
         {
             await ReservationsDataService.DeleteReservationAsync(deleteRequest);
             IsReservationSelected = false;
+        }
+
+        public string[] Sort
+        {
+            get
+            {
+                string[] array = { "ReservationID", "UserID" };
+                return array;
+            }
+        }
+
+        public int SelectedSort
+        {
+            get { return selectedSort; }
+            set { selectedSort = value; RaisePropertyChanged("SelectedSort");  }
         }
     }
 }

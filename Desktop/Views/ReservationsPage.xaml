@@ -48,7 +48,7 @@
                     </Style>
                 </ListView.ItemContainerStyle>
                 <TextBlock Text="Sort by:"/>
-                <ComboBox x:Name="comboBox" Width="150"/>
+                <ComboBox x:Name="comboBox" ItemsSource="{x:Bind ViewModel.Sort}" SelectedIndex="{x:Bind ViewModel.SelectedSort, Mode=TwoWay}" Width="150"/>
                 <Button x:Name="btDelete" Content="Delete reservation" IsEnabled="{x:Bind ViewModel.IsReservationSelected, Mode=OneWay}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="150" Click="btDelete_Click"/>
             </ListView>
             

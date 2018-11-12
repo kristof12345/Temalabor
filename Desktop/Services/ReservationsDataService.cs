@@ -23,7 +23,7 @@ namespace Desktop.Services
         {
             get
             {
-                //ReloadMyReservationListAsync();
+                ReloadMyReservationListAsync();
                 return myReservationList;
             }
         }
