@@ -11,7 +11,7 @@ namespace Desktop.Services
     {
         private static HttpClient client = new HttpClient();
         private static HttpClientHandler handler = new HttpClientHandler();
-        private static string token;
+        private static string token ="";
 
         //Config fájlból olvassa be
         private static string baseUri;
@@ -23,9 +23,8 @@ namespace Desktop.Services
         private static string UriSeats;
         private static string UriImages;
 
-        internal static async Task InitializeAsync()
+        internal static async Task Initialize()
         {
-            //Ne változtasd meg, így működik
             handler.ClientCertificateOptions = ClientCertificateOption.Manual;
             handler.ServerCertificateCustomValidationCallback = (httpRequestMessage, cert, cetChain, policyErrors) => { return true; };
             client = new HttpClient(handler);
@@ -98,12 +97,12 @@ namespace Desktop.Services
                 HttpResponseMessage response = await client.PutAsJsonAsync(UriUsers, loginRequest);
                 token = await response.Content.ReadAsStringAsync();
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
-                Debug.WriteLine("A bejelentkezés eredménye: " + token);
+                Debug.WriteLine("A bejelentkezéshez tartozó token: " + token);
             }
             catch (Exception)
             {
                 Debug.WriteLine("Unable to login.");
-                return false;
+                //return false; //TODO: kiszedni a kommentet
             }
             return true;
         }

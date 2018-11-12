@@ -53,7 +53,7 @@
                 <Button x:Name="btDelete" Content="Delete flight" IsEnabled="{x:Bind ViewModel.IsFlightSelected, Mode=OneWay}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="120" Click="btDelete_Click"/>
                 <Button x:Name="btUpdate" Content="Update flight" IsEnabled="{x:Bind ViewModel.IsFlightSelected, Mode=OneWay}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="120" Click="btUpdate_Click"/>
             </ListView>
-            <ListView VerticalAlignment="Bottom" Margin="1046,0,0,5" SelectionMode="None">
+            <ListView VerticalAlignment="Bottom" Margin="50,0,0,5" SelectionMode="None">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <ItemsStackPanel Orientation="Horizontal"/>
@@ -64,7 +64,9 @@
                         <Setter Property="Padding" Value="6"/>
                     </Style>
                 </ListView.ItemContainerStyle>
-                <Button x:Name="btUndo" Content="Undo" IsEnabled="{x:Bind ViewModel.UndoEnabled, Mode=OneWay}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="120" Click="btUndo_Click"/>
+                <TextBox x:Name="tbNP" HorizontalAlignment="Left"  InputScope="Number" PlaceholderText="Normal seat price" VerticalAlignment="Bottom" Height="33" Width="150"/>
+                <TextBox x:Name="tbPP" HorizontalAlignment="Left"  InputScope="Number" PlaceholderText="Premium seat price" VerticalAlignment="Bottom" Height="33" Width="150"/>
+                <Button x:Name="btUndo" Content="Undo" IsEnabled="{x:Bind ViewModel.UndoEnabled, Mode=OneWay}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="120" Click="btUndo_Click" Margin="670,0,0,0"/>
                 <Button x:Name="btRedo" Content="Redo" IsEnabled="{x:Bind ViewModel.RedoEnabled, Mode=OneWay}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="120" Click="btRedo_Click"/>
                 <Button x:Name="btSeats" Content="Show seats" IsEnabled="{x:Bind ViewModel.IsFlightSelected, Mode=OneWay}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="120" Click="btReserve_Click"/>
             </ListView>

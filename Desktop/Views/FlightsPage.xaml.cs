@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
-using Desktop.Dialogs;
 using Desktop.Models;
 using Desktop.ViewModels;
 using DTO;
@@ -56,7 +54,7 @@ namespace Desktop.Views
         //Új járat felvétele a gomb megnyomásakor
         private void btAdd_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            CommandBase cmd = new AddCommand(ViewModel.NextId, dpDate.Date, dpTime.Time, tbDep.Text, tbDes.Text, cbType.SelectedValue.ToString(), cbType.SelectedIndex+1);
+            CommandBase cmd = new AddCommand(ViewModel.NextId, dpDate.Date, dpTime.Time, tbDep.Text, tbDes.Text, cbType.SelectedValue.ToString(), cbType.SelectedIndex+1, tbNP.Text.ToString(), tbPP.Text.ToString());
             ViewModel.ExecuteCommand(cmd);
         }
         

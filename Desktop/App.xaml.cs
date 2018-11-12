@@ -1,4 +1,5 @@
 ﻿using System;
+using Desktop.Dialogs;
 using Desktop.Services;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
@@ -24,7 +25,17 @@ namespace Desktop
 
         protected override async void OnLaunched(LaunchActivatedEventArgs args)
         {
-            System.Threading.Thread.Sleep(1000); //Várakozás a szerverre
+            //System.Threading.Thread.Sleep(1000); //Várakozás a szerverre
+            try
+            {
+                await HttpService.Initialize();
+            }
+            catch (Exception e)
+            {
+                AlertDialog dialog = new AlertDialog();
+                dialog.DisplayNoServerDialog(null);
+            }
+
             await FlightsDataService.Initialize();
             await ReservationsDataService.Initialize();
             await PlaneTypeDataService.Initialize();
@@ -42,7 +53,7 @@ namespace Desktop
 
         private ActivationService CreateActivationService()
         {
-                return new ActivationService(this, typeof(ViewModels.UserViewModel), new Lazy<UIElement>(CreateShell)); //Kezdő oldal
+            return new ActivationService(this, typeof(ViewModels.UserViewModel), new Lazy<UIElement>(CreateShell)); //Kezdő oldal
         }
 
         private UIElement CreateShell()
