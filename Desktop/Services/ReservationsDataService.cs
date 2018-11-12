@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using DTO;
 
@@ -9,6 +11,7 @@ namespace Desktop.Services
     {
         private static ObservableCollection<Reservation> reservationList = new ObservableCollection<Reservation>();
         private static ObservableCollection<Reservation> myReservationList = new ObservableCollection<Reservation>();
+        private static int sortSwitch=0;
 
         //Foglalás adatbázis
         public static ObservableCollection<Reservation> ReservationList
@@ -34,11 +37,32 @@ namespace Desktop.Services
             await ReloadReservationListAsync();
         }
 
+        public static void SetSort(int sort)
+        {
+            sortSwitch = sort;
+            ReloadReservationListAsync();
+        }
+
         //A foglalások letöltése a szerverről
         public static async Task ReloadReservationListAsync()
         {
             List<Reservation> dtoList = await HttpService.ListReservationsAsync();
-            reservationList = new ObservableCollection<Reservation>();
+
+            switch (sortSwitch)
+            {
+                case 0:
+                    dtoList.Sort((x, y) => x.UserID.CompareTo(y.UserID));
+                    Debug.WriteLine("Changed1");
+                    break;
+                case 1:
+                    dtoList.Sort((x, y) => x.FlightId.CompareTo(y.FlightId));
+                    Debug.WriteLine("Changed2");
+                    break;
+                case 2:
+                    dtoList.Sort((x, y) => x.Cost.CompareTo(y.Cost));
+                    Debug.WriteLine("Changed3");
+                    break;
+            }
             reservationList.Clear();
             foreach (Reservation dto in dtoList)
             {

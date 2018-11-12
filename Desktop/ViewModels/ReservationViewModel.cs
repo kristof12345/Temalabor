@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Desktop.Services;
 using DTO;
@@ -35,7 +36,7 @@ namespace Desktop.ViewModels
         {
             get
             {
-                string[] array = { "ReservationID", "UserID" };
+                string[] array = { "ReservationID", "UserID", "Cost" };
                 return array;
             }
         }
@@ -43,7 +44,7 @@ namespace Desktop.ViewModels
         public int SelectedSort
         {
             get { return selectedSort; }
-            set { selectedSort = value; RaisePropertyChanged("SelectedSort");  }
+            set { selectedSort = value; RaisePropertyChanged("SelectedSort"); ReservationsDataService.SetSort(selectedSort); Debug.WriteLine("Changed" + selectedSort); }
         }
     }
 }

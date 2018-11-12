@@ -89,6 +89,7 @@ namespace Desktop.Services
         internal static async void AddUserAsync(User addRequest)
         {
             HttpResponseMessage response = await client.PostAsJsonAsync(UriUsers, addRequest);
+            Debug.WriteLine("New User:" + addRequest.Name);
         }
 
         //Bejelentkezési kérés
