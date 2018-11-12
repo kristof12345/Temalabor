@@ -61,7 +61,7 @@ namespace WebApi
             {
                 ifDeleted.isDeleted = false;
                 _context.SaveChanges();
-                return CreatedAtRoute("GetFlight", new { id = ifDeleted.userID }, item);
+                return CreatedAtRoute("GetUser", new { id = ifDeleted.userID }, item);
             }
             else
             {
