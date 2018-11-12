@@ -56,13 +56,8 @@ namespace DAL
                        where rs.seatID == dalSeat.seatID &&
                             r.flightID == flightID
                        select rs.seatID;
-
-            foreach (var s in seat)
-            {
-                Debug.WriteLine(s);
-            }
             
-            if (seat != null)
+            if (seat.Any())
                 temp.Reserved = true;
             else
                 temp.Reserved = false;
@@ -70,11 +65,11 @@ namespace DAL
             return temp;
         }
 
-        public static DAL.Seat Seat_DTO_to_DAL(DTO.Seat dtoSeat)
+        public static DAL.Seat Seat_DTO_to_DAL(DTO.Seat dtoSeat, long planeTypeID = 0)
         {
             DAL.Seat temp = new DAL.Seat();
 
-            temp.planeTypeID = dtoSeat.PlaneTypeId;
+            temp.planeTypeID = planeTypeID;
             temp.seatType = dtoSeat.SeatType;
             temp.Xcord = dtoSeat.Coordinates.X;
             temp.Ycord = dtoSeat.Coordinates.Y;

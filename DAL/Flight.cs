@@ -7,7 +7,6 @@ namespace DAL
     public class Flight
     {
         public long flightID { get; set; }
-        public PlaneType planeType { get; set; }
         public long planeTypeID { get; set; }
         public DateTime date { get; set; }
         public String departure { get; set; }

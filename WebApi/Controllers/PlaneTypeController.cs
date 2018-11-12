@@ -57,11 +57,12 @@ namespace WebApi.Controllers
         public IActionResult Create(DTO.PlaneType item)
         {          
             DAL.PlaneType tempfl = DataConversion.PlaneType_DTO_to_DAL(item);
+            _context.PlaneTypes.Add(tempfl);
+            _context.SaveChanges();
             foreach (DTO.Seat seat in item.Seats)
             {
-                _context.Seats.Add(DataConversion.Seat_DTO_to_DAL(seat));
+                _context.Seats.Add(DataConversion.Seat_DTO_to_DAL(seat, tempfl.planeTypeID));
             }
-            _context.PlaneTypes.Add(tempfl);
             _context.SaveChanges();
             return CreatedAtRoute("GetPlaneType", new { id = tempfl.planeTypeID }, item);
         }

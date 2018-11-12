@@ -9,7 +9,6 @@ namespace DAL
     {
         public long seatID { get; set; }
         public long planeTypeID { get; set; }
-        public PlaneType planeType { get; set; }
         public DTO.SeatType seatType { get; set; }
         public int Xcord { get; set; }
         public int Ycord { get; set; }
