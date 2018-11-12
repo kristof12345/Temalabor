@@ -61,7 +61,8 @@
             </StackPanel>
         </ListView>
         <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}" Margin="0,150,0,0" Height="550">
-            <tg:RadDataGrid 
+            <tg:RadDataGrid
+                GridLinesVisibility="None"
                 ColumnDataOperationsMode="Flyout"
                 x:Name="dataTable"
                 SelectionMode = "Single"

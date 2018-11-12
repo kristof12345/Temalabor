@@ -11,6 +11,7 @@
     <Grid>
         <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}" Margin="0,0,0,120" Height="700">
             <tg:RadDataGrid
+                GridLinesVisibility="None"
                 ColumnDataOperationsMode="Flyout"
                 x:Name="dataTable"
                 SelectionMode = "Single"

@@ -34,7 +34,6 @@ namespace Desktop.Views
         //Ha a keresés gombra kattintunk, újratöltjük az oldalt
         private void searchButton_Click(object sender, RoutedEventArgs e)
         {
-            //this.Frame.Navigate(typeof(MyFlightsPage));
             ViewModel.Reload();
         }
 
