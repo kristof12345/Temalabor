@@ -25,17 +25,9 @@ namespace Desktop.ViewModels
         {
             get
             {
-                //return FlightsDataService.FlightList.Where(x => x.Destination.Contains(dest));
-                //return FlightsDataService.FlightList;
-
                 var list = new ObservableCollection<Flight>();
                 var data = FlightsDataService.FlightList.Where(x => x.Destination.Contains(dest) && x.Departure.Contains(dep));
-
-                foreach(Flight f in data)
-                {
-                    list.Add(f);
-                }
-
+                foreach(Flight f in data) { list.Add(f); }
                 return list;
             }
         }
@@ -50,6 +42,28 @@ namespace Desktop.ViewModels
         {
             get { return dep; }
             set { dep = value; RaisePropertyChanged("Departure"); }
+        }
+
+        public bool ShowDate { get; set; } = false;
+
+        public bool ShowInterval { get; set; } = false;
+
+        internal void DisplayAll()
+        {
+            ShowDate = false;
+            RaisePropertyChanged("ShowDate");
+            ShowInterval = false;
+            RaisePropertyChanged("ShowInterval");
+        }
+
+        internal void DisplayDay()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void DisplayInterval()
+        {
+            throw new NotImplementedException();
         }
     }
 }

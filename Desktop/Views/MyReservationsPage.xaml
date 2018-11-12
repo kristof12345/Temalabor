@@ -5,35 +5,19 @@
     xmlns:local="using:Desktop.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:my="using:Telerik.UI.Xaml.Controls.Data"
-    xmlns:local1="using:DTO"
     mc:Ignorable="d"
     DataContext="{Binding MyReservationsViewModel, Source={StaticResource Locator}}"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
+        <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Visibility="{x:Bind ViewModel.HasReservation}" Text="You don't have any reservations. To add a reservation click New Reservation." Margin="100,100,0,0" Width="350" TextWrapping="Wrap" HorizontalAlignment="Left"/>
         <ListView x:Name="listView"
-                  ItemsSource="{x:Bind Path=ViewModel.Source}"
-                  Margin="0,0,1000,150"
+                  Margin="0,0,1000,350"
                   SelectionMode="Single"
                   SelectionChanged="listView_SelectionChanged"
                   ScrollViewer.HorizontalScrollMode="Enabled">
-            <ListView.ItemTemplate>
-                <DataTemplate x:Name="DoubleLineDataTemplate" x:DataType="local1:Reservation">
-                    <StackPanel Orientation="Horizontal" Height="64" AutomationProperties.Name="{x:Bind Details}">
-                        <Ellipse Height="48" Width="48" VerticalAlignment="Center">
-                            <Ellipse.Fill>
-                                <ImageBrush ImageSource="Placeholder.png"/>
-                            </Ellipse.Fill>
-                        </Ellipse>
-                        <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="12,0,0,0">
-                            <TextBlock Text="{x:Bind Details}"  Style="{ThemeResource BaseTextBlockStyle}" Foreground="{ThemeResource SystemControlPageTextBaseHighBrush}" />
-                            <TextBlock Text="{ Binding SeatCountString}" Style="{ThemeResource BodyTextBlockStyle}" Foreground="{ThemeResource SystemControlPageTextBaseMediumBrush}"/>
-                            <TextBlock Text="{x:Bind Cost}" Style="{ThemeResource BodyTextBlockStyle}" Foreground="{ThemeResource SystemControlPageTextBaseMediumBrush}"/>
-                        </StackPanel>
-                    </StackPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
         </ListView>
+        <Button Content="New Reservation" HorizontalAlignment="Left" Margin="180,600,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+
     </Grid>
 </Page>

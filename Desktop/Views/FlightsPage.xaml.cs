@@ -2,13 +2,11 @@
 using System.Diagnostics;
 using Desktop.Dialogs;
 using Desktop.Models;
-using Desktop.Services;
 using Desktop.ViewModels;
 using DTO;
 using Telerik.UI.Xaml.Controls.Grid;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Navigation;
 
 namespace Desktop.Views
 {
@@ -72,19 +70,6 @@ namespace Desktop.Views
                 Flight param = (Flight)dataTable.SelectedItem;
                 //Navigálás a PlanePage-re
                 this.Frame.Navigate(typeof(PlanePage), param);
-            }
-        }
-
-        //Amikor erre a lapra érkezünk
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            base.OnNavigatedTo(e);
-
-            //User ellenőrzése
-            if (SignInService.User == null)
-            {
-                AlertDialog dialog = new AlertDialog();
-                dialog.DisplayNoUserDialog(this);               
             }
         }
 

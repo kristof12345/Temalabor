@@ -23,9 +23,23 @@
             </ListView.ItemContainerStyle>
             <TextBox Text="{x:Bind ViewModel.Departure, Mode=TwoWay}" PlaceholderText="Departure" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="330"/>
             <TextBox Text="{x:Bind ViewModel.Destination, Mode=TwoWay}" PlaceholderText="Destination" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="330"/>
+            <TextBlock Text="Date of travel:" Style="{ThemeResource BaseTextBlockStyle}"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch">
+                <RadioButton Content="All" Tag="All" Checked="BGRadioButton_Checked" Width="77" IsChecked="True" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center"/>
+                <RadioButton Content="On a specific day" Tag="Day" Checked="BGRadioButton_Checked" Width="170" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center"/>
+                <RadioButton Content="In an interval" Tag="Interval" Checked="BGRadioButton_Checked" Width="170"/>
+            </StackPanel>
             <Button Content="Search" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="120" Click="saveButton_Click"/>
-
         </ListView>
+
+        <StackPanel Visibility="{x:Bind ViewModel.ShowDate, Mode=OneWay}" Margin="100,100,0,0" >
+            <DatePicker HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch"/>
+        </StackPanel>
+
+        <StackPanel Visibility="{x:Bind ViewModel.ShowInterval, Mode=OneWay}" Margin="100,100,0,0" >
+            <DatePicker HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch"/>
+            <DatePicker HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch"/>
+        </StackPanel>
 
         <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}" Margin="0,100,0,0" Height="600">
             <tg:RadDataGrid 
@@ -47,5 +61,6 @@
                 </tg:RadDataGrid.Columns>
             </tg:RadDataGrid>
         </Grid>
+
     </Grid>
 </Page>

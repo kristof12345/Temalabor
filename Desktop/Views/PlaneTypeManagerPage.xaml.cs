@@ -1,6 +1,4 @@
-﻿using Desktop.Dialogs;
-using Desktop.Services;
-using Desktop.UserControls;
+﻿using Desktop.UserControls;
 using Desktop.ViewModels;
 using DTO;
 using System.Diagnostics;
@@ -38,30 +36,18 @@ namespace Desktop.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-
-            //User ellenőrzése
-            if (SignInService.User == null)
-            {
-                AlertDialog dialog = new AlertDialog();
-                dialog.DisplayNoUserDialog(this);
-            }
-            else
-            {
-                //Az első listaelem
-                //listView.SelectedIndex = 0;
-                //Kép betöltése
-                ViewModel.LoadImage();
-                //User controlok felrakása
-                AddUserControls();
-            }
+            //Kép betöltése
+            ViewModel.LoadImage();
+            //User controlok felrakása
+            AddUserControls();
         }
 
         private async void btDelete_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            //TODO:töröljük a kijelölt típust
+            //Töröljük a kijelölt típust
             var deleteRequest = (PlaneType)listView.SelectedItem;
-            await PlaneTypeDataService.DeletePlaneTypeAsync(deleteRequest);
-            listView.SelectedIndex = 0;
+            await ViewModel.DeletePlaneTypeAsync(deleteRequest);
+            //listView.SelectedIndex = 0;
         }
 
         private void AddUserControls()

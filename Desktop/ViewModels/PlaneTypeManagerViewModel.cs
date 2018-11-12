@@ -3,6 +3,7 @@ using DTO;
 using GalaSoft.MvvmLight;
 using System;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
 namespace Desktop.ViewModels
 {
@@ -48,6 +49,11 @@ namespace Desktop.ViewModels
             else PlaneType = null;
             RaisePropertyChanged("Flight");
             RaisePropertyChanged("IsTypeSelected");
+        }
+
+        internal async Task DeletePlaneTypeAsync(PlaneType deleteRequest)
+        {
+            await PlaneTypeDataService.DeletePlaneTypeAsync(deleteRequest);
         }
     }
 }

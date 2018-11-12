@@ -36,5 +36,27 @@ namespace Desktop.Views
         {
             this.Frame.Navigate(typeof(MyFlightsPage));
         }
+
+        private void BGRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            RadioButton rb = sender as RadioButton;
+
+            if (rb != null)
+            {
+                string optionSelected = rb.Tag.ToString();
+                switch (optionSelected)
+                {
+                    case "All":
+                        ViewModel.DisplayAll();
+                        break;
+                    case "Day":
+                        ViewModel.DisplayDay();
+                        break;
+                    case "Interval":
+                        ViewModel.DisplayInterval();
+                        break;
+                }
+            }
+        }
     }
 }
