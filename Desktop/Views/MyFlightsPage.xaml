@@ -27,14 +27,14 @@
 
         </ListView>
 
-        <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}" Margin="0,0,0,0" Height="800">
-            <tg:RadDataGrid
+        <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}" Margin="0,100,0,0" Height="600">
+            <tg:RadDataGrid 
                 ColumnDataOperationsMode="Flyout"
                 x:Name="dataTable"
                 SelectionMode = "Single"
                 ItemsSource="{x:Bind ViewModel.Source}"
                 AutoGenerateColumns="false"
-                ScrollViewer.HorizontalScrollMode="Enabled" HorizontalAlignment="Stretch" Height="800">
+                ScrollViewer.HorizontalScrollMode="Enabled" HorizontalAlignment="Stretch" Height="600">
                 <tg:RadDataGrid.Columns>
                     <tg:DataGridNumericalColumn PropertyName="FlightId"/>
                     <tg:DataGridDateColumn PropertyName="Date"/>

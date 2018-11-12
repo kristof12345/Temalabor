@@ -26,6 +26,7 @@ namespace Desktop
         {
             System.Threading.Thread.Sleep(1000); //Várakozás a szerverre
             await FlightsDataService.Initialize();
+            await ReservationsDataService.Initialize();
             await PlaneTypeDataService.Initialize();
 
             if (!args.PrelaunchActivated)
