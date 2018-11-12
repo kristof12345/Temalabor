@@ -36,9 +36,17 @@ namespace Desktop
                 dialog.DisplayNoServerDialog(null);
             }
 
-            await FlightsDataService.Initialize();
-            await ReservationsDataService.Initialize();
-            await PlaneTypeDataService.Initialize();
+            try
+            {
+                await FlightsDataService.Initialize();
+                await ReservationsDataService.Initialize();
+                await PlaneTypeDataService.Initialize();
+            }
+            catch (Exception e)
+            {
+                AlertDialog dialog = new AlertDialog();
+                dialog.DisplayNoServerDialog(null);
+            }
 
             if (!args.PrelaunchActivated)
             {

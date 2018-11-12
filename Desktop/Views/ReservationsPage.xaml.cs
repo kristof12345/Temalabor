@@ -1,5 +1,4 @@
-﻿using Desktop.Services;
-using Desktop.ViewModels;
+﻿using Desktop.ViewModels;
 using DTO;
 using Telerik.UI.Xaml.Controls.Grid;
 using Windows.UI.Xaml.Controls;
@@ -17,9 +16,7 @@ namespace Desktop.Views
 
         private void ItemSelected(object sender, DataGridSelectionChangedEventArgs e)
         {
-            if(grid.SelectedItem!=null)
-                ViewModel.IsReservationSelected = true;
-
+            if(grid.SelectedItem!=null) ViewModel.IsReservationSelected = true;
         }
 
         private ReservationViewModel ViewModel
@@ -29,9 +26,7 @@ namespace Desktop.Views
 
         private async void btDelete_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            await ReservationsDataService.DeleteReservationAsync((Reservation) grid.SelectedItem);
-            //ViewModel.DeleteReservationAsync();
-            ViewModel.IsReservationSelected = false;
+            await ViewModel.DeleteReservationAsync((Reservation)grid.SelectedItem);
         }
     }
 }

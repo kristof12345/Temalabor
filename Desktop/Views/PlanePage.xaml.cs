@@ -62,7 +62,7 @@ namespace Desktop.Views
             else
             {
                 AlertDialog dialog = new AlertDialog();
-                dialog.DisplayNoPlaneDialog(this);
+                dialog.DisplayNoFlightDialog(this);
             }
         }
 

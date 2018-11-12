@@ -7,16 +7,16 @@ namespace Desktop.Dialogs
 {
     public class AlertDialog
     {
-        //Dialógusablak (No plane selected.)
-        public async void DisplayNoPlaneDialog(Page origin)
+        //Dialógusablak (No flight selected.)
+        public async void DisplayNoFlightDialog(Page origin)
         {
-            ContentDialog noPlane = new ContentDialog
+            ContentDialog noFlight = new ContentDialog
             {
                 Title = "No flight selected",
                 Content = "Plese select a flight to continue.",
                 CloseButtonText = "Ok"
             };
-            ContentDialogResult result = await noPlane.ShowAsync();
+            ContentDialogResult result = await noFlight.ShowAsync();
             if(SignInService.IsSignedIn && SignInService.User.UserType == DTO.UserType.Administrator)
                 origin.Frame.Navigate(typeof(FlightsPage));
             else
@@ -39,13 +39,13 @@ namespace Desktop.Dialogs
         //Dialógusablak (Server not responding.)
         public async void DisplayNoServerDialog(Page origin)
         {
-            ContentDialog noUser = new ContentDialog
+            ContentDialog noServer = new ContentDialog
             {
                 Title = "Unable to connect to server.",
                 Content = "Plese connect to server or compile the Demo classes.",
                 CloseButtonText = "Ok"
             };
-            ContentDialogResult result = await noUser.ShowAsync();
+            ContentDialogResult result = await noServer.ShowAsync();
         }
     }
 }

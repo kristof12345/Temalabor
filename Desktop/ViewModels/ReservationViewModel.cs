@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using Desktop.Services;
 using DTO;
 using GalaSoft.MvvmLight;
@@ -21,6 +22,12 @@ namespace Desktop.ViewModels
         {
             get { return isReservationSelected; }
             set { isReservationSelected = value; RaisePropertyChanged("IsReservationSelected"); }
+        }
+
+        internal async Task DeleteReservationAsync(Reservation deleteRequest)
+        {
+            await ReservationsDataService.DeleteReservationAsync(deleteRequest);
+            IsReservationSelected = false;
         }
     }
 }
