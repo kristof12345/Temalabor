@@ -38,21 +38,12 @@ namespace Desktop.Services
         //Kapcsolat inicializálása
         public static async Task Initialize()
         {
-            try
-            {
-                await HttpService.InitializeAsync();
-                flightList = new ObservableCollection<Flight>();
-                ReloadFlightListAsync();
-            }
-            catch (Exception e)
-            {
-            AlertDialog dialog = new AlertDialog();
-            dialog.DisplayNoServerDialog(null);
-            }
+            flightList = new ObservableCollection<Flight>();
+            await ReloadFlightListAsync();
         }
 
         //A járatok letöltése a szerverről
-        public static async void ReloadFlightListAsync()
+        public static async Task ReloadFlightListAsync()
         {
             List<Flight_DTO> dtoList = await HttpService.ListFlightsAsync();
             flightList.Clear();
@@ -65,32 +56,13 @@ namespace Desktop.Services
         }
 
         //Járat hozzáadása
-        public static async void AddFlightAsync(long id, DateTime date, String dep, String dest, String type, long typeId)
-        {
-            var f = new Flight(id, type, typeId)
-            {
-                Date = date,
-                Departure = dep,
-                Destination = dest,
-                //PlaneType = type,
-                Status = "Sceduled",
-            };
-
-            //Http kérés kiadása
-            await HttpService.AddFlightAsync(f.ToDTO());
-
-            //Táblázat frissítése
-            ReloadFlightListAsync();
-        }
-
-        //Járat hozzáadása 2
         public static async void AddFlightAsync(Flight f)
         {
             //Http kérés kiadása
             await HttpService.AddFlightAsync(f.ToDTO());
 
             //Táblázat frissítése
-            ReloadFlightListAsync();
+            await ReloadFlightListAsync();
         }
 
         //Járat törlése
@@ -100,7 +72,7 @@ namespace Desktop.Services
             await HttpService.DeleteFlightAsync(f.ToDTO());
 
             //Táblázat frissítése
-            ReloadFlightListAsync();
+            await ReloadFlightListAsync();
         }
 
         //Járat módosítása
@@ -110,7 +82,7 @@ namespace Desktop.Services
             await HttpService.UpdateFlightAsync(f.ToDTO());
 
             //Táblázat frissítése
-            ReloadFlightListAsync();
+            await ReloadFlightListAsync();
         }
     }
 }

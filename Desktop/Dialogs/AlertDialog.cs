@@ -46,7 +46,6 @@ namespace Desktop.Dialogs
                 CloseButtonText = "Ok"
             };
             ContentDialogResult result = await noUser.ShowAsync();
-            FlightsDataService.Initialize();
         }
     }
 }

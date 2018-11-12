@@ -20,7 +20,7 @@ namespace Desktop.Models
         }
 
         //Konstruktor teljes paramétrlistával
-        public Flight(long id, DateTime date, string dep, string des, string type, long typeId, string stat)
+        public Flight(long id, DateTime date, string dep, string des, string type, long typeId, string stat, int normalPrice, int premiumPrice)
         {
             FlightId = id;
             Date = date;
@@ -28,6 +28,8 @@ namespace Desktop.Models
             Destination = des;
             PlaneType = new PlaneType(type, typeId);
             Status = stat;
+            NormalPrice = normalPrice;
+            FirstClassPrice = premiumPrice;
         }
 
         //Egyedi azonosító a kliensben

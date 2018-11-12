@@ -143,6 +143,7 @@ namespace DAL
         public static DTO.User User_DAL_to_DTO(DAL.User dalUser)
         {
             DTO.User temp = new DTO.User(dalUser.name, dalUser.password);
+            temp.UserId = dalUser.userID;
             temp.UserType = dalUser.userType;
             temp.UserId = dalUser.userID;
             return temp;

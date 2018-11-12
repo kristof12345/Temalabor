@@ -7,15 +7,14 @@ namespace Desktop.Services
 {
     public static class ReservationsDataService
     {
-        private static ObservableCollection<Reservation> reservationList;
-        private static ObservableCollection<Reservation> myReservationList;
+        private static ObservableCollection<Reservation> reservationList = new ObservableCollection<Reservation>();
+        private static ObservableCollection<Reservation> myReservationList = new ObservableCollection<Reservation>();
 
         //Foglalás adatbázis
         public static ObservableCollection<Reservation> ReservationList
         {
             get
             {
-                if (reservationList == null) { reservationList = new ObservableCollection<Reservation>(); ReloadReservationListAsync(); }
                 return reservationList;
             }
         }
@@ -24,13 +23,19 @@ namespace Desktop.Services
         {
             get
             {
-                if (myReservationList == null) { myReservationList = new ObservableCollection<Reservation>(); ReloadMyReservationListAsync(); }
+                //ReloadMyReservationListAsync();
                 return myReservationList;
             }
         }
 
+        //Inicializálás
+        public static async Task Initialize()
+        {
+            await ReloadReservationListAsync();
+        }
+
         //A foglalások letöltése a szerverről
-        public static async void ReloadReservationListAsync()
+        public static async Task ReloadReservationListAsync()
         {
             List<Reservation> dtoList = await HttpService.ListReservationsAsync();
             reservationList = new ObservableCollection<Reservation>();
@@ -41,7 +46,8 @@ namespace Desktop.Services
             }
         }
 
-        public static async void ReloadMyReservationListAsync()
+        //A felhasználóhoz tartozó foglalások letöltése a szerverről
+        private static async void ReloadMyReservationListAsync()
         {
             List<Reservation> dtoList = await HttpService.ListMyReservationsAsync();
             myReservationList = new ObservableCollection<Reservation>();

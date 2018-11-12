@@ -27,8 +27,10 @@ namespace Desktop.ViewModels
         private string des;
         private string type;
         private long typeID;
+        private int normalPrice;
+        private int premiumPrice;
 
-        public AddCommand(long id, DateTimeOffset date, TimeSpan time, string dep, string des, string type, long typeID)
+        public AddCommand(long id, DateTimeOffset date, TimeSpan time, string dep, string des, string type, long typeID, String normalPrice, String premiumPrice)
         {
             this.id = id;
             this.date = CombineDateAndTime(date, time);
@@ -36,11 +38,21 @@ namespace Desktop.ViewModels
             this.des = des;
             this.type = type;
             this.typeID = typeID;
+            try
+            {
+                this.normalPrice = int.Parse(normalPrice);
+            }
+            catch (Exception) { this.normalPrice = 1000; }
+            try
+            {
+                this.premiumPrice = int.Parse(premiumPrice);
+            }
+            catch (Exception) { this.premiumPrice = 1000; }
         }
 
         public override void Execute(object parameter = null)
         {
-            FlightsDataService.AddFlightAsync(id, date, dep, des, type, typeID);
+            FlightsDataService.AddFlightAsync(new Flight(id, date, dep, des, type, typeID, "Sceduled", normalPrice, premiumPrice));
         }
 
         public override void UnExecute()

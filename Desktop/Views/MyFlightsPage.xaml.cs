@@ -32,9 +32,31 @@ namespace Desktop.Views
         }
 
         //Ha a keresés gombra kattintunk, újratöltjük az oldalt
-        private void saveButton_Click(object sender, RoutedEventArgs e)
+        private void searchButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(MyFlightsPage));
+            ViewModel.Reload();
+        }
+
+        private void BGRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            RadioButton rb = sender as RadioButton;
+
+            if (rb != null)
+            {
+                string optionSelected = rb.Tag.ToString();
+                switch (optionSelected)
+                {
+                    case "All":
+                        ViewModel.DisplayAll();
+                        break;
+                    case "Day":
+                        ViewModel.DisplayDay();
+                        break;
+                    case "Interval":
+                        ViewModel.DisplayInterval();
+                        break;
+                }
+            }
         }
     }
 }

@@ -15,6 +15,11 @@ namespace Desktop.ViewModels
             }
         }
 
+        public bool HasReservation
+        {
+            get { return !(ReservationsDataService.MyReservationList.Count > 0); }
+        }
+
         internal void SelectedAt(int index)
         {
             //TODO
