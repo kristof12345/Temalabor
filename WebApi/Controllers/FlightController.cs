@@ -102,10 +102,13 @@ namespace WebApi
             {
                 return NotFound();
             }
-         
-            todo.isDeleted = true;
-            //_context.Flights.Remove(todo);
-            _context.SaveChanges();
+
+            if (Queries.isThereReservationForFlight(id, _context)) ;
+            else
+            {
+                todo.isDeleted = true;
+                _context.SaveChanges();
+            }
             return NoContent();
         }
     }

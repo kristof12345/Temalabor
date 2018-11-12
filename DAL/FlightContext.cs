@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using DTO;
 
 namespace DAL
 {
@@ -22,7 +23,15 @@ namespace DAL
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<SeatsOnFlight>().HasKey(sc => new { sc.flightID, sc.seatID });
+            modelBuilder.Entity<DAL.User>().HasData(
+                new
+                {
+                    userID = (long)1,
+                    name = "Patyi Gábor",
+                    userType = UserType.Customer,
+                    password = "password",
+                    isDeleted = false
+                });
 
             modelBuilder.Entity<DAL.PlaneType>().HasData(
                 new

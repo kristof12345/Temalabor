@@ -9,6 +9,29 @@ namespace DAL
 {
     public static class Queries
     {
+        public static bool isThereReservationForFlight(long flightID, FlightContext context)
+        {
+            var flight =    from rs in context.ReservationSeats
+                            join r in context.Reservations on rs.reservationID equals r.reservationID
+                            where r.flightID == flightID
+                            select r.flightID;
+            if (flight != null)
+                return true;
+            return false;
+        }
+
+        public static bool isThereReservationForPlaneType(long planeTypeID, FlightContext context)
+        {
+            var planeType = from rs in context.ReservationSeats
+                         join r in context.Reservations on rs.reservationID equals r.reservationID
+                         join f in context.Flights on r.flightID equals f.flightID
+                         where f.planeTypeID == planeTypeID
+                         select f.planeTypeID;
+            if (planeType != null)
+                return true;
+            return false;
+        }
+
         public static List<DAL.Seat> findSeatsForFlight(DAL.Flight flight, FlightContext context)
         {
             return context.Seats.Where(s => s.planeTypeID == flight.planeTypeID).ToList();

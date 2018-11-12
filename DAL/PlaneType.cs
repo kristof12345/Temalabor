@@ -8,6 +8,5 @@ namespace DAL
     {
         public long planeTypeID { get; set; }
         public string planeType { get; set; }
-
     }
 }

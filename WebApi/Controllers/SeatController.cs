@@ -52,7 +52,7 @@ namespace WebApi.Controllers
             {
                 if (!seat.isDeleted)
                 {
-                    DTO.Seat current = DataConversion.Seat_DAL_to_DTO(seat, _context);
+                    DTO.Seat current = DataConversion.Seat_DAL_to_DTO(seat, _context, flightID);
                     result.Add(current);
                 }
             }

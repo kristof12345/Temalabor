@@ -57,6 +57,10 @@ namespace WebApi.Controllers
         public IActionResult Create(DTO.PlaneType item)
         {          
             DAL.PlaneType tempfl = DataConversion.PlaneType_DTO_to_DAL(item);
+            foreach (DTO.Seat seat in item.Seats)
+            {
+                _context.Seats.Add(DataConversion.Seat_DTO_to_DAL(seat));
+            }
             _context.PlaneTypes.Add(tempfl);
             _context.SaveChanges();
             return CreatedAtRoute("GetPlaneType", new { id = tempfl.planeTypeID }, item);
@@ -86,8 +90,13 @@ namespace WebApi.Controllers
             {
                 return NotFound();
             }
-            _context.PlaneTypes.Remove(todo);
-            _context.SaveChanges();
+
+            if (Queries.isThereReservationForPlaneType(id, _context)) ;
+            else
+            {
+                _context.PlaneTypes.Remove(todo);
+                _context.SaveChanges();
+            }
             return NoContent();
         }
     }
