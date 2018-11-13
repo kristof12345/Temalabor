@@ -9,11 +9,6 @@
     mc:Ignorable="d">
     <Grid>
         <ListView VerticalAlignment="Top" Margin="0,20,0,0" SelectionMode="None">
-            <ListView.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <ItemsStackPanel Orientation="Vertical"/>
-                </ItemsPanelTemplate>
-            </ListView.ItemsPanel>
             <ListView SelectionMode="None">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -60,7 +55,10 @@
                 </ListView>
             </StackPanel>
         </ListView>
-        <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}" Margin="0,150,0,0" Height="550">
+        <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}"
+              Margin="0,0,0,30"
+              Height="550"
+              VerticalAlignment="Bottom">
             <tg:RadDataGrid
                 GridLinesVisibility="None"
                 ColumnDataOperationsMode="Flyout"
@@ -68,7 +66,7 @@
                 SelectionMode = "Single"
                 ItemsSource="{x:Bind ViewModel.Source}"
                 AutoGenerateColumns="false"
-                ScrollViewer.HorizontalScrollMode="Enabled" HorizontalAlignment="Stretch" Height="550">
+                ScrollViewer.HorizontalScrollMode="Enabled">
                 <tg:RadDataGrid.Columns>
                     <tg:DataGridNumericalColumn PropertyName="FlightId"/>
                     <tg:DataGridDateColumn PropertyName="Date"/>

@@ -9,11 +9,26 @@
     xmlns:tg="using:Telerik.UI.Xaml.Controls.Grid"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-    <Grid x:Name="ContentArea">
-        <Grid
-            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}"
-            Height="700"
-            Margin="0,0,0,120">
+    <Grid>
+        <ListView VerticalAlignment="Top" Margin="0,20,0,0" SelectionMode="None">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <ItemsStackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Padding" Value="6"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <TextBlock Text="Sort by:"/>
+            <ComboBox x:Name="comboBox" ItemsSource="{x:Bind ViewModel.Sort}" SelectedIndex="{x:Bind ViewModel.SelectedSort, Mode=TwoWay}" Width="150"/>
+            <Button x:Name="btDelete" Content="Delete reservation" IsEnabled="{x:Bind ViewModel.IsReservationSelected, Mode=OneWay}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="150" Click="btDelete_Click"/>
+        </ListView>
+        <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}"
+            Height="600"
+            Margin="0,0,0,30"
+            VerticalAlignment="Bottom">
             <tg:RadDataGrid
                 GridLinesVisibility="None"
                 ColumnDataOperationsMode="Flyout"
@@ -21,9 +36,7 @@
                 SelectionMode = "Single"
                 ItemsSource="{x:Bind ViewModel.Source}"
                 AutoGenerateColumns="False"
-                ScrollViewer.HorizontalScrollMode="Enabled"
-                VerticalAlignment="Top"
-                Height="700">
+                ScrollViewer.HorizontalScrollMode="Enabled">
                 <tg:RadDataGrid.Columns>
                     <tg:DataGridNumericalColumn PropertyName="ReservationId"/>
                     <tg:DataGridTextColumn PropertyName="User"/>
@@ -34,24 +47,6 @@
                 </tg:RadDataGrid.Columns>
             </tg:RadDataGrid>
         </Grid>
-
-        <Grid x:Name="inputArea">
-            <ListView Visibility="Visible" VerticalAlignment="Bottom" Margin="50,0,0,50" SelectionMode="None">
-                <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <ItemsStackPanel Orientation="Horizontal"/>
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="ListViewItem">
-                        <Setter Property="Padding" Value="6"/>
-                    </Style>
-                </ListView.ItemContainerStyle>
-                <TextBlock Text="Sort by:"/>
-                <ComboBox x:Name="comboBox" ItemsSource="{x:Bind ViewModel.Sort}" SelectedIndex="{x:Bind ViewModel.SelectedSort, Mode=TwoWay}" Width="150"/>
-                <Button x:Name="btDelete" Content="Delete reservation" IsEnabled="{x:Bind ViewModel.IsReservationSelected, Mode=OneWay}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="33" Width="150" Click="btDelete_Click"/>
-            </ListView>
-            
-        </Grid>
+        
     </Grid>
 </Page>
