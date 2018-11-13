@@ -43,8 +43,16 @@ namespace Desktop.ViewModels
 
         public int SelectedSort
         {
-            get { return selectedSort; }
-            set { selectedSort = value; RaisePropertyChanged("SelectedSort"); ReservationsDataService.SetSort(selectedSort); Debug.WriteLine("Changed" + selectedSort); }
+            get
+            {
+                return selectedSort;
+            }
+            set
+            {
+                selectedSort = value;
+                RaisePropertyChanged("SelectedSort");
+                ReservationsDataService.SetSort(selectedSort);
+            }
         }
     }
 }

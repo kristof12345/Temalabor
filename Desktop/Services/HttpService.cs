@@ -65,7 +65,6 @@ namespace Desktop.Services
         //Járat hozzáadása
         internal static async Task AddFlightAsync(Flight_DTO addRequest)
         {
-            Debug.WriteLine(addRequest.Departure);
             HttpResponseMessage response = await client.PostAsJsonAsync(UriFlights, addRequest);
         }
 
@@ -168,7 +167,6 @@ namespace Desktop.Services
         {
             HttpResponseMessage response = await client.GetAsync(UriReservation);
             List<Reservation> list = await response.Content.ReadAsAsync<List<Reservation>>();
-            //if (list == null) { Debug.WriteLine("NULL lista jött az adatbázistól!"); list = new List<Reservation>(); }
             return list;
         }
 
@@ -178,7 +176,6 @@ namespace Desktop.Services
             var userId = SignInService.User.UserId;
             HttpResponseMessage response = await client.GetAsync(UriReservation + "UserID/" + userId);
             List<Reservation> list = await response.Content.ReadAsAsync<List<Reservation>>();
-            //if (list == null) { Debug.WriteLine("NULL lista jött az adatbázistól!"); list = new List<Reservation>(); }
             return list;
         }
 

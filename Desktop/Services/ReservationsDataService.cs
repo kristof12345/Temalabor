@@ -52,15 +52,12 @@ namespace Desktop.Services
             {
                 case 0:
                     dtoList.Sort((x, y) => x.UserID.CompareTo(y.UserID));
-                    Debug.WriteLine("Changed1");
                     break;
                 case 1:
                     dtoList.Sort((x, y) => x.FlightId.CompareTo(y.FlightId));
-                    Debug.WriteLine("Changed2");
                     break;
                 case 2:
                     dtoList.Sort((x, y) => x.Cost.CompareTo(y.Cost));
-                    Debug.WriteLine("Changed3");
                     break;
             }
             reservationList.Clear();
