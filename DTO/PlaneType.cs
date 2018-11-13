@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace DTO
@@ -17,7 +16,6 @@ namespace DTO
             PlaneTypeID = id;
             Seats = new List<Seat>();
 
-            //TODO: Ide majd az adatbázis alapján kell valami
             /*
             if (name != null && name.Contains("Airbus"))
             {
