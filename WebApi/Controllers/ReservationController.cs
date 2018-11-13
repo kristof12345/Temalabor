@@ -53,9 +53,10 @@ namespace WebApi
         [HttpGet("userID/{userID}", Name = "GetAllReservationsForUser")]
         public ActionResult<List<DTO.Reservation>> GetAllSeatsForFlight(long userID)
         {
+            //Debug.WriteLine("userID" + userID);
             List<DTO.Reservation> result = new List<DTO.Reservation>();
 
-            DAL.User tempUser = _context.Users.Find(userID);
+            DAL.User tempUser = _context.Users.Find(userID);           
 
             List<DAL.Reservation> queriedReservations = Queries.findReservationsForUser(tempUser, _context);
 

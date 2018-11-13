@@ -10,6 +10,5 @@ namespace DAL
         public string name { get; set; }
         public DTO.UserType userType { get; set; }
         public String password { get; set; }
-        public bool isDeleted { get; set; }
     }
 }
