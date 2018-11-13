@@ -12,10 +12,6 @@ namespace Desktop.Views
         {
             this.InitializeComponent();
             grid.SelectionChanged += ItemSelected;
-            /*SortDescriptor descriptor = new SortDescriptor();
-            descriptor.Member = "EmployeeID";
-            descriptor.SortDirection = ListSortDirection.Ascending;
-            grid.SortDescriptors.Add(descriptor);*/
         }
 
         private void ItemSelected(object sender, DataGridSelectionChangedEventArgs e)

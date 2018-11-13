@@ -44,8 +44,8 @@ namespace DAL
 
         public static List<DAL.Reservation> findReservationsForUser(DAL.User user, FlightContext context)
         {
-            return context.Reservations.Where(s => s.userID == user.userID).ToList();
-            //return new List<Reservation>();
+            //return context.Reservations.Where(s => s.userID == user.userID).ToList();
+            return new List<Reservation>();
         }
 
         public static FlightContext AddRecordsToReservationSeat(DTO.Reservation reservation, FlightContext context, long reservationID)

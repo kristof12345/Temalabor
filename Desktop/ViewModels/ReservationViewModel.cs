@@ -36,7 +36,7 @@ namespace Desktop.ViewModels
         {
             get
             {
-                string[] array = { "ReservationID", "UserID", "Cost" };
+                string[] array = { "ReservationID", "User", "Flight", "Date", "Cost"};
                 return array;
             }
         }

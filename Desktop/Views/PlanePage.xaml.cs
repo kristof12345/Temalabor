@@ -31,6 +31,7 @@ namespace Desktop.Views
             {
                 if (s.State == State.Selected)
                 {
+                    ViewModel.Flight.PlaneType.GetSeatById(s.Seat.SeatId).Reserved = true;
                     reservation.AddSeatId(s.Seat.SeatId); //Összekészítjük a foglalást
                 }
             }

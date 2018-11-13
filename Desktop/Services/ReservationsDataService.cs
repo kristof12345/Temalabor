@@ -51,12 +51,18 @@ namespace Desktop.Services
             switch (sortSwitch)
             {
                 case 0:
-                    dtoList.Sort((x, y) => x.UserID.CompareTo(y.UserID));
+                    dtoList.Sort((x, y) => x.ReservationId.CompareTo(y.ReservationId));
                     break;
                 case 1:
-                    dtoList.Sort((x, y) => x.FlightId.CompareTo(y.FlightId));
+                    dtoList.Sort((x, y) => x.User.CompareTo(y.User));
                     break;
                 case 2:
+                    dtoList.Sort((x, y) => x.FlightId.CompareTo(y.FlightId));
+                    break;
+                case 3:
+                    dtoList.Sort((x, y) => x.Date.CompareTo(y.Date));
+                    break;
+                case 4:
                     dtoList.Sort((x, y) => x.Cost.CompareTo(y.Cost));
                     break;
             }

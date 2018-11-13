@@ -3,6 +3,7 @@ using Desktop.Services;
 using DTO;
 using GalaSoft.MvvmLight;
 using System;
+using System.Threading.Tasks;
 
 namespace Desktop.ViewModels
 {
@@ -69,7 +70,7 @@ namespace Desktop.ViewModels
             IsPayEnabled = false;
         }
 
-        internal async System.Threading.Tasks.Task ReserveAsync(Reservation reservation)
+        internal async Task ReserveAsync(Reservation reservation)
         {
             reservation.Cost = totalPrice;
             await ReservationsDataService.ReserveAsync(reservation);
