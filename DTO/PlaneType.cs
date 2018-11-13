@@ -67,10 +67,16 @@ namespace DTO
             }
         }
 
-        //Szék elkérése ID alapján
-        public Seat GetSeat(int id)
+        //Szék elkérése sorszám alapján
+        public Seat GetSeat(int pos)
         {
-            return Seats[id];
+            return Seats[pos];
+        }
+
+        //Szék elkérése sorszám alapján
+        public Seat GetSeatById(long id)
+        {
+            return Seats.FindLast(x => x.SeatId == id);
         }
 
         public override string ToString()

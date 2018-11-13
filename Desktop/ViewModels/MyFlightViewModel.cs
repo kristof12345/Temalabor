@@ -21,14 +21,7 @@ namespace Desktop.ViewModels
         private static ObservableCollection<Flight> flightList = new ObservableCollection<Flight>();
 
         //Adatforrás
-        public ObservableCollection<Flight> Source
-        {
-            get
-            {
-                Reload();
-                return flightList;
-            }
-        }
+        public ObservableCollection<Flight> Source { get { Reload(); return flightList; } }
 
         internal void Reload()
         {
