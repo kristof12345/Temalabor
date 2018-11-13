@@ -70,6 +70,9 @@ namespace WebApi
             {
                 if(Queries.findUserPassword(dtoUser, _context))
                 {
+                    DAL.User user = Queries.findUser(dtoUser, _context);
+                    dtoUser.UserId = user.userID;
+
                     var claims = new[]
                         {
                           new Claim(JwtRegisteredClaimNames.Sub, dtoUser.Name),

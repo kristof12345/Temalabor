@@ -53,7 +53,6 @@ namespace WebApi
         [HttpGet("userID/{userID}", Name = "GetAllReservationsForUser")]
         public ActionResult<List<DTO.Reservation>> GetAllSeatsForFlight(long userID)
         {
-            //Debug.WriteLine("userID" + userID);
             List<DTO.Reservation> result = new List<DTO.Reservation>();
 
             DAL.User tempUser = _context.Users.Find(userID);           
@@ -71,7 +70,8 @@ namespace WebApi
 
         [HttpPost]
         public IActionResult Create(DTO.Reservation item)
-        {         
+        {
+            //Debug.WriteLine("userID " + item.UserID);
             DAL.Reservation tempfl = DataConversion.Reservation_DTO_to_DAL(item);
             _context.Reservations.Add(tempfl);               
             _context.SaveChanges();

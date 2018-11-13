@@ -9,6 +9,12 @@ namespace DAL
 {
     public static class Queries
     {
+        public static DAL.User findUser(DTO.User dtoUser, FlightContext context)
+        {
+            var user = context.Users.Single(u => u.name.Equals(dtoUser.Name));
+            return user;
+        }
+
         public static bool findUserName(DTO.User dtoUser, FlightContext context)
         {
             var user = context.Users.Single(u => u.name.Equals(dtoUser.Name));
