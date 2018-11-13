@@ -30,7 +30,7 @@ namespace Desktop.Dialogs
 
         private void OnApplyClicked(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            SignInService.AddUser(tbName.Text, tbPass.Text, comboBox.SelectedItem.ToString());
+            SignInService.AddUser(tbName.Text, tbPass.Text, (UserType) comboBox.SelectedItem);
         }
 
     }

@@ -36,10 +36,10 @@ namespace Desktop.Services
 
         public static async Task<bool> SignInAsync(User u)
         {
-            bool success = await HttpService.LoginAsync(u);
-            if (success)
+            Session session = await HttpService.LoginAsync(u);
+            if (session.Success)
             {
-                User = u;
+                User = session.User;
                 Instance.PropertyChanged(Instance, new PropertyChangedEventArgs("Sign In"));
                 return true;
             }
@@ -51,9 +51,9 @@ namespace Desktop.Services
             Instance.PropertyChanged(Instance, new PropertyChangedEventArgs("Sign Out"));
         }
 
-        internal static void AddUser(string name, string pass, string type)
+        internal static void AddUser(string name, string pass, UserType type)
         {
-            User user = new User(name, pass); //TODO: különböző típusú felhasználók
+            User user = new User(name, pass, type); //TODO: különböző típusú felhasználók
             HttpService.AddUserAsync(user);
         }
     }

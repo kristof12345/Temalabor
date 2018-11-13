@@ -11,7 +11,7 @@ namespace Desktop.Services
     {
         private static HttpClient client = new HttpClient();
         private static HttpClientHandler handler = new HttpClientHandler();
-        private static string token ="";
+        private static string token = "";
 
         //Config fájlból olvassa be
         private static string baseUri;
@@ -33,8 +33,8 @@ namespace Desktop.Services
             //baseUri = "https://localhost:5001/API/";
             UriFlights = baseUri + "flight/";
             UriReservation = baseUri + "reservation/";
-            UriUsers = baseUri + "users/";
-            UriTypes = baseUri + "planetype/"; 
+            UriUsers = baseUri + "user/";
+            UriTypes = baseUri + "planetype/";
             UriSeats = baseUri + "seat/flightID/";
             UriImages = baseUri + "image/";
 
@@ -89,25 +89,23 @@ namespace Desktop.Services
         internal static async void AddUserAsync(User addRequest)
         {
             HttpResponseMessage response = await client.PostAsJsonAsync(UriUsers, addRequest);
-            Debug.WriteLine("New User:" + addRequest.Name);
         }
 
         //Bejelentkezési kérés
-        internal static async Task<bool> LoginAsync(User loginRequest)
+        internal static async Task<Session> LoginAsync(User loginRequest)
         {
-            try
-            {
-                HttpResponseMessage response = await client.PutAsJsonAsync(UriUsers, loginRequest);
-                token = await response.Content.ReadAsStringAsync();
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
-                Debug.WriteLine("A bejelentkezéshez tartozó token: " + token);
-            }
-            catch (Exception)
-            {
-                Debug.WriteLine("Unable to login.");
-                //return false; //TODO: kiszedni a kommentet
-            }
-            return true;
+            HttpResponseMessage response = await client.PutAsJsonAsync(UriUsers, loginRequest);
+            Session session = await response.Content.ReadAsAsync<Session>();
+            if (session == null) { Debug.WriteLine("A szerver nem válaszolt."); session = new Session(loginRequest); }
+            token = session.Token;
+
+            //Token hozzáadása a headerekhez
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+
+            Debug.WriteLine("A bejelentkezéshez tartozó token: " + token);
+
+            return session;
         }
 
         /// <summary>
@@ -131,7 +129,7 @@ namespace Desktop.Services
             var strArray = await ListPlaneTypeNamesAsync();
             PlaneType.Initialize(strArray.ToArray());
             int max = strArray.Count;
-            for (int i=1; i<=max; i++)
+            for (int i = 1; i <= max; i++)
             {
                 HttpResponseMessage response = await client.GetAsync(UriTypes + i);
                 PlaneType t = await response.Content.ReadAsAsync<PlaneType>();
