@@ -71,7 +71,7 @@ namespace WebApi
         [HttpPost]
         public IActionResult Create(DTO.Reservation item)
         {
-            //Debug.WriteLine("userID " + item.UserID);
+            //Debug.WriteLine("userID " + item.User);
             DAL.Reservation tempfl = DataConversion.Reservation_DTO_to_DAL(item);
             _context.Reservations.Add(tempfl);               
             _context.SaveChanges();
