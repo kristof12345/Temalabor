@@ -66,11 +66,12 @@ namespace WebApi
         [HttpPut]
         public ActionResult<Session> Update(DTO.User dtoUser)
         {
+            Session session = new Session(dtoUser);
+            session.Success = false;
             if (Queries.findUserName(dtoUser, _context))
-            {
+            {               
                 if(Queries.findUserPassword(dtoUser, _context))
                 {
-                    
                     DAL.User user = Queries.findUser(dtoUser, _context);
                     dtoUser.UserId = user.userID;
 
@@ -89,12 +90,12 @@ namespace WebApi
                           "Login header token",
                           claims,
                           expires: DateTime.Now.AddMinutes(30),
-                          signingCredentials: creds);
-                    Session session = new Session(dtoUser);
-                    session.Token = new JwtSecurityTokenHandler().WriteToken(token);
-                    return session;
+                          signingCredentials: creds);                  
+                    session.Success = true;
+                    session.Token = new JwtSecurityTokenHandler().WriteToken(token);                   
                 }
             }
+                
             /*
             var todo = _context.Users.Find(id);
             if (todo == null)
@@ -110,7 +111,7 @@ namespace WebApi
             _context.SaveChanges();
             */
 
-            return NoContent();
+            return session;
         }
 
         [HttpDelete("{id}")]
