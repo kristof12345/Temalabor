@@ -27,15 +27,7 @@ namespace Desktop
             try
             {
                 await HttpService.Initialize();
-            }
-            catch (Exception e)
-            {
-                AlertDialog dialog = new AlertDialog();
-                dialog.DisplayNoServerDialog(null);
-            }
 
-            try
-            {
                 await FlightsDataService.Initialize();
                 await ReservationsDataService.Initialize();
                 await PlaneTypeDataService.Initialize();
