@@ -34,6 +34,16 @@ namespace DAL
                     isDeleted = false
                 });
 
+            modelBuilder.Entity<DAL.User>().HasData(
+                new
+                {
+                    userID = (long)2,
+                    name = "Papp Kristóf",
+                    userType = UserType.Customer,
+                    password = "0",
+                    isDeleted = false
+                });
+
             modelBuilder.Entity<DAL.PlaneType>().HasData(
                 new
                 {

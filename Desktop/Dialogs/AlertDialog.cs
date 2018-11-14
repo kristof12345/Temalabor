@@ -23,17 +23,16 @@ namespace Desktop.Dialogs
                 origin.Frame.Navigate(typeof(MyFlightsPage));
         }
 
-        //Dialógusablak (No user selected.)
+        //Dialógusablak (No user.)
         public async void DisplayNoUserDialog(Page origin)
         {
             ContentDialog noUser = new ContentDialog
             {
-                Title = "You're not signed in.",
+                Title = "Incorrect username or password",
                 Content = "Plese sign in to continue.",
                 CloseButtonText = "Ok"
             };
             ContentDialogResult result = await noUser.ShowAsync();
-            origin.Frame.Navigate(typeof(UserPage));
         }
 
         //Dialógusablak (Server not responding.)

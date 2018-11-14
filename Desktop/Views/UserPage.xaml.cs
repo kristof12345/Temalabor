@@ -35,6 +35,11 @@ namespace Desktop.Views
                     this.Frame.Navigate(typeof(FlightsPage));
                 }
             }
+            else
+            {
+                AlertDialog dialog = new AlertDialog();
+                dialog.DisplayNoUserDialog(this);
+            }
         }
 
         private void btLogout_Click(object sender, RoutedEventArgs e)

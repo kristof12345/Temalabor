@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using DTO;
 using Desktop.Services;
 using System.ComponentModel;
+using Desktop.Dialogs;
+
 namespace Desktop.ViewModels
 {
     public class UserViewModel : ViewModelBase
