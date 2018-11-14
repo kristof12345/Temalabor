@@ -8,6 +8,10 @@ using DAL;
 using WebApi.Controllers;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace WebApi
 {
@@ -32,11 +36,8 @@ namespace WebApi
 
             foreach (DAL.User user in DAL_list)
             {
-                if (!user.isDeleted)
-                {
-                    DTO.User current = DataConversion.User_DAL_to_DTO(user);
-                    result.Add(current);
-                }
+                DTO.User current = DataConversion.User_DAL_to_DTO(user);
+                result.Add(current);
             }
 
             return result;
@@ -46,7 +47,7 @@ namespace WebApi
         public ActionResult<DTO.User> GetById(long id)
         {
             DAL.User temp = _context.Users.Find(id);
-            if (temp == null || temp.isDeleted)
+            if (temp == null)
                 return NotFound();
 
             DTO.User result = DataConversion.User_DAL_to_DTO(temp);
@@ -56,27 +57,46 @@ namespace WebApi
         [HttpPost]
         public IActionResult Create(DTO.User item)
         {
-            var ifDeleted = _context.Users.Find(item.UserId);
-            if (ifDeleted != null && ifDeleted.isDeleted)
-            {
-                ifDeleted.isDeleted = false;
-                _context.SaveChanges();
-                return CreatedAtRoute("GetUser", new { id = ifDeleted.userID }, item);
-            }
-            else
-            {
-                DAL.User tempfl = DataConversion.User_DTO_to_DAL(item);
-                _context.Users.Add(tempfl);
-                _context.SaveChanges();
-                return CreatedAtRoute("GetUser", new { id = tempfl.userID }, item);
-            }
+            DAL.User tempfl = DataConversion.User_DTO_to_DAL(item);
+            _context.Users.Add(tempfl);
+            _context.SaveChanges();
+            return CreatedAtRoute("GetUser", new { id = tempfl.userID }, item);
         }
 
-        [HttpPut("{id}")]
-        public IActionResult Update(long id, DTO.User dtoUser)
+        [HttpPut]
+        public ActionResult<Session> Update(DTO.User dtoUser)
         {
+            if (Queries.findUserName(dtoUser, _context))
+            {
+                if(Queries.findUserPassword(dtoUser, _context))
+                {
+                    DAL.User user = Queries.findUser(dtoUser, _context);
+                    dtoUser.UserId = user.userID;
+
+                    var claims = new[]
+                        {
+                          new Claim(JwtRegisteredClaimNames.Sub, dtoUser.Name),
+                          new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                          new Claim(JwtRegisteredClaimNames.Email, dtoUser.Password),
+                          new Claim("Foo", "Bar")
+                        };
+
+                    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("nem tudom de kell legalabb 128b"));
+                    var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+                    var token = new JwtSecurityToken("Login header token",
+                          "Login header token",
+                          claims,
+                          expires: DateTime.Now.AddMinutes(30),
+                          signingCredentials: creds);
+                    Session session = new Session(dtoUser);
+                    session.Token = new JwtSecurityTokenHandler().WriteToken(token);
+                    return session;
+                }
+            }
+            /*
             var todo = _context.Users.Find(id);
-            if (todo == null || todo.isDeleted)
+            if (todo == null)
             {
                 return NotFound();
             }
@@ -87,6 +107,8 @@ namespace WebApi
 
             _context.Users.Update(todo);
             _context.SaveChanges();
+            */
+
             return NoContent();
         }
 
@@ -94,13 +116,11 @@ namespace WebApi
         public IActionResult Delete(long id)
         {
             var todo = _context.Users.Find(id);
-            if (todo == null || todo.isDeleted)
+            if (todo == null)
             {
                 return NotFound();
             }
-
-            todo.isDeleted = true;
-            //_context.Users.Remove(todo);
+            _context.Users.Remove(todo);
             _context.SaveChanges();
             return NoContent();
         }

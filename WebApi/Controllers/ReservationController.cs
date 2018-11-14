@@ -55,7 +55,7 @@ namespace WebApi
         {
             List<DTO.Reservation> result = new List<DTO.Reservation>();
 
-            DAL.User tempUser = _context.Users.Find(userID);
+            DAL.User tempUser = _context.Users.Find(userID);           
 
             List<DAL.Reservation> queriedReservations = Queries.findReservationsForUser(tempUser, _context);
 
@@ -70,7 +70,8 @@ namespace WebApi
 
         [HttpPost]
         public IActionResult Create(DTO.Reservation item)
-        {         
+        {
+            //Debug.WriteLine("userID " + item.UserID);
             DAL.Reservation tempfl = DataConversion.Reservation_DTO_to_DAL(item);
             _context.Reservations.Add(tempfl);               
             _context.SaveChanges();

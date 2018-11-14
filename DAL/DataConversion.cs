@@ -148,9 +148,9 @@ namespace DAL
         {
             DAL.User temp = new DAL.User();
             temp.name = dtoUser.Name;
+            temp.userType = dtoUser.UserType;
             temp.password = dtoUser.Password;
             temp.userType = dtoUser.UserType;
-            temp.isDeleted = false;
             return temp;
         }
     }

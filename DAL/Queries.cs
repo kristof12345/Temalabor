@@ -9,6 +9,28 @@ namespace DAL
 {
     public static class Queries
     {
+        public static DAL.User findUser(DTO.User dtoUser, FlightContext context)
+        {
+            var user = context.Users.Single(u => u.name.Equals(dtoUser.Name));
+            return user;
+        }
+
+        public static bool findUserName(DTO.User dtoUser, FlightContext context)
+        {
+            var user = context.Users.Single(u => u.name.Equals(dtoUser.Name));
+            if (user != null)
+                return true;
+            return false;
+        }
+
+        public static bool findUserPassword(DTO.User dtoUser, FlightContext context)
+        {
+            var user = context.Users.Single(u => u.password.Equals(dtoUser.Password));
+            if (user != null)
+                return true;
+            return false;
+        }
+
         public static bool isThereReservationForFlight(long flightID, FlightContext context)
         {
             var flight =    from rs in context.ReservationSeats
@@ -44,8 +66,9 @@ namespace DAL
 
         public static List<DAL.Reservation> findReservationsForUser(DAL.User user, FlightContext context)
         {
-            return context.Reservations.Where(s => s.userID == user.userID).ToList();
-            //return new List<Reservation>();
+            var reservations = context.Reservations.Where(s => s.userID == user.userID).ToList();
+            List<DAL.Reservation> listReserevations = new List<DAL.Reservation>(reservations);
+            return listReserevations;
         }
 
         public static FlightContext AddRecordsToReservationSeat(DTO.Reservation reservation, FlightContext context, long reservationID)
