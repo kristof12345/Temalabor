@@ -17,7 +17,7 @@ namespace DAL
 
         public static bool findUserName(DTO.User dtoUser, FlightContext context)
         {
-            var user = context.Users.Single(u => u.name.Equals(dtoUser.Name));
+            var user = context.Users.Where(u => u.name.Equals(dtoUser.Name)).FirstOrDefault();
             if (user != null)
                 return true;
             return false;
@@ -25,7 +25,7 @@ namespace DAL
 
         public static bool findUserPassword(DTO.User dtoUser, FlightContext context)
         {
-            var user = context.Users.Single(u => u.password.Equals(dtoUser.Password));
+            var user = context.Users.Where(u => u.password.Equals(dtoUser.Password)).FirstOrDefault();
             if (user != null)
                 return true;
             return false;
@@ -54,6 +54,11 @@ namespace DAL
             return false;
         }
 
+        public static DAL.Flight findFlightforReservation(DTO.Reservation reservation, FlightContext context)
+        {
+            return context.Flights.Single(f => f.flightID == reservation.FlightId);
+        }
+
         public static List<DAL.Seat> findSeatsForFlight(DAL.Flight flight, FlightContext context)
         {
             return context.Seats.Where(s => s.planeTypeID == flight.planeTypeID).ToList();
@@ -66,8 +71,13 @@ namespace DAL
 
         public static List<DAL.Reservation> findReservationsForUser(DAL.User user, FlightContext context)
         {
-            var reservations = context.Reservations.Where(s => s.userID == user.userID).ToList();
-            List<DAL.Reservation> listReserevations = new List<DAL.Reservation>(reservations);
+            List<DAL.Reservation> listReserevations = new List<DAL.Reservation>();
+            if (user != null)
+            {               
+                var reservations = context.Reservations.Where(s => s.userID == user.userID).ToList();
+                if (reservations.Any())
+                    listReserevations = new List<DAL.Reservation>(reservations);
+            }
             return listReserevations;
         }
 

@@ -13,6 +13,7 @@ namespace DAL
         public DbSet<DAL.Seat> Seats { get; set; }
         public DbSet<DAL.PlaneType> PlaneTypes { get; set; }
         public DbSet<DAL.Reservation> Reservations { get; set; }
+        public DbSet<DAL.ReservationDetails> ReservationDetails { get; set; }
         public DbSet<DAL.User> Users { get; set; }
         public DbSet<DAL.ReservationSeat> ReservationSeats { get; set; }
 

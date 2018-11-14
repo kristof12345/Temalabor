@@ -8,6 +8,8 @@ namespace DTO
     public class ReservationDetails
     {
         //Ezeket az adatbázisban ki kellene tölteni...
+        public long ReservationId;
+
         public String Departure = "";
 
         public String Destination = "";

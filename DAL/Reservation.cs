@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using DTO;
 
 namespace DAL
 {
@@ -11,6 +12,6 @@ namespace DAL
         public long userID { get; set; }
         public long flightID { get; set; }
         public DateTime date { get; set; }
-        public int cost { get; set; }
+        public int cost { get; set; }       
     }
 }

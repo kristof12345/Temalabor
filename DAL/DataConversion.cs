@@ -119,6 +119,12 @@ namespace DAL
             temp.Date = dalReservation.date;
             temp.Cost = dalReservation.cost;
 
+            var reservationDetials = _context.ReservationDetails.Single(rd => rd.reservationID == dalReservation.reservationID);
+            DTO.ReservationDetails dtoResDet = new DTO.ReservationDetails();
+            dtoResDet.Departure = reservationDetials.departure;
+            dtoResDet.Destination = reservationDetials.destination;
+            temp.Details = dtoResDet;
+
             return temp;
         }
 

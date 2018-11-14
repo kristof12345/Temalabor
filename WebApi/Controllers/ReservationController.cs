@@ -71,15 +71,23 @@ namespace WebApi
         [HttpPost]
         public IActionResult Create(DTO.Reservation item)
         {
-            //Debug.WriteLine("userID " + item.User);
-            DAL.Reservation tempfl = DataConversion.Reservation_DTO_to_DAL(item);
-            _context.Reservations.Add(tempfl);               
+            DAL.Reservation reservation = DataConversion.Reservation_DTO_to_DAL(item);
+            _context.Reservations.Add(reservation);
             _context.SaveChanges();
 
-            _context = Queries.AddRecordsToReservationSeat(item, _context, tempfl.reservationID);
+            DAL.Flight flight = Queries.findFlightforReservation(item, _context);
+
+            DAL.ReservationDetails reservationDetails = new DAL.ReservationDetails();
+            reservationDetails.departure = flight.departure;
+            reservationDetails.destination = flight.destination;
+            reservationDetails.reservationID = reservation.reservationID;
+            _context.ReservationDetails.Add(reservationDetails);
             _context.SaveChanges();
 
-            return CreatedAtRoute("GetReservation", new { id = tempfl.reservationID }, item);
+            _context = Queries.AddRecordsToReservationSeat(item, _context, reservation.reservationID);
+            _context.SaveChanges();
+
+            return CreatedAtRoute("GetReservation", new { id = reservation.reservationID }, item);
         }
 
         [HttpPut("{id}")]
