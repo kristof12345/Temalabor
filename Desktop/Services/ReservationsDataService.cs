@@ -54,7 +54,7 @@ namespace Desktop.Services
                     dtoList.Sort((x, y) => x.ReservationId.CompareTo(y.ReservationId));
                     break;
                 case 1:
-                    dtoList.Sort((x, y) => x.User.CompareTo(y.User));
+                    dtoList.Sort((x, y) => x.UserName.CompareTo(y.UserName));
                     break;
                 case 2:
                     dtoList.Sort((x, y) => x.FlightId.CompareTo(y.FlightId));
@@ -89,9 +89,10 @@ namespace Desktop.Services
         public static async Task ReserveAsync(Reservation reserveRequest)
         {
             //Felhasználó beállítása
-            reserveRequest.User = SignInService.User.Name;
+            reserveRequest.UserName = SignInService.User.Name;
+            reserveRequest.UserID = SignInService.User.UserId;
             //Http kérés kiadása
-            await HttpService.ReservationAsync(reserveRequest);
+            await HttpService.AddReservationAsync(reserveRequest);
 
             ReloadReservationListAsync();
             //Változtak a lefoglalt helyek, így a járatokat is újra kell tölteni

@@ -91,7 +91,7 @@ namespace WebApi
                 return NotFound();
             }
 
-            todo.user = dtoReservation.User;
+            todo.user = dtoReservation.UserName;
             todo.userID = dtoReservation.UserID;
             todo.flightID = dtoReservation.FlightId;
             todo.date = dtoReservation.Date;

@@ -39,7 +39,7 @@ namespace DTO
         public long ReservationId { get; set; }
 
         //A felhasználó
-        public String User { get; set; }
+        public String UserName { get; set; }
 
         public long UserID { get; set; }
 
