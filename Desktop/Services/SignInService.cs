@@ -53,7 +53,7 @@ namespace Desktop.Services
 
         internal static void AddUser(string name, string pass, UserType type)
         {
-            User user = new User(name, pass, type); //TODO: különböző típusú felhasználók
+            User user = new User(name, pass, type);
             HttpService.AddUserAsync(user);
         }
     }

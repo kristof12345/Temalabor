@@ -103,7 +103,9 @@ namespace Desktop.Services
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
 
             Debug.WriteLine("A bejelentkezéshez tartozó token: " + token);
-
+            Debug.WriteLine("A bejelentkezéshez tartozó id: " + session.User.UserId);
+            Debug.WriteLine("A bejelentkezéshez tartozó username: " + session.User.Name);
+            Debug.WriteLine("A bejelentkezéshez tartozó sikeresség: " + session.Success);
             return session;
         }
 
@@ -180,7 +182,7 @@ namespace Desktop.Services
         }
 
         //Foglalás hozzáadása
-        internal static async Task ReservationAsync(Reservation reserveRequest)
+        internal static async Task AddReservationAsync(Reservation reserveRequest)
         {
             HttpResponseMessage response = await client.PostAsJsonAsync(UriReservation, reserveRequest);
         }

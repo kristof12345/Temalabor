@@ -113,7 +113,7 @@ namespace DAL
             temp.SeatList = seatsIDs;
 
             temp.ReservationId = dalReservation.reservationID;
-            temp.User = dalReservation.user;
+            temp.UserName = dalReservation.user;
             temp.UserID = dalReservation.userID;
             temp.FlightId = dalReservation.flightID;
             temp.Date = dalReservation.date;
@@ -126,7 +126,7 @@ namespace DAL
         {
             DAL.Reservation temp = new DAL.Reservation();
           
-            temp.user = dtoReservation.User;
+            temp.user = dtoReservation.UserName;
             temp.userID = dtoReservation.UserID;
             temp.flightID = dtoReservation.FlightId;
             temp.date = DateTime.Now;

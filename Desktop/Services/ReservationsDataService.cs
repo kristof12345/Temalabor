@@ -26,7 +26,6 @@ namespace Desktop.Services
         {
             get
             {
-                ReloadMyReservationListAsync();
                 return myReservationList;
             }
         }
@@ -54,7 +53,7 @@ namespace Desktop.Services
                     dtoList.Sort((x, y) => x.ReservationId.CompareTo(y.ReservationId));
                     break;
                 case 1:
-                    dtoList.Sort((x, y) => x.User.CompareTo(y.User));
+                    dtoList.Sort((x, y) => x.UserName.CompareTo(y.UserName));
                     break;
                 case 2:
                     dtoList.Sort((x, y) => x.FlightId.CompareTo(y.FlightId));
@@ -74,25 +73,28 @@ namespace Desktop.Services
         }
 
         //A felhasználóhoz tartozó foglalások letöltése a szerverről
-        private static async void ReloadMyReservationListAsync()
+        public static async Task<bool> ReloadMyReservationListAsync()
         {
             List<Reservation> dtoList = await HttpService.ListMyReservationsAsync();
-            myReservationList = new ObservableCollection<Reservation>();
             myReservationList.Clear();
+            
             foreach (Reservation dto in dtoList)
             {
-                reservationList.Add(dto);
+                myReservationList.Add(dto);
             }
+
+            return myReservationList.Count > 0; //True, ha van benne elem
         }
 
         //Foglalás hozzáadása
         public static async Task ReserveAsync(Reservation reserveRequest)
         {
             //Felhasználó beállítása
-            reserveRequest.User = SignInService.User.Name;
+            reserveRequest.UserName = SignInService.User.Name;
+            reserveRequest.UserID = SignInService.User.UserId;
             //Http kérés kiadása
-            await HttpService.ReservationAsync(reserveRequest);
-
+            await HttpService.AddReservationAsync(reserveRequest);
+            ReloadMyReservationListAsync();
             ReloadReservationListAsync();
             //Változtak a lefoglalt helyek, így a járatokat is újra kell tölteni
             FlightsDataService.ReloadFlightListAsync();
@@ -101,7 +103,7 @@ namespace Desktop.Services
         internal static async Task DeleteReservationAsync(Reservation selectedItem)
         {
             await HttpService.DeleteReservationAsync(selectedItem);
-
+            ReloadMyReservationListAsync();
             ReloadReservationListAsync();
             //Változtak a lefoglalt helyek, így a járatokat is újra kell tölteni
             FlightsDataService.ReloadFlightListAsync();

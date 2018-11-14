@@ -39,7 +39,7 @@
                 ScrollViewer.HorizontalScrollMode="Enabled">
                 <tg:RadDataGrid.Columns>
                     <tg:DataGridNumericalColumn PropertyName="ReservationId"/>
-                    <tg:DataGridTextColumn PropertyName="User"/>
+                    <tg:DataGridTextColumn PropertyName="UserName"/>
                     <tg:DataGridNumericalColumn PropertyName="FlightId"/>
                     <tg:DataGridNumericalColumn PropertyName="SeatCount"/>
                     <tg:DataGridDateColumn PropertyName="Date"/>
