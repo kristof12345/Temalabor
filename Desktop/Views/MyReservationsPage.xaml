@@ -9,7 +9,7 @@
     DataContext="{Binding MyReservationsViewModel, Source={StaticResource Locator}}"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Grid>
-        <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Visibility="{x:Bind ViewModel.HasReservation, Mode=TwoWay}" Text="You don't have any reservations. To add a reservation click New Reservation." Margin="100,100,0,0" Width="350" TextWrapping="Wrap" HorizontalAlignment="Left"/>
+        <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Visibility="{x:Bind ViewModel.HasReservation, Mode=OneWay}" Text="You don't have any reservations. To add a reservation click New Reservation." Margin="100,100,0,0" Width="350" TextWrapping="Wrap" HorizontalAlignment="Left"/>
         <ListView x:Name="listView"
                   ItemsSource="{x:Bind Path=ViewModel.Source}"
                   Margin="0,0,1000,0"
