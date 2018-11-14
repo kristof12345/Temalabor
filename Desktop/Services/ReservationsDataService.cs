@@ -79,9 +79,10 @@ namespace Desktop.Services
             List<Reservation> dtoList = await HttpService.ListMyReservationsAsync();
             myReservationList = new ObservableCollection<Reservation>();
             myReservationList.Clear();
+            Debug.WriteLine(dtoList.Count + "db");
             foreach (Reservation dto in dtoList)
             {
-                reservationList.Add(dto);
+                myReservationList.Add(dto);
             }
         }
 
