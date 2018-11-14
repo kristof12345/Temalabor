@@ -1,12 +1,14 @@
 ﻿using Desktop.Services;
 using DTO;
+using GalaSoft.MvvmLight;
 using System.Collections.ObjectModel;
 
 
 namespace Desktop.ViewModels
 {
-    public class MyReservationsViewModel
+    public class MyReservationsViewModel : ViewModelBase
     {
+        private bool hasReservation;
         public ObservableCollection<Reservation> Source
         {
             get
@@ -17,7 +19,8 @@ namespace Desktop.ViewModels
 
         public bool HasReservation
         {
-            get { return !(ReservationsDataService.MyReservationList.Count > 0); }
+            get { return !hasReservation; }
+            set { hasReservation = value; RaisePropertyChanged("HasReservation"); }
         }
 
         internal void SelectedAt(int index)

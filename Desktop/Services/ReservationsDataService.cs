@@ -26,7 +26,6 @@ namespace Desktop.Services
         {
             get
             {
-                ReloadMyReservationListAsync();
                 return myReservationList;
             }
         }
@@ -74,16 +73,17 @@ namespace Desktop.Services
         }
 
         //A felhasználóhoz tartozó foglalások letöltése a szerverről
-        private static async void ReloadMyReservationListAsync()
+        public static async Task<bool> ReloadMyReservationListAsync()
         {
             List<Reservation> dtoList = await HttpService.ListMyReservationsAsync();
-            myReservationList = new ObservableCollection<Reservation>();
             myReservationList.Clear();
-            Debug.WriteLine(dtoList.Count + "db");
+            
             foreach (Reservation dto in dtoList)
             {
                 myReservationList.Add(dto);
             }
+
+            return myReservationList.Count > 0; //True, ha van benne elem
         }
 
         //Foglalás hozzáadása
@@ -94,7 +94,7 @@ namespace Desktop.Services
             reserveRequest.UserID = SignInService.User.UserId;
             //Http kérés kiadása
             await HttpService.AddReservationAsync(reserveRequest);
-
+            ReloadMyReservationListAsync();
             ReloadReservationListAsync();
             //Változtak a lefoglalt helyek, így a járatokat is újra kell tölteni
             FlightsDataService.ReloadFlightListAsync();
@@ -103,7 +103,7 @@ namespace Desktop.Services
         internal static async Task DeleteReservationAsync(Reservation selectedItem)
         {
             await HttpService.DeleteReservationAsync(selectedItem);
-
+            ReloadMyReservationListAsync();
             ReloadReservationListAsync();
             //Változtak a lefoglalt helyek, így a járatokat is újra kell tölteni
             FlightsDataService.ReloadFlightListAsync();

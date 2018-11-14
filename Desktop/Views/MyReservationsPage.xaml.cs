@@ -1,5 +1,7 @@
-﻿using Desktop.ViewModels;
+﻿using Desktop.Services;
+using Desktop.ViewModels;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 namespace Desktop.Views
 {
@@ -24,6 +26,13 @@ namespace Desktop.Views
         private void Button_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(MyFlightsPage));
+        }
+
+        //Amikor ide navigálnak
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            ViewModel.HasReservation = await ReservationsDataService.ReloadMyReservationListAsync();
         }
     }
 }

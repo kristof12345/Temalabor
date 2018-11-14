@@ -26,11 +26,6 @@
             <ListView.ItemTemplate>
                 <DataTemplate x:Name="DoubleLineDataTemplate" x:DataType="local:PlaneType">
                     <StackPanel Orientation="Horizontal" Height="64" AutomationProperties.Name="{x:Bind PlaneTypeName}">
-                        <Ellipse Height="48" Width="48" VerticalAlignment="Center">
-                            <Ellipse.Fill>
-                                <ImageBrush ImageSource="Placeholder.png"/>
-                            </Ellipse.Fill>
-                        </Ellipse>
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="12,0,0,0">
                             <TextBlock Text="{x:Bind PlaneTypeName}"  Style="{ThemeResource BaseTextBlockStyle}" Foreground="{ThemeResource SystemControlPageTextBaseHighBrush}" />
                             <TextBlock Text="{x:Bind SeatsCount}" Style="{ThemeResource BodyTextBlockStyle}" Foreground="{ThemeResource SystemControlPageTextBaseMediumBrush}"/>

@@ -8,17 +8,24 @@ namespace DTO
     public class ReservationDetails
     {
         //Ezeket az adatbázisban ki kellene tölteni...
-        public String Departure="";
+        public String Departure = "";
 
-        public String Destination="";
+        public String Destination = "";
+
+        public DateTime TravelDateTime = DateTime.Today;
+
+        public String TravelDate { get { return TravelDateTime.ToShortDateString(); } }
 
         //Stb...
 
         //Egyéb: pl.: a jegy, a beszállókapu sorszáma...
 
-        public override String ToString()
+        public String DetailsString
         {
-            return "Fligth from " + Departure + " to " + Destination;
+            get
+            {
+                return "Fligth from " + Departure + " to " + Destination;
+            }
         }
     }
 
@@ -32,7 +39,7 @@ namespace DTO
         public Reservation(long fid)
         {
             FlightId = fid;
-            SeatList = new List<long>();         
+            SeatList = new List<long>();
         }
 
         //A foglalás azonosítója
