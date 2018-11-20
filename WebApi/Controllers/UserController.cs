@@ -12,6 +12,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using WebApi.Exceptions;
 
 namespace WebApi
 {
@@ -46,6 +47,8 @@ namespace WebApi
         [HttpGet("{id}", Name = "GetUser")]
         public ActionResult<DTO.User> GetById(long id)
         {
+            if (id < 1)
+                throw new InvalidIDException("User ID is less than 1");
             DAL.User temp = _context.Users.Find(id);
             if (temp == null)
                 return NotFound();
@@ -117,6 +120,8 @@ namespace WebApi
         [HttpDelete("{id}")]
         public IActionResult Delete(long id)
         {
+            if (id < 1)
+                throw new InvalidIDException("User ID is less than 1");
             var todo = _context.Users.Find(id);
             if (todo == null)
             {

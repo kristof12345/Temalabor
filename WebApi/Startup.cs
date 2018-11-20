@@ -31,6 +31,7 @@ namespace WebApi
             app.UseCors(builder =>
                             builder.WithOrigins("https://localhost:44346")
                                    .AllowAnyHeader());
+            app.UseMiddleware(typeof(ErrorHandlingMiddleware));
             app.UseMvc();
         }       
     }

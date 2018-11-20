@@ -8,6 +8,7 @@ using DAL;
 using WebApi.Controllers;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using WebApi.Exceptions;
 
 namespace WebApi
 {
@@ -45,6 +46,8 @@ namespace WebApi
         [HttpGet("{id}", Name = "GetFlight")]
         public ActionResult<Flight_DTO> GetById(long id)
         {
+            if (id < 1)
+                throw new InvalidIDException("Flight ID is less than 1");
             DAL.Flight temp = _context.Flights.Find(id);
             if (temp == null || temp.isDeleted)
                 return NotFound();
@@ -75,6 +78,8 @@ namespace WebApi
         [HttpPut("{id}")]
         public IActionResult Update(long id, Flight_DTO dtoFlight)
         {
+            if (id < 1)
+                throw new InvalidIDException("Flight ID is less than 1");
             var todo = _context.Flights.Find(id);
             if (todo == null || todo.isDeleted)
             {
@@ -97,6 +102,8 @@ namespace WebApi
         [HttpDelete("{id}")]
         public IActionResult Delete(long id)
         {
+            if (id < 1)
+                throw new InvalidIDException("Flight ID is less than 1");
             var todo = _context.Flights.Find(id);
             if (todo == null || todo.isDeleted)
             {

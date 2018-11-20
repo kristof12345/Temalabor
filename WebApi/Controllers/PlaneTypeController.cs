@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using DTO;
 using DAL;
 using System.Diagnostics;
+using WebApi.Exceptions;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -43,6 +44,8 @@ namespace WebApi.Controllers
         [HttpGet("{id}", Name = "GetPlaneTypeName")]
         public ActionResult<DTO.PlaneType> GetById(long id)
         {
+            if (id < 1)
+                throw new InvalidIDException("PlaneType ID is less than 1");
             DAL.PlaneType temp = _context.PlaneTypes.Find(id);
 
             if (temp == null)
@@ -70,6 +73,8 @@ namespace WebApi.Controllers
         [HttpPut("{id}")]
         public IActionResult Update(long id, DTO.PlaneType item)
         {
+            if (id < 1)
+                throw new InvalidIDException("PlaneType ID is less than 1");
             var todo = _context.PlaneTypes.Find(id);
             if (todo == null)
             {
@@ -86,6 +91,8 @@ namespace WebApi.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(long id)
         {
+            if (id < 1)
+                throw new InvalidIDException("PlaneType ID is less than 1");
             var todo = _context.PlaneTypes.Find(id);
             if (todo == null)
             {
