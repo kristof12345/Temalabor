@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using DTO;
 using DAL;
 using System.Diagnostics;
+using WebApi.Exceptions;
 
 namespace WebApi.Controllers
 {
@@ -42,6 +43,8 @@ namespace WebApi.Controllers
         [HttpGet("flightID/{flightID}", Name = "GetAllSeatsForFlight")]
         public ActionResult<List<DTO.Seat>> GetAllSeatsForFlight(long flightID)
         {
+            if (flightID < 1)
+                throw new InvalidIDException("Flight ID is less than 1");
             List<DTO.Seat> result = new List<DTO.Seat>();
 
             DAL.Flight tempFlight = _context.Flights.Find(flightID);
@@ -63,6 +66,8 @@ namespace WebApi.Controllers
         [HttpGet("{id}", Name = "GetSeat")]
         public ActionResult<DTO.Seat> GetById(long id)
         {
+            if (id < 1)
+                throw new InvalidIDException("Seat ID is less than 1");
             DAL.Seat temp = _context.Seats.Find(id);
 
             if (temp == null || temp.isDeleted)
@@ -97,6 +102,8 @@ namespace WebApi.Controllers
         [HttpPut("{id}")]
         public IActionResult Update(long id, DTO.Seat item)
         {
+            if (id < 1)
+                throw new InvalidIDException("Seat ID is less than 1");
             DAL.Seat todo = _context.Seats.Find(id);
             if (todo == null || todo.isDeleted)
             {
@@ -115,6 +122,8 @@ namespace WebApi.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(long id)
         {
+            if (id < 1)
+                throw new InvalidIDException("Seat ID is less than 1");
             DAL.Seat todo = _context.Seats.Find(id);
             if (todo == null || todo.isDeleted)
             {

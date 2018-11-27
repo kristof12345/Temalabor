@@ -8,6 +8,7 @@ using DAL;
 using WebApi.Controllers;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using WebApi.Exceptions;
 
 namespace WebApi
 {
@@ -42,6 +43,8 @@ namespace WebApi
         [HttpGet("{id}", Name = "GetReservation")]
         public ActionResult<DTO.Reservation> GetById(long id)
         {
+            if (id < 1)
+                throw new InvalidIDException("Reservation ID is less than 1");
             DAL.Reservation temp = _context.Reservations.Find(id);
             if (temp == null)
                 return NotFound();
@@ -53,6 +56,8 @@ namespace WebApi
         [HttpGet("userID/{userID}", Name = "GetAllReservationsForUser")]
         public ActionResult<List<DTO.Reservation>> GetAllSeatsForFlight(long userID)
         {
+            if (userID < 1)
+                throw new InvalidIDException("User ID is less than 1");
             List<DTO.Reservation> result = new List<DTO.Reservation>();
 
             DAL.User tempUser = _context.Users.Find(userID);           
@@ -93,6 +98,8 @@ namespace WebApi
         [HttpPut("{id}")]
         public IActionResult Update(long id, DTO.Reservation dtoReservation)
         {
+            if (id < 1)
+                throw new InvalidIDException("Reservation ID is less than 1");
             var todo = _context.Reservations.Find(id);
             if (todo == null)
             {
@@ -112,6 +119,8 @@ namespace WebApi
         [HttpDelete("{id}")]
         public IActionResult Delete(long id)
         {
+            if (id < 1)
+                throw new InvalidIDException("Reservation ID is less than 1");
             var todo = _context.Reservations.Find(id);
             if (todo == null)
             {
