@@ -25,7 +25,7 @@
             <TextBlock Text="Plane image" TextWrapping="Wrap"/>
             <Button Content="Select image" HorizontalAlignment="Left" VerticalAlignment="Top" Click="btFilePicker_Click"/>
             <TextBlock Text="Seat type" TextWrapping="Wrap"/>
-            <ComboBox ItemsSource="{x:Bind ViewModel.SeatTypes}" SelectedIndex="{x:Bind ViewModel.SelectedSeatType}" Width="300" Height="33"/>
+            <ComboBox x:Name="cbSeatType" ItemsSource="{x:Bind ViewModel.SeatTypes}" SelectedIndex="{x:Bind ViewModel.SelectedSeatType}" Width="300" Height="33"/>
             <TextBlock Text="Number of seats" TextWrapping="Wrap"/>
             <TextBlock Text="{x:Bind ViewModel.NumberOfSeats, Mode=OneWay}" Width="300" Height="33" />
             <ListView SelectionMode="None" HorizontalAlignment="Left" >

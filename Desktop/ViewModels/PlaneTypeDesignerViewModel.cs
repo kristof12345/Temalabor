@@ -44,11 +44,11 @@ namespace Desktop.ViewModels
 
         public List<Seat> Seats { get { return planeType.Seats; } }
 
-        public void AddSeat(double x, double y, int seatType=1)
+        public void AddSeat(double x, double y, int seatType)
         {
             Seat s = new Seat(planeType.Seats.Count);
             s.Coordinates = new Cord((int)x, (int)y);
-            s.SeatType = (SeatType) Enum.GetValues(typeof(SeatType)).GetValue(selectedSeatTypeIndex);
+            s.SeatType = (SeatType) Enum.GetValues(typeof(SeatType)).GetValue(seatType);
 
             planeType.Seats.Add(s);
             RaisePropertyChanged("NumberOfSeats");
