@@ -17,12 +17,10 @@ namespace WebApi
     public class ReservationController : ControllerBase
     {
         private DAL.FlightContext _context;
-        private ReserveContext _context2;
 
-        public ReservationController(DAL.FlightContext context, ReserveContext context2)
+        public ReservationController(DAL.FlightContext context)
         {
             _context = context;
-            _context2 = context2;
         }
 
         [HttpGet]

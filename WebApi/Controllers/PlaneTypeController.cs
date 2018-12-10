@@ -17,12 +17,10 @@ namespace WebApi.Controllers
     public class PlaneTypeController : Controller
     {
         private readonly DAL.FlightContext _context;
-        private readonly ReserveContext _context2;
 
-        public PlaneTypeController(DAL.FlightContext context, ReserveContext context2)
+        public PlaneTypeController(DAL.FlightContext context)
         {
             _context = context;
-            _context2 = context2;
         }
 
         //Ez direkt ad string listát!

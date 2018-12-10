@@ -28,9 +28,9 @@ namespace DAL
                 new
                 {
                     userID = (long)1,
-                    name = "Patyi Gábor",
-                    userType = UserType.Customer,
-                    password = "password",
+                    name = "Papp Kristóf",
+                    userType = UserType.Administrator,
+                    password = "papp",
                     isDeleted = false
                 });
 
@@ -38,9 +38,9 @@ namespace DAL
                 new
                 {
                     userID = (long)2,
-                    name = "Papp Kristóf",
+                    name = "Baranyai Gergely",
                     userType = UserType.Customer,
-                    password = "0",
+                    password = "baranyai",
                     isDeleted = false
                 });
 

@@ -15,12 +15,10 @@ namespace WebApi.Controllers
     public class SeatController : ControllerBase
     {
         private readonly DAL.FlightContext _context;
-        private readonly ReserveContext _context2;
 
-        public SeatController(DAL.FlightContext context, ReserveContext context2)
+        public SeatController(DAL.FlightContext context)
         {
             _context = context;
-            _context2 = context2;
         }
 
         [HttpGet]

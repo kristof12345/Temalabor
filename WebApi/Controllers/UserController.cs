@@ -21,12 +21,10 @@ namespace WebApi
     public class UserController : ControllerBase
     {
         private readonly DAL.FlightContext _context;
-        private readonly ReserveContext _context2;
 
-        public UserController(DAL.FlightContext context, ReserveContext context2)
+        public UserController(DAL.FlightContext context)
         {
             _context = context;
-            _context2 = context2;
         }
 
         [HttpGet]

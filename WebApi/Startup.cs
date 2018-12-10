@@ -19,9 +19,7 @@ namespace WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
-            services.AddDbContext<DAL.FlightContext>();
-            services.AddDbContext<ReserveContext>(opt =>
-                opt.UseInMemoryDatabase("TodoList"));
+            services.AddDbContext<DAL.FlightContext>();       
             services.AddMvc()
                     .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

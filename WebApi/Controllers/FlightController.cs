@@ -17,12 +17,10 @@ namespace WebApi
     public class FlightController : ControllerBase
     {
         private DAL.FlightContext _context;
-        private ReserveContext _context2;
 
-        public FlightController(DAL.FlightContext context, ReserveContext context2)
+        public FlightController(DAL.FlightContext context)
         {
             _context = context;
-            _context2 = context2;
         }
 
         [HttpGet]
