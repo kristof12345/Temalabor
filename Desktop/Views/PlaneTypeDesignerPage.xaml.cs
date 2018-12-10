@@ -28,11 +28,19 @@ namespace Desktop.Views
             //Egér pozíciójának lekérdezése
             var mousePos = e.GetCurrentPoint(canvas).Position;
             var seatPos = new Point(mousePos.X - 10, mousePos.Y - 8); //Hogy az egér a UserControl középpontjában legyen
-            NormalSeatUserControl newSeat = new NormalSeatUserControl(new Seat());
+            UserControl newSeat;
+            if (cbSeatType.SelectedIndex == 0)
+            {
+                newSeat = new NormalSeatUserControl(new Seat());
+            }
+            else
+            {
+                newSeat = new FirstClassSeatUserControl(new Seat());
+            }
             //Left=X, Top=Y, Right=0, Bottom=0
             newSeat.Margin = new Thickness(seatPos.X, seatPos.Y, 0, 0);
             canvas.Children.Add(newSeat);
-            ViewModel.AddSeat(seatPos.X, seatPos.Y);
+            ViewModel.AddSeat(seatPos.X, seatPos.Y, cbSeatType.SelectedIndex);
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

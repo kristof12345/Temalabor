@@ -12,7 +12,7 @@ namespace Desktop.ViewModels
     [Windows.UI.Xaml.Data.Bindable]
     public class ViewModelLocator
     {
-        //Nézetek regisztrálása TODO: új nézet regisztrálása
+        //Nézetek regisztrálása NEW PAGE: új nézet regisztrálása
         public ViewModelLocator()
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
@@ -38,7 +38,7 @@ namespace Desktop.ViewModels
             Register<MyFlightViewModel, MyFlightsPage>();
         }
 
-        //TODO: az új lapot itt is hozzá kell adni
+        //NEW PAGE: az új lapot itt is hozzá kell adni
         public FlightViewModel FlightViewModel => ServiceLocator.Current.GetInstance<FlightViewModel>();
 
         public UserViewModel UserViewModel => ServiceLocator.Current.GetInstance<UserViewModel>();
