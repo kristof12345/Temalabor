@@ -65,7 +65,7 @@ function getSeats(flightId) {
                         }
                         console.log(selectedSeats);
                     } else {
-                        alert("Ez a hely m�r foglalt!");
+                        alert("Ez a hely már foglalt!");
                     }
                 });
                 
