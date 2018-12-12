@@ -1,5 +1,6 @@
 var r = undefined;
 var selectedSeats = new Array();
+var API_BASE_URL = 'https://localhost:5001/api/';
 
 $(document).ready(function () {
     $('#listFlights').click( function() {
@@ -21,7 +22,7 @@ function createFlightsTable() {
         row.append(tableHeader);
     }
     table.append(row);
-    $('#placeForTable').append(table);
+    
     return table;
 }
 
@@ -35,7 +36,7 @@ function getSeats(flightId) {
     r.image("img/Antonov125.png", 0, 0, 1000, 700);
     $.ajax({
         type: 'GET',
-        url: 'https://localhost:5001/api/seat/flightID/' + flightId,
+        url: API_BASE_URL + 'seat/flightID/' + flightId,
         success: function (d) {
             
             for (var i = 0; i < d.length; ++i) {
@@ -76,31 +77,51 @@ function getSeats(flightId) {
 
 }
 
+function loadFlightsTable(table, flight) {
+    $.ajax({
+        type: 'GET',
+        url: API_BASE_URL + 'seat/flightId/' + flight.flightId,
+        success: function (data) {
+            flight.freeSeats = data.filter(s => !s.reserved).length;
+            flight.numberOfSeats = data.length;
+            
+            var element = flight;
+            var tr = $("<tr/>")
+                .append($('<td/>', { text: element.planeTypeName }))
+                .append($('<td/>', { text: element.departure }))
+                .append($('<td/>', { text: element.destination }))
+                .append($('<td/>', { text: element.date }))
+                .append($('<td/>', { text: element.status }))
+                .append($('<td/>', { text: element.freeSeats }))
+                .append($('<td/>', { text: element.numberOfSeats }))
+                .append('<td><input id=' + element.flightId + ' type="button" value="Book" onclick="getSeats(this.id)"> </td>');
+            //$('#flightsTable > tbody:last-child')
+            table.append(tr);
+            
+        },
+        error: function (request, status, error) {
+            alert(request.responseText);
+        }
+    });
+}
+
 function listFlights() {
+    var table = createFlightsTable();
     $.ajax({
         //url: 'mock/flight.json',
         type: 'GET',
-        url: 'https://localhost:5001/api/flight',
+        url: API_BASE_URL + 'flight',
         success: function (d) {
             //var t = $("#flightsTable");
-            var table = createFlightsTable();
             for (var i = 0; i < d.length; ++i) {
-                var element = d[i];
-                var tr = $("<tr/>")
-                    .append($('<td/>', { text: element.planeTypeName }))
-                    .append($('<td/>', { text: element.departure }))
-                    .append($('<td/>', { text: element.destination }))
-                    .append($('<td/>', { text: element.date }))
-                    .append($('<td/>', { text: element.status }))
-                    .append($('<td/>', { text: element.freeSeats }))
-                    .append($('<td/>', { text: element.numberOfSeats }))
-                    .append('<td><input id=' + element.flightId + ' type="button" value="Book" onclick="getSeats(this.id)"> </td>');
-                //$('#flightsTable > tbody:last-child')
-                table.append(tr);
+                loadFlightsTable(table, d[i]);
             }
         },
         error: function (request, status, error) {
             alert(request.responseText);
+        },
+        complete: function () {
+            $('#placeForTable').append(table);
         }
     })
 }
