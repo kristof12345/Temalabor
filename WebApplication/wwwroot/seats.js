@@ -138,7 +138,9 @@ function listFlights() {
         },
         complete: function () {
             table.append(tbody);
-            $('#placeForTable').replaceWith(table);
+            var responsiveDiv = $('<div id="placeForTable" class="table-responsive">');
+            responsiveDiv.append(table);
+            $('#placeForTable').replaceWith(responsiveDiv);
         }
     })
 }
