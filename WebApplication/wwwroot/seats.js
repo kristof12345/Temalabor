@@ -49,8 +49,9 @@ function getSeats(flightId) {
                 seat.attr({ fill: color })
                 seat.data("seatId", d[i].seatId);
                 seat.data("flightId", flightId);
+                seat.data("reserved", d[i].reserved);
                 seat.click(function () {
-                    if (!this.reserved) {
+                    if (!this.data("reserved")) {
                         console.log("flightId: " + this.data("flightId") + "eatId: " + this.data("seatId"));
                         var clickedSeat = { flightId: this.data("flightId"), seatId: this.data("seatId") };
                         var inSelectedSeats = selectedSeats.filter(row => row.flightId === clickedSeat.flightId && row.seatId === clickedSeat.seatId);
