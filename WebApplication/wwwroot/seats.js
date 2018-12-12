@@ -80,6 +80,11 @@ function getSeats(flightId) {
 
 }
 
+// Számok kétszámjeggyel
+function toTwoDigits(number) {
+    return ('0' + number).slice(-2);
+}
+
 function loadFlightsTable(table, flight) {
     $.ajax({
         type: 'GET',
@@ -89,11 +94,14 @@ function loadFlightsTable(table, flight) {
             flight.numberOfSeats = data.length;
             
             var element = flight;
+            var date = new Date(element.date);
+            var dateStr = date.getFullYear() + '.' + toTwoDigits(date.getMonth() + 1) + '.'
+                + toTwoDigits(date.getDate()) + '. ' + toTwoDigits(date.getHours()) + ':' + toTwoDigits(date.getMinutes());
             var tr = $("<tr/>")
                 .append($('<td/>', { text: element.planeTypeName }))
                 .append($('<td/>', { text: element.departure }))
                 .append($('<td/>', { text: element.destination }))
-                .append($('<td/>', { text: element.date }))
+                .append($('<td/>', { text: dateStr }))
                 .append($('<td/>', { text: element.status }))
                 .append($('<td/>', { text: element.freeSeats }))
                 .append($('<td/>', { text: element.numberOfSeats }));
