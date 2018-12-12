@@ -13,15 +13,17 @@ $(document).ready(function () {
 });
 
 function createFlightsTable() {
-    var table = $('<table>');
+    var table = $('<table class="table table-hover">');
+    var thead = $('<thead class="thead-light">');
     table.attr('id','flightsTable');
     var row = $('<tr>');
-    var tableHeaders = ["Plane Type", "From", "To", "Date", "Status", "Free seats", "Number of seats", "Book"];
+    var tableHeaders = ["Repülőtípus", "Honnan", "Hova", "Dátum", "Státusz", "Szabad helyek", "Összes hely"];//, "Book"];
     for (i=0; i<tableHeaders.length; ++i) {
-        var tableHeader = $('<th>').text(tableHeaders[i]);
+        var tableHeader = $('<th scope="col">').text(tableHeaders[i]);
         row.append(tableHeader);
     }
-    table.append(row);
+    thead.append(row);
+    table.append(thead);
     
     return table;
 }
@@ -52,7 +54,7 @@ function getSeats(flightId) {
                 seat.data("reserved", d[i].reserved);
                 seat.click(function () {
                     if (!this.data("reserved")) {
-                        console.log("flightId: " + this.data("flightId") + "eatId: " + this.data("seatId"));
+                        console.log("flightId: " + this.data("flightId") + "seatId: " + this.data("seatId"));
                         var clickedSeat = { flightId: this.data("flightId"), seatId: this.data("seatId") };
                         var inSelectedSeats = selectedSeats.filter(row => row.flightId === clickedSeat.flightId && row.seatId === clickedSeat.seatId);
                         if (inSelectedSeats.length > 0) {
@@ -94,8 +96,11 @@ function loadFlightsTable(table, flight) {
                 .append($('<td/>', { text: element.date }))
                 .append($('<td/>', { text: element.status }))
                 .append($('<td/>', { text: element.freeSeats }))
-                .append($('<td/>', { text: element.numberOfSeats }))
-                .append('<td><input id=' + element.flightId + ' type="button" value="Book" onclick="getSeats(this.id)"> </td>');
+                .append($('<td/>', { text: element.numberOfSeats }));
+                //.append('<td><input id=' + element.flightId + ' type="button" value="Book" onclick="getSeats(this.id)"> </td>');
+            tr.click(function () {
+                getSeats(element.flightId);
+            });
             //$('#flightsTable > tbody:last-child')
             table.append(tr);
             
@@ -108,20 +113,23 @@ function loadFlightsTable(table, flight) {
 
 function listFlights() {
     var table = createFlightsTable();
+    var tbody = $("<tbody>");
     $.ajax({
         //url: 'mock/flight.json',
         type: 'GET',
         url: API_BASE_URL + 'flight',
         success: function (d) {
             //var t = $("#flightsTable");
+            
             for (var i = 0; i < d.length; ++i) {
-                loadFlightsTable(table, d[i]);
+                loadFlightsTable(tbody, d[i]);
             }
         },
         error: function (request, status, error) {
             alert(request.responseText);
         },
         complete: function () {
+            table.append(tbody);
             $('#placeForTable').replaceWith(table);
         }
     })
