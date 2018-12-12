@@ -122,7 +122,7 @@ function listFlights() {
             alert(request.responseText);
         },
         complete: function () {
-            $('#placeForTable').append(table);
+            $('#placeForTable').replaceWith(table);
         }
     })
 }
