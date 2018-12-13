@@ -6,9 +6,10 @@ $(document).ready(function () {
     $('#listFlights').click( function() {
         listFlights();
     });
-    $('#mySelectedSeats').click(function () {
-        console.log(selectedSeats);
-        alert("Még nincs implementálva");
+    $('#myBookedSeats').click(function () {
+        listReservations();
+        /*console.log(selectedSeats);
+        alert("Még nincs implementálva");*/
     });
 });
 
@@ -195,11 +196,22 @@ function listFlights() {
         },
         complete: function () {
             table.append(tbody);
-            var responsiveDiv = $('<div id="placeForTable" class="table-responsive">');
+            var placeForTable = $('<div id="placeForTable">');
+            var responsiveDiv = $('<div class="table-responsive">');
             responsiveDiv.append(table);
-            $('#placeForTable').replaceWith(responsiveDiv);
+            placeForTable.append('<h1>Járatok</h1>');
+            placeForTable.append(responsiveDiv);
+            $('#placeForTable').replaceWith(placeForTable);
         }
     })
+}
+
+function listReservations() {
+    r = undefined;
+    var placeForTable = $('<div id="placeForTable">');
+    $('#placeForTable').replaceWith(placeForTable);
+    $('#placeForCanvas').replaceWith('<div id="placeForCanvas" class="col-6"></div>');
+    $('#selectedSeats').replaceWith('<div id="selectedSeats" class="col"></div>');
 }
 /*var r = Raphael(0, 0, 300, 150);
 
