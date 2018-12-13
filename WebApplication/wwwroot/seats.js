@@ -163,6 +163,7 @@ function loadFlightsTable(table, flight) {
                 .append($('<td/>', { text: element.numberOfSeats }));
                 //.append('<td><input id=' + element.flightId + ' type="button" value="Book" onclick="getSeats(this.id)"> </td>');
             tr.click(function () {
+                selectedSeats = new Array();
                 getSeats(element);
             });
             //$('#flightsTable > tbody:last-child')
