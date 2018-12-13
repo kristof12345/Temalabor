@@ -18,7 +18,7 @@ function createFlightsTable() {
     var thead = $('<thead class="thead-light">');
     table.attr('id','flightsTable');
     var row = $('<tr>');
-    var tableHeaders = ["Repülőtípus", "Honnan", "Hova", "Dátum", "Státusz", "Szabad helyek", "Összes hely"];//, "Book"];
+    var tableHeaders = ["Járat", "Repülőtípus", "Honnan", "Hova", "Dátum", "Státusz", "Szabad helyek", "Összes hely"];//, "Book"];
     for (i=0; i<tableHeaders.length; ++i) {
         var tableHeader = $('<th scope="col">').text(tableHeaders[i]);
         row.append(tableHeader);
@@ -116,6 +116,9 @@ function getSeats(flight) {
                                 dataType: 'json',
                                 contentType: 'application/json',
                                 data: JSON.stringify(reservation),
+                                success: function() {
+                                    listReservations()
+                                },
                                 error: function (request, status, error) {
                                     alert(request.responseText);
                                 }
@@ -155,6 +158,7 @@ function loadFlightsTable(table, flight) {
             var dateStr = date.getFullYear() + '.' + toTwoDigits(date.getMonth() + 1) + '.'
                 + toTwoDigits(date.getDate()) + '. ' + toTwoDigits(date.getHours()) + ':' + toTwoDigits(date.getMinutes());
             var tr = $("<tr/>")
+                .append($('<td/>', { text: flight.flightId }))
                 .append($('<td/>', { text: element.planeTypeName }))
                 .append($('<td/>', { text: element.departure }))
                 .append($('<td/>', { text: element.destination }))
@@ -186,7 +190,7 @@ function listFlights() {
         url: API_BASE_URL + 'flight',
         success: function (d) {
             //var t = $("#flightsTable");
-            
+
             for (var i = 0; i < d.length; ++i) {
                 loadFlightsTable(tbody, d[i]);
             }
@@ -203,13 +207,61 @@ function listFlights() {
             placeForTable.append(responsiveDiv);
             $('#placeForTable').replaceWith(placeForTable);
         }
-    })
+    });
+}
+
+function createReservationsTable() {
+    var table = $('<table class="table">');
+    var thead = $('<thead class="thead-light">');
+    var row = $('<tr>');
+    var tableHeaders = ["Járat", "Indulás napja", "Honnan", "Hova", "Leírás", "Ár", "Vásárlás dátuma", "Helyek azonosítója"];
+    for (i = 0; i < tableHeaders.length; ++i) {
+        var tableHeader = $('<th scope="col">').text(tableHeaders[i]);
+        row.append(tableHeader);
+    }
+    thead.append(row);
+    table.append(thead);
+
+    return table;
+}
+
+function queryReservations(userID) {
+    var table = createReservationsTable();
+    var tbody = $("<tbody>");
+    $.ajax({
+        type: 'GET',
+        url: API_BASE_URL + 'reservation/userID/' + userID,
+        success: function (d) {
+
+            for (var i = 0; i < d.length; ++i) {
+                var tr = $("<tr/>")
+                    .append($('<td/>', { text: d[i].flightId }))
+                    .append($('<td/>', { text: d[i].details.travelDate }))
+                    .append($('<td/>', { text: d[i].details.departure }))
+                    .append($('<td/>', { text: d[i].details.destination }))
+                    .append($('<td/>', { text: d[i].details.detailsString }))
+                    .append($('<td/>', { text: d[i].cost }))
+                    .append($('<td/>', { text: d[i].date }))
+                    .append($('<td/>', { text: d[i].seatList.join(", ") }));
+                tbody.append(tr);
+            }
+        },
+        error: function (request, status, error) {
+            alert(request.responseText);
+        },
+        complete: function () {
+            table.append(tbody);
+            var placeForTable = $('<div id="placeForTable">');
+            placeForTable.append("<h1>Jegyeim</h1>");
+            placeForTable.append(table);
+            $('#placeForTable').replaceWith(placeForTable);
+        }
+    });
 }
 
 function listReservations() {
     r = undefined;
-    var placeForTable = $('<div id="placeForTable">');
-    $('#placeForTable').replaceWith(placeForTable);
+    queryReservations(2);
     $('#placeForCanvas').replaceWith('<div id="placeForCanvas" class="col-6"></div>');
     $('#selectedSeats').replaceWith('<div id="selectedSeats" class="col"></div>');
 }
