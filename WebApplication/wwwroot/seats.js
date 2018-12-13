@@ -252,8 +252,10 @@ function queryReservations(userID) {
         complete: function () {
             table.append(tbody);
             var placeForTable = $('<div id="placeForTable">');
+            var responsiveDiv = $('<div class="table-responsive">');
+            responsiveDiv.append(table);
             placeForTable.append("<h1>Jegyeim</h1>");
-            placeForTable.append(table);
+            placeForTable.append(responsiveDiv);
             $('#placeForTable').replaceWith(placeForTable);
         }
     });
