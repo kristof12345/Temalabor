@@ -36,6 +36,7 @@ function getSeats(flightId) {
     } else {
         r.clear();
     }
+    $('#selectedSeats').replaceWith('<div id="selectedSeats" class="col">Kiválasztott helyek:</div>');
     r.image("img/Antonov125.png", 0, 0, 1000, 700);
     $.ajax({
         type: 'GET',
@@ -55,7 +56,7 @@ function getSeats(flightId) {
                 seat.data("reserved", d[i].reserved);
                 seat.click(function () {
                     if (!this.data("reserved")) {
-                        console.log("flightId: " + this.data("flightId") + "seatId: " + this.data("seatId"));
+                        //console.log("flightId: " + this.data("flightId") + "seatId: " + this.data("seatId"));
                         var clickedSeat = { flightId: this.data("flightId"), seatId: this.data("seatId") };
                         var inSelectedSeats = selectedSeats.filter(row => row.flightId === clickedSeat.flightId && row.seatId === clickedSeat.seatId);
                         if (inSelectedSeats.length > 0) {
@@ -66,7 +67,15 @@ function getSeats(flightId) {
                             selectedSeats.push(clickedSeat);
                             this.attr({ fill: "yellow" })
                         }
-                        console.log(selectedSeats);
+                        var listOfSelectedSeats = $('<ul class="list-group">');
+                        selectedSeats.forEach(ss => {
+                            let listElement = $('<il class="list-group-item">');
+                            listElement.append("JáratAz: " + ss.flightId + " HelyAz: " + ss.seatId);
+                            listOfSelectedSeats.append(listElement);
+                        });
+                        $('#selectedSeats').replaceWith('<div id="selectedSeats" class="col">Kiválasztott helyek:</div>');
+                        $('#selectedSeats').append(listOfSelectedSeats);
+                        //console.log(selectedSeats);
                     } else {
                         alert("Ez a hely már foglalt!");
                     }
