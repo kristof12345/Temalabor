@@ -9,8 +9,8 @@
     <title>Repülőjegyfoglaló</title>
 </head>
 <body>
-    <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
             <a class="navbar-brand" href="#">Repülőjegyfoglaló</a>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
@@ -27,12 +27,21 @@
                     </li>
                 </ul>
             </div>
-        </nav>
+        </div>
+        
+    </nav>
+
+    <div class="container pt-5">
+
 
         <div id="placeForTable"></div>
-        <div id="placeForCanvas"></div>
+        <div class="row">
+            <div id="placeForCanvas" class="col-6"></div>
+            <div id="selectedSeats" class="col"></div>
+        </div>
+        
     </div>
-    
+
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="

@@ -31,7 +31,8 @@ function createFlightsTable() {
 function getSeats(flightId) {
     if (r == undefined) {
         $('#placeForCanvas').css('border','1px solid #aaa');
-        r = Raphael('placeForCanvas', 1000, 700);
+        r = Raphael('placeForCanvas', '100%', '100%');
+        r.setViewBox(0, 0, 1000, 700);
     } else {
         r.clear();
     }
