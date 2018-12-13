@@ -87,12 +87,40 @@ function getSeats(flight) {
                             listOfSelectedSeats.append(listElement);
                         });
                         let listElement = $('<il class="list-group-item">');
-                        let sum = 0;
+                        var sum = 0;
                         selectedSeats.forEach(ss => sum += ss.price);
                         listElement.append("Összesen: " + sum + " Ft");
                         listOfSelectedSeats.append(listElement);
                         $('#selectedSeats').replaceWith('<div id="selectedSeats" class="col">Kiválasztott helyek:</div>');
                         $('#selectedSeats').append(listOfSelectedSeats);
+                        let payButton = $('<button type="button" class="btn btn-primary">Fizetés</button>');
+                        var now = new Date();
+                        var reservation = {
+                            SeatList: selectedSeats.map(ss => ss.seatId),
+                            ReservationId: 5,
+                            UserName: "Baranyai Gergely",
+                            UserID: 2,
+                            FlightId: clickedSeat.flightId,
+                            SeatCount: selectedSeats.length,
+                            SeatCountString: selectedSeats.length + " seats",
+                            Cost: sum,
+                            Date: now.toJSON(),
+                            Details: undefined
+                        };
+                        payButton.click(function () {
+                            
+                            $.ajax({
+                                type: 'POST',
+                                url: API_BASE_URL + 'reservation',
+                                dataType: 'json',
+                                contentType: 'application/json',
+                                data: JSON.stringify(reservation),
+                                error: function (request, status, error) {
+                                    alert(request.responseText);
+                                }
+                            });
+                        });
+                        $('#selectedSeats').append(payButton);
                         //console.log(selectedSeats);
                     } else {
                         alert("Ez a hely már foglalt!");
